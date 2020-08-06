@@ -1,10 +1,17 @@
 <resources>
     <string name="app_name">namebattler</string>
-    <string name="text_top">バトル開始</string>
-    <string name="button_battle_start" />
-    <string name="button_character_list">キャラ一覧</string>
-    <string name="textview">TextView</string>
-    <string name="title">ネームバトラー</string>
-    <string name="battle_start">バトル開始</string>
-    <string name="character_list">キャラ一覧</string>
+    <string name="top_title">ネームバトラー</string>
+    <string name="top_battle_start">バトル開始</string>
+    <string name="top_character_list">キャラ一覧</string>
+    <string name="text_characterlist_a">キャラ一覧(3人)</string>
+    <string name="characterlist_back_button">戻る</string>
+    <string name="characterlist_01_button" />
+    <string name="characterlist_02_button" />
+    <string name="characterlist_03_button" />
+    <string name="characterlist_04_button" />
+    <string name="characterlist_05_button" />
+    <string name="characterlist_06_button" />
+    <string name="characterlist_07_button" />
+    <string name="characterlist_08_button" />
+    <string name="characterlist_newcreate_button">新しく作成する</string>
 </resources>
