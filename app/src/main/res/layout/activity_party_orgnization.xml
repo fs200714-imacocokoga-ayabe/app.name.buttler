@@ -6,4 +6,174 @@
     android:layout_height="match_parent"
     tools:context=".PartyOrgnizationActivity">
 
+    // "パーティ編成"の表示
+    <TextView
+        android:id="@+id/text_party_argnization"
+        android:layout_width="410dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/frame_line_03"
+        android:gravity="center"
+        android:text="@string/text_party_organization"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/characterlist_po_01_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    // 戻るボタン
+    <Button
+        android:id="@+id/party_organizetion_back_button"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/frame_line_02"
+        android:text="@string/characterlist_back_button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="@+id/text_party_argnization"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    // キャラクター1の表示
+    <Button
+        android:id="@+id/characterlist_po_01_button"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/frame_line_01"
+        android:text="@string/characterlist_01_button"
+        app:layout_constraintBottom_toTopOf="@+id/characterlist_po_02_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_party_argnization" />
+
+    // キャラクター2の表示
+    <Button
+        android:id="@+id/characterlist_po_02_button"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/frame_line_01"
+        android:text="@string/characterlist_01_button"
+        app:layout_constraintBottom_toTopOf="@+id/characterlist_po_03_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characterlist_po_01_button" />
+
+    // キャラクター3の表示
+    <Button
+        android:id="@+id/characterlist_po_03_button"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/frame_line_01"
+        android:text="@string/characterlist_03_button"
+        app:layout_constraintBottom_toTopOf="@+id/characterlist_po_04_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characterlist_po_02_button" />
+
+    // キャラクター4の表示
+    <Button
+        android:id="@+id/characterlist_po_04_button"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/frame_line_01"
+        android:text="@string/characterlist_04_button"
+        app:layout_constraintBottom_toTopOf="@+id/characterlist_po_05_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characterlist_po_03_button" />
+
+    // キャラクター5の表示
+    <Button
+        android:id="@+id/characterlist_po_05_button"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/frame_line_01"
+        android:text="@string/characterlist_05_button"
+        app:layout_constraintBottom_toTopOf="@+id/characterlist_po_06_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characterlist_po_04_button" />
+
+    // キャラクター6の表示
+    <Button
+        android:id="@+id/characterlist_po_06_button"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/frame_line_01"
+        android:text="@string/characterlist_06_button"
+        app:layout_constraintBottom_toTopOf="@+id/characterlist_po_07_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characterlist_po_05_button" />
+
+    // キャラクター7の表示
+    <Button
+        android:id="@+id/characterlist_po_07_button"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/frame_line_01"
+        android:text="@string/characterlist_07_button"
+        app:layout_constraintBottom_toTopOf="@+id/characterlist_po_08_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characterlist_po_06_button" />
+
+    // キャラクター8の表示
+    <Button
+        android:id="@+id/characterlist_po_08_button"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/frame_line_01"
+        android:text="@string/characterlist_08_button"
+        app:layout_constraintBottom_toTopOf="@+id/this_party_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characterlist_po_07_button" />
+
+    // "このパーティで開始"のボタン
+    <Button
+        android:id="@+id/this_party_start"
+        android:layout_width="410dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/frame_line_02"
+        android:text="@string/this_party_start_button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characterlist_po_08_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

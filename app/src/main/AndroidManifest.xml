@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PartyOrgnizationActivity"></activity>
+        <activity
+            android:name=".BattleStartActivity"
+            android:label="@string/title_activity_battle_start"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PartyOrgnizationActivity" />
         <activity android:name=".CharacterListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

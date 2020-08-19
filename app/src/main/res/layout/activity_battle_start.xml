@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BattleStartActivity">
+
+    // バトル開始ボタン
+    <TextView
+        android:id="@+id/text_battle_start"
+        android:layout_width="412dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/frame_line_03"
+        android:gravity="center"
+        android:text="@string/text_battle_start_a"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/text_enemy_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    // 戻るボタン
+    <Button
+        android:id="@+id/battle_start_back_button"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/frame_line_02"
+        android:text="@string/characterlist_back_button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="@+id/text_battle_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    // 敵メンバー1表示
+    <TextView
+        android:id="@+id/text_enemy_1"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="3dp"
+        android:text="TextView"
+        android:background="@drawable/frame_line_01"
+        app:layout_constraintBottom_toTopOf="@+id/text_enemy_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_battle_start" />
+
+    // 敵メンバー2表示
+
+    // 敵メンバー3表示
+
+    <TextView
+        android:id="@+id/text_enemy_2"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:background="@drawable/frame_line_01"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/text_enemy_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_enemy_1" />
+
+    <TextView
+        android:id="@+id/text_enemy_3"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:text="TextView"
+        android:background="@drawable/frame_line_01"
+        app:layout_constraintBottom_toTopOf="@+id/text_vs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_enemy_2" />
+
+    // vsの表示
+    <TextView
+        android:id="@+id/text_vs"
+        android:layout_width="412dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="@string/text_vs"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/text_allay_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_enemy_3" />
+
+    // 味方メンバー1の表示
+    <TextView
+        android:id="@+id/text_allay_1"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:text="TextView"
+        android:background="@drawable/frame_line_01"
+        app:layout_constraintBottom_toTopOf="@+id/text_allay_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_vs" />
+
+    // 味方メンバー2の表示
+    <TextView
+        android:id="@+id/text_allay_2"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:text="TextView"
+        android:background="@drawable/frame_line_01"
+        app:layout_constraintBottom_toTopOf="@+id/text_allay_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_allay_1" />
+
+    // 味方メンバー3の表示
+    <TextView
+        android:id="@+id/text_allay_3"
+        android:layout_width="404dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        android:background="@drawable/frame_line_01"
+        app:layout_constraintBottom_toTopOf="@+id/this_enemy_battle_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_allay_2" />
+
+    // この相手と戦うボタン
+    <Button
+        android:id="@+id/this_enemy_battle_button"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/circle_angle_quadrangle_01"
+        android:text="@string/this_enemys_battle_button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/re_select_enemy_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_allay_3" />
+
+    //　相手を選びなおすボタン
+    <Button
+        android:id="@+id/re_select_enemy_button"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/circle_angle_quadrangle_01"
+        android:text="@string/re_select_enemy"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/this_enemy_battle_button" />
+    //
+
+</androidx.constraintlayout.widget.ConstraintLayout>

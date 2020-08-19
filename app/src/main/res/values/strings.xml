@@ -3,7 +3,7 @@
     <string name="top_title">ネームバトラー</string>
     <string name="top_battle_start">バトル開始</string>
     <string name="top_character_list">キャラ一覧</string>
-    <string name="text_characterlist_a">キャラ一覧(3人)</string>
+    <string name="text_characterlist_a">キャラ一覧()</string>
     <string name="characterlist_back_button">戻る</string>
     <string name="characterlist_01_button" />
     <string name="characterlist_02_button" />
@@ -14,4 +14,21 @@
     <string name="characterlist_07_button" />
     <string name="characterlist_08_button" />
     <string name="characterlist_newcreate_button">新しく作成する</string>
+    <string name="text_battle_start">バトル開始</string>
+    <string name="start_this_party">このパーティで開始(3/3)</string>
+    <string name="text_party_organization">パーティ編成</string>
+    <string name="this_party_start_button">このパーティで開始</string>
+    <string name="title_activity_battle_start">BattleStartActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="text_battle_start_a">バトル開始</string>
+    <string name="this_enemys_battle_button">この相手と戦う</string>
+    <string name="re_select_enemy">相手を選び直す</string>
+    <string name="text_vs">V S</string>
 </resources>
