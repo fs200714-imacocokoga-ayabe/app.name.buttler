@@ -31,4 +31,7 @@
     <string name="this_enemys_battle_button">この相手と戦う</string>
     <string name="re_select_enemy">相手を選び直す</string>
     <string name="text_vs">V S</string>
+    <string name="text_character_detail">キャラ詳細</string>
+    <string name="characterdetail_return_button">戻る</string>
+    <string name="character_detail_deretebutton_text">削除する</string>
 </resources>

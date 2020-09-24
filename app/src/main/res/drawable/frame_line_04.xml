@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    // 背景:ピンク　枠：オレンジ
+    <solid android:color="@color/colorShellPink"/>
+
+    <stroke
+        android:width="1dp"
+        android:color="#e29676"/>
+
+</shape>

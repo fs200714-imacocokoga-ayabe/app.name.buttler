@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_character_list.*
 
+//キャラクター一覧画面のクラス
 class CharacterListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +19,8 @@ class CharacterListActivity : AppCompatActivity() {
         characterlist_back_button.setOnClickListener{
             finish()
         }
+
+
 
 
     }

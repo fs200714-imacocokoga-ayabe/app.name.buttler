@@ -13,7 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         // テーブルの作成
-        selectCHARACTER()
+        helper = MyOpenHelper(this@MainActivity)
+      
         // キャラ一覧のボタン
         character_list_button.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
@@ -26,13 +27,13 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
+    // selectCHARACTER()
     // CHARACTERの全行を取得
     private fun selectCHARACTER(){
         // MyOpenHelperクラスがまだインスタンス化されていなかったらインスタンス化する
-        if (helper == null){
-            helper = MyOpenHelper(this@MainActivity)
-        }
+//        if (helper == null){
+//            helper = MyOpenHelper(this@MainActivity)
+//        }
         // データベースを取得する
         val db = helper!!.writableDatabase
         try {
@@ -74,9 +75,9 @@ class MainActivity : AppCompatActivity() {
     // CHARACTERの挿入
     private fun incertCHARACTER(){
         // MyOpenHelperクラスがまだインスタンス化されていなかったらインスタンス化する
-        if (helper == null) {
-            helper = MyOpenHelper(this@MainActivity)
-        }
+//        if (helper == null) {
+//            helper = MyOpenHelper(this@MainActivity)
+//        }
         val db = helper!!.writableDatabase
         try {
 
@@ -87,9 +88,9 @@ class MainActivity : AppCompatActivity() {
     // CHARACTERの削除
     private fun deleteCHARACTER(){
         // MyOpenHelperクラスがまだインスタンス化されていなかったらインスタンス化する
-        if (helper == null) {
-            helper = MyOpenHelper(this@MainActivity)
-        }
+//        if (helper == null) {
+//            helper = MyOpenHelper(this@MainActivity)
+//        }
         val db = helper!!.writableDatabase
         try {
 
@@ -99,9 +100,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateCHARACTER() {
-        if (helper == null) {
-            helper = MyOpenHelper(this@MainActivity)
-        }
+//        if (helper == null) {
+//            helper = MyOpenHelper(this@MainActivity)
+//        }
         val db = helper!!.writableDatabase
         try {
 
