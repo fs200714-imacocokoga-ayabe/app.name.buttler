@@ -9,14 +9,12 @@
     // バトル開始ボタン
     <TextView
         android:id="@+id/text_battle_start"
-        android:layout_width="412dp"
+        android:layout_width="0dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/frame_line_03"
         android:gravity="center"
         android:text="@string/text_battle_start_a"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/text_enemy_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,118 +26,102 @@
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/frame_line_02"
         android:text="@string/characterlist_back_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/text_battle_start"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    // 敵メンバー1表示
-    <TextView
-        android:id="@+id/text_enemy_1"
-        android:layout_width="404dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="3dp"
-        android:text="TextView"
-        android:background="@drawable/frame_line_01"
-        app:layout_constraintBottom_toTopOf="@+id/text_enemy_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_battle_start" />
-
-    // 敵メンバー2表示
-
-    // 敵メンバー3表示
-
-    <TextView
-        android:id="@+id/text_enemy_2"
-        android:layout_width="404dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
-        android:background="@drawable/frame_line_01"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/text_enemy_3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_enemy_1" />
-
-    <TextView
-        android:id="@+id/text_enemy_3"
-        android:layout_width="404dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
-        android:text="TextView"
-        android:background="@drawable/frame_line_01"
-        app:layout_constraintBottom_toTopOf="@+id/text_vs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_enemy_2" />
+        app:layout_constraintStart_toStartOf="@+id/text_battle_start"
+        app:layout_constraintTop_toTopOf="@+id/text_battle_start" />
 
     // vsの表示
     <TextView
         android:id="@+id/text_vs"
-        android:layout_width="412dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:gravity="center"
         android:text="@string/text_vs"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/text_allay_1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_enemy_3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    // 味方メンバー1の表示
-    <TextView
-        android:id="@+id/text_allay_1"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="404dp"
-        android:layout_height="66dp"
+        android:layout_height="198dp"
         android:layout_marginStart="3dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="3dp"
-        android:text="TextView"
-        android:background="@drawable/frame_line_01"
-        app:layout_constraintBottom_toTopOf="@+id/text_allay_2"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_vs" />
+        app:layout_constraintTop_toBottomOf="@+id/text_battle_start">
 
-    // 味方メンバー2の表示
-    <TextView
-        android:id="@+id/text_allay_2"
-        android:layout_width="404dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
-        android:text="TextView"
-        android:background="@drawable/frame_line_01"
-        app:layout_constraintBottom_toTopOf="@+id/text_allay_3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_allay_1" />
+        // 敵メンバー1表示
+        <TextView
+            android:id="@+id/text_enemy_1"
+            android:layout_width="404dp"
+            android:layout_height="66dp"
+            android:background="@drawable/frame_line_01"
+            android:text="TextView" />
 
-    // 味方メンバー3の表示
-    <TextView
-        android:id="@+id/text_allay_3"
+        // 敵メンバー2表示
+        <TextView
+            android:id="@+id/text_enemy_2"
+            android:layout_width="404dp"
+            android:layout_height="66dp"
+            android:background="@drawable/frame_line_01"
+            android:text="TextView" />
+
+        // 敵メンバー3表示
+        <TextView
+            android:id="@+id/text_enemy_3"
+            android:layout_width="404dp"
+            android:layout_height="66dp"
+            android:background="@drawable/frame_line_01"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="404dp"
-        android:layout_height="66dp"
+        android:layout_height="198dp"
         android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="3dp"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
-        android:background="@drawable/frame_line_01"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/this_enemy_battle_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_allay_2" />
+        app:layout_constraintTop_toBottomOf="@+id/text_vs">
+
+        // 味方メンバー1の表示
+        <TextView
+            android:id="@+id/text_allay_1"
+            android:layout_width="404dp"
+            android:layout_height="66dp"
+            android:background="@drawable/frame_line_01"
+            android:text="TextView" />
+
+        // 味方メンバー2の表示
+        <TextView
+            android:id="@+id/text_allay_2"
+            android:layout_width="404dp"
+            android:layout_height="66dp"
+            android:background="@drawable/frame_line_01"
+            android:text="TextView" />
+
+        // 味方メンバー3の表示
+        <TextView
+            android:id="@+id/text_allay_3"
+            android:layout_width="404dp"
+            android:layout_height="66dp"
+            android:background="@drawable/frame_line_01"
+            android:text="TextView" />
+    </LinearLayout>
 
     // この相手と戦うボタン
     <Button
@@ -157,7 +139,7 @@
         app:layout_constraintBottom_toTopOf="@+id/re_select_enemy_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_allay_3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     //　相手を選びなおすボタン
     <Button
@@ -176,6 +158,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/this_enemy_battle_button" />
-    //
 
 </androidx.constraintlayout.widget.ConstraintLayout>
