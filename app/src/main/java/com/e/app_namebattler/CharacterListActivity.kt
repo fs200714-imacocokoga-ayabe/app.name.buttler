@@ -1,10 +1,9 @@
 package com.e.app_namebattler
 
-import android.annotation.SuppressLint
-import android.database.sqlite.SQLiteDatabase
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_character_list.*
 
 //キャラクター一覧画面のクラス
@@ -25,11 +24,52 @@ class CharacterListActivity : AppCompatActivity() {
             finish()
         }
 
+        // キャラクター詳細画面に遷移
+        characterlist_01_button.setOnClickListener {
+            val intent = Intent(this,CharacterDetailActivity::class.java)
+            startActivity(intent)
+        }
+        // キャラクター詳細画面に遷移
+        characterlist_02_button.setOnClickListener {
+            val intent = Intent(this,CharacterDetailActivity::class.java)
+            startActivity(intent)
+        }
 
+        characterlist_03_button.setOnClickListener {
+            val intent = Intent(this,CharacterDetailActivity::class.java)
+            startActivity(intent)
+        }
+
+        characterlist_04_button.setOnClickListener {
+            val intent = Intent(this,CharacterDetailActivity::class.java)
+            startActivity(intent)
+        }
+
+        characterlist_05_button.setOnClickListener {
+            val intent = Intent(this,CharacterDetailActivity::class.java)
+            startActivity(intent)
+        }
+
+        characterlist_06_button.setOnClickListener {
+            val intent = Intent(this,CharacterDetailActivity::class.java)
+            startActivity(intent)
+        }
+
+        characterlist_07_button.setOnClickListener {
+            val intent = Intent(this,CharacterDetailActivity::class.java)
+            startActivity(intent)
+        }
+
+        characterlist_08_button.setOnClickListener {
+            val intent = Intent(this,CharacterDetailActivity::class.java)
+            startActivity(intent)
+        }
 
         fun selectCHARACTER() {
 
             val db = helper!!.writableDatabase
+
+
 
             try {
                 // rawQueryというSELECT専用メソッドを使用してデータを取得する
