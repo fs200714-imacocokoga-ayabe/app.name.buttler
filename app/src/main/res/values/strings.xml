@@ -34,4 +34,13 @@
     <string name="text_character_detail">キャラ詳細</string>
     <string name="characterdetail_return_button">戻る</string>
     <string name="character_detail_deretebutton_text">削除する</string>
+    <string name="text_createcharacter_a">キャラ作成</string>
+    <string name="createcharacter_back_button_text">戻る</string>
+    <string name="createcharacter_button_text">作成する</string>
+    <string name="print_name_input_text">名前を入力してください</string>
+    <string name="occupation_selection_text">職業を選択してください</string>
+    <string name="occupation_selection_radiobutton01_text">戦士</string>
+    <string name="occupation_selection_radiobutton02_text">魔法使い</string>
+    <string name="occupation_selection_radiobutton03_text">僧侶</string>
+    <string name="occupation_selection_radiobutton04_text">忍者</string>
 </resources>
