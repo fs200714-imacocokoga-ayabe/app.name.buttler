@@ -43,4 +43,11 @@
     <string name="occupation_selection_radiobutton02_text">魔法使い</string>
     <string name="occupation_selection_radiobutton03_text">僧侶</string>
     <string name="occupation_selection_radiobutton04_text">忍者</string>
+    <string name="created_character_text">キャラ作成</string>
+    <string name="created_character_back_button_text">戻る</string>
+    <string name="created_character_status_text">ステータス</string>
+    <string name="created_character_end_creation_text">作成を終了する</string>
+    <string name="created_character_Continuouslycharacter_text">続けて作成する</string>
+    <string name="top_screen_character_list_button">キャラ一覧</string>
+    <string name="top_screen_battle_start_button">バトル開始</string>
 </resources>

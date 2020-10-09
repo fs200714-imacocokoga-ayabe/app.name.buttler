@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CharacterCreationActivity"></activity>
+        <activity android:name=".CharacterCreated"></activity>
+        <activity android:name=".CharacterCreationActivity" />
         <activity android:name=".CharacterDetailActivity" />
         <activity
             android:name=".BattleStartActivity"
@@ -17,7 +18,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PartyOrgnizationActivity" />
         <activity android:name=".CharacterListActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".TopScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

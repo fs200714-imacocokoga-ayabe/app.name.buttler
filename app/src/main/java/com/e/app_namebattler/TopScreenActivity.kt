@@ -3,25 +3,25 @@ package com.e.app_namebattler
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_top_screen.*
 
-class MainActivity : AppCompatActivity() {
+class TopScreenActivity : AppCompatActivity() {
 
     var helper: MyOpenHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_top_screen)
         // テーブルの作成
-        helper = MyOpenHelper(this@MainActivity)
+        helper = MyOpenHelper(this@TopScreenActivity)
       
         // キャラ一覧のボタン
-        character_list_button.setOnClickListener {
+        top_screen_character_list_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
             startActivity(intent)
         }
         // バトル開始ボタン
-        battle_start_button.setOnClickListener {
+        top_screen_battle_start_button_id.setOnClickListener {
             val intent = Intent(this, PartyOrgnizationActivity::class.java)
             startActivity(intent)
         }

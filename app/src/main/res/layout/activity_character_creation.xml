@@ -7,7 +7,7 @@
     tools:context=".CharacterCreationActivity">
 
     <TextView
-        android:id="@+id/text_creatcharacter"
+        android:id="@+id/creat_character_text_id"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginBottom="24dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/createcharacter_back_button"
+        android:id="@+id/create_character_back_button_id"
         android:layout_width="80dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
@@ -32,7 +32,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_creatcharacter" />
+        app:layout_constraintTop_toTopOf="@+id/creat_character_text_id" />
 
     <TextView
         android:id="@+id/print_name_input_text_id"
@@ -45,13 +45,13 @@
         android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/name_input_field_text"
+        app:layout_constraintBottom_toTopOf="@+id/name_input_field_text_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_creatcharacter" />
+        app:layout_constraintTop_toBottomOf="@+id/creat_character_text_id" />
 
     <TextView
-        android:id="@+id/name_input_field_text"
+        android:id="@+id/name_input_field_text_id"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -78,7 +78,7 @@
         app:layout_constraintBottom_toTopOf="@+id/character_select_radiogroup_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_input_field_text"
+        app:layout_constraintTop_toBottomOf="@+id/name_input_field_text_id"
         tools:ignore="DuplicateIds" />
 
     <RadioGroup
@@ -131,7 +131,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/create_character_button"
+        android:id="@+id/create_character_button_id"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"

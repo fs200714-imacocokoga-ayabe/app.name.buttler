@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".TopScreenActivity">
 
     // "バトル開始"のボタン
 
     <Button
-        android:id="@+id/battle_start_button"
+        android:id="@+id/top_screen_battle_start_button_id"
         android:layout_width="250dp"
         android:layout_height="55dp"
         android:layout_marginStart="80dp"
@@ -18,19 +18,19 @@
         android:layout_marginBottom="150dp"
         android:background="@drawable/circle_angle_quadrangle_01"
         android:gravity="center"
-        android:text="@string/top_battle_start"
+        android:text="@string/top_screen_battle_start_button"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/character_list_button" />
+        app:layout_constraintTop_toBottomOf="@+id/top_screen_character_list_button_id" />
 
     // "キャラ一覧"のボタン
 
     <Button
-        android:id="@+id/character_list_button"
+        android:id="@+id/top_screen_character_list_button_id"
         android:layout_width="250dp"
         android:layout_height="55dp"
         android:layout_marginStart="80dp"
@@ -39,19 +39,19 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/circle_angle_quadrangle_01"
         android:gravity="center"
-        android:text="@string/top_character_list"
+        android:text="@string/top_screen_character_list_button"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/battle_start_button"
+        app:layout_constraintBottom_toTopOf="@+id/top_screen_battle_start_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_top" />
+        app:layout_constraintTop_toBottomOf="@+id/top_screen_title_text_id" />
 
     // "ネームバトラー"の表示
 
     <TextView
-        android:id="@+id/textView_top"
+        android:id="@+id/top_screen_title_text_id"
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_marginStart="55dp"
@@ -62,7 +62,7 @@
         android:text="@string/top_title"
         android:textColor="@android:color/black"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/character_list_button"
+        app:layout_constraintBottom_toTopOf="@+id/top_screen_character_list_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
