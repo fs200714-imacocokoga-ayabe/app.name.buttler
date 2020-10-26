@@ -7,7 +7,7 @@
     tools:context=".CharacterCreationActivity">
 
     <TextView
-        android:id="@+id/creat_character_text_id"
+        android:id="@+id/create_character_text_id"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginBottom="24dp"
@@ -32,7 +32,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/creat_character_text_id" />
+        app:layout_constraintTop_toTopOf="@+id/create_character_text_id" />
 
     <TextView
         android:id="@+id/print_name_input_text_id"
@@ -48,17 +48,18 @@
         app:layout_constraintBottom_toTopOf="@+id/name_input_field_text_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creat_character_text_id" />
+        app:layout_constraintTop_toBottomOf="@+id/create_character_text_id" />
 
-    <TextView
+    <EditText
         android:id="@+id/name_input_field_text_id"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="6dp"
         android:background="@drawable/circle_angle_quadrangle_02"
-        android:text="TextView"
+        android:ems="10"
+        android:inputType="textPersonName"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/occupation_selection_text_id"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +71,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="16dp"
         android:text="@string/occupation_selection_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"

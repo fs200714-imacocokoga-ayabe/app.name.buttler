@@ -7,13 +7,11 @@ import kotlinx.android.synthetic.main.activity_top_screen.*
 
 class TopScreenActivity : AppCompatActivity() {
 
-    var helper: MyOpenHelper? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_screen)
-        // テーブルの作成
-        helper = MyOpenHelper(this@TopScreenActivity)
+        // DB作成
+       // helper = MyOpenHelper(applicationContext)
       
         // キャラ一覧のボタン
         top_screen_character_list_button_id.setOnClickListener {
@@ -73,43 +71,43 @@ class TopScreenActivity : AppCompatActivity() {
 //        }
 //    }
     // CHARACTERの挿入
-    private fun incertCHARACTER(){
+//    private fun incertCHARACTER(){
         // MyOpenHelperクラスがまだインスタンス化されていなかったらインスタンス化する
 //        if (helper == null) {
 //            helper = MyOpenHelper(this@MainActivity)
 //        }
-        val db = helper!!.writableDatabase
-        try {
+ //       val db = helper!!.writableDatabase
+ //       try {
 
-        } finally {
-            db.close()
-        }
-    }
+  //      } finally {
+  //          db.close()
+ //       }
+ //   }
     // CHARACTERの削除
-    private fun deleteCHARACTER(){
+ //  private fun deleteCHARACTER(){
         // MyOpenHelperクラスがまだインスタンス化されていなかったらインスタンス化する
 //        if (helper == null) {
 //            helper = MyOpenHelper(this@MainActivity)
 //        }
-        val db = helper!!.writableDatabase
-        try {
+   //     val db = helper!!.writableDatabase
+   //     try {
 
-        }finally {
-            db.close()
-        }
-    }
+   //     }finally {
+   //         db.close()
+   //     }
+  //  }
 
-    private fun updateCHARACTER() {
+ //   private fun updateCHARACTER() {
 //        if (helper == null) {
 //            helper = MyOpenHelper(this@MainActivity)
 //        }
-        val db = helper!!.writableDatabase
-        try {
+  //     val db = helper!!.writableDatabase
+   //     try {
 
-        }finally {
-            db.close()
-        }
-    }
+    //    }finally {
+      //      db.close()
+      //  }
+ //   }
 
 
 }
