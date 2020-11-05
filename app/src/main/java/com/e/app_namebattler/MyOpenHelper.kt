@@ -72,7 +72,6 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
 
     //カラムをテーブルに追加する
     fun saveData(db: SQLiteDatabase, name: String, job: String, hp: Int,mp: Int, str: Int, def: Int, agi: Int, luck: Int, create_at: String) {
-   // fun saveData(db: SQLiteDatabase, name: String, job: String, hp: Int,mp: Int, str: Int, def: Int, agi: Int, luck: Int) {
         val values: ContentValues = ContentValues()
         values.put(NAME, name)
         values.put(JOB, job)
