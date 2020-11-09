@@ -50,7 +50,7 @@
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp" />
 
@@ -58,7 +58,7 @@
             android:id="@+id/textView14"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp" />
     </LinearLayout>
@@ -86,7 +86,7 @@
             android:id="@+id/created_character_hp_text_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp" />
 
@@ -94,7 +94,7 @@
             android:id="@+id/created_character_mp_text_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp" />
 
@@ -102,7 +102,7 @@
             android:id="@+id/created_character_str_text_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp" />
 
@@ -110,7 +110,7 @@
             android:id="@+id/created_character_def_text_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp" />
 
@@ -118,7 +118,7 @@
             android:id="@+id/created_character_agi_text_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp" />
 
@@ -126,7 +126,7 @@
             android:id="@+id/created_character_luck_text_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp" />
     </LinearLayout>

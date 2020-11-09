@@ -1,5 +1,6 @@
 package com.e.app_namebattler
 
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import android.os.Bundle
@@ -7,14 +8,13 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_character_created.*
+import kotlinx.android.synthetic.main.activity_character_detail.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class CharacterCreatedActivity : AppCompatActivity() {
     lateinit var helper: MyOpenHelper
-      //private lateinit var helper: MyOpenHelper
-      private lateinit var player: Player
-      // private val helper = MyOpenHelper(this@CharacterCreatedActivity)
+    private lateinit var player: Player
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,32 +78,30 @@ class CharacterCreatedActivity : AppCompatActivity() {
             val db:SQLiteDatabase = helper.writableDatabase
 
                 db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck','$create_at')")
-                // db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck')")
-                //db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck',(strftime('%Y/%m/%d %H:%M','now','LOCALTIME')))")
 
             db.close()
-//
-//        if (jobExtra != null) {
-//            if (nameExtra != null) {
-//                 createCharacter(nameExtra,jobExtra)
-//            }
-//        }
 
-        //saveData()
-//        val db:SQLiteDatabase = helper.writableDatabase
-//        db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES　('name','job','hp','mp','str','def','agi','luck',(strftime('%Y/%m/%d %H:%M','now','LOCALTIME')))")
+            // 戻るボタン押したときの処理
+            created_character_back_button_id.setOnClickListener {
+                val intent = Intent(this, CharacterCreationActivity::class.java)
+                startActivity(intent)
+            }
 
+            // 続けて作成するボタンを押したときの処理
+            created_character_Continuouslycharacter_text_id.setOnClickListener{
+                val intent = Intent(this,CharacterCreationActivity::class.java)
+                startActivity(intent)
+            }
 
-        created_character_back_button_id.setOnClickListener {
-            finish()
-        }
+            // 作成を終了するボタンを押したときの処理
+            created_character_end_creation_text_id.setOnClickListener{
+                val intent = Intent(this,CharacterListActivity::class.java)
+                startActivity(intent)
+            }
+
     }
 
-      //  private fun createCharacter(name: String,job: String){
-
-                 //val db:SQLiteDatabase = helper.writableDatabase
-                   // db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES　('name','job','hp','mp','str','def','agi','luck',(strftime('%Y/%m/%d %H:%M','now','LOCALTIME')))")
-        }
+}
 
          private fun saveData(){
 

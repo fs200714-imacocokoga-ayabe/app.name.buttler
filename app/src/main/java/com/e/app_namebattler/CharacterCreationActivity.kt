@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_character_creation.*
+import kotlinx.android.synthetic.main.activity_character_detail.*
 
 
 class CharacterCreationActivity : AppCompatActivity() {
@@ -17,11 +18,13 @@ class CharacterCreationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_creation)
 
-        //val value: ContentValues = ContentValues()
-        // val jobValue:Int = createJobValues.text.toString().toInt()
+//        create_character_back_button_id.setOnClickListener {
+//            finish()
+//        }
 
         create_character_back_button_id.setOnClickListener {
-            finish()
+            val intent = Intent(this, CharacterListActivity::class.java)
+            startActivity(intent)
         }
 
         create_character_button_id.setOnClickListener {

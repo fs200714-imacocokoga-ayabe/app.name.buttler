@@ -8,16 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_character_list.*
 
 //キャラクター一覧画面のクラス
-class CharacterListActivity : AppCompatActivity() {
+class CharacterListActivity : AppCompatActivity(){
 
     lateinit var helper: MyOpenHelper
     var  characterList = arrayListOf<CharacterAllData>()
-    lateinit var mListAdapter: ListAdapter
-        //lateinit var mCharacterList:ArrayList<Character>
-        // var helper = MyOpenHelper(this@CharacterListActivity)
-        //var db: SQLiteDatabase? = null
-         // private lateinit var player: Player
-        //var helper: MyOpenHelper = null
+    private lateinit var mListAdapter: ListAdapter
+
     var name = ""
     var job = ""
     var hp = 0
@@ -35,6 +31,8 @@ class CharacterListActivity : AppCompatActivity() {
             helper = MyOpenHelper(applicationContext)//DB作成
 
             val db = helper.readableDatabase
+
+                characterList.clear()
 
                 try {
                     // rawQueryというSELECT専用メソッドを使用してデータを取得する
@@ -94,31 +92,18 @@ class CharacterListActivity : AppCompatActivity() {
                 mListAdapter = ListAdapter(this, characterList)
 
                 listView.adapter = mListAdapter
-
+                // 項目をタップしたときの処理
                 listView.setOnItemClickListener { parent, view, position, id ->
 
-        }
 
-//        val nameText0: Button = findViewById(R.id.characterlist_01_button)
-//            nameText0.text = name
-//
-//            val jobText: Button = findViewById(R.id.characterlist_02_button)
-//            jobText.text = job
-//
-//            val hpText: Button = findViewById(R.id.characterlist_03_button)
-//            hpText.text = "$hp"
-//
-//            val mpText: Button = findViewById(R.id.characterlist_04_button)
-//            mpText.text = "$mp"
-//
-//            val strText: Button = findViewById(R.id.characterlist_05_button)
-//            strText.text = "$str"
-//
-//            val defText: Button = findViewById(R.id.characterlist_06_button)
-//            defText.text = "$def"
-//
-//            val agiText: Button = findViewById(R.id.characterlist_07_button)
-//            agiText.text = "$agi"
+                    val nameValue  = characterList[position].name
+                    val intent = Intent(this, CharacterDetailActivity::class.java)
+                    intent.putExtra("name_key", nameValue)
+                    startActivity(intent)
+
+
+
+        }
 
         // テキストの表示
         val textView = findViewById<TextView>(R.id.text_characterlist)
@@ -128,47 +113,6 @@ class CharacterListActivity : AppCompatActivity() {
         characterlist_back_button.setOnClickListener {
             finish()
         }
-
-        // キャラクター詳細画面に遷移
-//        characterlist_01_button.setOnClickListener {
-//            val intent = Intent(this, CharacterDetailActivity::class.java)
-//            startActivity(intent)
-//        }
-//        // キャラクター詳細画面に遷移
-//        characterlist_02_button.setOnClickListener {
-//            val intent = Intent(this, CharacterDetailActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        characterlist_03_button.setOnClickListener {
-//            val intent = Intent(this, CharacterDetailActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        characterlist_04_button.setOnClickListener {
-//            val intent = Intent(this, CharacterDetailActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        characterlist_05_button.setOnClickListener {
-//            val intent = Intent(this, CharacterDetailActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        characterlist_06_button.setOnClickListener {
-//            val intent = Intent(this, CharacterDetailActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        characterlist_07_button.setOnClickListener {
-//            val intent = Intent(this, CharacterDetailActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        characterlist_08_button.setOnClickListener {
-//            val intent = Intent(this, CharacterDetailActivity::class.java)
-//            startActivity(intent)
-//        }
 
         new_create_button.setOnClickListener {
             val intent = Intent(this, CharacterCreationActivity::class.java)
