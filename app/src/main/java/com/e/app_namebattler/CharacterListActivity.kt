@@ -107,15 +107,18 @@ class CharacterListActivity : AppCompatActivity(){
 
         // テキストの表示
         val textView = findViewById<TextView>(R.id.text_characterlist)
-        textView.text = "キャラ一覧"
+        textView.text = "キャラ一覧(".plus(characterList.size).plus("人)")
 
-        // 戻るボタン
+        // 戻るボタンを押したときの処理
         characterlist_back_button.setOnClickListener {
-            finish()
+            val intent = Intent(this, TopScreenActivity::class.java)
+            startActivity(intent)
         }
 
+        // 新しく作成するボタンを押したときの処理
         new_create_button.setOnClickListener {
             val intent = Intent(this, CharacterCreationActivity::class.java)
+            //intent.putExtra("characterNumber_key",characterList.size)
             startActivity(intent)
         }
 

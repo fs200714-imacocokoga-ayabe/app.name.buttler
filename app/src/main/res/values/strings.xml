@@ -3,7 +3,7 @@
     <string name="top_title">ネームバトラー</string>
     <string name="top_battle_start">バトル開始</string>
     <string name="top_character_list">キャラ一覧</string>
-    <string name="text_characterlist_a">キャラ一覧()</string>
+    <string name="text_characterlist_a">キャラ一覧</string>
     <string name="characterlist_back_button">戻る</string>
     <string name="characterlist_01_button" />
     <string name="characterlist_02_button" />
@@ -50,4 +50,7 @@
     <string name="created_character_Continuouslycharacter_text">続けて作成する</string>
     <string name="top_screen_character_list_button">キャラ一覧</string>
     <string name="top_screen_battle_start_button">バトル開始</string>
+    <string name="dialog_title">注意</string>
+    <string name="dialog_message">登録できるキャラクターの上限です</string>
+    <string name="dialog_btn_ok">OK</string>
 </resources>

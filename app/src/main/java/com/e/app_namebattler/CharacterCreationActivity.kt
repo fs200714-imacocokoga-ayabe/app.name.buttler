@@ -1,7 +1,6 @@
 package com.e.app_namebattler
 
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
@@ -9,7 +8,6 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_character_creation.*
-import kotlinx.android.synthetic.main.activity_character_detail.*
 
 
 class CharacterCreationActivity : AppCompatActivity() {
@@ -18,9 +16,7 @@ class CharacterCreationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_creation)
 
-//        create_character_back_button_id.setOnClickListener {
-//            finish()
-//        }
+        //val characterNumberExtra = intent.getIntExtra("characterNumber_key", 0)
 
         create_character_back_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
@@ -41,7 +37,7 @@ class CharacterCreationActivity : AppCompatActivity() {
             val intent = Intent(this, CharacterCreatedActivity::class.java)
             intent.putExtra("name_key", nameValue)
             intent.putExtra("job_key", jobValue)
-
+            //intent.putExtra("characterNumber_key", characterNumberExtra)
             startActivity(intent)
         }
 

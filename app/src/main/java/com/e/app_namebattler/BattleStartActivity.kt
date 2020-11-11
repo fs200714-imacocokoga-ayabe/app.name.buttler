@@ -9,7 +9,7 @@ class BattleStartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_start)
 
-        // 戻るボタン
+        // 戻るボタンを押したときの処理
         battle_start_back_button.setOnClickListener{
             finish()
         }

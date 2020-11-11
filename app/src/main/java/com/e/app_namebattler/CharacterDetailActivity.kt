@@ -111,25 +111,32 @@ class CharacterDetailActivity : AppCompatActivity() {
                 jobText.text = job
 
                 val hpText: TextView = findViewById(R.id.character_detail_hp_text_id)
-                hpText.text = hp.toString()
+                //hpText.text = hp.toString()
+                hpText.text = ("HP       $hp")
 
                 val mpText: TextView = findViewById(R.id.character_detail_mp_text_id)
-                mpText.text = mp.toString()
+                //mpText.text = mp.toString()
+                mpText.text = ("MP        $mp")
 
                 val strText: TextView = findViewById(R.id.character_detail_str_text_id)
-                strText.text = str.toString()
+                //strText.text = str.toString()
+                strText.text = ("STR       $str")
 
                 val defText: TextView = findViewById(R.id.character_detail_def_text_id)
-                defText.text = def.toString()
+                //defText.text = def.toString()
+                defText.text = ("DEF         $def")
 
                 val agiText: TextView = findViewById(R.id.character_detail_agi_text_id)
-                agiText.text = agi.toString()
+                //agiText.text = agi.toString()
+                agiText.text = ("AGI        $agi")
 
                 val luckText: TextView = findViewById(R.id.character_detail_luck_text_id)
-                luckText.text = luck.toString()
+                //luckText.text = luck.toString()
+                luckText.text = ("LUCK     $luck")
 
                 val dateText: TextView = findViewById(R.id.character_detail_date_text_id)
-                dateText.text = create_at
+                //dateText.text = create_at
+                dateText.text = ("作成日：$create_at")
 
             }
 

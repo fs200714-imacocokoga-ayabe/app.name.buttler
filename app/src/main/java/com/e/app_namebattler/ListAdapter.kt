@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.e.app_namebattler.MyOpenHelper.Companion.HP
 
 class ListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter() {
 
@@ -23,13 +24,13 @@ class ListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAl
 
         val character = CharacterList[position]
 
-        Name.text = character.name
-        Job.text = character.job
-        Hp.text = character.hp.toString()
-        Mp.text = character.mp.toString()
-        Str.text = character.str.toString()
-        Def.text = character.def.toString()
-        Agi.text = character.agi.toString()
+        Name.text = "  ".plus(character.name)
+        Job.text = "  ".plus(character.job)
+        Hp.text = "   HP:".plus(character.hp.toString())
+        Mp.text = "   MP:".plus(character.mp.toString())
+        Str.text = "   STR".plus(character.str.toString())
+        Def.text = "   DEF:".plus(character.def.toString())
+        Agi.text = "   AGI:".plus(character.agi.toString())
 
         return view
     }

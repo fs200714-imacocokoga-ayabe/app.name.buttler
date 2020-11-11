@@ -1,6 +1,7 @@
 package com.e.app_namebattler
 
 import android.content.Intent
+import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import android.os.Bundle
@@ -8,9 +9,9 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_character_created.*
-import kotlinx.android.synthetic.main.activity_character_detail.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
 
 class CharacterCreatedActivity : AppCompatActivity() {
     lateinit var helper: MyOpenHelper
@@ -22,16 +23,23 @@ class CharacterCreatedActivity : AppCompatActivity() {
         setContentView(R.layout.activity_character_created)
 
         helper = MyOpenHelper(applicationContext)//DB作成
-        // 名前と職業を受け取る
+
+        // 名前を受け取る
         val nameExtra = intent.getStringExtra("name_key")
+        // 職業を受け取る
         val jobExtra = intent.getStringExtra("job_key")
+        // キャラクター数を受け取る
+       // val characterNumberExtra = intent.getIntExtra("characterNumber_key",0)
+
         // 名前の表示
         val nameText: TextView = findViewById(R.id.textView13)
         nameText.text = nameExtra
+
         // 職業の表示
         val jobText:TextView = findViewById(R.id.textView14)
         jobText.text = jobExtra
-        
+
+
         val name = nameExtra.toString()
         val job = jobExtra.toString()
 
@@ -58,7 +66,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
             val create_at = current.format(formatter).toString()
 
             val hpText: TextView = findViewById(R.id.created_character_hp_text_id)
-            hpText.text = "HP                     $hp"
+            hpText.text = "HP                     ".plus(hp)
 
             val mpText: TextView = findViewById(R.id.created_character_mp_text_id)
             mpText.text = "MP                     $mp"
@@ -89,44 +97,39 @@ class CharacterCreatedActivity : AppCompatActivity() {
 
             // 続けて作成するボタンを押したときの処理
             created_character_Continuouslycharacter_text_id.setOnClickListener{
-                val intent = Intent(this,CharacterCreationActivity::class.java)
-                startActivity(intent)
+
+                val characterCount: Int
+
+                try {
+                    // データベースのキャラクター数を取得する
+                    val db = helper.readableDatabase
+                     characterCount = DatabaseUtils.queryNumEntries(db,"CHARACTER").toInt()
+
+                } finally {
+                    // dbを開いたら確実にclose
+                    db.close()
+                }
+
+               // キャラクター数16以上でダイアログが表示される
+               if(characterCount >= 12){
+                   val dialog = CharacterDialogFragment()
+                   dialog.show(supportFragmentManager, "alert_dialog")
+
+               //  キャラクター数が16未満の場合続けてキャラクターの作成をする
+               }else {
+                   val intent = Intent(this, CharacterCreationActivity::class.java)
+                   startActivity(intent)
+               }
             }
 
             // 作成を終了するボタンを押したときの処理
             created_character_end_creation_text_id.setOnClickListener{
-                val intent = Intent(this,CharacterListActivity::class.java)
+                val intent = Intent(this, CharacterListActivity::class.java)
                 startActivity(intent)
             }
 
     }
 
 }
-
-         private fun saveData(){
-
-             lateinit var helper: MyOpenHelper
-
-             val db:SQLiteDatabase = helper.writableDatabase
-            // db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck','$create_at')")
-           
-            db.close()
-         }
-
-    // fun saveData() {
-    // val db: SQLiteDatabase = helper.writableDatabase
-//        val value: ContentValues = ContentValues()
-//        //名前を取得
-//        val createNameValues = findViewById<EditText>(R.id.name_input_field_text_id) as EditText
-//        //職業を取得
-//        val radioGroup_job : RadioGroup = findViewById(R.id.character_select_radiogroup_id)
-//        val radioId = radioGroup_job.checkedRadioButtonId
-//        val createJobValues: RadioButton = radioGroup_job.findViewById(radioId)
-//        //表示させる形式に変数を変換
-//        val nameValue:String = createNameValues.text.toString()
-//        val jobValue:Int = createJobValues.text.toString().toInt()
-//
-
-//        db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES　('name','job','hp','mp','str','def','agi','luck',(strftime('%Y/%m/%d %H:%M','now','LOCALTIME')))")
 
 
