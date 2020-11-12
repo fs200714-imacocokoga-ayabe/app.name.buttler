@@ -6,11 +6,11 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 
-open class CharacterDialogFragment: DialogFragment() {
+open class CharacterCreateMaxDialogFragment: DialogFragment() {
 
     interface Listener{
 
-        fun getUp()
+        fun maxDisplay()
 
     }
 
@@ -24,16 +24,16 @@ open class CharacterDialogFragment: DialogFragment() {
         }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(requireActivity())
+    val builder = AlertDialog.Builder(requireActivity())
 
-        builder.setMessage("登録できるキャラクター数が最大です")
-        builder.setPositiveButton("OK") {  dialog,which ->
-         listener?.getUp()
-
-        }
-
-        return builder.create()
+    builder.setMessage("登録できるキャラクター数が最大です")
+    builder.setPositiveButton("OK") {  dialog,which ->
+        listener?.maxDisplay()
 
     }
+
+    return builder.create()
+
+}
 
 }

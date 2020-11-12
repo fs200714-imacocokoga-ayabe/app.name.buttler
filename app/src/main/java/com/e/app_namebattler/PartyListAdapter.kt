@@ -8,18 +8,18 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 
-class ListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter() {
+class PartyListAdapter (val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter() {
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.data_character_status, null)
-        val Name = view.findViewById<TextView>(R.id.data_character_name_text_id)
-        val Job = view.findViewById<TextView>(R.id.data_character_job_text_id)
-        val Hp = view.findViewById<TextView>(R.id.data_character_hp_text_id)
-        val Mp = view.findViewById<TextView>(R.id.data_character_mp_text_id)
-        val Str = view.findViewById<TextView>(R.id.data_character_str_text_id)
-        val Def = view.findViewById<TextView>(R.id.data_character_def_text_id)
-        val Agi = view.findViewById<TextView>(R.id.data_character_agi_text_id)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.data_party_organization_character_status, null)
+        val Name = view.findViewById<TextView>(R.id.data_party_organization_character_name_radiobutton_id)
+        val Job = view.findViewById<TextView>(R.id.data_party_organization_character_job_id)
+        val Hp = view.findViewById<TextView>(R.id.data_party_organization_character_hp_id)
+        val Mp = view.findViewById<TextView>(R.id.data_party_organization_character_mp_id)
+        val Str = view.findViewById<TextView>(R.id.data_party_organization_character_str_id)
+        val Def = view.findViewById<TextView>(R.id.data_party_organization_character_def_id)
+        val Agi = view.findViewById<TextView>(R.id.data_party_organization_character_agi_id)
 
         val character = CharacterList[position]
 
@@ -45,4 +45,6 @@ class ListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAl
     override fun getCount(): Int {
         return CharacterList.count()
     }
+
+
 }

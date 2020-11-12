@@ -112,7 +112,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
 
                // キャラクター数16以上でダイアログが表示される
                if(characterCount >= 12){
-                   val dialog = CharacterDialogFragment()
+                   val dialog = CharacterCreateMaxDialogFragment()
                    dialog.show(supportFragmentManager, "alert_dialog")
 
                //  キャラクター数が16未満の場合続けてキャラクターの作成をする

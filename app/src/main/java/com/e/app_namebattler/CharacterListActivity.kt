@@ -62,31 +62,6 @@ class CharacterListActivity : AppCompatActivity(){
                     db.close()
                 }
 
-//        if (characterList.size != 0) {
-//                val i = 0
-//                name = characterList[i].name
-//                job = characterList[i].job
-//                hp = characterList[i].hp
-//                mp = characterList[i].mp
-//                str = characterList[i].str
-//                def = characterList[i].def
-//                agi = characterList[i].agi
-//                luck = characterList[i].luck
-//                create_at = characterList[i].create_at
-//
-//            } else {
-//
-//            name = "名無し"
-//            job = "なし"
-//            hp = 100
-//            mp = 100
-//            str = 100
-//            def = 100
-//            agi = 100
-//            luck = 100
-//            create_at = "2020/11/11 11:11"
-//        }
-
             val listView = findViewById<ListView>(R.id.list_View)
 
                 mListAdapter = ListAdapter(this, characterList)
