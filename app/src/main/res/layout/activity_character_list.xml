@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_characterlist">
 
         <ListView
-            android:id="@+id/list_View"
+            android:id="@+id/list_View_battle_party"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>-->

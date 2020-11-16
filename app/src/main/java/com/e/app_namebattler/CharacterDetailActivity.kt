@@ -34,7 +34,7 @@ class CharacterDetailActivity : AppCompatActivity() {
         // 名前を受け取る
         val nameExtra = intent.getStringExtra("name_key")
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+               helper = MyOpenHelper(applicationContext)//DB作成
 
         val db = helper.readableDatabase
 
@@ -42,25 +42,25 @@ class CharacterDetailActivity : AppCompatActivity() {
 
         try {
 
-             cursor = db.rawQuery("select * from CHARACTER WHERE name = '$nameExtra'", null)
+            cursor = db.rawQuery("select * from CHARACTER WHERE name = '$nameExtra'", null)
 
             while (cursor.moveToNext()) {
 
-               name = cursor.getString(0)
-               job = cursor.getString(1)
-               hp = cursor.getInt(2)
-               mp = cursor.getInt(3)
-               str = cursor.getInt(4)
-               def = cursor.getInt(5)
-               agi = cursor.getInt(6)
-               luck = cursor.getInt(7)
-               create_at = cursor.getString(8)
+                name = cursor.getString(0)
+                job = cursor.getString(1)
+                hp = cursor.getInt(2)
+                mp = cursor.getInt(3)
+                str = cursor.getInt(4)
+                def = cursor.getInt(5)
+                agi = cursor.getInt(6)
+                luck = cursor.getInt(7)
+                create_at = cursor.getString(8)
             }
 
-      }finally {
+        }finally {
 
             cursor?.close()
-      }
+        }
 
         characterStatus()
 

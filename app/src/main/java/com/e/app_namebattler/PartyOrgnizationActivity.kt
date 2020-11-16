@@ -3,12 +3,14 @@ package com.e.app_namebattler
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
 
 class PartyOrgnizationActivity : AppCompatActivity() {
+
+    private var nameValue01: String? = null
+    private var nameValue02: String? = null
+    private var nameValue03: String? = null
 
     lateinit var helper: MyOpenHelper
     var characterList = arrayListOf<CharacterAllData>()
@@ -67,6 +69,7 @@ class PartyOrgnizationActivity : AppCompatActivity() {
         mListAdapter = PartyListAdapter(this, characterList)
 
         listView.adapter = mListAdapter
+        
         // 項目をタップしたときの処理
         listView.setOnItemClickListener { parent, view, position, id ->
 
@@ -78,11 +81,16 @@ class PartyOrgnizationActivity : AppCompatActivity() {
             // このパーティで開始
             this_party_start.setOnClickListener {
 
-//                val radiobuttoncharacter: RadioButton = findViewById(R.id.data_party_organization_character_name_radiobutton_id)
-//                val radioId = radiobuttoncharacter
-//                val createPartyValues: RadioButton = radiobuttoncharacter.findViewById(radioId)
+                nameValue01 = characterList[listView.firstVisiblePosition].name
+                nameValue02 = characterList[listView.firstVisiblePosition + 1].name
+                nameValue03 = characterList[listView.firstVisiblePosition + 2].name
 
                 val intent = Intent(this, BattleStartActivity::class.java)
+
+                intent.putExtra("name_key01", nameValue01)
+                intent.putExtra("name_key02", nameValue02)
+                intent.putExtra("name_key03", nameValue03)
+
                 startActivity(intent)
             }
 

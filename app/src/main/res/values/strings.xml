@@ -53,4 +53,7 @@
     <string name="dialog_title">注意</string>
     <string name="dialog_message">登録できるキャラクターの上限です</string>
     <string name="dialog_btn_ok">OK</string>
+    <string name="text_battle_start_b">バトル</string>
+    <string name="text_next_turn">次のターン</string>
+    <string name="text_change">変更</string>
 </resources>

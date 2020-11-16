@@ -62,7 +62,7 @@ class CharacterListActivity : AppCompatActivity(){
                     db.close()
                 }
 
-            val listView = findViewById<ListView>(R.id.list_View)
+            val listView = findViewById<ListView>(R.id.list_View_battle_party)
 
                 mListAdapter = ListAdapter(this, characterList)
 
@@ -75,8 +75,6 @@ class CharacterListActivity : AppCompatActivity(){
                     val intent = Intent(this, CharacterDetailActivity::class.java)
                     intent.putExtra("name_key", nameValue)
                     startActivity(intent)
-
-
 
         }
 
