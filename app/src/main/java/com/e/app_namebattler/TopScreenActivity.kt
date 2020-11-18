@@ -9,11 +9,9 @@ class TopScreenActivity : AppCompatActivity() {
 
     lateinit var helper: MyOpenHelper
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_screen)
-
 
         // キャラ一覧のボタン
         top_screen_character_list_button_id.setOnClickListener {

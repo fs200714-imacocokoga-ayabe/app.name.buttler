@@ -12,9 +12,10 @@ import kotlinx.android.synthetic.main.activity_character_created.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
 class CharacterCreatedActivity : AppCompatActivity() {
+
     lateinit var helper: MyOpenHelper
+
     private lateinit var player: Player
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -38,7 +39,6 @@ class CharacterCreatedActivity : AppCompatActivity() {
         // 職業の表示
         val jobText:TextView = findViewById(R.id.textView14)
         jobText.text = jobExtra
-
 
         val name = nameExtra.toString()
         val job = jobExtra.toString()

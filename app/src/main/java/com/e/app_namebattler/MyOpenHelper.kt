@@ -13,6 +13,7 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
         //データベース情報
         const val DBNmae = "Aya.db01"//データベース名
         const val TABLE_NAME = "CHARACTER"//テーブル名
+        private const val ENEMY_TABLE_NAME = "ENEMY"
         //カラムの種類
         const val NAME = "name"
         const val JOB = "job"
@@ -24,18 +25,8 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
         const val LUCK = "luck"
         const val CREATE_AT = "create_at"
 
-        //テーブルの作成を行う変数
-        //         * 引数1 ・・・ NAME:列名 , TEXT：文字型 , PRIMARY KEY：テーブル内の行で重複無し
-        //         * 引数2 ・・・ JOB:列名 , INTEGER:数値型
-        //         * 引数3 ・・・ HP:列名 , INTEGER:数値型
-        //         * 引数4　・・・ MP:列名 , INTEGER:数値型
-        //         * 引数5　・・・STR:列名 , INTEGER:数値型
-        //         * 引数6　・・・DEF：列名 , INTEGER：数値型
-        //         * 引数7　・・・AGI：列名 , INTEGER：数値型
-        //         * 引数8 ・・・LUCK：列名 , INTEGER：数値型
-        //         * 引数9 ・・・CREATE_AT , NULL:NULL値
-        private const val SQL_CREATE_ENTRIES = ("CREATE TABLE " + TABLE_NAME + " (" +
-       // private const val SQL_CREATE_ENTRIES = ("CREATE TABLE IF NOT EXISTS CHARACTER (" +
+        private const val SQL_CREATE_CHARACTER = ("CREATE TABLE " + TABLE_NAME + " (" +
+
                 "NAME TEXT(20) NOT NULL PRIMARY KEY," +
                 "JOB TEXT NOT NULL," +
                 "HP INTEGER NOT NULL," +
@@ -49,18 +40,31 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
         //テーブルの消去を行う変数
         //private const val SQL_DELETE_ENTRIES= "DROP TABLE IF EXISTS" + TABLE_NAME
 
+        private const val SQL_CREATE_ENEMY = ("CREATE TABLE " + ENEMY_TABLE_NAME + " (" +
+
+                "NAME TEXT(20) NOT NULL PRIMARY KEY," +
+                "JOB TEXT NOT NULL," +
+                "HP INTEGER NOT NULL," +
+                "MP INTEGER NOT NULL," +
+                "STR INTEGER NOT NULL," +
+                "DEF INTEGER NOT NULL," +
+                "AGI INTEGER NOT NULL," +
+                "LUCK INTEGER NOT NULL," +
+                "CREATE_AT NULL)")
     }
 
     /*テーブルが存在しないときに呼び出す
         * execSQLでクエリSQL文を実行しDB構造を決定する*/
     override  fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(SQL_CREATE_ENTRIES)
+        db.execSQL(SQL_CREATE_CHARACTER)
+        db.execSQL(SQL_CREATE_ENEMY)
     }
 
     //DBバージョンが上がったときの処理
     override fun onUpgrade(db:SQLiteDatabase, oldVersion: Int, newVersion :Int) {
         // テーブルを削除する
         db.execSQL("DROP TABLE IF EXISTS CHARACTER")
+        db.execSQL("DROP TABLE IF EXISTS ENEMY")
         // 新しくテーブルを作成する
         onCreate(db)
     }
@@ -70,7 +74,7 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
         onDowngrade(db, oldVersion, newVersion)
     }
 
-    //カラムをテーブルに追加する
+    //テーブルにカラムを追加する
     fun saveData(db: SQLiteDatabase, name: String, job: String, hp: Int,mp: Int, str: Int, def: Int, agi: Int, luck: Int, create_at: String) {
         val values: ContentValues = ContentValues()
         values.put(NAME, name)
@@ -84,7 +88,6 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
         values.put(CREATE_AT, create_at)
         db.insertOrThrow(TABLE_NAME, null, values)
     }
-
 }
 
 //    // データベースが開かれた時に実行される処理
