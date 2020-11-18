@@ -54,7 +54,7 @@ private var name01 = ""
 
         printEnemy()
 
-        printAlay()
+        printAlly()
 
         val namelist = listOf(name01,name02,name03)
 
@@ -73,13 +73,14 @@ private var name01 = ""
         // 相手を選び直すボタンを押したときの処理
         re_select_enemy_button.setOnClickListener {
             val intent = Intent(this, PartyOrgnizationActivity :: class.java)
-            startActivity(intent)
+            printEnemy()
+           // startActivity(intent)
 
         }
     }
 
     // 味方キャラクター表示
-    fun printAlay() {
+    fun printAlly() {
 
         helper = MyOpenHelper(applicationContext)//DB作成
 
@@ -124,7 +125,15 @@ private var name01 = ""
     }
 
             // 敵キャラクター表示
+            @RequiresApi(Build.VERSION_CODES.O)
             fun printEnemy(){
+
+                e.setName()
+
+                enemyPartyList.clear()
+
+                enemyPartyList = e.makeEnemy()
+
 
                 val listView = findViewById<ListView>(R.id.list_View_enemy_battle_party)
 
