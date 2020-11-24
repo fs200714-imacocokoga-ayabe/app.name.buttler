@@ -68,7 +68,10 @@
         <ListView
             android:id="@+id/list_View_party"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:dividerHeight="0sp"/>
 
     </LinearLayout>
 

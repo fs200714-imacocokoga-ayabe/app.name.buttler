@@ -2,14 +2,10 @@ package com.e.app_namebattler
 
 import android.content.Intent
 import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_character_detail.*
-import kotlinx.android.synthetic.main.activity_character_list.*
 
 // キャラクター詳細画面のクラス
 class CharacterDetailActivity : AppCompatActivity() {
@@ -18,7 +14,7 @@ class CharacterDetailActivity : AppCompatActivity() {
 
    // var  selectCharacter = arrayListOf<CharacterAllData>()
     var name = ""
-    var job = ""
+    var jobValue = 0
     var hp = 0
     var mp = 0
     var str = 0
@@ -26,6 +22,7 @@ class CharacterDetailActivity : AppCompatActivity() {
     var agi = 0
     var luck = 0
     var create_at = ""
+    var job = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +44,7 @@ class CharacterDetailActivity : AppCompatActivity() {
             while (cursor.moveToNext()) {
 
                 name = cursor.getString(0)
-                job = cursor.getString(1)
+                job =  OccupationConversion(cursor.getInt(1))
                 hp = cursor.getInt(2)
                 mp = cursor.getInt(3)
                 str = cursor.getInt(4)
@@ -82,6 +79,8 @@ class CharacterDetailActivity : AppCompatActivity() {
     }
 
             private fun deleteCharacter(){
+
+                helper = MyOpenHelper(applicationContext)//DB作成
 
                 val db = helper.writableDatabase
                 try{
@@ -139,5 +138,16 @@ class CharacterDetailActivity : AppCompatActivity() {
                 dateText.text = ("作成日：$create_at")
 
             }
+
+    fun OccupationConversion(jobValue:Int):String{
+
+        when(jobValue){
+            0 -> {job = "戦士"}
+            1 -> {job = "魔法使い"}
+            2 -> {job = "僧侶"}
+            3 -> {job = "忍者"}
+        }
+        return job
+    }
 
 }

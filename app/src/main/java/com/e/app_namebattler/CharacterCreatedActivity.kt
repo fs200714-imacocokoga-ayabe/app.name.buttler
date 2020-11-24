@@ -41,7 +41,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
         jobText.text = jobExtra
 
         val name = nameExtra.toString()
-        val job = jobExtra.toString()
+      //  val job = jobExtra.toString()
 
             when(jobExtra){
 //                "戦士" -> player = (Fighter(name))
@@ -53,7 +53,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
                 "僧侶" -> nameExtra?.let { Priest(it) }?.let { player = it }
                 "忍者" -> nameExtra?.let { Ninja(it) }?.let { player = it }
             }
-
+            var job = 0
             val hp = player.getHP()
             val mp = player.getMP()
             val str = player.getSTR()
@@ -84,6 +84,14 @@ class CharacterCreatedActivity : AppCompatActivity() {
                 luckText.text = "LUCK                  $luck"
 
             val db:SQLiteDatabase = helper.writableDatabase
+
+        when(jobExtra){
+
+            "戦士" -> {job = 0}
+            "魔法使い" -> {job = 1}
+            "僧侶" -> {job = 2}
+            "忍者" -> {job = 3}
+        }
 
                 db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck','$create_at')")
 

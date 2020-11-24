@@ -62,31 +62,11 @@
         <ListView
             android:id="@+id/list_View_enemy_battle_party"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:dividerHeight="0sp"/>
 
-<!--        // 敵メンバー1表示-->
-<!--        <TextView-->
-<!--            android:id="@+id/text_enemy_1"-->
-<!--            android:layout_width="404dp"-->
-<!--            android:layout_height="66dp"-->
-<!--            android:background="@drawable/frame_line_01"-->
-<!--            android:text="TextView" />-->
-
-<!--        // 敵メンバー2表示-->
-<!--        <TextView-->
-<!--            android:id="@+id/text_enemy_2"-->
-<!--            android:layout_width="404dp"-->
-<!--            android:layout_height="66dp"-->
-<!--            android:background="@drawable/frame_line_01"-->
-<!--            android:text="TextView" />-->
-
-<!--        // 敵メンバー3表示-->
-<!--        <TextView-->
-<!--            android:id="@+id/text_enemy_3"-->
-<!--            android:layout_width="404dp"-->
-<!--            android:layout_height="66dp"-->
-<!--            android:background="@drawable/frame_line_01"-->
-<!--            android:text="TextView" />-->
     </LinearLayout>
 
     <LinearLayout
@@ -107,7 +87,10 @@
         <ListView
             android:id="@+id/list_View_battle_party"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:dividerHeight="0sp"/>
 
     </LinearLayout>
 

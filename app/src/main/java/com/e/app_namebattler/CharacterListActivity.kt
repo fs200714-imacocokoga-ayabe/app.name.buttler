@@ -48,7 +48,7 @@ class CharacterListActivity : AppCompatActivity(){
                         // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
                         characterList.add(
                                 CharacterAllData(
-                                    c.getString(0), c.getString(1),
+                                    c.getString(0),(OccupationConversion(c.getInt(1))),
                                     c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
                                     c.getInt(6), c.getInt(7), c.getString(8)
                                 )
@@ -97,16 +97,16 @@ class CharacterListActivity : AppCompatActivity(){
 
     }
 
-}
+    private fun OccupationConversion(jobValue: Int):String {
 
-class CharacterAllData(
-    val name: String,
-    val job: String,
-    val hp: Int,
-    val mp: Int,
-    val str: Int,
-    val def: Int,
-    val agi: Int,
-    val luck: Int,
-    val create_at: String
-)
+        when(jobValue){
+
+            0 -> {job = "戦士"}
+            1 -> {job = "魔法使い"}
+            2 -> {job = "僧侶"}
+            3 -> {job = "忍者"}
+        }
+        return job
+    }
+
+}

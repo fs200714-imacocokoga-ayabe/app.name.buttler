@@ -1,13 +1,13 @@
 package com.e.app_namebattler
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_top_screen.*
 
 class TopScreenActivity : AppCompatActivity() {
 
-    lateinit var helper: MyOpenHelper
+    val helper = MyOpenHelper(application)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,4 +25,6 @@ class TopScreenActivity : AppCompatActivity() {
         }
 
     }
+
+
 }

@@ -50,7 +50,7 @@ class PartyOrgnizationActivity : AppCompatActivity() {
                 // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
                 characterList.add(
                     CharacterAllData(
-                        c.getString(0), c.getString(1),
+                        c.getString(0), (OccupationConversion01(c.getInt(1))),
                         c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
                         c.getInt(6), c.getInt(7), c.getString(8)
                     )
@@ -100,7 +100,18 @@ class PartyOrgnizationActivity : AppCompatActivity() {
                 startActivity(intent)
 
             }
+    }
 
+    fun OccupationConversion01(jobValue: Int): String{
+
+        when(jobValue){
+
+            0 -> {job = "戦士"}
+            1 -> {job = "魔法使い"}
+            2 -> {job = "僧侶"}
+            3 -> {job = "忍者"}
+        }
+        return job
 
     }
 }

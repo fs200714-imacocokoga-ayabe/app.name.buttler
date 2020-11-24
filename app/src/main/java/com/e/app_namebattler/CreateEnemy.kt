@@ -2,6 +2,8 @@ package com.e.app_namebattler
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class CreateEnemy {
@@ -10,6 +12,7 @@ class CreateEnemy {
 
     private lateinit var enemy: Player
     var enemyPartyList = arrayListOf<CharacterAllData>()
+    var enemyPartyList02 = arrayListOf<CharacterAllData>()
     private val enemyNameList = ArrayList<EnemyName>()
     private val jobList = ArrayList<EnemyJob>()
     val enemyList = ArrayList<Player>()
@@ -31,6 +34,7 @@ class CreateEnemy {
 
     // 名前を選択する
     private fun selectName(): String {
+
         val nNumber = (1..enemyNameList.size).random()
 
         val a = enemyNameList[nNumber - 1].getEnemyName()
@@ -67,20 +71,42 @@ class CreateEnemy {
                 "忍者" -> Ninja(enemyName).let { enemy = it }
             }
 
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:m")
+            val create_at = current.format(formatter).toString()
+
             enemyPartyList.add(
                 CharacterAllData(
-                    enemyName, selectJob(),
+                    enemyName, enemyJob,
                     enemy.hp, enemy.mp,enemy.str,enemy.def,
-                    enemy.agi,enemy.luck,""
+                    enemy.agi,enemy.luck,create_at
                 )
             )
-
-
 
         }
 
         return enemyPartyList
+    }
 
+     fun deleteEnemy(){
+
+        val db = helper.writableDatabase
+        try{
+            db.execSQL("DELETE FROM ENEMY")
+        }finally {
+            db.close()
+        }
+    }
+
+    fun setEnemyParty(enemyPartyList: ArrayList<CharacterAllData>) {
+
+        enemyPartyList02.addAll(enemyPartyList)
+
+    }
+
+    fun getEnemyParty(): ArrayList<CharacterAllData> {
+
+        return enemyPartyList02
     }
 
     enum class EnemyName(private val enemyName: String) {
