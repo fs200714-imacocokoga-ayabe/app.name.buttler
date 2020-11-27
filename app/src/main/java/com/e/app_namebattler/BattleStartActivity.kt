@@ -50,6 +50,8 @@ class BattleStartActivity : AppCompatActivity() {
         name02 = intent.getStringExtra("name_key02").toString()
         name03 = intent.getStringExtra("name_key03").toString()
 
+        //e.deleteEnemy()
+        deleteEnemy()
         e.setName()
 
         enemyPartyList.clear()
@@ -115,7 +117,7 @@ class BattleStartActivity : AppCompatActivity() {
                 // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
                 allyPartyList.add(
                     CharacterAllData(
-                        c.getString(0), OccupationConversion01(c.getInt(1)),
+                        c.getString(0), OccupationConversion(c.getInt(1)),
                         c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
                         c.getInt(6), c.getInt(7), c.getString(8)
                     )
@@ -141,7 +143,7 @@ class BattleStartActivity : AppCompatActivity() {
             @RequiresApi(Build.VERSION_CODES.O)
             fun printEnemy(){
 
-              //  e.deleteEnemy()
+               // e.deleteEnemy()
 
                 e.setName()
 
@@ -158,25 +160,35 @@ class BattleStartActivity : AppCompatActivity() {
                 listView.adapter = mListAdapter
             }
 
-            fun saveData(characterAllData: ArrayList<CharacterAllData>) {
+            fun saveData(enemyPartyList: ArrayList<CharacterAllData>) {
 
                 val db: SQLiteDatabase = helper.writableDatabase
 
                 try {
 
-                    for (i in 1.. characterAllData.size) {
+                    for (i in 1.. enemyPartyList.size) {
 
-                        val enemyName = characterAllData[i -1].name
-                        val enemyJob = characterAllData[i - 1].job
-                        val enemyHp = characterAllData[i - 1].hp
-                        val enemyMp = characterAllData[i - 1].mp
-                        val enemyStr = characterAllData[i - 1].str
-                        val enemyDef = characterAllData[i - 1].def
-                        val enemyAgi = characterAllData[i - 1].agi
-                        val enemyLuck = characterAllData[i - 1].luck
-                        val enemyDate = characterAllData[i - 1].create_at
+                        val enemyName = enemyPartyList[i -1].name
+                        val enemyJob = enemyPartyList[i - 1].job
+                        val enemyHp = enemyPartyList[i - 1].hp
+                        val enemyMp = enemyPartyList[i - 1].mp
+                        val enemyStr = enemyPartyList[i - 1].str
+                        val enemyDef = enemyPartyList[i - 1].def
+                        val enemyAgi = enemyPartyList[i - 1].agi
+                        val enemyLuck = enemyPartyList[i - 1].luck
+                        val enemyDate = enemyPartyList[i - 1].create_at
 
-                        db.execSQL("INSERT INTO ENEMY(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$enemyName','$enemyJob','$enemyHp','$enemyMp','$enemyStr','$enemyDef','$enemyAgi','$enemyLuck','$enemyDate')")
+                        var jobI = 0
+
+                        when(enemyJob){
+
+                            "戦士" -> {jobI = 0}
+                            "魔法使い" -> {jobI = 1}
+                            "僧侶" -> {jobI = 2}
+                            "忍者" -> {jobI = 3}
+                        }
+
+                        db.execSQL("INSERT INTO ENEMY(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$enemyName','$jobI','$enemyHp','$enemyMp','$enemyStr','$enemyDef','$enemyAgi','$enemyLuck','$enemyDate')")
                     }
 
                 }finally {
@@ -195,7 +207,7 @@ class BattleStartActivity : AppCompatActivity() {
         }
     }
 
-    fun OccupationConversion01(jobValue: Int): String {
+    fun OccupationConversion(jobValue: Int): String {
 
         when (jobValue) {
             0 -> { job = "戦士" }

@@ -8,14 +8,14 @@ import java.time.format.DateTimeFormatter
 
 class CreateEnemy {
 
-    lateinit var helper: MyOpenHelper
+   // lateinit var helper: MyOpenHelper
 
     private lateinit var enemy: Player
     var enemyPartyList = arrayListOf<CharacterAllData>()
     var enemyPartyList02 = arrayListOf<CharacterAllData>()
     private val enemyNameList = ArrayList<EnemyName>()
     private val jobList = ArrayList<EnemyJob>()
-    val enemyList = ArrayList<Player>()
+    //val enemyList = ArrayList<Player>()
 
     // 相手の名前をenemyListに格納する
    fun setName() {
@@ -39,7 +39,7 @@ class CreateEnemy {
 
         val a = enemyNameList[nNumber - 1].getEnemyName()
 
-        enemyNameList.removeAt(nNumber)
+        enemyNameList.removeAt(nNumber - 1)
 
         return a
     }
@@ -88,15 +88,24 @@ class CreateEnemy {
         return enemyPartyList
     }
 
-     fun deleteEnemy(){
-
-        val db = helper.writableDatabase
-        try{
-            db.execSQL("DELETE FROM ENEMY")
-        }finally {
-            db.close()
-        }
-    }
+//     fun deleteEnemy(){
+//
+//        val db = helper.writableDatabase
+//
+//        try{
+//
+//          //  var c1 = db.rawQuery("SELECT * FROM ENEMY WHERE name = null",null)
+//
+//          //  if(c1 != null) {
+//
+//                db.execSQL("DELETE FROM ENEMY")
+//
+//           // }
+//
+//        }finally {
+//            db.close()
+//        }
+//    }
 
     fun setEnemyParty(enemyPartyList: ArrayList<CharacterAllData>) {
 

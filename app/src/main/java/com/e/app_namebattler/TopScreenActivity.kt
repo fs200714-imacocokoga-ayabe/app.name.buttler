@@ -7,8 +7,6 @@ import kotlinx.android.synthetic.main.activity_top_screen.*
 
 class TopScreenActivity : AppCompatActivity() {
 
-    val helper = MyOpenHelper(application)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_screen)
@@ -23,8 +21,5 @@ class TopScreenActivity : AppCompatActivity() {
             val intent = Intent(this, PartyOrgnizationActivity::class.java)
             startActivity(intent)
         }
-
     }
-
-
 }

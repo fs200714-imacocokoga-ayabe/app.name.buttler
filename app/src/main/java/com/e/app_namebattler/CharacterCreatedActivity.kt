@@ -66,22 +66,22 @@ class CharacterCreatedActivity : AppCompatActivity() {
             val create_at = current.format(formatter).toString()
 
             val hpText: TextView = findViewById(R.id.created_character_hp_text_id)
-            hpText.text = "HP                     ".plus(hp)
+            hpText.text = hp.toString()
 
             val mpText: TextView = findViewById(R.id.created_character_mp_text_id)
-            mpText.text = "MP                     $mp"
+            mpText.text = mp.toString()
 
             val strText: TextView = findViewById(R.id.created_character_str_text_id)
-            strText.text = "STR                    $str"
+            strText.text = str.toString()
 
             val defText: TextView = findViewById(R.id.created_character_def_text_id)
-            defText.text = "DEF                    $def"
+            defText.text = def.toString()
 
             val agiText: TextView = findViewById(R.id.created_character_agi_text_id)
-            agiText.text = "AGI                     $agi"
+            agiText.text = agi.toString()
 
             val luckText: TextView = findViewById(R.id.created_character_luck_text_id)
-                luckText.text = "LUCK                  $luck"
+                luckText.text = luck.toString()
 
             val db:SQLiteDatabase = helper.writableDatabase
 

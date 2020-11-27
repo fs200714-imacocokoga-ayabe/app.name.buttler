@@ -1,6 +1,8 @@
 package com.e.app_namebattler
 
-class Fighter(name:String):Player(name) {
+class Fighter(name:String):Player(name){
+
+    constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int): this(name)
 
     override fun makeCharacter(name: String) {
         // 戦士のパラメータを名前から生成する

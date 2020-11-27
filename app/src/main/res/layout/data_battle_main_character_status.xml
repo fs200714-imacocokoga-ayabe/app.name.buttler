@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/data_battle_main_character_status_id"
+        android:layout_width="131sp"
+        android:layout_height="70sp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX=""
+        tools:layout_editor_absoluteY="">
+
+        <TextView
+            android:id="@+id/member_name_id"
+            android:layout_width="match_parent"
+            android:layout_height="18sp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/member_hp_id"
+            android:layout_width="match_parent"
+            android:layout_height="17sp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/member_mp_id"
+            android:layout_width="match_parent"
+            android:layout_height="17sp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/member_status_id"
+            android:layout_width="match_parent"
+            android:layout_height="18sp"
+            android:text="" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

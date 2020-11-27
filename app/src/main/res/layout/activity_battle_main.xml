@@ -71,92 +71,163 @@
         <LinearLayout
             android:layout_width="131dp"
             android:layout_height="match_parent"
+            android:background="@drawable/frame_line_01"
             android:orientation="vertical">
+
+<!--            <ListView-->
+<!--                android:id="@+id/enemy_member01_status_id"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:divider="@null"-->
+<!--                android:dividerHeight="0sp"/>-->
 
             <TextView
                 android:id="@+id/enemy_member01_name_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/enemy_member01_hp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/enemy_member01_mp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/enemy_member01_status_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="131dp"
             android:layout_height="match_parent"
+            android:background="@drawable/frame_line_01"
             android:orientation="vertical">
-
+<!--            <ListView-->
+<!--                android:id="@+id/enemy_member02_status_id"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:divider="@null"-->
+<!--                android:dividerHeight="0sp"/>-->
             <TextView
                 android:id="@+id/enemy_member02_name_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/enemy_member02_hp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/enemy_member02_mp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/enemy_member02_status_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="131dp"
             android:layout_height="match_parent"
+            android:background="@drawable/frame_line_01"
             android:orientation="vertical">
-
+<!--            <ListView-->
+<!--                android:id="@+id/enemy_member03_status_id"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:divider="@null"-->
+<!--                android:dividerHeight="0sp"/>-->
             <TextView
                 android:id="@+id/enemy_member03_name_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/enemy_member03_hp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/enemy_member03_mp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/enemy_member03_status_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
-        </LinearLayout>
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
+        </LinearLayout>-->
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
@@ -175,91 +246,142 @@
         <LinearLayout
             android:layout_width="131dp"
             android:layout_height="match_parent"
+            android:background="@drawable/frame_line_01"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/ally_member01_name_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/ally_member01_hp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/ally_member01_mp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/ally_member01_status_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="131dp"
             android:layout_height="match_parent"
+            android:background="@drawable/frame_line_01"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/ally_member02_name_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/ally_member02_hp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/ally_member02_mp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/ally_member02_status_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="131dp"
             android:layout_height="match_parent"
+            android:background="@drawable/frame_line_01"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/ally_member03_name_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/ally_member03_hp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/ally_member03_mp_id"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/ally_member03_status_id"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"/>
         </LinearLayout>
     </LinearLayout>
 

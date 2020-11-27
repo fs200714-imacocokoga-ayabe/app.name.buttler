@@ -22,23 +22,29 @@ open class Player {
         ThreadLocalRandom.current().nextInt(rangeFirstNum, rangeLastNum)
     }
 
-    // var name: String? = "" // 名前
+     open var job: String? = "" // 職業
 
-     var job: String? = "" // 職業
+     open var hp: Int = 0 // HP
 
-     var hp: Int = 0 // HP
+     open var mp: Int = 0 // MP
 
-     var mp: Int = 0 // MP
+     open var str:Int = 0 // 攻撃力
 
-     var str:Int = 0 // 攻撃力
+     open var def:Int = 0 // 防御力
 
-     var def:Int = 0 // 防御力
+    open var agi:Int = 0 // すばやさ
 
-     var luck: Int = 0 // 運
+     open var luck: Int = 0 // 運
 
-     var agi:Int = 0 // すばやさ
+    private var maxHp: Int = 0 // 最大HP
 
-     var mark: Boolean? = false
+    private var maxMp: Int = 0 // 最大MP
+
+     var isPoison: Boolean = false
+
+     var ispParalysis: Boolean = false
+
+    private var mark: Boolean? = false
 
     /**
      * コンストラクタ
@@ -117,6 +123,38 @@ open class Player {
         return mark
     }
 
+//    open fun isPoison(): Boolean{
+//        return poison
+//    }
+
+//    open fun setPoison(poison: Boolean){
+//        poison =
+//    }
+
+//    open fun isParalysis(): Boolean{
+//        return paralysis
+//    }
+
+    open fun getMaxHp(): Int{
+        return maxHp
+    }
+
+    open fun setMaxHp(hp: Int){
+
+        maxHp = hp
+    }
+
+    open fun getMaxMp(): Int{
+        return  maxMp
+    }
+
+    open fun setMaxMp(mp: Int){
+
+        maxMp = mp
+    }
+
+
+
     open fun makeCharacter(name: String){
 
     }
@@ -143,8 +181,6 @@ open class Player {
         }
         return 0
     }
-
-
 
 }
 

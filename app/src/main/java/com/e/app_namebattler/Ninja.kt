@@ -2,6 +2,8 @@ package com.e.app_namebattler
 
 class Ninja (name:String):Player(name){
 
+    constructor(name: String,job: String,hp: Int,mp: Int,str: Int,def: Int,agi: Int,luck: Int): this(name)
+
     override fun makeCharacter(name: String) {
         // 忍者のパラメータを名前から生成する
         this.hp = getNumber(0, 100) + 70 // 70-170
