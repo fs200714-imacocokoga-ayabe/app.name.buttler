@@ -2,15 +2,15 @@ package com.e.app_namebattler
 
 class GameManager {
 
-    //var speedData = List<Player>()
-
     lateinit var player: Player
 
     private lateinit var player1: Player
 
     private lateinit var player2: Player
 
-    fun Start(){
+    private val pt = Party()
+
+    fun battle(player: Player) {
 
 
     }
@@ -33,14 +33,24 @@ class GameManager {
             }
         }
 
-        println("チェック01$speedData")
-
-//        for (i in speedData) { // membersに速さ順に格納
-//            player = i
-//            if (player != null) {party.setMembers(player!!)} // membersにplayerを加える
-//        }
+        for (i in speedData) { // membersに速さ順に格納
+            player = i
+            pt.setMembers(player)
+        }
 
         return speedData
 
+    }
+
+    fun divideParty() {
+
+        for (i in pt.getMembers()) {
+            player = i // membersからプレイヤーを呼び出す
+            if (player.isMark()!!) {
+                pt.appendPlayer(player) // trueならパーティ1に加える
+            } else {
+                pt.appendPlayer(player) // falseならパーティ2に加える
+            }
+        }
     }
 }

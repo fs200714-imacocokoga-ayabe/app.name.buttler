@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom
 
 open class Player {
 
-    var name:String = ""
+    private var name:String = ""
 
     constructor(name: String){
 
@@ -42,9 +42,13 @@ open class Player {
 
      var isPoison: Boolean = false
 
-     var ispParalysis: Boolean = false
+     var isParalysis: Boolean = false
 
     private var mark: Boolean? = false
+
+    var damage = 0
+
+    private val herbRecoveryValue = 30
 
     /**
      * コンストラクタ
@@ -59,6 +63,10 @@ open class Player {
 //    }
 
     open fun Player() {}
+
+    open fun getName(): String{
+        return name
+    }
 
     /**
      * 現在HPを取得する
@@ -123,18 +131,6 @@ open class Player {
         return mark
     }
 
-//    open fun isPoison(): Boolean{
-//        return poison
-//    }
-
-//    open fun setPoison(poison: Boolean){
-//        poison =
-//    }
-
-//    open fun isParalysis(): Boolean{
-//        return paralysis
-//    }
-
     open fun getMaxHp(): Int{
         return maxHp
     }
@@ -152,8 +148,6 @@ open class Player {
 
         maxMp = mp
     }
-
-
 
     open fun makeCharacter(name: String){
 
@@ -181,6 +175,127 @@ open class Player {
         }
         return 0
     }
+
+    /**
+     * 対象プレイヤーに攻撃を行う
+     * @param defender: 対象プレイヤー
+     */
+    open fun attack(defender: Player?){
+
+        // ジョブごとにオーバーライドして処理を記述してください
+    }
+
+    /**
+     * 対象プレイヤー(target)に対して与えるダメージを計算する
+     *
+     * @param target: 対象プレイヤー
+     * @return ダメージ値(0～)
+     */
+    open fun calcDamage(target: Player): Int {
+        val power = (1 ..getSTR()).random()
+        val luk = (1..100).random()
+        if (luk <= getLUCK()) { // 乱数の値がlukの値の中なら
+            println("会心の一撃!")
+            damage = getSTR()
+        } else {
+            damage = power - target.getDEF()
+            if (damage < 0) {
+                System.out.printf("%sの攻撃はミス！\n", getName())
+                damage = 0
+            }
+        }
+        return damage
+    }
+
+    /**
+     * type,defender,damageから属性処理を加えて求めたダメージを対象プレイヤーに与える
+     * @param defender :対象プレイヤー
+     * @param damage :ダメージ
+     */
+    open fun damageProcess(defender: Player, damage: Int) {
+       // var damage = damage
+        //damage = attributeDecision(type, defender, damage) // 属性処理
+        System.out.printf("%sに%dのダメージ！\n", defender.getName(), damage)
+        defender.damage(damage) // 求めたダメージを対象プレイヤーに与える
+    }
+
+    /**
+     * defenderが倒れたかの判定
+     * @param defender 相手
+     */
+    open fun fall(defender: Player) {
+        if (defender.getHP() <= 0) {
+            System.out.printf("%sは力尽きた...\n", defender.getName())
+            abnormalState() // 状態異常チェック
+        } else {
+            abnormalState() // 状態異常チェック
+            if (getHP() <= 0) { // playerの倒れた判定
+                System.out.printf("%sは力尽きた...\n", getName())
+            }
+        }
+    }
+
+    /**
+     * 状態異常のチェック
+     */
+    private fun abnormalState() {
+
+        if (isPoison) { // true:毒状態 false:無毒状態
+            damage(Magic.POISON.getMaxDamage()) // 毒のダメージ計算
+            System.out.printf("%sは毒のダメージを%d受けた！\n", getName(),
+                Magic.POISON.getMaxDamage())
+        }
+        if (isParalysis) { // true:麻痺状態 false:麻痺していない
+            if ((1..100).random() > Magic.PARALYSIS.getContinuousRate()) { // 麻痺の確立より乱数が上なら麻痺の解除
+                isParalysis = false // 麻痺解除
+                System.out.printf("%sは麻痺が解けた！\n", getName())
+            }
+        }
+    }
+
+    /**
+     * ダメージを受ける
+     * @param damage: ダメージ値
+     */
+    open fun damage(damage: Int) {
+        // ダメージ値分、HPを減少させる
+        hp = (getHP() - damage).coerceAtLeast(0)
+
+    }
+
+    /**
+     * 草を食べる処理
+     */
+    open fun eatGrass() {
+
+        System.out.printf("%sは革袋の中にあった草を食べた！\n", getName())
+        when ((1..3).random()) {
+            0 -> { System.out.printf("%sは体力が%d回復した！\n", getName(), herbRecoveryValue)
+                    recovery(this, herbRecoveryValue)}
+
+            1 -> { System.out.printf("%sは毒が消えた！\n", getName())
+                 isPoison = false }
+
+            2 -> {System.out.printf("%sは何も起こらなかった！\n", getName())}
+        }
+    }
+
+    /**
+     * player,healから対象プレイヤーを回復させ回復に使用した値を返す
+     * @param player :対象プレイヤー
+     * @param heal :回復値
+     * @return 回復に使用した値
+     */
+    open fun recovery(player: Player, heal: Int): Int {
+        var heal = heal
+     //   heal = player.getMaxHP().coerceAtMost(player.getHP() + heal) 保留
+        heal -= player.getHP()
+        player.hp = player.getHP() + heal
+        return heal
+    }
+
+
+
 
 }
 

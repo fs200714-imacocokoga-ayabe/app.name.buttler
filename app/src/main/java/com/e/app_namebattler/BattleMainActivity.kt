@@ -5,15 +5,21 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_battle_main.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class BattleMainActivity : AppCompatActivity() {
+
+    private var s = Scanner(System.`in`)
 
     //private lateinit var mListAdapter: BattleMainListAdapter
 
     lateinit var helper: MyOpenHelper
 
-    val gm = GameManager()
+    private val gm = GameManager()
+
+    val pt = Party()
 
     private var enemyPartyList = ArrayList<CharacterAllData>()
 
@@ -21,28 +27,32 @@ class BattleMainActivity : AppCompatActivity() {
 
     private var allyPartyList02 = ArrayList<Player>()
 
+    private lateinit var allCharacterList: List<Player>
+
     private  var enemyPartyList02 = ArrayList<Player>()
 
-   // var enemyBattlePartyList = arrayListOf<Player>()
-    //var enemyBattlePartyList:List<Player> = mutableListOf()
+    private lateinit var attackList: List<Player>
+
+    private lateinit var speedOrderList : List<Player>
+
     var allyBattlePartyList = arrayListOf<Player>()
 
     lateinit var ally: Player
     private lateinit var enemy: Player
+    lateinit var actCharacter: Player
     lateinit var ally01: Player
     lateinit var ally02: Player
     lateinit var ally03: Player
     lateinit var enemy01: Player
     lateinit var enemy02: Player
     lateinit var enemy03: Player
+    private lateinit var player: Player
+    private lateinit var player1: Player
+    lateinit var player2: Player
 
     private val e = CreateEnemy()
 
     var job = ""
-
-//    var enemyBattleStatusPartyList = arrayListOf<CharacterBattleStatusData>()
-//
-//    var allyBattleStatusPartyList = arrayListOf<CharacterBattleStatusData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,36 +80,15 @@ class BattleMainActivity : AppCompatActivity() {
         ally02 = makeAllyCharacter(allyPartyList[1])
         ally03 = makeAllyCharacter(allyPartyList[2])
 
+        // スピード順に取得する
+        speedOrderList = (gm.speedReordering(enemy01,enemy02,enemy03,ally01,ally02,ally03))
 
-        //var enemyBattlePartyList = listOf<Player>()
-
-       // gm.Start()
-
-        // speedOrderList.addAll(gm.speedReordering(enemy01,enemy02,enemy03,ally01,ally02,ally03))
-
-        val speedOrderList:List<Player> = (gm.speedReordering(enemy01,enemy02,enemy03,ally01,ally02,ally03))
-
-        println("プリント$enemy01")
-
-
-        for(i in 1 .. speedOrderList.size){
-
-            if(speedOrderList[i - 1].isMark()!!){
-
-                allyPartyList02.add(speedOrderList[i - 1])
-
-            }else{
-
-                enemyPartyList02.add(speedOrderList[i - 1])
-            }
-        }
-
-        ally01 = allyPartyList02[0]
-        ally02 = allyPartyList02[1]
-        ally03 = allyPartyList02[2]
-        enemy01 = enemyPartyList02[0]
-        enemy02 = enemyPartyList02[1]
-        enemy03 = enemyPartyList02[2]
+        pt.appendPlayer(enemy01)
+        pt.appendPlayer(enemy02)
+        pt.appendPlayer(enemy03)
+        pt.appendPlayer(ally01)
+        pt.appendPlayer(ally02)
+        pt.appendPlayer(ally03)
 
         // キャラクターの表示
         enemyPrintStatus01(enemy01)
@@ -108,6 +97,75 @@ class BattleMainActivity : AppCompatActivity() {
         allyPrintStatus01(ally01)
         allyPrintStatus02(ally02)
         allyPrintStatus03(ally03)
+
+//----------------------------------------------------------------------------------------------
+
+        gm.divideParty()
+
+        var turnNumber = 1 // ターンの初期値
+
+        while (turnNumber <= 20) {// 最大でも20ターンまで
+
+            println("ターン$turnNumber")
+
+
+            for(i in speedOrderList){
+
+                player1 = i
+
+                player2 = if (player1.isMark()!!) {
+
+                    val a = (1..pt.getParty2().size).random()
+                    pt.getParty2()[a - 1]
+
+                }else{
+
+                    val a = (1..pt.getParty1().size).random()
+                    pt.getParty1()[a - 1]
+
+                }
+
+                player1.attack(player2)
+
+                if (player1.getHP() <= 0) { // プレイヤー１相手プレイヤーの敗北判定
+                    speedOrderList-=player1
+                    pt.removePlayer(player1)
+                    pt.removeMembers(player1)
+                }
+                if (player2.getHP() <= 0) { // 相手プレイヤーがHP0の場合
+                    speedOrderList-=player2
+                    pt.removePlayer(player2)
+                    pt.removeMembers(player2)
+                }
+
+            }
+
+            // どちらかのパーティメンバーが0の場合処理を抜ける
+            if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
+                break
+            }
+
+            turnNumber+=1
+
+
+        }
+
+        // 勝ち負けの表示(残っているパーティの勝ち)
+        println("")
+        if (pt.getParty1().isEmpty()) { // パーティ1が0の場合
+            println("パーティ2の勝利！！/n")
+        } else if (pt.getParty2().isEmpty()) { // パーティ2が0の場合
+            println("パーティ１の勝利！！/n")
+        } else {
+            println("引き分け/n") // お互いパーティが全滅していなければ引き分け
+        }
+
+
+
+
+
+
+
 
 
 
@@ -228,7 +286,7 @@ class BattleMainActivity : AppCompatActivity() {
     }
 
     // 敵キャラクターを作成する
-    fun makeEnemyCharacter(enemyPartyList: CharacterAllData): Player {
+    private fun makeEnemyCharacter(enemyPartyList: CharacterAllData): Player {
 
         when(enemyPartyList.job){
 
@@ -245,7 +303,7 @@ class BattleMainActivity : AppCompatActivity() {
         enemy.setMaxMp(enemy.mp)
         enemy.setMark(false)
         enemy.isPoison = false
-        enemy.ispParalysis = false
+        enemy.isParalysis = false
 
          return  enemy
     }
@@ -268,7 +326,7 @@ class BattleMainActivity : AppCompatActivity() {
         ally.setMaxMp(ally.mp)
         ally.setMark(true)
         ally.isPoison = false
-        ally.ispParalysis = false
+        ally.isParalysis = false
 
         return ally
     }
@@ -277,7 +335,7 @@ class BattleMainActivity : AppCompatActivity() {
     private fun allyPrintStatus01(ally01: Player) {
 
         val allyName01Text: TextView = findViewById(R.id.ally_member01_name_id)
-        allyName01Text.text =ally01.name
+        allyName01Text.text =ally01.getName()
 
         val allyHp01Text: TextView = findViewById(R.id.ally_member01_hp_id)
         allyHp01Text.text = ("%s %d/%d".format("HP",ally01.hp,ally01.getMaxHp()))
@@ -294,7 +352,7 @@ class BattleMainActivity : AppCompatActivity() {
     private fun allyPrintStatus02(ally02: Player) {
 
         val allyName02Text: TextView = findViewById(R.id.ally_member02_name_id)
-        allyName02Text.text =ally02.name
+        allyName02Text.text =ally02.getName()
 
         val allyHp02Text: TextView = findViewById(R.id.ally_member02_hp_id)
         allyHp02Text.text = ("%s %d/%d".format("HP",ally02.hp,ally02.getMaxHp()))
@@ -307,7 +365,7 @@ class BattleMainActivity : AppCompatActivity() {
     private fun allyPrintStatus03(ally03: Player) {
 
         val allyName03Text: TextView = findViewById(R.id.ally_member03_name_id)
-        allyName03Text.text =ally03.name
+        allyName03Text.text =ally03.getName()
 
         val allyHp03Text: TextView = findViewById(R.id.ally_member03_hp_id)
         allyHp03Text.text = ("%s %d/%d".format("HP",ally03.hp,ally03.getMaxHp()))
@@ -321,7 +379,7 @@ class BattleMainActivity : AppCompatActivity() {
     private fun enemyPrintStatus01(enemy01: Player) {
 
         val enemyName01Text: TextView = findViewById(R.id.enemy_member01_name_id)
-        enemyName01Text.text =enemy01.name
+        enemyName01Text.text =enemy01.getName()
 
         val enemyHp01Text: TextView = findViewById(R.id.enemy_member01_hp_id)
         enemyHp01Text.text = ("%s %d/%d".format("HP",enemy01.hp,enemy01.getMaxHp()))
@@ -336,7 +394,7 @@ class BattleMainActivity : AppCompatActivity() {
     private fun enemyPrintStatus02(enemy02: Player) {
 
         val enemyName02Text: TextView = findViewById(R.id.enemy_member02_name_id)
-        enemyName02Text.text =enemy02.name
+        enemyName02Text.text =enemy02.getName()
 
         val enemyHp02Text: TextView = findViewById(R.id.enemy_member02_hp_id)
         enemyHp02Text.text = ("%s %d/%d".format("HP",enemy02.hp,enemy02.getMaxHp()))
@@ -352,7 +410,7 @@ class BattleMainActivity : AppCompatActivity() {
     private fun enemyPrintStatus03(enemy03: Player) {
 
         val enemyName03Text: TextView = findViewById(R.id.enemy_member03_name_id)
-        enemyName03Text.text =enemy03.name
+        enemyName03Text.text =enemy03.getName()
 
         val enemyHp03Text: TextView = findViewById(R.id.enemy_member03_hp_id)
         enemyHp03Text.text = ("%s %d/%d".format("HP",enemy03.hp,enemy03.getMaxHp()))

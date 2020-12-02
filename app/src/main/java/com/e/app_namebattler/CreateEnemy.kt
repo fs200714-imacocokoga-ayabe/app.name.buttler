@@ -8,14 +8,11 @@ import java.time.format.DateTimeFormatter
 
 class CreateEnemy {
 
-   // lateinit var helper: MyOpenHelper
-
     private lateinit var enemy: Player
     var enemyPartyList = arrayListOf<CharacterAllData>()
     var enemyPartyList02 = arrayListOf<CharacterAllData>()
     private val enemyNameList = ArrayList<EnemyName>()
     private val jobList = ArrayList<EnemyJob>()
-    //val enemyList = ArrayList<Player>()
 
     // 相手の名前をenemyListに格納する
    fun setName() {
