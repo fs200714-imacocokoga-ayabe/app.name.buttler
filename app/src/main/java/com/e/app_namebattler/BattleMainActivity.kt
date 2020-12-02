@@ -138,6 +138,12 @@ class BattleMainActivity : AppCompatActivity() {
                     pt.removeMembers(player2)
                 }
 
+                // どちらかのパーティメンバーが0の場合処理を抜ける
+                if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
+                    break
+                }
+
+
             }
 
             // どちらかのパーティメンバーが0の場合処理を抜ける
