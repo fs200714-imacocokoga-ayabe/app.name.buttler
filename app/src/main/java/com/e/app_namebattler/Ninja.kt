@@ -19,10 +19,10 @@ class Ninja (name:String):Player(name){
      * @param defender
      * : 対象プレイヤー
      */
-    override fun attack(defender: Player?) {
-        val strategy = 1
+    override fun attack(defender: Player?): MutableList<String> {
+
         if (!isParalysis) { // 麻痺していない
-            when (strategy) {
+            when ((1..5).random()) {
                 1 -> if (defender != null) {// 直接攻撃,魔法攻撃
                     baseAttack(defender)
                 }
@@ -45,8 +45,11 @@ class Ninja (name:String):Player(name){
             }
         } else { // 麻痺している
             System.out.printf("%sは麻痺で動けない！！\n", getName())
+            battleMessageRecord.add("${getName()}は麻痺で動けない！！\n")
         }
         super.fall(defender!!) // 倒れ判定
+
+        return battleMessageRecord
     }
 
     /**
@@ -72,8 +75,9 @@ class Ninja (name:String):Player(name){
         if (getMP() >= 10) { // MPがあれば術を使用
             useScroll(defender) // 術を使用
         } else { // MPがない場合
-       //     type = "A"
+            //     type = "A"
             System.out.printf("%sの攻撃！\n刀で斬りつけた！\n", getName())
+            battleMessageRecord.add("${getName()}の攻撃！\n刀で斬りつけた！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             super.damageProcess(defender, damage) // ダメージ処理
         }
@@ -86,8 +90,9 @@ class Ninja (name:String):Player(name){
      * : 対象プレイヤー
      */
     private fun directAttack(defender: Player) {
-       // type = "A"
+        // type = "A"
         System.out.printf("%sの攻撃！\n手裏剣を投げつけた！\n", getName())
+        battleMessageRecord.add("${getName()}の攻撃！\n手裏剣を投げつけた！\n")
         damage = calcDamage(defender) // 与えるダメージを求める
         super.damageProcess(defender, damage) // ダメージ処理
     }
@@ -103,8 +108,9 @@ class Ninja (name:String):Player(name){
         if (getMP() >= 10) { // MPがあれば術を使用
             useScroll(defender) // 術を使用
         } else { // MPがない場合
-          //  type = "A"
+            //  type = "A"
             System.out.printf("%sの攻撃！\n刀で突きさした！\n", getName())
+            battleMessageRecord.add("${getName()}の攻撃！\n刀で突きさした！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             super.damageProcess(defender, damage) // ダメージ処理
         }
@@ -117,7 +123,7 @@ class Ninja (name:String):Player(name){
      * : 対象プレイヤー
      */
     private fun skillAttack(defender: Player) { // スキル攻撃処理
-       // type = "A"
+        // type = "A"
         damage = 0
 
         val r = (1..100).random()
@@ -125,9 +131,11 @@ class Ninja (name:String):Player(name){
         if (r > 75) { // 25%で発動
 
             print("${getName()}は目にも止まらぬ速さで攻撃した！\n")
+            battleMessageRecord.add("${getName()}は目にも止まらぬ速さで攻撃した！\n")
 
             for (i in 1..2) {
                 System.out.printf("%d回目の攻撃\n", i)
+                battleMessageRecord.add("${i}回目の攻撃\n")
                 damage = calcDamage(defender) // 攻撃処理
                 super.damageProcess(defender, damage) // ダメージ処理
                 if (defender.getHP() <= 0) { // 倒れた判定
@@ -136,6 +144,7 @@ class Ninja (name:String):Player(name){
             }
         } else { // 75%で不発
             System.out.printf("%sは転んだ！\n", getName())
+            battleMessageRecord.add("${getName()}は転んだ！\n")
         }
     }
 
@@ -146,7 +155,7 @@ class Ninja (name:String):Player(name){
      * : 対象プレイヤー
      */
     private fun useScroll(defender: Player) {
-      //  type = "M"
+        //  type = "M"
 
         damage = (((0.. Magic.FIREROLL.getMaxDamage()).random()
                 - Magic.FIREROLL.getMinDamage())
@@ -156,7 +165,9 @@ class Ninja (name:String):Player(name){
 
         System.out.printf("%sは%sを唱えた！\n火の球が飛んでいく！\n", getName(),
             Magic.FIREROLL.getName())
-       // super.damageProcess(type, defender, damage) // ダメージ処理
+        battleMessageRecord.add("${getName()}は${Magic.FIREROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
+        // super.damageProcess(type, defender, damage) // ダメージ処理
+        super.damageProcess(defender, damage) // ダメージ処理
     }
 
 

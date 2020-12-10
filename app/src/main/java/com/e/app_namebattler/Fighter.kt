@@ -1,8 +1,19 @@
 package com.e.app_namebattler
 
-class Fighter(name:String):Player(name){
+class Fighter(name: String):Player(name){
 
-    constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int): this(name)
+
+
+    constructor(
+        name: String,
+        job: String,
+        hp: Int,
+        mp: Int,
+        str: Int,
+        def: Int,
+        agi: Int,
+        luck: Int
+    ): this(name)
 
     override fun makeCharacter(name: String) {
         // 戦士のパラメータを名前から生成する
@@ -14,11 +25,10 @@ class Fighter(name:String):Player(name){
         this.agi = getNumber(5, 49) + 1 // 1-50
     }
 
-    override fun attack(defender: Player?){
+    override fun attack(defender: Player?): MutableList<String> {
 
         if (!isParalysis) { // 麻痺していない
-            val strategy = 1
-            when (strategy) {
+            when ((1..5).random()) {
                 1 ->
                     if (defender != null) {// 直接攻撃
                         directAttack(defender)
@@ -29,7 +39,7 @@ class Fighter(name:String):Player(name){
                         recoveryPreferred(defender)
                     }
 
-                3 ->if (defender != null) {// 直接攻撃
+                3 -> if (defender != null) {// 直接攻撃
                     directAttack(defender)
                 }
 
@@ -42,34 +52,43 @@ class Fighter(name:String):Player(name){
                 }
             }
         } else {// 麻痺している場合
+
             System.out.printf("%sは麻痺で動けない！！\n", getName())
+            battleMessageRecord.add("${getName()}は麻痺で動けない！！\n").toString()
         }
         super.fall(defender!!) // 倒れた判定
+
+        return battleMessageRecord
     }
 
     private fun directAttack(defender: Player) { // 直接攻撃処理
-     //   type = "A" // 攻撃タイプ(直接攻撃)
+        //   type = "A" // 攻撃タイプ(直接攻撃)
+
         System.out.printf("%sの攻撃！\n%sは剣で斬りつけた！\n", getName(), getName())
+        println("ログ01")
+        battleMessageRecord.add("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
+
         damage = calcDamage(defender) // 与えるダメージを求める
         super.damageProcess(defender, damage) // ダメージ処理
     }
 
     private fun skillAttack(defender: Player) { // スキル攻撃処理
-       // type = "A"
+        // type = "A"
         val r = (1..100).random()
         if (r > 75) { // 乱数値が75より大きいなら
 
             print("${getName()}の捨て身の突撃！\n")
-
+            battleMessageRecord.add("${getName()}の捨て身の突撃！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
 
             damage *= 2 // ダメージ2倍
 
-            super.damageProcess( defender, damage) // ダメージ処理
+            super.damageProcess(defender, damage) // ダメージ処理
 
         } else {
 
             print("${getName()}の捨て身の突撃はかわされた！\n")
+            battleMessageRecord.add("${getName()}の捨て身の突撃はかわされた！！\n")
         }
     }
 

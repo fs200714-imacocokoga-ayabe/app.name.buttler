@@ -6,43 +6,75 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.concurrent.ThreadLocalRandom
 
-open class Player {
+
+open class Player{
+    //  var btl = BattleLog() = null
+    // val btl = BattleLog()
+
+    private var log = ""
+
+    var battleLog = ""
+
+    var listener: BattleLogListener? = null
+
+    val bma = BattleMainActivity()
+
+    var mCallBack: BattleLogListener? = null
+
+    constructor(callBack: BattleLogListener){
+        this.mCallBack = callBack
+        println("ログ04$mCallBack")
+    }
+
 
     private var name:String = ""
 
     constructor(name: String){
 
-       this.name = name
+        this.name = name
 
         makeCharacter(name)
     }
+
+    constructor()
+
+//    private  var txtView: String = ""
+//
+//    constructor(txtView: String){
+//
+//        this.txtView = txtView
+//    }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     open fun randomInt(rangeFirstNum: Int, rangeLastNum: Int) {
         ThreadLocalRandom.current().nextInt(rangeFirstNum, rangeLastNum)
     }
 
-     open var job: String? = "" // 職業
+    //open var battleMessageRecord = ArrayList<String>()
 
-     open var hp: Int = 0 // HP
+    open var battleMessageRecord: MutableList<String> = mutableListOf() // バトルログを格納
 
-     open var mp: Int = 0 // MP
+    open var job: String? = "" // 職業
 
-     open var str:Int = 0 // 攻撃力
+    open var hp: Int = 0 // HP
 
-     open var def:Int = 0 // 防御力
+    open var mp: Int = 0 // MP
+
+    open var str:Int = 0 // 攻撃力
+
+    open var def:Int = 0 // 防御力
 
     open var agi:Int = 0 // すばやさ
 
-     open var luck: Int = 0 // 運
+    open var luck: Int = 0 // 運
 
     private var maxHp: Int = 0 // 最大HP
 
     private var maxMp: Int = 0 // 最大MP
 
-     var isPoison: Boolean = false
+    var isPoison: Boolean = false
 
-     var isParalysis: Boolean = false
+    var isParalysis: Boolean = false
 
     private var mark: Boolean? = false
 
@@ -160,7 +192,7 @@ open class Player {
         try {
 
             // 名前からハッシュ値を生成する
-            val result = MessageDigest.getInstance("SHA-1").digest(name!!.toByteArray())
+            val result = MessageDigest.getInstance("SHA-1").digest(name.toByteArray())
             val digest = String.format("%040x", BigInteger(1, result))
 
             // ハッシュ値から指定された位置の文字列を取り出す（２文字分）
@@ -180,7 +212,9 @@ open class Player {
      * 対象プレイヤーに攻撃を行う
      * @param defender: 対象プレイヤー
      */
-    open fun attack(defender: Player?){
+    open fun attack(defender: Player?): MutableList<String> {
+
+        return battleMessageRecord
 
         // ジョブごとにオーバーライドして処理を記述してください
     }
@@ -195,12 +229,14 @@ open class Player {
         val power = (1 ..getSTR()).random()
         val luk = (1..100).random()
         if (luk <= getLUCK()) { // 乱数の値がlukの値の中なら
-            println("会心の一撃!")
+            println("会心の一撃!\n")
+            battleMessageRecord.add("会心の一撃!\n")
             damage = getSTR()
         } else {
             damage = power - target.getDEF()
             if (damage < 0) {
                 System.out.printf("%sの攻撃はミス！\n", getName())
+                battleMessageRecord.add("${getName()}の攻撃はミス！\n")
                 damage = 0
             }
         }
@@ -213,9 +249,10 @@ open class Player {
      * @param damage :ダメージ
      */
     open fun damageProcess(defender: Player, damage: Int) {
-       // var damage = damage
+        // var damage = damage
         //damage = attributeDecision(type, defender, damage) // 属性処理
         System.out.printf("%sに%dのダメージ！\n", defender.getName(), damage)
+        battleMessageRecord.add("${defender.getName()}に${damage}のダメージ！\n")
         defender.damage(damage) // 求めたダメージを対象プレイヤーに与える
     }
 
@@ -226,11 +263,13 @@ open class Player {
     open fun fall(defender: Player) {
         if (defender.getHP() <= 0) {
             System.out.printf("%sは力尽きた...\n", defender.getName())
+            battleMessageRecord.add("${defender.getName()}は力尽きた...\n")
             abnormalState() // 状態異常チェック
         } else {
             abnormalState() // 状態異常チェック
             if (getHP() <= 0) { // playerの倒れた判定
                 System.out.printf("%sは力尽きた...\n", getName())
+                battleMessageRecord.add("${getName()}は力尽きた...\n")
             }
         }
     }
@@ -242,13 +281,17 @@ open class Player {
 
         if (isPoison) { // true:毒状態 false:無毒状態
             damage(Magic.POISON.getMaxDamage()) // 毒のダメージ計算
-            System.out.printf("%sは毒のダメージを%d受けた！\n", getName(),
-                Magic.POISON.getMaxDamage())
+            System.out.printf(
+                "%sは毒のダメージを%d受けた！\n", getName(),
+                Magic.POISON.getMaxDamage()
+            )
+            battleMessageRecord.add("${getName()}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
         }
         if (isParalysis) { // true:麻痺状態 false:麻痺していない
             if ((1..100).random() > Magic.PARALYSIS.getContinuousRate()) { // 麻痺の確立より乱数が上なら麻痺の解除
                 isParalysis = false // 麻痺解除
                 System.out.printf("%sは麻痺が解けた！\n", getName())
+                battleMessageRecord.add("${getName()}は麻痺が解けた！\n")
             }
         }
     }
@@ -269,14 +312,25 @@ open class Player {
     open fun eatGrass() {
 
         System.out.printf("%sは革袋の中にあった草を食べた！\n", getName())
+        battleMessageRecord.add("${getName()}は革袋の中にあった草を食べた！\n")
         when ((1..3).random()) {
-            0 -> { System.out.printf("%sは体力が%d回復した！\n", getName(), herbRecoveryValue)
-                    recovery(this, herbRecoveryValue)}
+            0 -> {
+                System.out.printf("%sは体力が%d回復した！\n", getName(), herbRecoveryValue)
+                recovery(this, herbRecoveryValue)
+                battleMessageRecord.add("${getName()}は体力が${herbRecoveryValue}回復した！\n")
+                recovery(this, herbRecoveryValue)
+            }
 
-            1 -> { System.out.printf("%sは毒が消えた！\n", getName())
-                 isPoison = false }
+            1 -> {
+                System.out.printf("%sは毒が消えた！\n", getName())
+                battleMessageRecord.add("${getName()}は毒が消えた！\n")
+                isPoison = false
+            }
 
-            2 -> {System.out.printf("%sは何も起こらなかった！\n", getName())}
+            2 -> {
+                System.out.printf("%sは何も起こらなかった！\n", getName())
+                battleMessageRecord.add("${getName()}は何も起こらなかった！\n")
+            }
         }
     }
 
@@ -288,14 +342,14 @@ open class Player {
      */
     open fun recovery(player: Player, heal: Int): Int {
         var heal = heal
-     //   heal = player.getMaxHP().coerceAtMost(player.getHP() + heal) 保留
+        //   heal = player.getMaxHP().coerceAtMost(player.getHP() + heal) 保留
         heal -= player.getHP()
         player.hp = player.getHP() + heal
         return heal
     }
 
-
-
-
+    fun battleLog(battleLog: StringBuilder) {
+        listener?.upDateBattleLog(battleLog)
+    }
 }
 

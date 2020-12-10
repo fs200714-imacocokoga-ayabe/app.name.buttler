@@ -56,4 +56,13 @@
     <string name="text_battle_start_b">バトル</string>
     <string name="text_next_turn">次のターン</string>
     <string name="text_change">変更</string>
+    <string name="text_battle_result">バトル結果</string>
+    <string name="text_challenge_again">再挑戦</string>
+    <string name="text_next_battle">次の対戦へ</string>
+    <string name="text_end_battle_button">対戦を終了する</string>
+    <string name="text_strategy">作戦</string>
+    <string name="strategy_determination_button_text">決定</string>
+    <string name="text_strategy_choice">パーティーの作戦を選んでください</string>
+    <string name="text_battle_main_print_strategy">作戦：</string>
+
 </resources>

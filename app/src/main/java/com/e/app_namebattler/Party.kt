@@ -2,9 +2,9 @@ package com.e.app_namebattler
 
 class Party {
 
-    private var members: MutableList<Player> = ArrayList()   // プレイヤーの入れ物
+    private var members: MutableList<Player> = ArrayList() // プレイヤーの入れ物
     private var party1: MutableList<Player> = ArrayList() // パーティ1の入れ物
-    private var party2: MutableList<Player> = ArrayList()  // パーティ2の入れ物
+    private var party2: MutableList<Player> = ArrayList() // パーティ2の入れ物
     lateinit var player: Player
 
     /**
@@ -15,18 +15,22 @@ class Party {
     }
 
     /**
-     * パーティーにプレイヤーを追加する
-     * @param player: 追加するプレイヤー
+     * パーティー1,パーティー2にプレイヤーを追加する
      */
-    fun appendPlayer(player: Player) {
+    fun appendPlayer(enemy01: Player, enemy02: Player, enemy03: Player, ally01: Player, ally02: Player, ally03: Player) {
 
-        if (player.isMark()!!) {
+        val partyList: MutableList<Player> = mutableListOf(ally01,ally02,ally03,enemy01,enemy02,enemy03)
 
-            party1.add(player) // playerがtrueならparty1に入れる
+        for (player in partyList) {
 
-        } else {
+            if (player.isMark()!!) {
 
-            party2.add(player) // playerがfalseならparty2に入れる
+                party1.add(player) // playerがtrueならparty1に入れる
+
+            } else {
+
+                party2.add(player) // playerがfalseならparty2に入れる
+            }
         }
     }
 

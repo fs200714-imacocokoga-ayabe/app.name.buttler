@@ -7,7 +7,7 @@ class Wizard (name:String):Player(name){
     override fun makeCharacter(name: String) {
         // 魔法使いのパラメータを名前から生成する
         this.hp = getNumber(0, 100) + 50 // 50-150
-       this. mp = getNumber(1, 50) + 30 // 30-80
+        this. mp = getNumber(1, 50) + 30 // 30-80
         this.str = getNumber(2, 49) + 1 // 1-50
         this.def = getNumber(3, 49) + 1 // 1-50
         this.luck = getNumber(4, 99) + 1 // 1-100
@@ -19,10 +19,10 @@ class Wizard (name:String):Player(name){
      * @param defender : 対象プレイヤー
      * @param strategy : 作戦番号
      */
-    override fun attack(defender: Player?) {
-        val strategy = 1
+    override fun attack(defender: Player?): MutableList<String> {
+
         if (!isParalysis) { // 麻痺していない場合
-            when (strategy) {
+            when ((1..5).random()) {
                 1 -> if (defender != null) {// 魔法攻撃,直接攻撃
                     baseAttack(defender)
                 }
@@ -45,8 +45,11 @@ class Wizard (name:String):Player(name){
             }
         } else { // 麻痺している場合
             System.out.printf("%sは麻痺で動けない！！\n", getName())
+            battleMessageRecord.add("${getName()}は麻痺で動けない！！\n")
         }
         super.fall(defender!!) // 倒れた判定
+
+        return battleMessageRecord
     }
 
     /**
@@ -67,11 +70,12 @@ class Wizard (name:String):Player(name){
      */
     private fun baseAttack(defender: Player?) {
         if (getMP() >= 10) { // MPがあれば魔法を使用
-          //  type = "M" // 攻撃タイプ(魔法攻撃)
+            //  type = "M" // 攻撃タイプ(魔法攻撃)
             damage = useMagic()
         } else { // MPがない場合
-           // type = "A"
+            // type = "A"
             System.out.printf("%sの攻撃！\n%sは杖を振り回した！\n", getName(), getName())
+            battleMessageRecord.add("${getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
             damage = calcDamage(defender!!) // 与えるダメージを求める
         }
         super.damageProcess(defender!!, damage) // ダメージ処理
@@ -82,8 +86,9 @@ class Wizard (name:String):Player(name){
      * @param defender : 対象プレイヤー
      */
     private fun directAttack(defender: Player?) {
-      //  type = "A" // 直接攻撃タイプ
+        //  type = "A" // 直接攻撃タイプ
         System.out.printf("%sの攻撃！\n%sは杖を投げつけた！\n", getName(), getName())
+        battleMessageRecord.add("${getName()}の攻撃！\n${getName()}は杖を投げつけた！\n")
         damage = calcDamage(defender!!) // 与えるダメージを求める
         super.damageProcess(defender, damage) // ダメージ処理
     }
@@ -93,18 +98,20 @@ class Wizard (name:String):Player(name){
      * @param defender : 対象プレイヤー
      */
     private fun skillAttack(defender: Player?) {
-      //  type = "M" // 魔法攻撃タイプ
+        //  type = "M" // 魔法攻撃タイプ
         val r = (1..100).random()
 
         if (r > 75) { // 25％で発動
 
             print("${getName()}は魔法陣を描いて${Magic.FIREELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
+            battleMessageRecord.add("${getName()}は魔法陣を描いて${Magic.FIREELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
 
             super.damageProcess(defender!!, Magic.FIREELEMENTAL.getMinDamage()) // ダメージ処理
 
         } else { // 75%で不発
 
             System.out.printf("%sの攻撃だがスキルは発動しなかった！\n", getName())
+            battleMessageRecord.add("${getName()}の攻撃だがスキルは発動しなかった！\n")
         }
     }
 
@@ -129,7 +136,6 @@ class Wizard (name:String):Player(name){
         return damage
     }
 
-
     /**
      * 魔法ファイアを使う
      * @return ダメージ値(10-30)
@@ -137,6 +143,7 @@ class Wizard (name:String):Player(name){
     private fun useFire(): Int {
 
         print("${getName()}は${Magic.FIRE.getName()}を唱えた！\n炎が渦を巻いた！\n")
+        battleMessageRecord.add("${getName()}は${Magic.FIRE.getName()}を唱えた！\n炎が渦を巻いた！\n")
 
         damage = (((0..Magic.FIRE.getMaxDamage()).random()
                 - Magic.FIRE.getMinDamage())
@@ -153,6 +160,7 @@ class Wizard (name:String):Player(name){
 
         System.out.printf("%sは%sを唱えた！\n雷が地面を這っていく！\n", getName(), Magic.THUNDER
             .getName())
+        battleMessageRecord.add("${getName()}は${Magic.THUNDER.getName()}を唱えた！\n雷が地面を這っていく！\n")
         damage = (((0..Magic.THUNDER.getMaxDamage()).random()
                 - Magic.THUNDER.getMinDamage())
                 + Magic.THUNDER.getMinDamage()) // 乱数20～50
