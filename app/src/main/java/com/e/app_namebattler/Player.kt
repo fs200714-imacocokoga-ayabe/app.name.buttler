@@ -11,20 +11,22 @@ open class Player{
     //  var btl = BattleLog() = null
     // val btl = BattleLog()
 
+    var bsb = StringBuilder()
+
     private var log = ""
 
     var battleLog = ""
 
     var listener: BattleLogListener? = null
 
-    val bma = BattleMainActivity()
+   // val bma = BattleMainActivity()
 
     var mCallBack: BattleLogListener? = null
 
-    constructor(callBack: BattleLogListener){
-        this.mCallBack = callBack
-        println("ログ04$mCallBack")
-    }
+//    constructor(callBack: BattleLogListener){
+//        this.mCallBack = callBack
+//        println("ログ04$mCallBack")
+//    }
 
 
     private var name:String = ""
@@ -212,9 +214,12 @@ open class Player{
      * 対象プレイヤーに攻撃を行う
      * @param defender: 対象プレイヤー
      */
-    open fun attack(defender: Player?): MutableList<String> {
+    open fun attack(defender: Player?): StringBuilder {
 
-        return battleMessageRecord
+        bsb.clear()
+
+       // return battleMessageRecord
+        return bsb
 
         // ジョブごとにオーバーライドして処理を記述してください
     }
@@ -229,14 +234,16 @@ open class Player{
         val power = (1 ..getSTR()).random()
         val luk = (1..100).random()
         if (luk <= getLUCK()) { // 乱数の値がlukの値の中なら
-            println("会心の一撃!\n")
-            battleMessageRecord.add("会心の一撃!\n")
+         //   println("会心の一撃!\n")
+         //   battleMessageRecord.add("会心の一撃!\n")
+            bsb.append("会心の一撃!\n")
             damage = getSTR()
         } else {
             damage = power - target.getDEF()
             if (damage < 0) {
-                System.out.printf("%sの攻撃はミス！\n", getName())
-                battleMessageRecord.add("${getName()}の攻撃はミス！\n")
+             //   System.out.printf("%sの攻撃はミス！\n", getName())
+             //   battleMessageRecord.add("${getName()}の攻撃はミス！\n")
+                bsb.append("${getName()}の攻撃はミス！\n")
                 damage = 0
             }
         }
@@ -251,8 +258,9 @@ open class Player{
     open fun damageProcess(defender: Player, damage: Int) {
         // var damage = damage
         //damage = attributeDecision(type, defender, damage) // 属性処理
-        System.out.printf("%sに%dのダメージ！\n", defender.getName(), damage)
-        battleMessageRecord.add("${defender.getName()}に${damage}のダメージ！\n")
+      //  System.out.printf("%sに%dのダメージ！\n", defender.getName(), damage)
+      //  battleMessageRecord.add("${defender.getName()}に${damage}のダメージ！\n")
+        bsb.append("${defender.getName()}に${damage}のダメージ！\n")
         defender.damage(damage) // 求めたダメージを対象プレイヤーに与える
     }
 
@@ -262,14 +270,16 @@ open class Player{
      */
     open fun fall(defender: Player) {
         if (defender.getHP() <= 0) {
-            System.out.printf("%sは力尽きた...\n", defender.getName())
-            battleMessageRecord.add("${defender.getName()}は力尽きた...\n")
+         //   System.out.printf("%sは力尽きた...\n", defender.getName())
+         //   battleMessageRecord.add("${defender.getName()}は力尽きた...\n")
+            bsb.append("${defender.getName()}は力尽きた...\n")
             abnormalState() // 状態異常チェック
         } else {
             abnormalState() // 状態異常チェック
             if (getHP() <= 0) { // playerの倒れた判定
-                System.out.printf("%sは力尽きた...\n", getName())
-                battleMessageRecord.add("${getName()}は力尽きた...\n")
+              //  System.out.printf("%sは力尽きた...\n", getName())
+             //   battleMessageRecord.add("${getName()}は力尽きた...\n")
+                bsb.append("${getName()}は力尽きた...\n")
             }
         }
     }
@@ -281,17 +291,19 @@ open class Player{
 
         if (isPoison) { // true:毒状態 false:無毒状態
             damage(Magic.POISON.getMaxDamage()) // 毒のダメージ計算
-            System.out.printf(
-                "%sは毒のダメージを%d受けた！\n", getName(),
-                Magic.POISON.getMaxDamage()
-            )
-            battleMessageRecord.add("${getName()}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
+          //  System.out.printf(
+         //       "%sは毒のダメージを%d受けた！\n", getName(),
+         //       Magic.POISON.getMaxDamage()
+         //   )
+         //   battleMessageRecord.add("${getName()}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
+            bsb.append("${getName()}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
         }
         if (isParalysis) { // true:麻痺状態 false:麻痺していない
             if ((1..100).random() > Magic.PARALYSIS.getContinuousRate()) { // 麻痺の確立より乱数が上なら麻痺の解除
                 isParalysis = false // 麻痺解除
-                System.out.printf("%sは麻痺が解けた！\n", getName())
-                battleMessageRecord.add("${getName()}は麻痺が解けた！\n")
+             //   System.out.printf("%sは麻痺が解けた！\n", getName())
+            //    battleMessageRecord.add("${getName()}は麻痺が解けた！\n")
+                bsb.append("${getName()}は麻痺が解けた！\n")
             }
         }
     }
@@ -311,25 +323,29 @@ open class Player{
      */
     open fun eatGrass() {
 
-        System.out.printf("%sは革袋の中にあった草を食べた！\n", getName())
-        battleMessageRecord.add("${getName()}は革袋の中にあった草を食べた！\n")
+       // System.out.printf("%sは革袋の中にあった草を食べた！\n", getName())
+       // battleMessageRecord.add("${getName()}は革袋の中にあった草を食べた！\n")
+        bsb.append("${getName()}は革袋の中にあった草を食べた！\n")
         when ((1..3).random()) {
             0 -> {
-                System.out.printf("%sは体力が%d回復した！\n", getName(), herbRecoveryValue)
-                recovery(this, herbRecoveryValue)
-                battleMessageRecord.add("${getName()}は体力が${herbRecoveryValue}回復した！\n")
+                //System.out.printf("%sは体力が%d回復した！\n", getName(), herbRecoveryValue)
+               // recovery(this, herbRecoveryValue)
+               // battleMessageRecord.add("${getName()}は体力が${herbRecoveryValue}回復した！\n")
+                bsb.append("${getName()}は体力が${herbRecoveryValue}回復した！\n")
                 recovery(this, herbRecoveryValue)
             }
 
             1 -> {
-                System.out.printf("%sは毒が消えた！\n", getName())
-                battleMessageRecord.add("${getName()}は毒が消えた！\n")
+               // System.out.printf("%sは毒が消えた！\n", getName())
+              //  battleMessageRecord.add("${getName()}は毒が消えた！\n")
+                bsb.append("${getName()}は毒が消えた！\n")
                 isPoison = false
             }
 
             2 -> {
-                System.out.printf("%sは何も起こらなかった！\n", getName())
-                battleMessageRecord.add("${getName()}は何も起こらなかった！\n")
+                //System.out.printf("%sは何も起こらなかった！\n", getName())
+               // battleMessageRecord.add("${getName()}は何も起こらなかった！\n")
+                bsb.append("${getName()}は何も起こらなかった！\n")
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.e.app_namebattler
 
+import java.util.concurrent.TimeUnit
+
 class Fighter(name: String):Player(name){
 
 
@@ -25,7 +27,12 @@ class Fighter(name: String):Player(name){
         this.agi = getNumber(5, 49) + 1 // 1-50
     }
 
-    override fun attack(defender: Player?): MutableList<String> {
+    override fun attack(defender: Player?): StringBuilder {
+
+        //Thread.sleep(1_000)  // wait for 1 second
+       // TimeUnit.SECONDS.sleep(1L)
+
+        bsb.clear()
 
         if (!isParalysis) { // 麻痺していない
             when ((1..5).random()) {
@@ -55,18 +62,22 @@ class Fighter(name: String):Player(name){
 
             System.out.printf("%sは麻痺で動けない！！\n", getName())
             battleMessageRecord.add("${getName()}は麻痺で動けない！！\n").toString()
+            bsb.append("${getName()}は麻痺で動けない！！\n")
+
         }
         super.fall(defender!!) // 倒れた判定
 
-        return battleMessageRecord
+        //return battleMessageRecord
+        return bsb
     }
 
     private fun directAttack(defender: Player) { // 直接攻撃処理
         //   type = "A" // 攻撃タイプ(直接攻撃)
 
-        System.out.printf("%sの攻撃！\n%sは剣で斬りつけた！\n", getName(), getName())
-        println("ログ01")
-        battleMessageRecord.add("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
+      //  System.out.printf("%sの攻撃！\n%sは剣で斬りつけた！\n", getName(), getName())
+      //  println("ログ01")
+       // battleMessageRecord.add("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
+        bsb.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
 
         damage = calcDamage(defender) // 与えるダメージを求める
         super.damageProcess(defender, damage) // ダメージ処理
@@ -77,8 +88,9 @@ class Fighter(name: String):Player(name){
         val r = (1..100).random()
         if (r > 75) { // 乱数値が75より大きいなら
 
-            print("${getName()}の捨て身の突撃！\n")
-            battleMessageRecord.add("${getName()}の捨て身の突撃！\n")
+          //  print("${getName()}の捨て身の突撃！\n")
+           // battleMessageRecord.add("${getName()}の捨て身の突撃！\n")
+            bsb.append("${getName()}の捨て身の突撃！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
 
             damage *= 2 // ダメージ2倍
@@ -87,8 +99,9 @@ class Fighter(name: String):Player(name){
 
         } else {
 
-            print("${getName()}の捨て身の突撃はかわされた！\n")
-            battleMessageRecord.add("${getName()}の捨て身の突撃はかわされた！！\n")
+          //  print("${getName()}の捨て身の突撃はかわされた！\n")
+           // battleMessageRecord.add("${getName()}の捨て身の突撃はかわされた！！\n")
+            bsb.append("${getName()}の捨て身の突撃はかわされた！！\n")
         }
     }
 

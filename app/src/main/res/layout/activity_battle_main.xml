@@ -399,7 +399,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="15sp"
-        android:clickable="true"
         app:layout_constraintBottom_toTopOf="@+id/next_turn_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,7 @@
 package com.e.app_namebattler
 
+import java.util.concurrent.TimeUnit
+
 class Wizard (name:String):Player(name){
 
     constructor(name: String,job: String,hp: Int,mp: Int,str: Int,def: Int,agi: Int,luck: Int): this(name)
@@ -19,7 +21,12 @@ class Wizard (name:String):Player(name){
      * @param defender : 対象プレイヤー
      * @param strategy : 作戦番号
      */
-    override fun attack(defender: Player?): MutableList<String> {
+    override fun attack(defender: Player?): StringBuilder {
+
+        //Thread.sleep(1_000)  // wait for 1 second
+       // TimeUnit.SECONDS.sleep(1L)
+
+        bsb.clear()
 
         if (!isParalysis) { // 麻痺していない場合
             when ((1..5).random()) {
@@ -44,12 +51,14 @@ class Wizard (name:String):Player(name){
                 }
             }
         } else { // 麻痺している場合
-            System.out.printf("%sは麻痺で動けない！！\n", getName())
-            battleMessageRecord.add("${getName()}は麻痺で動けない！！\n")
+           // System.out.printf("%sは麻痺で動けない！！\n", getName())
+          //  battleMessageRecord.add("${getName()}は麻痺で動けない！！\n")
+            bsb.append("${getName()}は麻痺で動けない！！\n")
         }
         super.fall(defender!!) // 倒れた判定
 
-        return battleMessageRecord
+        //return battleMessageRecord
+        return bsb
     }
 
     /**
@@ -74,8 +83,9 @@ class Wizard (name:String):Player(name){
             damage = useMagic()
         } else { // MPがない場合
             // type = "A"
-            System.out.printf("%sの攻撃！\n%sは杖を振り回した！\n", getName(), getName())
-            battleMessageRecord.add("${getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
+         //   System.out.printf("%sの攻撃！\n%sは杖を振り回した！\n", getName(), getName())
+          //  battleMessageRecord.add("${getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
+            bsb.append("${getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
             damage = calcDamage(defender!!) // 与えるダメージを求める
         }
         super.damageProcess(defender!!, damage) // ダメージ処理
@@ -87,8 +97,9 @@ class Wizard (name:String):Player(name){
      */
     private fun directAttack(defender: Player?) {
         //  type = "A" // 直接攻撃タイプ
-        System.out.printf("%sの攻撃！\n%sは杖を投げつけた！\n", getName(), getName())
-        battleMessageRecord.add("${getName()}の攻撃！\n${getName()}は杖を投げつけた！\n")
+       // System.out.printf("%sの攻撃！\n%sは杖を投げつけた！\n", getName(), getName())
+       // battleMessageRecord.add("${getName()}の攻撃！\n${getName()}は杖を投げつけた！\n")
+        bsb.append("${getName()}の攻撃！\n${getName()}は杖を投げつけた！\n")
         damage = calcDamage(defender!!) // 与えるダメージを求める
         super.damageProcess(defender, damage) // ダメージ処理
     }
@@ -103,15 +114,17 @@ class Wizard (name:String):Player(name){
 
         if (r > 75) { // 25％で発動
 
-            print("${getName()}は魔法陣を描いて${Magic.FIREELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
-            battleMessageRecord.add("${getName()}は魔法陣を描いて${Magic.FIREELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
+          //  print("${getName()}は魔法陣を描いて${Magic.FIREELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
+        //    battleMessageRecord.add("${getName()}は魔法陣を描いて${Magic.FIREELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
+            bsb.append("${getName()}は魔法陣を描いて${Magic.FIREELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
 
             super.damageProcess(defender!!, Magic.FIREELEMENTAL.getMinDamage()) // ダメージ処理
 
         } else { // 75%で不発
 
-            System.out.printf("%sの攻撃だがスキルは発動しなかった！\n", getName())
-            battleMessageRecord.add("${getName()}の攻撃だがスキルは発動しなかった！\n")
+           // System.out.printf("%sの攻撃だがスキルは発動しなかった！\n", getName())
+           // battleMessageRecord.add("${getName()}の攻撃だがスキルは発動しなかった！\n")
+            bsb.append("${getName()}の攻撃だがスキルは発動しなかった！\n")
         }
     }
 
@@ -142,8 +155,9 @@ class Wizard (name:String):Player(name){
      */
     private fun useFire(): Int {
 
-        print("${getName()}は${Magic.FIRE.getName()}を唱えた！\n炎が渦を巻いた！\n")
-        battleMessageRecord.add("${getName()}は${Magic.FIRE.getName()}を唱えた！\n炎が渦を巻いた！\n")
+     //   print("${getName()}は${Magic.FIRE.getName()}を唱えた！\n炎が渦を巻いた！\n")
+      //  battleMessageRecord.add("${getName()}は${Magic.FIRE.getName()}を唱えた！\n炎が渦を巻いた！\n")
+        bsb.append("${getName()}は${Magic.FIRE.getName()}を唱えた！\n炎が渦を巻いた！\n")
 
         damage = (((0..Magic.FIRE.getMaxDamage()).random()
                 - Magic.FIRE.getMinDamage())
@@ -158,9 +172,10 @@ class Wizard (name:String):Player(name){
      */
     private fun useThunder(): Int { // 魔法サンダーの処理
 
-        System.out.printf("%sは%sを唱えた！\n雷が地面を這っていく！\n", getName(), Magic.THUNDER
-            .getName())
-        battleMessageRecord.add("${getName()}は${Magic.THUNDER.getName()}を唱えた！\n雷が地面を這っていく！\n")
+      //  System.out.printf("%sは%sを唱えた！\n雷が地面を這っていく！\n", getName(), Magic.THUNDER
+      //      .getName())
+     //   battleMessageRecord.add("${getName()}は${Magic.THUNDER.getName()}を唱えた！\n雷が地面を這っていく！\n")
+        bsb.append("${getName()}は${Magic.THUNDER.getName()}を唱えた！\n雷が地面を這っていく！\n")
         damage = (((0..Magic.THUNDER.getMaxDamage()).random()
                 - Magic.THUNDER.getMinDamage())
                 + Magic.THUNDER.getMinDamage()) // 乱数20～50

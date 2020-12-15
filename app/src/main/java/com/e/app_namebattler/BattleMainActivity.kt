@@ -2,7 +2,6 @@ package com.e.app_namebattler
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -14,17 +13,19 @@ import kotlin.collections.ArrayList
 
 class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogListener {
 
+    // private val sb = StringBuilder()
 
+     private val party1: MutableList<Player> = ArrayList()
 
-    // var txtView: TextView? = null
+     private val party2: MutableList<Player> = ArrayList()
+
 
     private var s = Scanner(System.`in`)
-
-    //private lateinit var mListAdapter: BattleMainListAdapter
 
     lateinit var helper: MyOpenHelper
 
     private val gm = GameManager()
+    private val gm2 = GameManager()
 
     val pt = Party()
 
@@ -34,32 +35,14 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     private var allyPartyList = ArrayList<CharacterAllData>()
 
-    private var allyPartyList02 = ArrayList<Player>()
-
-    private lateinit var allCharacterList: List<Player>
-
-    private var enemyPartyList02 = ArrayList<Player>()
-
-    private lateinit var attackList: List<Player>
-
-    private lateinit var speedOrderList: List<Player>
-
-    var allyBattlePartyList = arrayListOf<String>()
-
-    var battleMessageRecord: MutableList<String> = mutableListOf() // バトルログを格納
-
     lateinit var ally: Player
     private lateinit var enemy: Player
-    lateinit var actCharacter: Player
     lateinit var ally01: Player
     lateinit var ally02: Player
     lateinit var ally03: Player
     lateinit var enemy01: Player
     lateinit var enemy02: Player
     lateinit var enemy03: Player
-    private lateinit var player: Player
-    private lateinit var player1: Player
-    lateinit var player2: Player
 
     private val e = CreateEnemy()
 
@@ -71,7 +54,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_main)
 
-        val battleMainLogTextDialog = findViewById<View>(R.id.battle_main_battle_log_text_id) as TextView
+        val battleMainLogTextDialog =
+            findViewById<View>(R.id.battle_main_battle_log_text_id) as TextView
 
         battleMainLogTextDialog.setOnClickListener(this)
 
@@ -83,14 +67,13 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         val enemyName03 = intent.getStringExtra("enemyName03_key")
         val strategyName = intent.getStringExtra("strategy_key")
 
-        println("確認$strategyName")
-
         if (strategyName != null) {
             printStrategy(strategyName)
         } else {
             printStrategy("ガンガンいこうぜ")
         }
 
+        // タップすると始まります
         val bl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
         bl.text = "Tap to start"
 
@@ -99,198 +82,10 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         // 味方のデータを名前から取得する
         allyPartyList = getAllyData(allyName01, allyName02, allyName03)
 
-        // 敵キャラクターを作成する
-        enemy01 = makeEnemyCharacter(enemyPartyList[0])
-        enemy02 = makeEnemyCharacter(enemyPartyList[1])
-        enemy03 = makeEnemyCharacter(enemyPartyList[2])
+        gm2.myCallBack = this
 
-        // 味方キャラクターを作成する
-        ally01 = makeAllyCharacter(allyPartyList[0])
-        ally02 = makeAllyCharacter(allyPartyList[1])
-        ally03 = makeAllyCharacter(allyPartyList[2])
-
-        // スピード順に取得する
-        speedOrderList = (gm.speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03))
-
-        // パーティの振り分け
-        pt.appendPlayer(enemy01, enemy02, enemy03, ally01, ally02, ally03)
-
-        // キャラクターの表示
-        enemyPrintStatus01(enemy01)
-        enemyPrintStatus02(enemy02)
-        enemyPrintStatus03(enemy03)
-        allyPrintStatus01(ally01)
-        allyPrintStatus02(ally02)
-        allyPrintStatus03(ally03)
-
-
-//----------------------------------------------------------------------------------------------
-//override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//    // Inflate the menu; this adds items to the action bar if it is present.
-//    menuInflater.inflate(android.R.activity_battle_main, menu)
-//    return true
-//}
-
-//        fun battle(view: View?) {
-//            val ts = Toast.makeText(this, "TextViewがタップされたよ", Toast.LENGTH_SHORT)
-//            ts.show()
-//        }
-
-//        fun onClick(v: View?) {
-//
-//
-//
-//        }
-
-        //  var turnNumber = 1 // ターンの初期値
-
-//        for (i in speedOrderList) {
-//
-//            player1 = i
-//
-//            player2 = if (player1.isMark()!!) {
-//
-//                val a = (1..pt.getParty2().size).random()
-//                pt.getParty2()[a - 1]
-//
-//            } else {
-//
-//                val a = (1..pt.getParty1().size).random()
-//                pt.getParty1()[a - 1]
-//
-//            }
-//
-//            battleMessageRecord.add(player1.attack(player2).toString())
-//
-//            val pl = Player()
-//            pl.listener = this
-//
-//            val sb = StringBuilder()
-//            for (s in battleMessageRecord) {
-//
-//                val ss = s.replace("[", "").replace("]", "").replace(",", "")
-//                Log.i("debug", ss)
-//                sb.append(ss)
-//
-//                //  Thread.sleep(1_000)  // wait for 1 second
-////                pl.battleLog(s)
-//
-//            }
-//
-//            pl.battleLog(sb)
-//
-//
-//
-////            for (i in 1.. battleMessageRecord.size) {
-////
-////                //  Thread.sleep(1_000)  // wait for 1 second
-////                pl.battleLog(battleMessageRecord[i - 1])
-////
-////            }
-////            val p1 = battleMessageRecord[0]
-////            val p2 = battleMessageRecord[1]
-////            val p3 = battleMessageRecord[2]
-////            val p4 = battleMessageRecord[3]
-////            val p5 = battleMessageRecord[4]
-////            val p6 = battleMessageRecord[5]
-////
-////            println("ログ001$p1")
-////            println("ログ002$p2")
-////            println("ログ003$p3")
-////            println("ログ004$p4")
-////            println("ログ005$p5")
-////            println("ログ006$p6")
-//
-//
-//        }
-//
-//          //  }
-////        val pl = Player()
-////        pl.listener = this
-//
-//        for (i in battleMessageRecord) {
-//           // println("ログ000$i")
-//            Log.i("debugログ000", i)
-//        }
-
-//            while (turnNumber <= 20) {// 最大でも20ターンまで
-//
-//            println("ターン$turnNumber")
-//
-//
-//            for(i in speedOrderList){
-//
-//                player1 = i
-//
-//                player2 = if (player1.isMark()!!) {
-//
-//                    val a = (1..pt.getParty2().size).random()
-//                    pt.getParty2()[a - 1]
-//
-//                }else{
-//
-//                    val a = (1..pt.getParty1().size).random()
-//                    pt.getParty1()[a - 1]
-//
-//                }
-//
-//                player1.attack(player2)
-//
-//
-//                val bl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-//                bl.text = player1.attack(player2).toString()
-//
-//                if (player1.getHP() <= 0) { // プレイヤー１相手プレイヤーの敗北判定
-//                    speedOrderList-=player1
-//                    pt.removePlayer(player1)
-//                    pt.removeMembers(player1)
-//                }
-//                if (player2.getHP() <= 0) { // 相手プレイヤーがHP0の場合
-//                    speedOrderList-=player2
-//                    pt.removePlayer(player2)
-//                    pt.removeMembers(player2)
-//                }
-//
-//                enemyPrintStatus01(enemy01)
-//                enemyPrintStatus02(enemy02)
-//                enemyPrintStatus03(enemy03)
-//                allyPrintStatus01(ally01)
-//                allyPrintStatus02(ally02)
-//                allyPrintStatus03(ally03)
-//
-//
-//                // どちらかのパーティメンバーが0の場合処理を抜ける
-//                if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
-//                    break
-//                }
-//
-//            }
-//
-//            // どちらかのパーティメンバーが0の場合処理を抜ける
-//            if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
-//                break
-//            }
-
-        // nextTurn()
-//
-//            turnNumber+=1
-//
-//        }
-//
-//        // 勝ち負けの表示(残っているパーティの勝ち)
-//        println("")
-//
-//        when {
-//            pt.getParty1().isEmpty() -> { // パーティ1が0の場合
-//                println("パーティ2の勝利！！/n")
-//            }
-//            pt.getParty2().isEmpty() -> { // パーティ2が0の場合
-//                println("パーティ１の勝利！！/n")
-//            }
-//            else -> {
-//                println("引き分け/n") // お互いパーティが全滅していなければ引き分け
-//            }
-//        }
+        // コントロールをGameManagerに移譲
+        gm2.controlTransfer(allyPartyList, enemyPartyList)
 
         // 作戦変更画面に遷移
         strategy_change_button_id.setOnClickListener {
@@ -299,10 +94,20 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         }
 
         next_turn_button_id.setOnClickListener {
-            battle()
-        }
 
-    }
+            gm2.battle()
+
+            println("パーティー1${gm2.getParty01()}")
+            println("パーティー2${gm2.getParty02()}")
+
+            if (gm2.getParty01().isEmpty() || gm2.getParty02().isEmpty()) {
+
+
+                val intent = Intent(this, BattleResultScreenActivity::class.java)
+                startActivity(intent)
+            }
+        }
+   }
 
     // 名前を受け取りデータベースから敵キャラクターのステータスを取得する
     private fun getEnemyData(
@@ -542,7 +347,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     }
 
     // 味方キャラクター01のステータスを表示する
-    private fun allyPrintStatus01(ally01: Player) {
+    fun allyPrintStatus01(ally01: Player) {
 
         val allyName01Text: TextView = findViewById(R.id.ally_member01_name_id)
         allyName01Text.text = ally01.getName()
@@ -552,14 +357,10 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         val allyMp01Text: TextView = findViewById(R.id.ally_member01_mp_id)
         allyMp01Text.text = ("%s %d/%d".format("MP", ally01.mp, ally01.getMaxMp()))
-
-//        val allyStatus01Text: TextView = findViewById(R.id.ally_member01_status_id)
-//        allyStatus01Text.text =ally01.Status
-
     }
 
     // 味方キャラクター02のステータスを表示する
-    private fun allyPrintStatus02(ally02: Player) {
+    fun allyPrintStatus02(ally02: Player) {
 
         val allyName02Text: TextView = findViewById(R.id.ally_member02_name_id)
         allyName02Text.text = ally02.getName()
@@ -572,7 +373,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     }
 
     // 味方キャラクター03のステータスを表示する
-    private fun allyPrintStatus03(ally03: Player) {
+    fun allyPrintStatus03(ally03: Player) {
 
         val allyName03Text: TextView = findViewById(R.id.ally_member03_name_id)
         allyName03Text.text = ally03.getName()
@@ -586,7 +387,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     }
 
     //  敵キャラクター01のステータスを表示する
-    private fun enemyPrintStatus01(enemy01: Player) {
+    fun enemyPrintStatus01(enemy01: Player) {
 
         val enemyName01Text: TextView = findViewById(R.id.enemy_member01_name_id)
         enemyName01Text.text = enemy01.getName()
@@ -597,11 +398,10 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         val enemyMp01Text: TextView = findViewById(R.id.enemy_member01_mp_id)
         enemyMp01Text.text = ("%s %d/%d".format("MP", enemy01.mp, enemy01.getMaxMp()))
 
-
     }
 
     //  敵キャラクター02のステータスを表示する
-    private fun enemyPrintStatus02(enemy02: Player) {
+    fun enemyPrintStatus02(enemy02: Player) {
 
         val enemyName02Text: TextView = findViewById(R.id.enemy_member02_name_id)
         enemyName02Text.text = enemy02.getName()
@@ -612,11 +412,10 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         val enemyMp02Text: TextView = findViewById(R.id.enemy_member02_mp_id)
         enemyMp02Text.text = ("%s %d/%d".format("MP", enemy02.mp, enemy02.getMaxMp()))
 
-
     }
 
     //  敵キャラクター03のステータスを表示する
-    private fun enemyPrintStatus03(enemy03: Player) {
+    fun enemyPrintStatus03(enemy03: Player) {
 
         val enemyName03Text: TextView = findViewById(R.id.enemy_member03_name_id)
         enemyName03Text.text = enemy03.getName()
@@ -626,7 +425,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         val enemyMp03Text: TextView = findViewById(R.id.enemy_member03_mp_id)
         enemyMp03Text.text = ("%s %d/%d".format("MP", enemy03.mp, enemy03.getMaxMp()))
-
 
     }
 
@@ -661,9 +459,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         ally02 = makeAllyCharacter(allyPartyList[1])
         ally03 = makeAllyCharacter(allyPartyList[2])
 
-        // スピード順に取得する
-        speedOrderList = (gm.speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03))
-
     }
 
     override fun upDateBattleLog(log: StringBuilder) {
@@ -672,123 +467,35 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         bl.text = log
     }
 
+    override fun upDateStatus(
+        ally01: Player,
+        ally02: Player,
+        ally03: Player,
+        enemy01: Player,
+        enemy02: Player,
+        enemy03: Player
+    ) {
+
+        allyPrintStatus01(ally01)
+        allyPrintStatus02(ally02)
+        allyPrintStatus03(ally03)
+        enemyPrintStatus01(enemy01)
+        enemyPrintStatus02(enemy02)
+        enemyPrintStatus03(enemy03)
+
+    }
+
     override fun onClick(v: View?) {
 
-        if (turnNumber == 1){
-            battle()
+        if (turnNumber == 1) {
+
+            gm2.battle()
         }
-//        if (v != null) {
-//            if (v.id == R.id.battle_main_battle_log_text_id) {
+
         Toast.makeText(this, "テストモード", Toast.LENGTH_SHORT).show()
-//                battle()
-//            }
-//        }
+
         turnNumber += 1
-
-    }
-
-    private fun battle(){
-
-        val sb = StringBuilder()
-
-        for (i in speedOrderList) {
-
-            player1 = i
-
-            player2 = if (player1.isMark()!!) {
-
-                val a = (1..pt.getParty2().size).random()
-                pt.getParty2()[a - 1]
-
-            } else {
-
-                val a = (1..pt.getParty1().size).random()
-                pt.getParty1()[a - 1]
-            }
-
-            battleMessageRecord.add(player1.attack(player2).toString())
-
-            if (player1.getHP() <= 0) { // プレイヤー１相手プレイヤーの敗北判定
-                speedOrderList-=player1
-                pt.removePlayer(player1)
-                pt.removeMembers(player1)
-            }
-            if (player2.getHP() <= 0) { // 相手プレイヤーがHP0の場合
-                speedOrderList-=player2
-                pt.removePlayer(player2)
-                pt.removeMembers(player2)
-            }
-
-            enemyPrintStatus01(enemy01)
-            enemyPrintStatus02(enemy02)
-            enemyPrintStatus03(enemy03)
-            allyPrintStatus01(ally01)
-            allyPrintStatus02(ally02)
-            allyPrintStatus03(ally03)
-
-            // どちらかのパーティメンバーが0の場合処理を抜ける
-            if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
-
-                val intent = Intent(this, BattleResultScreenActivity::class.java)
-                startActivity(intent)
-
-            }
-
-//            }
-//
-            // どちらかのパーティメンバーが0の場合処理を抜ける
-//            if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
-//
-//                val intent = Intent(this, BattleResultScreenActivity::class.java)
-//                startActivity(intent)
-//
-//            }
-
-            // nextTurn()
-//
-//            turnNumber+=1
-//
-//        }
-//
-            // 勝ち負けの表示(残っているパーティの勝ち)
-            when {
-                pt.getParty1().isEmpty() -> { // パーティ1が0の場合
-                    println("パーティ2の勝利！！/n")
-                    sb.append("パーティ2の勝利！！/n")
-                }
-                pt.getParty2().isEmpty() -> { // パーティ2が0の場合
-                    println("パーティ１の勝利！！/n")
-                    sb.append("パーティ1の勝利！！/n")
-                }
-            }
-
-
-            val pl = Player()
-            pl.listener = this
-
-
-            for (s in battleMessageRecord) {
-
-                val ss = s.replace("[", "").replace("]", "").replace(",", "")
-                Log.i("debug", ss)
-                sb.append(ss)
-
-            }
-            pl.battleLog(sb)
-
-//            Log.i("エスビー00",sb.toString())
-        }
-
-        battleMessageRecord.clear()
-        sb.clear()
-
-        Log.i("エスビーi01", sb.toString())
-
-//        for (i in battleMessageRecord) {
-//            // println("ログ000$i")
-//            Log.i("debugログ000", i)
-//        }
-
     }
 }
+
 

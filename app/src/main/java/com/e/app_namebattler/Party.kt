@@ -86,20 +86,4 @@ class Party {
 
         return party2
     }
-
-    /**
-     * パーティから1人返す処理
-     * @param id : プレイヤーのID
-     * @return IDのプレイヤー
-     */
-//    fun selectMember(id: Int): Player? {
-//        for (i in members.indices) {
-//            if (members[i].getIdNumber() === id) {
-//                return members[i]
-//            }
-//        }
-//        return null
-//    }
-
-
 }
