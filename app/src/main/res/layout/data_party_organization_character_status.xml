@@ -21,6 +21,7 @@
                 android:id="@+id/data_party_organization_character_name_radiobutton_id"
                 android:layout_width="310sp"
                 android:layout_height="32dp"
+                android:checked="false"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="25sp" />
 

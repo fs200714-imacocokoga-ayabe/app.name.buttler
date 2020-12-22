@@ -6,6 +6,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
 
+
 class PartyOrgnizationActivity : AppCompatActivity() {
 
     private var nameValue01: String? = null
@@ -14,7 +15,10 @@ class PartyOrgnizationActivity : AppCompatActivity() {
 
     lateinit var helper: MyOpenHelper
     var characterList = arrayListOf<CharacterAllData>()
+
     private lateinit var mListAdapter: PartyListAdapter
+
+    var array = ArrayList<Int>()
 
     var name = ""
     var job = ""
@@ -73,26 +77,62 @@ class PartyOrgnizationActivity : AppCompatActivity() {
         // 項目をタップしたときの処理
         listView.setOnItemClickListener { parent, view, position, id ->
 
-            val nameValue = characterList[position].name
-            val intent = Intent(this, CharacterDetailActivity::class.java)
-            intent.putExtra("name_key", nameValue)
+
+//
+//            // テキストの表示
+//            val textView = findViewById<TextView>(R.id.this_party_start)
+//            textView.text = "このパーティーで開始(".plus(characterList.size).plus("人)")
+
+//            for (i in 0..listView.adapter.count){
+//
+//                if (listView.adapter.getItemId(i) == id){
+//
+//                    listView.adapter.getItem(i).setChecked(ture)
+//                }else{
+//                    listView.adapter.getItem(i).setChecked(false)
+//                }
+//            }
+
+
+//            val nameValue = characterList[position].name
+//            val intent = Intent(this, CharacterDetailActivity::class.java)
+//            intent.putExtra("name_key", nameValue)
+//            startActivity(intent)
+        }
+
+        // このパーティで開始
+        this_party_start.setOnClickListener {
+
+            // チェックされてないアイテムは含まれない模様
+
+            // チェックされてないアイテムは含まれない模様
+//            val checked = listView.checkedItemPositions
+//
+//            for (i in 0.. checked.size()) {
+//
+//            val key = checked.keyAt (i)
+//
+//                array.plusAssign(key)
+       // }
+
+
+
+            nameValue01 = characterList[listView.firstVisiblePosition].name
+            nameValue02 = characterList[listView.firstVisiblePosition + 1].name
+            nameValue03 = characterList[listView.firstVisiblePosition + 2].name
+
+//            nameValue01 = characterList[array[0]].name
+//            nameValue02 = characterList[array[2]].name
+//            nameValue03 = characterList[array[3]].name
+
+            val intent = Intent(this, BattleStartActivity::class.java)
+
+            intent.putExtra("name_key01", nameValue01)
+            intent.putExtra("name_key02", nameValue02)
+            intent.putExtra("name_key03", nameValue03)
+
             startActivity(intent)
         }
-            // このパーティで開始
-            this_party_start.setOnClickListener {
-
-                nameValue01 = characterList[listView.firstVisiblePosition].name
-                nameValue02 = characterList[listView.firstVisiblePosition + 1].name
-                nameValue03 = characterList[listView.firstVisiblePosition + 2].name
-
-                val intent = Intent(this, BattleStartActivity::class.java)
-
-                intent.putExtra("name_key01", nameValue01)
-                intent.putExtra("name_key02", nameValue02)
-                intent.putExtra("name_key03", nameValue03)
-
-                startActivity(intent)
-            }
 
             // 戻るボタン
             party_organizetion_back_button.setOnClickListener {
@@ -106,10 +146,18 @@ class PartyOrgnizationActivity : AppCompatActivity() {
 
         when(jobValue){
 
-            0 -> {job = "戦士"}
-            1 -> {job = "魔法使い"}
-            2 -> {job = "僧侶"}
-            3 -> {job = "忍者"}
+            0 -> {
+                job = "戦士"
+            }
+            1 -> {
+                job = "魔法使い"
+            }
+            2 -> {
+                job = "僧侶"
+            }
+            3 -> {
+                job = "忍者"
+            }
         }
         return job
 

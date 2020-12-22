@@ -1,7 +1,5 @@
 package com.e.app_namebattler
 
-import java.util.concurrent.TimeUnit
-
 class Ninja (name:String):Player(name){
 
     constructor(name: String,job: String,hp: Int,mp: Int,str: Int,def: Int,agi: Int,luck: Int): this(name)
@@ -22,9 +20,6 @@ class Ninja (name:String):Player(name){
      * : 対象プレイヤー
      */
     override fun attack(defender: Player?): StringBuilder {
-
-        //Thread.sleep(1_000)  // wait for 1 second
-       // TimeUnit.SECONDS.sleep(1L)
 
         bsb.clear()
 
@@ -52,12 +47,10 @@ class Ninja (name:String):Player(name){
             }
         } else { // 麻痺している
            // System.out.printf("%sは麻痺で動けない！！\n", getName())
-            //battleMessageRecord.add("${getName()}は麻痺で動けない！！\n")
             bsb.append("${getName()}は麻痺で動けない！！\n")
         }
         super.fall(defender!!) // 倒れ判定
 
-       // return battleMessageRecord
         return bsb
     }
 
@@ -86,7 +79,6 @@ class Ninja (name:String):Player(name){
         } else { // MPがない場合
             //     type = "A"
           //  System.out.printf("%sの攻撃！\n刀で斬りつけた！\n", getName())
-         //   battleMessageRecord.add("${getName()}の攻撃！\n刀で斬りつけた！\n")
             bsb.append("${getName()}の攻撃！\n刀で斬りつけた！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             super.damageProcess(defender, damage) // ダメージ処理
@@ -102,7 +94,6 @@ class Ninja (name:String):Player(name){
     private fun directAttack(defender: Player) {
         // type = "A"
       //  System.out.printf("%sの攻撃！\n手裏剣を投げつけた！\n", getName())
-      //  battleMessageRecord.add("${getName()}の攻撃！\n手裏剣を投げつけた！\n")
         bsb.append("${getName()}の攻撃！\n手裏剣を投げつけた！\n")
         damage = calcDamage(defender) // 与えるダメージを求める
         super.damageProcess(defender, damage) // ダメージ処理
@@ -110,7 +101,6 @@ class Ninja (name:String):Player(name){
 
     /**
      * 対象プレイヤーに魔法攻撃する
-     *
      * @param defender
      * : 対象プレイヤー
      */
@@ -121,7 +111,6 @@ class Ninja (name:String):Player(name){
         } else { // MPがない場合
             //  type = "A"
         //    System.out.printf("%sの攻撃！\n刀で突きさした！\n", getName())
-        //    battleMessageRecord.add("${getName()}の攻撃！\n刀で突きさした！\n")
             bsb.append("${getName()}の攻撃！\n刀で突きさした！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             super.damageProcess(defender, damage) // ダメージ処理
@@ -143,12 +132,10 @@ class Ninja (name:String):Player(name){
         if (r > 75) { // 25%で発動
 
           //  print("${getName()}は目にも止まらぬ速さで攻撃した！\n")
-          //  battleMessageRecord.add("${getName()}は目にも止まらぬ速さで攻撃した！\n")
             bsb.append("${getName()}は目にも止まらぬ速さで攻撃した！\n")
 
             for (i in 1..2) {
               //  System.out.printf("%d回目の攻撃\n", i)
-              //  battleMessageRecord.add("${i}回目の攻撃\n")
                 bsb.append("${i}回目の攻撃\n")
                 damage = calcDamage(defender) // 攻撃処理
                 super.damageProcess(defender, damage) // ダメージ処理
@@ -158,14 +145,12 @@ class Ninja (name:String):Player(name){
             }
         } else { // 75%で不発
             //System.out.printf("%sは転んだ！\n", getName())
-           // battleMessageRecord.add("${getName()}は転んだ！\n")
             bsb.append("${getName()}は転んだ！\n")
         }
     }
 
     /**
      * 火遁の術(10-30)を使う
-     *
      * @param defender
      * : 対象プレイヤー
      */
@@ -180,7 +165,6 @@ class Ninja (name:String):Player(name){
 
      //   System.out.printf("%sは%sを唱えた！\n火の球が飛んでいく！\n", getName(),
      //       Magic.FIREROLL.getName())
-     //   battleMessageRecord.add("${getName()}は${Magic.FIREROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
         bsb.append("${getName()}は${Magic.FIREROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
         // super.damageProcess(type, defender, damage) // ダメージ処理
         super.damageProcess(defender, damage) // ダメージ処理

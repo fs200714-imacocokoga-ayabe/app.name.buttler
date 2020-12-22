@@ -44,10 +44,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
       //  val job = jobExtra.toString()
 
             when(jobExtra){
-//                "戦士" -> player = (Fighter(name))
-//                "魔法使い" -> player = (Wizard(name))
-//                "僧侶" -> player = (Priest(name))
-//                "忍者" -> player = (Ninja(name))
+
                 "戦士" -> nameExtra?.let { Fighter(it) }?.let { player = it }
                 "魔法使い" -> nameExtra?.let { Wizard(it) }?.let { player = it }
                 "僧侶" -> nameExtra?.let { Priest(it) }?.let { player = it }

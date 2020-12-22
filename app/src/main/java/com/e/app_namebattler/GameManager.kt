@@ -1,5 +1,8 @@
 package com.e.app_namebattler
 
+import android.os.Handler
+
+
 class GameManager {
 
      private var party01: MutableList<Player> = ArrayList()
@@ -9,6 +12,10 @@ class GameManager {
     private val pt = Party()
 
     private val pl = Player()
+
+   // val handler: Handler = MyHandler()
+
+    private val handler: Handler = Handler()
 
     private val sb = StringBuilder()
 
@@ -30,7 +37,10 @@ class GameManager {
     var job = ""
 
     // Activityから指揮権を受け取る
-    fun controlTransfer(allyPartyList: ArrayList<CharacterAllData>, enemyPartyList: ArrayList<CharacterAllData>) {
+    fun controlTransfer(
+        allyPartyList: ArrayList<CharacterAllData>,
+        enemyPartyList: ArrayList<CharacterAllData>
+    ) {
 
         // 敵キャラクターを作成する
         enemy01 = makeEnemyCharacter(enemyPartyList[0])
@@ -56,6 +66,7 @@ class GameManager {
 
 
 
+
     }
 
     fun battle(){
@@ -75,16 +86,35 @@ class GameManager {
                 pt.getParty1()[a - 1]
             }
 
+            sb.append("@@")
             sb.append(player1.attack(player2))
-          //  sb.append("@")
+
+            // 敗北判定
+            defeatDecision()
 
         }
+
+        val array = sb.split("@@")
+
+        myCallBack?.upDateBattleLog(array)
 
         // キャラクターの表示
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
 
-        myCallBack?.upDateBattleLog(sb)
         sb.clear()
+
+        party01.clear()
+        party02.clear()
+
+        party01.plusAssign(pt.getParty1())
+
+        party02.plusAssign(pt.getParty2())
+
+        sb.clear()
+
+    }
+
+    fun defeatDecision(){
 
         if (player1.getHP() <= 0) { // プレイヤー１相手プレイヤーの敗北判定
             speedOrderList-=player1
@@ -97,38 +127,7 @@ class GameManager {
             pt.removeMembers(player2)
         }
 
-        party01.clear()
-        party02.clear()
-        party01.plusAssign(pt.getParty1())
-
-        party02.plusAssign(pt.getParty2())
-
-
-
-        sb.clear()
-
-//        TimeUnit.SECONDS.sleep(1L)
-
-        //Thread.sleep(1_000)  // wait for 1 second
-
-//            for (s in battleMessageRecord) {
-//                val ss = s.replace("[", "").replace("]", "").replace(",", "")
-//                Log.i("debug", ss)
-//                sb.append(ss)
-
-//            val array = sb.split('@')
-//
-//            println("array$array")
-//
-//            for (k in 1.. array.size){
-//
-//                pl.battleLog(array[k - 1])
-//
-//            }
-
     }
-
-
 
     private fun speedReordering(
         enemy01: Player,
@@ -307,7 +306,14 @@ class GameManager {
         return ally
     }
 
-    private fun statusLog(ally01: Player, ally02: Player, ally03: Player, enemy01: Player, enemy02: Player, enemy03: Player) {
+    private fun statusLog(
+        ally01: Player,
+        ally02: Player,
+        ally03: Player,
+        enemy01: Player,
+        enemy02: Player,
+        enemy03: Player
+    ) {
 
         myCallBack?.upDateStatus(ally01, ally02, ally03, enemy01, enemy02, enemy03)
 
@@ -323,12 +329,5 @@ class GameManager {
 
         return party02
     }
-
-
-
-//    fun GameManager02(callback: BattleLogListener?) {
-//        myCallback = callback
-//    }
-
-
+    
 }

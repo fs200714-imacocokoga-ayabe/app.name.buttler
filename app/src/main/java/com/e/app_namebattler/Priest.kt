@@ -1,7 +1,5 @@
 package com.e.app_namebattler
 
-import java.util.concurrent.TimeUnit
-
 class Priest (name:String):Player(name){
 
     constructor(name: String,job: String,hp: Int,mp: Int,str: Int,def: Int,agi: Int,luck: Int): this(name)
@@ -21,9 +19,6 @@ class Priest (name:String):Player(name){
      * @param defender : 対象プレイヤー
      */
     override fun attack(defender: Player?): StringBuilder {
-
-       // Thread.sleep(1_000)  // wait for 1 second
-       // TimeUnit.SECONDS.sleep(1L)
 
         bsb.clear()
 
@@ -53,12 +48,10 @@ class Priest (name:String):Player(name){
         } else { // 麻痺している
 
        //     System.out.printf("%sは麻痺で動けない！！\n", getName())
-       //     battleMessageRecord.add("${getName()}は麻痺で動けない！！\n")
             bsb.append("${getName()}は麻痺で動けない！！\n")
         }
         super.fall(defender!!) // 倒れた判定
 
-        //return battleMessageRecord
         return java.lang.StringBuilder()
     }
 
@@ -80,14 +73,12 @@ class Priest (name:String):Player(name){
 //                    defender.getName(),
 //                    recovery(defender, Magic.HEAL
 //                        .getRecoveryValue()))
-//                battleMessageRecord.add("${getName()}はヒールを唱えた！\n光が${defender.getName()}を包んだ\n${defender.getName()}はHP${recovery(defender, Magic.HEAL.getRecoveryValue())}回復した！\n")
                 if (defender != null) {
                     bsb.append("${getName()}はヒールを唱えた！\n光が${defender.getName()}を包んだ\n${defender.getName()}はHP${recovery(defender, Magic.HEAL.getRecoveryValue())}回復した！\n")
                 }
             } else { // MPが20未満の場合
                 // type = "A"
 //                System.out.printf("%sの攻撃！\n錫杖を振りかざした！\n", getName())
-//                battleMessageRecord.add("${getName()}の攻撃！\n錫杖を振りかざした！\n")
                 bsb.append("${getName()}の攻撃！\n錫杖を振りかざした！\n")
 
                 damage = calcDamage(defender!!) // 与えるダメージを求める
@@ -103,7 +94,6 @@ class Priest (name:String):Player(name){
     private fun directAttack(defender: Player?) { // 直接攻撃処理
         //  type = "A"
       //  System.out.printf("%sの攻撃！\n錫杖で突いた！\n", getName())
-      //  battleMessageRecord.add("${getName()}の攻撃！\n錫杖で突いた！\n")
         bsb.append("${getName()}の攻撃！\n錫杖で突いた！\n")
         damage = calcDamage(defender!!) // 与えるダメージを求める
         super.damageProcess(defender, damage) // ダメージ処理
@@ -123,7 +113,6 @@ class Priest (name:String):Player(name){
         } else { // 通常攻撃
             // type = "A"
         //    System.out.printf("%sの攻撃！\nの攻撃！\n錫杖で叩いた！\n", getName())
-         //   battleMessageRecord.add("${getName()}の攻撃！\n錫杖で叩いた！\n")
             bsb.append("${getName()}の攻撃！\n錫杖で叩いた！\n")
             damage = calcDamage(defender!!) // 与えるダメージを求める
             super.damageProcess(defender, damage) // ダメージ処理
@@ -142,7 +131,6 @@ class Priest (name:String):Player(name){
         } else { // 通常攻撃
             //    type = "A"
           //  System.out.printf("%sの攻撃！\n錫杖を振り回した！！\n", getName())
-          //  battleMessageRecord.add("${getName()}の攻撃！\n錫杖を振り回した！！\n")
             bsb.append("${getName()}の攻撃！\n錫杖を振り回した！！\n")
             damage = calcDamage(defender!!) // 与えるダメージを求める
             super.damageProcess(defender, damage) // ダメージ処理
@@ -160,15 +148,12 @@ class Priest (name:String):Player(name){
 
          //   System.out.printf("%sは祈りを捧げて%sを召還した\n%sの祝福を受けた！\n", getName(),
           //      Magic.OPTICALELEMENTAL.getName(), Magic.OPTICALELEMENTAL.getName())
-          //  battleMessageRecord.add("${getName()}%sは祈りを捧げて${Magic.OPTICALELEMENTAL.getName()}を召還した\n${Magic.OPTICALELEMENTAL.getName()}%sの祝福を受けた！\n")
             bsb.append("${getName()}%sは祈りを捧げて${Magic.OPTICALELEMENTAL.getName()}を召還した\n${Magic.OPTICALELEMENTAL.getName()}%sの祝福を受けた！\n")
           //  System.out.printf("%sはHPが%d回復した！\n", getName(),
          //       recovery(this, Magic.OPTICALELEMENTAL.getRecoveryValue()))
-          //  battleMessageRecord.add("${getName()}はHPが${recovery(this, Magic.OPTICALELEMENTAL.getRecoveryValue())}回復した！\n")
             bsb.append("${getName()}はHPが${recovery(this, Magic.OPTICALELEMENTAL.getRecoveryValue())}回復した！\n")
         } else {
          //   System.out.printf("%sは祈りを捧げたが何も起こらなかった！\n", getName())
-           // battleMessageRecord.add("${getName()}は祈りを捧げたが何も起こらなかった！\n")
             bsb.append("${getName()}は祈りを捧げたが何も起こらなかった！\n")
         }
     }
@@ -206,8 +191,6 @@ class Priest (name:String):Player(name){
           //  System.out.printf("%sは%sを唱えた！\n光が%sを包む\nHPが%d回復した！\n", getName(),
           //      Magic.HEAL.getName(), getName(), Magic.HEAL
           //          .getRecoveryValue())
-           // battleMessageRecord.add("${getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${getName()}を包む\nHPが${Magic.HEAL
-          //      .getRecoveryValue()}回復した！\n")
             bsb.append("${getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${getName()}を包む\nHPが${Magic.HEAL
                 .getRecoveryValue()}回復した！\n")
         } else {
@@ -224,16 +207,13 @@ class Priest (name:String):Player(name){
         mp = getMP() - Magic.PARALYSIS.getMpCost() // MP消費
         //System.out.printf("%sは%sを唱えた！\n蒼い霧が相手を包んだ！\n", getName(), Magic.PARALYSIS
          //   .getName())
-        //battleMessageRecord.add("${getName()}は${Magic.PARALYSIS.getName()}を唱えた！\n蒼い霧が相手を包んだ！\n")
         bsb.append("${getName()}は${Magic.PARALYSIS.getName()}を唱えた！\n蒼い霧が相手を包んだ！\n")
         if ((1..100).random() <= Magic.PARALYSIS.getContinuousRate()) { // 乱数がPARALYSISの値以下の場合麻痺状態になる
             defender!!.isParalysis = true // 相手に麻痺をセット
           //  System.out.printf("%sは麻痺を受けた！\n", defender.getName())
-           // battleMessageRecord.add("${defender.getName()}は麻痺を受けた！\n")
             bsb.append("${defender.getName()}は麻痺を受けた！\n")
         } else { // 麻痺を状態にならなかった場合
            // System.out.printf("%sは麻痺を受けなかった！\n", defender!!.getName())
-           // battleMessageRecord.add("${defender.getName()}は麻痺を受けなかった！\n")
             if (defender != null) {
                 bsb.append("${defender.getName()}は麻痺を受けなかった！\n")
             }
@@ -248,11 +228,9 @@ class Priest (name:String):Player(name){
 
         mp = getMP() - Magic.POISON.getMpCost() // MP消費
        // System.out.printf("%sは%sを唱えた！\n瘴気が相手を包んだ！\n", getName(), Magic.POISON.getName())
-       // battleMessageRecord.add("${getName()}は${Magic.POISON.getName()}を唱えた！\n瘴気が相手を包んだ！\n")
         bsb.append("${getName()}は${Magic.POISON.getName()}を唱えた！\n瘴気が相手を包んだ！\n")
         defender!!.isPoison = true // 相手に毒をセット
       //  System.out.printf("%sは毒状態になった！\n", defender.getName())
-      //  battleMessageRecord.add("${defender.getName()}は毒状態になった！\n")
         bsb.append("${defender.getName()}は毒状態になった！\n")
     }
 
