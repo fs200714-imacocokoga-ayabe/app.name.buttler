@@ -5,15 +5,19 @@ import android.os.Handler
 
 class GameManager {
 
-     private var party01: MutableList<Player> = ArrayList()
+    private var party01: MutableList<Player> = ArrayList()
 
-     private val party02: MutableList<Player> = ArrayList()
+    private val party02: MutableList<Player> = ArrayList()
+
+    private var allyStatusData: MutableList<MemberStatusData> = ArrayList()
+
+    private val enemyStatusData: MutableList<MemberStatusData> = ArrayList()
 
     private val pt = Party()
 
     private val pl = Player()
 
-   // val handler: Handler = MyHandler()
+    // val handler: Handler = MyHandler()
 
     private val handler: Handler = Handler()
 
@@ -100,6 +104,10 @@ class GameManager {
 
         // キャラクターの表示
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
+
+//        allyStatus(ally01, ally02, ally03)
+//
+//        enemyStatus(enemy01, enemy02, enemy03)
 
         sb.clear()
 
@@ -315,7 +323,8 @@ class GameManager {
         enemy03: Player
     ) {
 
-        myCallBack?.upDateStatus(ally01, ally02, ally03, enemy01, enemy02, enemy03)
+        myCallBack?.upDateAllyStatus(ally01, ally02, ally03)
+        myCallBack?.upDateEnemyStatus(enemy01, enemy02, enemy03)
 
     }
 
@@ -329,5 +338,5 @@ class GameManager {
 
         return party02
     }
-    
+
 }

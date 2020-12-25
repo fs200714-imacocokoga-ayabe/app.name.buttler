@@ -9,15 +9,18 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_battle_main.*
 import java.util.*
 import kotlin.collections.ArrayList
 
+
 class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogListener {
 
-     private val party1: MutableList<Player> = ArrayList()
+    lateinit var mAdapter: BattleMainRecyclerAdapter
 
-     private val party2: MutableList<Player> = ArrayList()
+    lateinit var memberList: MutableList<MemberStatusData>
 
     var handler: Handler? = null
 
@@ -29,13 +32,17 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     val pt = Party()
 
-     val pl = Player()
+    val pl = Player()
 
     //val hd = MyHandler()
 
     private var enemyPartyList = ArrayList<CharacterAllData>()
 
+    private var enemyStatusList = ArrayList<Player>()
+
     private var allyPartyList = ArrayList<CharacterAllData>()
+
+    private var allyStatusList = ArrayList<Player>()
 
     lateinit var ally: Player
     private lateinit var enemy: Player
@@ -52,16 +59,44 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     var turnNumber = 1 // ターンの初期値
 
-   // private var updateText: Runnable? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_battle_main)
+        setContentView(com.e.app_namebattler.R.layout.activity_battle_main)
+
+
+        // RecyclerViewの取得
+        // val recyclerView = findViewById<RecyclerView>(R.id.battle_main_status_recycleView_id)
+
+        //LayoutManagerの設定
+//        val layoutManager = LinearLayoutManager(this)
+//        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+//        recyclerView.layoutManager = layoutManager
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // CustomAdapterの生成と設定
+//        mAdapter = BattleMainRecyclerAdapter(memberList)
+//        recyclerView.adapter = mAdapter
+
+
+//        val layoutManager = LinearLayoutManager(
+//            this,
+//            RecyclerView.HORIZONTAL,
+//            false
+//        ).apply {
+//
+//            battle_main_status_recycleView_id.layoutManager = this
+//        }
+//
+//        BattleMainRecyclerAdapter(memberList).apply {
+//            battle_main_status_recycleView_id.adapter = this
+//        }
+
+
 
         this.handler = Handler()
 
         val battleMainLogTextDialog =
-            findViewById<View>(R.id.battle_main_battle_log_text_id) as TextView
+            findViewById<View>(com.e.app_namebattler.R.id.battle_main_battle_log_text_id) as TextView
 
         battleMainLogTextDialog.setOnClickListener(this)
 
@@ -80,7 +115,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         }
 
         // タップすると始まります
-        val bl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
+        val bl = findViewById<TextView>(com.e.app_namebattler.R.id.battle_main_battle_log_text_id)
         bl.text = "Tap to start"
 
         // 敵のデータを名前から取得する
@@ -89,8 +124,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         allyPartyList = getAllyData(allyName01, allyName02, allyName03)
 
         gm.myCallBack = this
-      //  pl.myCallBack = this
-      //  hd.myCallBack = this
+        //  pl.myCallBack = this
+        //  hd.myCallBack = this
 
         // コントロールをGameManagerに移譲
         gm.controlTransfer(allyPartyList, enemyPartyList)
@@ -126,7 +161,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 }
             }
         }
-   }
+    }
 
     // 名前を受け取りデータベースから敵キャラクターのステータスを取得する
     private fun getEnemyData(
@@ -365,147 +400,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         return ally
     }
 
-    // 味方キャラクター01のステータスを表示する
-    fun allyPrintStatus01(ally01: Player) {
-
-        val allyName01Text: TextView = findViewById(R.id.ally_member01_name_id)
-
-        if (ally01.getHP() <= 0) {
-
-            allyName01Text.setTextColor(Color.RED)
-           // allyName01Text.text = ally01.getName()
-        }
-
-            allyName01Text.text = ally01.getName()
-
-        val allyHp01Text: TextView = findViewById(R.id.ally_member01_hp_id)
-        allyHp01Text.text = ("%s %d/%d".format("HP", ally01.hp, ally01.getMaxHp()))
-
-        val allyMp01Text: TextView = findViewById(R.id.ally_member01_mp_id)
-        allyMp01Text.text = ("%s %d/%d".format("MP", ally01.mp, ally01.getMaxMp()))
-
-        val allyStatus01Text: TextView = findViewById(R.id.ally_member01_status_id)
-        allyStatus01Text.text = ("%s %s".format(ally01.getPoison(), ally01.getParalysis()))
-    }
-
-    // 味方キャラクター02のステータスを表示する
-    fun allyPrintStatus02(ally02: Player) {
-
-        val allyName02Text: TextView = findViewById(R.id.ally_member02_name_id)
-
-        if (ally02.getHP() <= 0) {
-
-            allyName02Text.setTextColor(Color.RED)
-            // allyName01Text.text = ally01.getName()
-        }
-        allyName02Text.text = ally02.getName()
-
-        val allyHp02Text: TextView = findViewById(R.id.ally_member02_hp_id)
-        allyHp02Text.text = ("%s %d/%d".format("HP", ally02.hp, ally02.getMaxHp()))
-
-        val allyMp02Text: TextView = findViewById(R.id.ally_member02_mp_id)
-        allyMp02Text.text = ("%s %d/%d".format("MP", ally02.mp, ally02.getMaxMp()))
-
-        val allyStatus02Text: TextView = findViewById(R.id.ally_member02_status_id)
-        allyStatus02Text.text = ("%s %s".format(ally02.getPoison(), ally02.getParalysis()))
-    }
-
-    // 味方キャラクター03のステータスを表示する
-    fun allyPrintStatus03(ally03: Player) {
-
-        val allyName03Text: TextView = findViewById(R.id.ally_member03_name_id)
-
-        if (ally03.getHP() <= 0) {
-
-            allyName03Text.setTextColor(Color.RED)
-            // allyName01Text.text = ally01.getName()
-        }
-
-        allyName03Text.text = ally03.getName()
-
-        val allyHp03Text: TextView = findViewById(R.id.ally_member03_hp_id)
-        allyHp03Text.text = ("%s %d/%d".format("HP", ally03.hp, ally03.getMaxHp()))
-
-        val allyMp03Text: TextView = findViewById(R.id.ally_member03_mp_id)
-        allyMp03Text.text = ("%s %d/%d".format("MP", ally03.mp, ally03.getMaxMp()))
-
-        val allyStatus03Text: TextView = findViewById(R.id.ally_member03_status_id)
-        allyStatus03Text.text = ("%s %s".format(ally03.getPoison(), ally03.getParalysis()))
-
-    }
-
-    //  敵キャラクター01のステータスを表示する
-    fun enemyPrintStatus01(enemy01: Player) {
-
-        val enemyName01Text: TextView = findViewById(R.id.enemy_member01_name_id)
-
-        if (enemy01.getHP() <= 0) {
-
-            enemyName01Text.setTextColor(Color.RED)
-            // allyName01Text.text = ally01.getName()
-        }
-        enemyName01Text.text = enemy01.getName()
-
-        val enemyHp01Text: TextView = findViewById(R.id.enemy_member01_hp_id)
-        enemyHp01Text.text = ("%s %d/%d".format("HP", enemy01.hp, enemy01.getMaxHp()))
-
-        val enemyMp01Text: TextView = findViewById(R.id.enemy_member01_mp_id)
-        enemyMp01Text.text = ("%s %d/%d".format("MP", enemy01.mp, enemy01.getMaxMp()))
-
-        val enemyStatus01Text: TextView = findViewById(R.id.enemy_member01_status_id)
-        enemyStatus01Text.text = ("%s %s".format(enemy01.getPoison(), enemy01.getParalysis()))
-
-    }
-
-    //  敵キャラクター02のステータスを表示する
-    fun enemyPrintStatus02(enemy02: Player) {
-
-        val enemyName02Text: TextView = findViewById(R.id.enemy_member02_name_id)
-
-        if (enemy02.getHP() <= 0) {
-
-            enemyName02Text.setTextColor(Color.RED)
-            // allyName01Text.text = ally01.getName()
-        }
-        enemyName02Text.text = enemy02.getName()
-
-        val enemyHp02Text: TextView = findViewById(R.id.enemy_member02_hp_id)
-        enemyHp02Text.text = ("%s %d/%d".format("HP", enemy02.hp, enemy02.getMaxHp()))
-
-        val enemyMp02Text: TextView = findViewById(R.id.enemy_member02_mp_id)
-        enemyMp02Text.text = ("%s %d/%d".format("MP", enemy02.mp, enemy02.getMaxMp()))
-
-        val enemyStatus02Text: TextView = findViewById(R.id.enemy_member02_status_id)
-        enemyStatus02Text.text = ("%s %s".format(enemy02.getPoison(), enemy02.getParalysis()))
-
-    }
-
-    //  敵キャラクター03のステータスを表示する
-    fun enemyPrintStatus03(enemy03: Player) {
-
-        val enemyName03Text: TextView = findViewById(R.id.enemy_member03_name_id)
-
-        if (enemy03.getHP() <= 0) {
-
-            enemyName03Text.setTextColor(Color.RED)
-            // allyName01Text.text = ally01.getName()
-        }
-        enemyName03Text.text = enemy03.getName()
-
-        val enemyHp03Text: TextView = findViewById(R.id.enemy_member03_hp_id)
-        enemyHp03Text.text = ("%s %d/%d".format("HP", enemy03.hp, enemy03.getMaxHp()))
-
-        val enemyMp03Text: TextView = findViewById(R.id.enemy_member03_mp_id)
-        enemyMp03Text.text = ("%s %d/%d".format("MP", enemy03.mp, enemy03.getMaxMp()))
-
-        val enemyStatus03Text: TextView = findViewById(R.id.enemy_member03_status_id)
-        enemyStatus03Text.text = ("%s %s".format(enemy03.getPoison(), enemy03.getParalysis()))
-
-    }
-
     private fun printStrategy(strategyName: String) {
 
-        val strategyText: TextView = findViewById(R.id.battle_main_strategy_text_id)
+        val strategyText: TextView = findViewById(com.e.app_namebattler.R.id.battle_main_strategy_text_id)
         strategyText.text = strategyName
 
     }
@@ -544,27 +441,39 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 //        }
 
 
-        val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-println("ろぐ00$testLog")
+        val tl = findViewById<TextView>(com.e.app_namebattler.R.id.battle_main_battle_log_text_id)
+        println("ろぐ00$testLog")
         for (i in 1..testLog.size) {
             when (i) {
-                1 -> { handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
-                    println("ろぐ01${testLog[i - 1]}")}
+                1 -> {
+                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
+                    println("ろぐ01${testLog[i - 1]}")
+                }
 
-                2 -> { handler?.postDelayed({ tl.text = testLog[i - 1] }, 3500)
-                        println("ろぐ02${testLog[i - 1]}")}
+                2 -> {
+                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 3500)
+                    println("ろぐ02${testLog[i - 1]}")
+                }
 
-                3 -> { handler?.postDelayed({tl.text = testLog[i - 1] }, 6500)
-                    println("ろぐ03${testLog[i - 1]}")}
+                3 -> {
+                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 6500)
+                    println("ろぐ03${testLog[i - 1]}")
+                }
 
-                4 -> { handler?.postDelayed({tl.text = testLog[i - 1] }, 9500)
-                    println("ろぐ04${testLog[i - 1]}")}
+                4 -> {
+                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 9500)
+                    println("ろぐ04${testLog[i - 1]}")
+                }
 
-                5 -> { handler?.postDelayed({tl.text = testLog[i - 1] }, 12500)
-                    println("ろぐ05${testLog[i - 1]}")}
+                5 -> {
+                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 12500)
+                    println("ろぐ05${testLog[i - 1]}")
+                }
 
-                6 -> { handler?.postDelayed({tl.text = testLog[i - 1] }, 15500)
-                    println("ろぐ06${testLog[i - 1]}")}
+                6 -> {
+                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 15500)
+                    println("ろぐ06${testLog[i - 1]}")
+                }
             }
         }
     }
@@ -577,13 +486,6 @@ println("ろぐ00$testLog")
         enemy02: Player,
         enemy03: Player
     ) {
-
-        allyPrintStatus01(ally01)
-        allyPrintStatus02(ally02)
-        allyPrintStatus03(ally03)
-        enemyPrintStatus01(enemy01)
-        enemyPrintStatus02(enemy02)
-        enemyPrintStatus03(enemy03)
 
     }
 
@@ -598,5 +500,90 @@ println("ろぐ00$testLog")
 
         Toast.makeText(this, "テストモード", Toast.LENGTH_SHORT).show()
     }
+
+    override fun upDateAllyStatus(ally01: Player, ally02: Player, ally03: Player){
+
+        val ally001 = MemberStatusData(ally01.getName(), ("%s %d/%d".format("HP", ally01.hp, ally01.getMaxHp())), ("%s %d/%d".format("MP", ally01.mp, ally01.getMaxMp())),"")
+        val ally002 = MemberStatusData(ally02.getName(), ("%s %d/%d".format("HP", ally02.hp, ally02.getMaxHp())), ("%s %d/%d".format("MP", ally02.mp, ally02.getMaxMp())),"")
+        val ally003 = MemberStatusData(ally03.getName(), ("%s %d/%d".format("HP", ally03.hp, ally03.getMaxHp())), ("%s %d/%d".format("MP", ally03.mp, ally03.getMaxMp())),"")
+
+        memberList = arrayListOf(ally001, ally002, ally003)
+
+
+        val layoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.HORIZONTAL,
+            false
+        ).apply {
+
+            battle_main_ally_status_recycleView_id.layoutManager = this
+        }
+
+        BattleMainRecyclerAdapter(memberList).apply {
+
+            battle_main_ally_status_recycleView_id.adapter = this
+        }
+//
+//       if (ally01.getHP() <= 0) {
+//
+//
+//           ally001.name.Text.setTextColor(Color.RED)
+//           ally001.name.text = ally01.getName()
+//       }
+
+    }
+
+    override fun upDateEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player){
+
+
+
+        val enemy001 = MemberStatusData(enemy01.getName(), ("%s %d/%d".format("HP", enemy01.hp, enemy01.getMaxHp())), ("%s %d/%d".format("MP", enemy01.mp, enemy01.getMaxMp())),"")
+        val enemy002 = MemberStatusData(enemy02.getName(), ("%s %d/%d".format("HP", enemy02.hp, enemy02.getMaxHp())), ("%s %d/%d".format("MP", enemy02.mp, enemy02.getMaxMp())),"")
+        val enemy003 = MemberStatusData(enemy03.getName(), ("%s %d/%d".format("HP", enemy03.hp, enemy03.getMaxHp())), ("%s %d/%d".format("MP", enemy03.mp, enemy03.getMaxMp())),"")
+
+        memberList = arrayListOf(enemy001, enemy002, enemy003)
+
+        val layoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.HORIZONTAL,
+            false
+        ).apply {
+
+            battle_main_enemy_status_recycleView_id.layoutManager = this
+        }
+
+        BattleMainRecyclerAdapter(memberList).apply {
+
+            battle_main_enemy_status_recycleView_id.adapter = this
+        }
+
+    }
+
+
+//    // 味方キャラクター01のステータスを表示する
+//    fun allyPrintStatus01(ally01: Player) {
+//
+//        val allyName01Text: TextView = findViewById(R.id.ally_member01_name_id)
+//
+//        if (ally01.getHP() <= 0) {
+//
+//            allyName01Text.setTextColor(Color.RED)
+//           // allyName01Text.text = ally01.getName()
+//        }
+//
+//            allyName01Text.text = ally01.getName()
+//
+//        val allyHp01Text: TextView = findViewById(R.id.ally_member01_hp_id)
+//        allyHp01Text.text = ("%s %d/%d".format("HP", ally01.hp, ally01.getMaxHp()))
+//
+//        val allyMp01Text: TextView = findViewById(R.id.ally_member01_mp_id)
+//        allyMp01Text.text = ("%s %d/%d".format("MP", ally01.mp, ally01.getMaxMp()))
+//
+//        val allyStatus01Text: TextView = findViewById(R.id.ally_member01_status_id)
+//        allyStatus01Text.text = ("%s %s".format(ally01.getPoison(), ally01.getParalysis()))
+//    }
+//
+
+
 }
 

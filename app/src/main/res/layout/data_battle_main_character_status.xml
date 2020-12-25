@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/data_battle_main_character_status_id"
         android:layout_width="131sp"
         android:layout_height="70sp"
+        android:background="@drawable/frame_line_01"
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX=""
@@ -16,26 +17,42 @@
 
         <TextView
             android:id="@+id/member_name_id"
-            android:layout_width="match_parent"
+            android:layout_width="131dp"
             android:layout_height="18sp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="" />
 
         <TextView
             android:id="@+id/member_hp_id"
-            android:layout_width="match_parent"
+            android:layout_width="131dp"
             android:layout_height="17sp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="" />
 
         <TextView
             android:id="@+id/member_mp_id"
-            android:layout_width="match_parent"
+            android:layout_width="131dp"
             android:layout_height="17sp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="" />
 
         <TextView
             android:id="@+id/member_status_id"
-            android:layout_width="match_parent"
+            android:layout_width="131dp"
             android:layout_height="18sp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="" />
     </LinearLayout>
 

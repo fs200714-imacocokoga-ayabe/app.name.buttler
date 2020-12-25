@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:verticalScrollbarPosition="defaultPosition"
     tools:context=".BattleMainActivity">
 
     // "バトル"表示
 
     <TextView
         android:id="@+id/text_battle_id"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="55dp"
         android:background="@drawable/frame_line_03"
         android:gravity="center"
@@ -26,13 +27,15 @@
         android:id="@+id/strategy_change_button_id"
         android:layout_width="80dp"
         android:layout_height="36dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
 
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/frame_line_02"
         android:text="@string/text_change"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/battle_main_battle_log_text_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ally_party_linearLayout_id" />
 
@@ -40,9 +43,6 @@
         android:id="@+id/next_turn_button_id"
         android:layout_width="380dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circle_angle_quadrangle_01"
         android:text="@string/text_next_turn"
@@ -51,350 +51,64 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battle_main_battle_log_text_id" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     // 敵パーティ表示レイアウト
+
     <LinearLayout
         android:id="@+id/enemy_party_linearLayout_id"
-        android:layout_width="0dp"
+        android:layout_width="395dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_battle_id">
 
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/battle_main_enemy_status_recycleView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <!--            <ListView-->
-            <!--                android:id="@+id/enemy_member01_status_id"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:clipToPadding="false"-->
-            <!--                android:divider="@null"-->
-            <!--                android:dividerHeight="0sp"/>-->
-
-            <TextView
-                android:id="@+id/enemy_member01_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/enemy_member01_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/enemy_member01_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/enemy_member01_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-            <!--            <ListView-->
-            <!--                android:id="@+id/enemy_member02_status_id"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:clipToPadding="false"-->
-            <!--                android:divider="@null"-->
-            <!--                android:dividerHeight="0sp"/>-->
-            <TextView
-                android:id="@+id/enemy_member02_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/enemy_member02_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/enemy_member02_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/enemy_member02_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-            <!--            <ListView-->
-            <!--                android:id="@+id/enemy_member03_status_id"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:clipToPadding="false"-->
-            <!--                android:divider="@null"-->
-            <!--                android:dividerHeight="0sp"/>-->
-            <TextView
-                android:id="@+id/enemy_member03_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/enemy_member03_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/enemy_member03_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/enemy_member03_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>-->
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
+
+    // バトルログの表示
+
     <LinearLayout
         android:id="@+id/ally_party_linearLayout_id"
-        android:layout_width="0dp"
+        android:layout_width="395dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enemy_party_linearLayout_id">
 
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/battle_main_ally_status_recycleView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/ally_member01_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
 
-            <TextView
-                android:id="@+id/ally_member01_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/ally_member01_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/ally_member01_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/ally_member02_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/ally_member02_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/ally_member02_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/ally_member02_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/ally_member03_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/ally_member03_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/ally_member03_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/ally_member03_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
     </LinearLayout>
 
-    // バトルログの表示
+    //　"作戦:"の表示と作戦の表示
+
     <TextView
         android:id="@+id/battle_main_battle_log_text_id"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/frame_line_01"
+        android:layout_width="389dp"
+        android:layout_height="400dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/frame_line_01"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="?android:attr/textColorPrimary"
@@ -402,16 +116,15 @@
         app:layout_constraintBottom_toTopOf="@+id/next_turn_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battle_main_strategy_text_id" />
-
-    //　"作戦:"の表示と作戦の表示
+        app:layout_constraintTop_toBottomOf="@+id/battle_main_strategy_text_id"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/battle_main_strategy_text_id"
         android:layout_width="230dp"
         android:layout_height="34dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginEnd="4dp"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="20sp"
@@ -424,10 +137,13 @@
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/text_battle_main_print_strategy"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/battle_main_battle_log_text_id"
         app:layout_constraintEnd_toStartOf="@+id/battle_main_strategy_text_id"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ally_party_linearLayout_id" />
 
