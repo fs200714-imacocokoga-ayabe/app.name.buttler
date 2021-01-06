@@ -9,7 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 
 class BattlePartyAdapter (val context: Context, val PartyList: ArrayList<CharacterAllData>) : BaseAdapter() {
-    @SuppressLint("ViewHolder")
+    @SuppressLint("ViewHolder", "SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = LayoutInflater.from(context).inflate(R.layout.data_character_status, null)
         val Name = view.findViewById<TextView>(R.id.data_character_name_text_id)

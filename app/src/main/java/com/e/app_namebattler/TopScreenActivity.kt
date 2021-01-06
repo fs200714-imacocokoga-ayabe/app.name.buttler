@@ -18,7 +18,7 @@ class TopScreenActivity : AppCompatActivity() {
         }
         // バトル開始ボタン
         top_screen_battle_start_button_id.setOnClickListener {
-            val intent = Intent(this, PartyOrgnizationActivity::class.java)
+            val intent = Intent(this, PartyOrganizationActivity::class.java)
             startActivity(intent)
         }
     }

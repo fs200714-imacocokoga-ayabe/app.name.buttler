@@ -66,7 +66,7 @@ class BattleStartActivity : AppCompatActivity() {
 
         // 戻るボタンを押したときの処理
         battle_start_back_button.setOnClickListener{
-            val intent = Intent(this, PartyOrgnizationActivity::class.java)
+            val intent = Intent(this, PartyOrganizationActivity::class.java)
             startActivity(intent)
         }
 
@@ -89,7 +89,7 @@ class BattleStartActivity : AppCompatActivity() {
 
         // 相手を選び直すボタンを押したときの処理
         re_select_enemy_button.setOnClickListener {
-            val intent = Intent(this, PartyOrgnizationActivity::class.java)
+            val intent = Intent(this, PartyOrganizationActivity::class.java)
             printEnemy()
         }
     }

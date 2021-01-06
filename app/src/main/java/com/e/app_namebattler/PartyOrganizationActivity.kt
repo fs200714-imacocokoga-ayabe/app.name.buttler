@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
 
 
-class PartyOrgnizationActivity : AppCompatActivity() {
+class PartyOrganizationActivity : AppCompatActivity() {
 
     private var nameValue01: String? = null
     private var nameValue02: String? = null

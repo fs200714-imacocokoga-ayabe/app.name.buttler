@@ -24,156 +24,20 @@
     // 敵パーティ表示レイアウト
     <LinearLayout
         android:id="@+id/enemy_party_linearLayout_result_id"
-        android:layout_width="0dp"
+        android:layout_width="395dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_battle_result_id">
 
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/result_enemy_member01_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_enemy_member01_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_enemy_member01_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_enemy_member01_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/result_enemy_member02_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_enemy_member02_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_enemy_member02_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_enemy_member02_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/result_enemy_member03_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_enemy_member03_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_enemy_member03_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_enemy_member03_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/battle_result_enemy_status_recycleView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
@@ -189,146 +53,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enemy_party_linearLayout_result_id">
 
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/result_ally_member01_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_ally_member01_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_ally_member01_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_ally_member01_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/result_ally_member02_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_ally_member02_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_ally_member02_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_ally_member02_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/frame_line_01"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/result_ally_member03_name_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_ally_member03_hp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_ally_member03_mp_id"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/result_ally_member03_status_id"
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/battle_result_ally_status_recycleView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <Button

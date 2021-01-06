@@ -9,6 +9,8 @@ class GameManager {
 
     private val party02: MutableList<Player> = ArrayList()
 
+    private var attackList: MutableList<Player> = ArrayList()
+
     private var allyStatusData: MutableList<MemberStatusData> = ArrayList()
 
     private val enemyStatusData: MutableList<MemberStatusData> = ArrayList()
@@ -17,8 +19,6 @@ class GameManager {
 
     private val pl = Player()
 
-    // val handler: Handler = MyHandler()
-
     private val handler: Handler = Handler()
 
     private val sb = StringBuilder()
@@ -26,6 +26,10 @@ class GameManager {
     var myCallBack: BattleLogListener? = null
 
     private lateinit var speedOrderList: List<Player>
+
+    private var allyList: MutableList<Player> = ArrayList() // パーティ1の入れ物
+
+    private var enemyList: MutableList<Player> = ArrayList() // パーティ1の入れ物
 
     lateinit var ally: Player
     private lateinit var enemy: Player
@@ -59,6 +63,8 @@ class GameManager {
         // スピード順に取得する
         speedOrderList = (speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03))
 
+         huriwake(enemy01, enemy02, enemy03, ally01, ally02, ally03)
+
         // パーティの振り分け
         pt.appendPlayer(enemy01, enemy02, enemy03, ally01, ally02, ally03)
 
@@ -73,19 +79,51 @@ class GameManager {
 
     }
 
+    private fun huriwake(enemy01: Player, enemy02: Player, enemy03: Player, ally01: Player, ally02: Player, ally03: Player) {
+
+        val charaList: MutableList<Player> = mutableListOf(ally01,ally02,ally03,enemy01,enemy02,enemy03)
+
+        for (player in charaList) {
+
+            if (player.isMark()!!) {
+
+                allyList.add(player)
+
+            } else {
+
+                enemyList.add(player)
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
     fun battle(){
 
-        for (i in speedOrderList) {
+        attackList.clear()
+
+        for (i in 1..pt.getMembers().size){
+
+            attackList.add(pt.getMembers()[i - 1])
+        }
+
+        for (i in attackList) {
 
             player1 = i
 
             player2 = if (player1.isMark()!!) {
-
+                println("ログ００2${pt.getParty2()}")
                 val a = (1..pt.getParty2().size).random()
                 pt.getParty2()[a - 1]
 
             } else {
-
+                println("ログ００１${pt.getParty1()}")
                 val a = (1..pt.getParty1().size).random()
                 pt.getParty1()[a - 1]
             }
@@ -96,6 +134,11 @@ class GameManager {
             // 敗北判定
             defeatDecision()
 
+            if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()){
+                break
+            }
+
+
         }
 
         val array = sb.split("@@")
@@ -104,10 +147,6 @@ class GameManager {
 
         // キャラクターの表示
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
-
-//        allyStatus(ally01, ally02, ally03)
-//
-//        enemyStatus(enemy01, enemy02, enemy03)
 
         sb.clear()
 
@@ -122,7 +161,7 @@ class GameManager {
 
     }
 
-    fun defeatDecision(){
+    private fun defeatDecision(){
 
         if (player1.getHP() <= 0) { // プレイヤー１相手プレイヤーの敗北判定
             speedOrderList-=player1
@@ -156,14 +195,14 @@ class GameManager {
         for (i in 0 until speedData.size - 1) { // 速さ順の並び替え処理
             for (j in 0 until speedData.size - i - 1) {
                 player1 = speedData[j]
-                player2 = speedData[j + 1]
-                if (player1.getAGI() < player2.getAGI()) {
-                    val box: Player? = speedData[j]
-                    speedData[j] = speedData[j + 1]
-                    if (box != null) {
-                        speedData[j + 1] = box
+                    player2 = speedData[j + 1]
+                    if (player1.getAGI() < player2.getAGI()) {
+                        val box: Player? = speedData[j]
+                        speedData[j] = speedData[j + 1]
+                        if (box != null) {
+                            speedData[j + 1] = box
+                        }
                     }
-                }
             }
         }
 
@@ -256,7 +295,7 @@ class GameManager {
     }
 
     // 味方キャラクターを作成する
-    fun makeAllyCharacter(allyPartyList: CharacterAllData): Player {
+    private fun makeAllyCharacter(allyPartyList: CharacterAllData): Player {
 
         when (allyPartyList.job) {
 
@@ -338,5 +377,17 @@ class GameManager {
 
         return party02
     }
+
+    fun sendData() {
+
+        val charaData = CharacterData.getInstance()
+        charaData.ally01 = ally01
+        charaData.ally02 = ally02
+        charaData.ally03 = ally03
+        charaData.enemy01 = enemy01
+        charaData.enemy02 = enemy02
+        charaData.enemy03 = enemy03
+    }
+
 
 }

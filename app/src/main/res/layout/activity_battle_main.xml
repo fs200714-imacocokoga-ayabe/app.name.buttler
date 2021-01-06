@@ -54,7 +54,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     // 敵パーティ表示レイアウト
-
     <LinearLayout
         android:id="@+id/enemy_party_linearLayout_id"
         android:layout_width="395dp"
@@ -75,9 +74,6 @@
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
-
-    // バトルログの表示
-
     <LinearLayout
         android:id="@+id/ally_party_linearLayout_id"
         android:layout_width="395dp"
@@ -94,12 +90,9 @@
             android:id="@+id/battle_main_ally_status_recycleView_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
-
     </LinearLayout>
 
-    //　"作戦:"の表示と作戦の表示
-
+    // バトルログの表示
     <TextView
         android:id="@+id/battle_main_battle_log_text_id"
         android:layout_width="389dp"
@@ -119,6 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/battle_main_strategy_text_id"
         app:layout_constraintVertical_bias="0.0" />
 
+    //　"作戦:"の表示と作戦の表示
     <TextView
         android:id="@+id/battle_main_strategy_text_id"
         android:layout_width="230dp"

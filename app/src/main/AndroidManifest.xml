@@ -3,6 +3,7 @@
     package="com.e.app_namebattler">
 
     <application
+        android:name=".CharacterData"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,7 +20,7 @@
             android:name=".BattleStartActivity"
             android:label="@string/title_activity_battle_start"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PartyOrgnizationActivity" />
+        <activity android:name=".PartyOrganizationActivity" />
         <activity android:name=".CharacterListActivity" />
         <activity android:name=".TopScreenActivity">
             <intent-filter>
