@@ -41,7 +41,6 @@ class CharacterCreatedActivity : AppCompatActivity() {
         jobText.text = jobExtra
 
         val name = nameExtra.toString()
-      //  val job = jobExtra.toString()
 
             when(jobExtra){
 

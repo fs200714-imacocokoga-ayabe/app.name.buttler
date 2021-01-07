@@ -1,5 +1,6 @@
 package com.e.app_namebattler
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +15,22 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val member = memberList[position]
-        holder.Name.text = member.name
-        holder.Hp.text = member.hp.toString()
-        holder.Mp.text = member.Mp.toString()
-        holder.Status.text = member.Status
-    }
 
+        holder.Name.text = member.name
+        holder.Hp.text = member.hp
+        holder.Mp.text = member.Mp
+        holder.Status.text = member.Status
+
+        if (member.hp02 <= 0){
+
+            holder.Name.setTextColor(Color.parseColor("#FF0000"))
+
+        }else {
+
+            holder.Name.setTextColor(Color.parseColor("#000000"))
+
+        }
+    }
 
     // レイアウトの設定
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,23 +42,22 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     // ViewHolderの定義
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val Name: TextView = view.findViewById(com.e.app_namebattler.R.id.member_name_id)
-        val Hp: TextView = view.findViewById(com.e.app_namebattler.R.id.member_hp_id)
-        val Mp: TextView = view.findViewById(com.e.app_namebattler.R.id.member_mp_id)
-        val Status: TextView = view.findViewById(com.e.app_namebattler.R.id.member_status_id)
+        val Name: TextView = view.findViewById(R.id.member_name_id)
+        val Hp: TextView = view.findViewById(R.id.member_hp_id)
+        val Mp: TextView = view.findViewById(R.id.member_mp_id)
+        val Status: TextView = view.findViewById(R.id.member_status_id)
 
     }
 
     //  リストの行数
-    // override fun getItemCount(): Int = memberList.size
     override fun getItemCount(): Int {
-        // number of items in the data set held by the adapter
+
         return memberList.size
     }
-
 }
+
 // 1行分のデータモデル
-class MemberStatusData(var name: String, var hp: String, var Mp: String, var Status: String)
+class MemberStatusData(var name: String, var hp: String, var Mp: String, var Status: String ,var hp02:Int)
 
 
 

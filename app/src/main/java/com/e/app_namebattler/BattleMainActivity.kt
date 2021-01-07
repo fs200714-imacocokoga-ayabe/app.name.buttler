@@ -1,10 +1,11 @@
 package com.e.app_namebattler
 
-//import com.e.app_namebattler.GameManager.myThread
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.telephony.MbmsDownloadSession.RESULT_CANCELLED
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -59,6 +60,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     var turnNumber = 1 // ターンの初期値
 
+    @SuppressLint("CutPasteId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.e.app_namebattler.R.layout.activity_battle_main)
@@ -66,7 +68,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         this.handler = Handler()
 
         val battleMainLogTextDialog =
-            findViewById<View>(com.e.app_namebattler.R.id.battle_main_battle_log_text_id) as TextView
+            findViewById<View>(R.id.battle_main_battle_log_text_id) as TextView
 
         battleMainLogTextDialog.setOnClickListener(this)
 
@@ -76,16 +78,20 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         val enemyName01 = intent.getStringExtra("enemyName01_key")
         val enemyName02 = intent.getStringExtra("enemyName02_key")
         val enemyName03 = intent.getStringExtra("enemyName03_key")
-        val strategyName = intent.getStringExtra("strategy_key")
+        var strategyName = intent.getStringExtra("strategy_key")
 
-        if (strategyName != null) {
-            printStrategy(strategyName)
-        } else {
-            printStrategy("ガンガンいこうぜ")
-        }
+            if (strategyName != null) {
+
+                printStrategy(strategyName)
+
+            } else {
+                printStrategy("ガンガンいこうぜ")
+
+            }
+
 
         // タップすると始まります
-        val bl = findViewById<TextView>(com.e.app_namebattler.R.id.battle_main_battle_log_text_id)
+        val bl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
         bl.text = "Tap to start"
 
         // 敵のデータを名前から取得する
@@ -95,13 +101,15 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         gm.myCallBack = this
 
+        println("ログally$allyPartyList")
+        println("ログenemy$enemyPartyList")
         // コントロールをGameManagerに移譲
         gm.controlTransfer(allyPartyList, enemyPartyList)
 
         // 作戦変更画面に遷移
         strategy_change_button_id.setOnClickListener {
             val intent = Intent(this, StrategyChangeActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 1000)
         }
 
         // 次のターンボタンを押したときの処理
@@ -135,6 +143,25 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                 }
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode != 1000) { return }
+
+        val sn = findViewById<TextView>(R.id.battle_main_strategy_text_id)
+
+        if (resultCode == Activity.RESULT_OK && data != null){
+
+            val message = data.getStringExtra("strategy_key")
+
+            sn.text = message
+
+        } else if(resultCode == Activity.RESULT_CANCELED){
+
+            sn.text = "ガンガンいこうぜ"
         }
     }
 
@@ -377,7 +404,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     private fun printStrategy(strategyName: String) {
 
-        val strategyText: TextView = findViewById(com.e.app_namebattler.R.id.battle_main_strategy_text_id)
+        val strategyText: TextView = findViewById(R.id.battle_main_strategy_text_id)
         strategyText.text = strategyName
 
     }
@@ -410,13 +437,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     override fun upDateBattleLog(testLog: List<String>){
 
-//        for (i in testLog){
-//
-//            val array = i.split("@")
-//        }
-
-
-        val tl = findViewById<TextView>(com.e.app_namebattler.R.id.battle_main_battle_log_text_id)
+        val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
         println("ろぐ00$testLog")
         for (i in 1..testLog.size) {
             when (i) {
@@ -484,9 +505,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     override fun upDateAllyStatus(ally01: Player, ally02: Player, ally03: Player){
 
-        val ally001 = MemberStatusData(ally01.getName(), ("%s %d/%d".format("HP", ally01.hp, ally01.getMaxHp())), ("%s %d/%d".format("MP", ally01.mp, ally01.getMaxMp())),("%s %s".format(ally01.getPoison(),ally01.getParalysis())))
-        val ally002 = MemberStatusData(ally02.getName(), ("%s %d/%d".format("HP", ally02.hp, ally02.getMaxHp())), ("%s %d/%d".format("MP", ally02.mp, ally02.getMaxMp())),("%s %s".format(ally02.getPoison(),ally02.getParalysis())))
-        val ally003 = MemberStatusData(ally03.getName(), ("%s %d/%d".format("HP", ally03.hp, ally03.getMaxHp())), ("%s %d/%d".format("MP", ally03.mp, ally03.getMaxMp())),("%s %s".format(ally03.getPoison(),ally03.getParalysis())))
+        val ally001 = MemberStatusData(ally01.getName(), ("%s %d/%d".format("HP", ally01.hp, ally01.getMaxHp())), ("%s %d/%d".format("MP", ally01.mp, ally01.getMaxMp())),("%s %s".format(ally01.getPoison(),ally01.getParalysis())),(ally01.hp))
+        val ally002 = MemberStatusData(ally02.getName(), ("%s %d/%d".format("HP", ally02.hp, ally02.getMaxHp())), ("%s %d/%d".format("MP", ally02.mp, ally02.getMaxMp())),("%s %s".format(ally02.getPoison(),ally02.getParalysis())),(ally02.hp))
+        val ally003 = MemberStatusData(ally03.getName(), ("%s %d/%d".format("HP", ally03.hp, ally03.getMaxHp())), ("%s %d/%d".format("MP", ally03.mp, ally03.getMaxMp())),("%s %s".format(ally03.getPoison(),ally03.getParalysis())),(ally03.hp))
 
         memberList = arrayListOf(ally001, ally002, ally003)
 
@@ -504,20 +525,13 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             battle_main_ally_status_recycleView_id.adapter = this
             
         }
-
-//       if (ally01.getHP() <= 0) {
-//
-//           ally001.name.Text.setTextColor(Color.RED)
-//           ally001.name.text = ally01.getName()
-//       }
-
     }
 
     override fun upDateEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player){
 
-        val enemy001 = MemberStatusData(enemy01.getName(), ("%s %d/%d".format("HP", enemy01.hp, enemy01.getMaxHp())), ("%s %d/%d".format("MP", enemy01.mp, enemy01.getMaxMp())),("%s %s".format(enemy01.getPoison(),enemy01.getParalysis())))
-        val enemy002 = MemberStatusData(enemy02.getName(), ("%s %d/%d".format("HP", enemy02.hp, enemy02.getMaxHp())), ("%s %d/%d".format("MP", enemy02.mp, enemy02.getMaxMp())),("%s %s".format(enemy02.getPoison(),enemy02.getParalysis())))
-        val enemy003 = MemberStatusData(enemy03.getName(), ("%s %d/%d".format("HP", enemy03.hp, enemy03.getMaxHp())), ("%s %d/%d".format("MP", enemy03.mp, enemy03.getMaxMp())),("%s %s".format(enemy03.getPoison(),enemy03.getParalysis())))
+        val enemy001 = MemberStatusData(enemy01.getName(), ("%s %d/%d".format("HP", enemy01.hp, enemy01.getMaxHp())), ("%s %d/%d".format("MP", enemy01.mp, enemy01.getMaxMp())),("%s %s".format(enemy01.getPoison(),enemy01.getParalysis())),(enemy01.hp))
+        val enemy002 = MemberStatusData(enemy02.getName(), ("%s %d/%d".format("HP", enemy02.hp, enemy02.getMaxHp())), ("%s %d/%d".format("MP", enemy02.mp, enemy02.getMaxMp())),("%s %s".format(enemy02.getPoison(),enemy02.getParalysis())),(enemy02.hp))
+        val enemy003 = MemberStatusData(enemy03.getName(), ("%s %d/%d".format("HP", enemy03.hp, enemy03.getMaxHp())), ("%s %d/%d".format("MP", enemy03.mp, enemy03.getMaxMp())),("%s %s".format(enemy03.getPoison(),enemy03.getParalysis())),(enemy03.hp))
 
         memberList = arrayListOf(enemy001, enemy002, enemy003)
 
@@ -533,36 +547,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         BattleMainRecyclerAdapter(memberList).apply {
 
             battle_main_enemy_status_recycleView_id.adapter = this
-
         }
-
     }
-
-
-//    // 味方キャラクター01のステータスを表示する
-//    fun allyPrintStatus01(ally01: Player) {
-//
-//        val allyName01Text: TextView = findViewById(R.id.ally_member01_name_id)
-//
-//        if (ally01.getHP() <= 0) {
-//
-//            allyName01Text.setTextColor(Color.RED)
-//           // allyName01Text.text = ally01.getName()
-//        }
-//
-//            allyName01Text.text = ally01.getName()
-//
-//        val allyHp01Text: TextView = findViewById(R.id.ally_member01_hp_id)
-//        allyHp01Text.text = ("%s %d/%d".format("HP", ally01.hp, ally01.getMaxHp()))
-//
-//        val allyMp01Text: TextView = findViewById(R.id.ally_member01_mp_id)
-//        allyMp01Text.text = ("%s %d/%d".format("MP", ally01.mp, ally01.getMaxMp()))
-//
-//        val allyStatus01Text: TextView = findViewById(R.id.ally_member01_status_id)
-//        allyStatus01Text.text = ("%s %s".format(ally01.getPoison(), ally01.getParalysis()))
-//    }
-//
-
 
 }
 

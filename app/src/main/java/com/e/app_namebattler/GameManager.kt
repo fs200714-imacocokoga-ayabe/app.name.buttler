@@ -389,5 +389,4 @@ class GameManager {
         charaData.enemy03 = enemy03
     }
 
-
 }

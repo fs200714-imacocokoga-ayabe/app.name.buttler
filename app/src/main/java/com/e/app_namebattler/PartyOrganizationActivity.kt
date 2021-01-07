@@ -1,8 +1,14 @@
 package com.e.app_namebattler
 
+import android.R
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.ListView
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
 
@@ -30,9 +36,10 @@ class PartyOrganizationActivity : AppCompatActivity() {
     var luck = 0
     var create_at = ""
 
+    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_party_orgnization)
+        setContentView(com.e.app_namebattler.R.layout.activity_party_orgnization)
 
         helper = MyOpenHelper(applicationContext)//DB作成
 
@@ -68,16 +75,62 @@ class PartyOrganizationActivity : AppCompatActivity() {
             db.close()
         }
 
-        val listView = findViewById<ListView>(R.id.list_View_party)
+        val listView = findViewById<ListView>(com.e.app_namebattler.R.id.list_View_party)
 
         mListAdapter = PartyListAdapter(this, characterList)
 
         listView.adapter = mListAdapter
-        
+
+
+//        val radioGroup = findViewById<View>(com.e.app_namebattler.R.id.radiogroup_id) as RadioGroup
+//        radioGroup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
+//            override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+//                if (checkedId != -1) {
+//                    // 選択されているラジオボタンの取得
+//                    val radioButton = findViewById<View>(checkedId) as RadioButton
+//
+//                    // ラジオボタンのテキストを取得
+//                    val text = radioButton.text.toString()
+//                    Log.v("checked", text)
+//                    println("ログラジオ$text")
+//                } else {
+//                    // 何も選択されていない場合の処理
+//                }
+//            }
+//        })
+
+
+
+      //  val radioGroup = findViewById<RadioGroup>(R.id.radiogroup_id)
+
+      //  val id: Int = radioGroup.checkedRadioButtonId
+
+       // val id = radioGroup.checkedRadioButtonId
+
+
+//
+//        val radioButton = findViewById<RadioButton>(id)
+//
+//        val index = radioGroup.indexOfChild(radioButton)
+
+   //
+
+//        radioGroup.setOnCheckedChangeListener  { group, checkedId ->
+//
+//            val radioButton = findViewById<RadioButton>(checkedId)
+//        }
         // 項目をタップしたときの処理
         listView.setOnItemClickListener { parent, view, position, id ->
 
+                // チェックされてないアイテムは含まれない模様
+            //    val checked = listView.checkedItemPosition
 
+              //  for (i in 1.. checked.size()) {
+
+//                    val key = checked.keyAt (i)
+            //val key = checked
+                //    array(checked)
+              //  }
 //
 //            // テキストの表示
 //            val textView = findViewById<TextView>(R.id.this_party_start)
@@ -101,19 +154,28 @@ class PartyOrganizationActivity : AppCompatActivity() {
         }
 
         // このパーティで開始
-        this_party_start.setOnClickListener {
+                  this_party_start.setOnClickListener {
 
-            // チェックされてないアイテムは含まれない模様
-
-            // チェックされてないアイテムは含まれない模様
-//            val checked = listView.checkedItemPositions
+//                      for (i in characterList) {
 //
-//            for (i in 0.. checked.size()) {
+//                          val radioGroup: RadioGroup = findViewById(com.e.app_namebattler.R.id.radiogroup_id)
 //
-//            val key = checked.keyAt (i)
+//                          val radioId = radioGroup.checkedRadioButtonId
 //
-//                array.plusAssign(key)
-       // }
+//                          val aaa: RadioButton = radioGroup.findViewById(radioId)
+//
+//                          println("ログラジオ$aaa")
+//                      }
+////
+//                // チェックされてないアイテムは含まれない模様
+//                val checked = listView.checkedItemPositions
+//
+//                for (i in 1.. checked.size()) {
+//
+//                    val key = checked.keyAt (i)
+//
+//                    array.plusAssign(key)
+//                }
 
 
 
@@ -122,8 +184,8 @@ class PartyOrganizationActivity : AppCompatActivity() {
             nameValue03 = characterList[listView.firstVisiblePosition + 2].name
 
 //            nameValue01 = characterList[array[0]].name
-//            nameValue02 = characterList[array[2]].name
-//            nameValue03 = characterList[array[3]].name
+//            nameValue02 = characterList[array[1]].name
+//            nameValue03 = characterList[array[2]].name
 
             val intent = Intent(this, BattleStartActivity::class.java)
 
