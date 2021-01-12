@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 
+
 class ListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter() {
 
     @SuppressLint("ViewHolder")

@@ -101,8 +101,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         gm.myCallBack = this
 
-        println("ログally$allyPartyList")
-        println("ログenemy$enemyPartyList")
         // コントロールをGameManagerに移譲
         gm.controlTransfer(allyPartyList, enemyPartyList)
 

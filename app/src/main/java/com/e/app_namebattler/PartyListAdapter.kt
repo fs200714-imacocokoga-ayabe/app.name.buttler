@@ -6,9 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Checkable
+import android.widget.RadioButton
 import android.widget.TextView
 
-class PartyListAdapter (val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter() {
+class PartyListAdapter (val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter(),
+    Checkable {
+
+    private var mRadioButton: RadioButton? = null
+//
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -46,5 +52,51 @@ class PartyListAdapter (val context: Context, val CharacterList: ArrayList<Chara
         return CharacterList.count()
     }
 
+    override fun isChecked(): Boolean {
+        return mRadioButton!!.isChecked
+    }
+
+    override fun setChecked(checked: Boolean) {
+        // RadioButton の表示を切り替える
+        if (mRadioButton != null) {
+            mRadioButton!!.isChecked = checked
+        }
+    }
+
+    override fun toggle() {}
 
 }
+
+//class CustomItemView : FrameLayout, Checkable {
+//    private var mRadioButton: RadioButton? = null
+//
+//    constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(
+//        context!!, attrs, defStyle) {
+//        initialize()
+//    }
+//
+//    constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) {
+//        initialize()
+//    }
+//
+//    constructor(context: Context?) : super(context!!) {
+//        initialize()
+//    }
+//
+//    private fun initialize() {
+//        // レイアウトを追加する
+//        addView(inflate(context, R.layout.data_character_status, null))
+//        mRadioButton = findViewById<View>(R.id.data_party_organization_character_name_radiobutton_id) as RadioButton
+//    }
+//
+//    override fun isChecked(): Boolean {
+//        return mRadioButton!!.isChecked
+//    }
+//
+//    override fun setChecked(checked: Boolean) {
+//        // RadioButton の表示を切り替える
+//        mRadioButton!!.isChecked = checked
+//    }
+//
+//    override fun toggle() {}
+//}
