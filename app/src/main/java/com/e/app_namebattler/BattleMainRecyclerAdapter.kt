@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatusData>):
     RecyclerView.Adapter<BattleMainRecyclerAdapter.MyViewHolder>() {
 
+    lateinit var listener: OnItemClickListener
+
     // Viewの設定
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
@@ -29,6 +31,10 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
 
             holder.Name.setTextColor(Color.parseColor("#000000"))
 
+        }
+
+        holder.Status.setOnClickListener{
+            listener.onItemClickListener(it, position, memberList[position])
         }
     }
 
@@ -53,6 +59,14 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     override fun getItemCount(): Int {
 
         return memberList.size
+    }
+
+    interface OnItemClickListener {
+        fun onItemClickListener(viw: View, position: Int, clickedText: MemberStatusData)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.listener = listener
     }
 }
 

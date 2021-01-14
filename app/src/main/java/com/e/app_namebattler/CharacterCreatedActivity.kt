@@ -119,7 +119,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
                    val dialog = CharacterCreateMaxDialogFragment()
                    dialog.show(supportFragmentManager, "alert_dialog")
 
-               //  キャラクター数が16未満の場合続けてキャラクターの作成をする
+               //  キャラクター数が8未満の場合続けてキャラクターの作成をする
                }else {
                    val intent = Intent(this, CharacterCreationActivity::class.java)
                    startActivity(intent)

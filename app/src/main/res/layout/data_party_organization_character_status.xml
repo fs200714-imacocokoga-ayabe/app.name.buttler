@@ -29,6 +29,8 @@
                     android:checked="false"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textSize="25sp"
+                    android:buttonTint="@color/colorBlue"
+                    android:onClick="radioCheck"
                     />
 <!--            </RadioGroup>-->
 

@@ -3,11 +3,9 @@ package com.e.app_namebattler
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_battle_main.*
 import kotlinx.android.synthetic.main.activity_battle_result_screen.*
 
 class BattleResultScreenActivity : AppCompatActivity() {
@@ -38,7 +36,7 @@ class BattleResultScreenActivity : AppCompatActivity() {
         if (ally01 != null) {
             if (ally02 != null) {
                 if (ally03 != null) {
-                    ResultAllyStatus(ally01, ally02, ally03)
+                    resultAllyStatus(ally01, ally02, ally03)
                 }
             }
         }
@@ -46,7 +44,7 @@ class BattleResultScreenActivity : AppCompatActivity() {
         if (enemy01 != null) {
             if (enemy02 != null) {
                 if (enemy03 != null) {
-                    ResultEnemyStatus(enemy01, enemy02, enemy03)
+                    resultEnemyStatus(enemy01, enemy02, enemy03)
                 }
             }
         }
@@ -101,13 +99,13 @@ class BattleResultScreenActivity : AppCompatActivity() {
         }
     }
 
-     fun ResultAllyStatus(ally01: Player, ally02: Player, ally03: Player) {
+     private fun resultAllyStatus(ally01: Player, ally02: Player, ally03: Player) {
 
-        val ally001 = MemberStatusData(ally01.getName(), ("%s %d/%d".format("HP", ally01.hp, ally01.getMaxHp())), ("%s %d/%d".format("MP", ally01.mp, ally01.getMaxMp())),("%s %s".format(ally01.getPoison(),ally01.getParalysis())),(ally01.hp))
-        val ally002 = MemberStatusData(ally02.getName(), ("%s %d/%d".format("HP", ally02.hp, ally02.getMaxHp())), ("%s %d/%d".format("MP", ally02.mp, ally02.getMaxMp())),("%s %s".format(ally02.getPoison(),ally02.getParalysis())),(ally02.hp))
-        val ally003 = MemberStatusData(ally03.getName(), ("%s %d/%d".format("HP", ally03.hp, ally03.getMaxHp())), ("%s %d/%d".format("MP", ally03.mp, ally03.getMaxMp())),("%s %s".format(ally03.getPoison(),ally03.getParalysis())),(ally03.hp))
+         val ally001 = MemberStatusData(("  %s".format(ally01.getName())), ("%s %d/%d".format("  HP", ally01.hp, ally01.getMaxHp())), ("%s %d/%d".format("  MP", ally01.mp, ally01.getMaxMp())),("%s %s".format(ally01.getPoison(),ally01.getParalysis())),(ally01.hp))
+         val ally002 = MemberStatusData(("  %s".format(ally02.getName())), ("%s %d/%d".format("  HP", ally02.hp, ally02.getMaxHp())), ("%s %d/%d".format("  MP", ally02.mp, ally02.getMaxMp())),("%s %s".format(ally02.getPoison(),ally02.getParalysis())),(ally02.hp))
+         val ally003 = MemberStatusData(("  %s".format(ally03.getName())), ("%s %d/%d".format("  HP", ally03.hp, ally03.getMaxHp())), ("%s %d/%d".format("  MP", ally03.mp, ally03.getMaxMp())),("%s %s".format(ally03.getPoison(),ally03.getParalysis())),(ally03.hp))
 
-        memberList = arrayListOf(ally001, ally002, ally003)
+         memberList = arrayListOf(ally001, ally002, ally003)
 
         val layoutManager = LinearLayoutManager(
             this,
@@ -124,13 +122,13 @@ class BattleResultScreenActivity : AppCompatActivity() {
         }
     }
 
-     fun ResultEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player) {
+     private fun resultEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player) {
 
-        val enemy001 = MemberStatusData(enemy01.getName(), ("%s %d/%d".format("HP", enemy01.hp, enemy01.getMaxHp())), ("%s %d/%d".format("MP", enemy01.mp, enemy01.getMaxMp())),("%s %s".format(enemy01.getPoison(),enemy01.getParalysis())),(enemy01.hp))
-        val enemy002 = MemberStatusData(enemy02.getName(), ("%s %d/%d".format("HP", enemy02.hp, enemy02.getMaxHp())), ("%s %d/%d".format("MP", enemy02.mp, enemy02.getMaxMp())),("%s %s".format(enemy02.getPoison(),enemy02.getParalysis())),(enemy02.hp))
-        val enemy003 = MemberStatusData(enemy03.getName(), ("%s %d/%d".format("HP", enemy03.hp, enemy03.getMaxHp())), ("%s %d/%d".format("MP", enemy03.mp, enemy03.getMaxMp())),("%s %s".format(enemy03.getPoison(),enemy03.getParalysis())),(enemy03.hp))
+         val enemy001 = MemberStatusData(("  %s".format(enemy01.getName())), ("%s %d/%d".format("  HP", enemy01.hp, enemy01.getMaxHp())), ("%s %d/%d".format("  MP", enemy01.mp, enemy01.getMaxMp())),("%s %s".format(enemy01.getPoison(),enemy01.getParalysis())),(enemy01.hp))
+         val enemy002 = MemberStatusData(("  %s".format(enemy02.getName())), ("%s %d/%d".format("  HP", enemy02.hp, enemy02.getMaxHp())), ("%s %d/%d".format("  MP", enemy02.mp, enemy02.getMaxMp())),("%s %s".format(enemy02.getPoison(),enemy02.getParalysis())),(enemy02.hp))
+         val enemy003 = MemberStatusData(("  %s".format(enemy03.getName())), ("%s %d/%d".format("  HP", enemy03.hp, enemy03.getMaxHp())), ("%s %d/%d".format("  MP", enemy03.mp, enemy03.getMaxMp())),("%s %s".format(enemy03.getPoison(),enemy03.getParalysis())),(enemy03.hp))
 
-        memberList = arrayListOf(enemy001, enemy002, enemy003)
+         memberList = arrayListOf(enemy001, enemy002, enemy003)
 
         val layoutManager = LinearLayoutManager(
             this,

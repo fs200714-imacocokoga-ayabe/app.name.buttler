@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AbsListView.CHOICE_MODE_MULTIPLE
 import android.widget.ListView
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
@@ -35,11 +36,14 @@ class PartyOrganizationActivity : AppCompatActivity() {
     var agi = 0
     var luck = 0
     var create_at = ""
+    var radioNumber = 0
+    var radioId01 = 0
+    var arrayRadioId = ArrayList<Int>()
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.e.app_namebattler.R.layout.activity_party_orgnization)
+        setContentView(R.layout.activity_party_orgnization)
 
         helper = MyOpenHelper(applicationContext)//DB作成
 
@@ -61,7 +65,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
                 // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
                 characterList.add(
                     CharacterAllData(
-                        c.getString(0), (OccupationConversion01(c.getInt(1))),
+                        c.getString(0), (occupationConversion01(c.getInt(1))),
                         c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
                         c.getInt(6), c.getInt(7), c.getString(8)
                     )
@@ -92,6 +96,11 @@ class PartyOrganizationActivity : AppCompatActivity() {
         // このパーティで開始
         this_party_start.setOnClickListener {
 
+            radioNumber = 0
+            arrayRadioId.clear()
+            val textView = findViewById<TextView>(R.id.this_party_start)
+            textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
+
             for (i in 1..listView.count) {
 
                 val radioName: RadioButton = listView.getChildAt(i - 1)
@@ -102,7 +111,6 @@ class PartyOrganizationActivity : AppCompatActivity() {
                     array.add(radioName.text as String)
 
                 }
-
             }
 
             if (array.size == 3) {
@@ -148,7 +156,76 @@ class PartyOrganizationActivity : AppCompatActivity() {
             }
     }
 
-    fun OccupationConversion01(jobValue: Int): String{
+    fun radioCheck(view: View) {
+
+        val listView = findViewById<ListView>(R.id.list_View_party)
+
+        // ラジオボタンの選択状態を取得
+        val radioButton = view as RadioButton
+        // getId()でラジオボタンを識別し、ラジオボタンごとの処理を行う
+        val checked = radioButton.isChecked
+
+        // radioId01 = radioButton.id
+
+       // arrayRadioId.plusAssign(radioId01)
+
+       // println("ラジオID$radioButton.id")
+
+      //  println("ラジオログ$arrayRadioId")
+
+        if (checked){
+
+//            for (i in 1..listView.count) {
+//
+//                val radioName: RadioButton = listView.getChildAt(i - 1)
+//                    .findViewById(R.id.data_party_organization_character_name_radiobutton_id)
+//
+//                if (radioName.isChecked) {
+//
+//                    array.add(radioName.text as String)
+//
+//                }
+//            }
+
+
+
+            radioNumber += 1
+
+            val textView = findViewById<TextView>(R.id.this_party_start)
+            textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
+
+//        }else{
+//
+//            for (i in 1..arrayRadioId.size){
+//
+//                if (radioId01 != (i - 1)){
+//
+//                    radioNumber += 1
+//
+//                    textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
+//
+//                    break
+//
+//                }else{
+//
+//                    break
+//                }
+//            }
+        }
+//        when (radioButton.id) {
+//            R.id.data_party_organization_character_name_radiobutton_id -> if (checked) {
+//                radioNumber += 1
+//                println("ラジオID$radioButton.id")
+//              //  val textView = findViewById<TextView>(R.id.this_party_start)
+//               // textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
+//               // Toast.makeText(applicationContext, "項目1が選択状態になりました。", Toast.LENGTH_SHORT).show()
+//            }
+//
+//        }
+    }
+
+
+    private fun occupationConversion01(jobValue: Int): String{
 
         when(jobValue){
 

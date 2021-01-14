@@ -93,19 +93,20 @@
     </LinearLayout>
 
     // バトルログの表示
+
     <TextView
         android:id="@+id/battle_main_battle_log_text_id"
         android:layout_width="389dp"
-        android:layout_height="400dp"
+        android:layout_height="330dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/frame_line_01"
+        android:background="@drawable/bp09"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="15sp"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/next_turn_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
