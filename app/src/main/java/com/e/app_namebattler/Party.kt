@@ -103,4 +103,19 @@ class Party {
         println("ログ04$resultParty1")
         return resultParty2
     }
+
+    /**
+     * パーティから1人返す処理
+     * @param id : プレイヤーのID
+     * @return IDのプレイヤー
+     */
+    fun selectMember(id: Int): Player? {
+        for (i in 1..members.size) {
+            if (members[i - 1].getIdNumber() == id) {
+                return members[i -1]
+            }
+        }
+        return null
+    }
+
 }

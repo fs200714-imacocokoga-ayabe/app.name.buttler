@@ -4,10 +4,13 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
 
 open class Player{
+
+    var random = Random()
 
     open var myCallBack: BattleLogListener? = null
 
@@ -47,11 +50,13 @@ open class Player{
 
     private var maxMp: Int = 0 // 最大MP
 
-    var isPoison: Boolean = false
+    open var isPoison: Boolean = false
 
-    var isParalysis: Boolean = false
+    open var isParalysis: Boolean = false
 
     private var mark: Boolean? = false
+
+    private var idNumber: Int = 0
 
     var damage = 0
 
@@ -68,6 +73,10 @@ open class Player{
     open fun getName(): String{
         return name
     }
+
+//    open fun getJob(): String? {
+//        return job
+//    }
 
     /**
      * 現在HPを取得する
@@ -117,6 +126,11 @@ open class Player{
         return agi
     }
 
+    fun getIdNumber(): Int {
+        return idNumber
+
+    }
+
     /**
      * 敵味方の識別をセットする
      * @param mark
@@ -137,7 +151,6 @@ open class Player{
     }
 
     open fun setMaxHp(hp: Int){
-
         maxHp = hp
     }
 
@@ -150,9 +163,22 @@ open class Player{
         maxMp = mp
     }
 
+    fun setIdNumber(id: Int) {
+        idNumber = id
+    }
+
     open fun makeCharacter(name: String){
 
     }
+
+//    fun setParalysis(b: Boolean) {
+//        isParalysis = b
+//    }
+//
+//    fun setPoison(b: Boolean) {
+//        isPoison = b
+//    }
+
 
     open fun getPoison(): String{
 
@@ -175,6 +201,10 @@ open class Player{
             ""
         }
     }
+    
+  
+    val isLive: Boolean
+        get() = hp > 0
 
     /**
      * 名前(name)からキャラクターに必要なパラメータを生成する
@@ -203,13 +233,41 @@ open class Player{
      * 対象プレイヤーに攻撃を行う
      * @param defender: 対象プレイヤー
      */
-    open fun attack(defender: Player?): StringBuilder {
-        // ジョブごとにオーバーライドして処理を記述してください
+  //  open fun attack(defender: Player?, i: Int): StringBuilder {
+
+        open fun attack(defender: Player, strategyNumber: Int): StringBuilder {
+
         bsb.clear()
+
+            if (!isParalysis) { // 麻痺していない
+                when (strategyNumber) {
+                    1 -> normalAttack(defender)
+                    2 -> if (this is IMagicalUsable) {
+                        magicAttack(defender)
+                    } else {
+                        normalAttack(defender)
+                    }
+                    3 -> skillAttack(defender)
+                    4 -> if (this is IRecoveryMagic) {
+                        healingMagic(defender)
+                    } else {
+                        normalAttack(defender)
+                    }
+                    5 -> eatGrass()
+                }
+            } else {
+                System.out.printf("%sは麻痺で動けない！！\n", name)
+            }
+            fall(defender) // 倒れた判定
 
         return bsb
 
     }
+
+    open fun normalAttack(defender: Player) {}
+    open fun skillAttack(defender: Player) {}
+    open fun magicAttack(defender: Player) {}
+    open fun healingMagic(defender: Player) {}
 
     /**
      * 対象プレイヤー(target)に対して与えるダメージを計算する
@@ -303,24 +361,19 @@ open class Player{
      */
     open fun eatGrass() {
 
-       // System.out.printf("%sは革袋の中にあった草を食べた！\n", getName())
         bsb.append("${getName()}は革袋の中にあった草を食べた！\n")
         when ((1..3).random()) {
             0 -> {
-                //System.out.printf("%sは体力が%d回復した！\n", getName(), herbRecoveryValue)
-               // recovery(this, herbRecoveryValue)
                 bsb.append("${getName()}は体力が${herbRecoveryValue}回復した！\n")
-                recovery(this, herbRecoveryValue)
+                recoveryProcess(this, herbRecoveryValue)
             }
 
             1 -> {
-               // System.out.printf("%sは毒が消えた！\n", getName())
                 bsb.append("${getName()}は毒が消えた！\n")
                 isPoison = false
             }
 
             2 -> {
-                //System.out.printf("%sは何も起こらなかった！\n", getName())
                 bsb.append("${getName()}は何も起こらなかった！\n")
             }
         }
@@ -332,13 +385,28 @@ open class Player{
      * @param heal :回復値
      * @return 回復に使用した値
      */
-    open fun recovery(player: Player, heal: Int): Int {
-        var heal = heal
-        //   heal = player.getMaxHP().coerceAtMost(player.getHP() + heal) 保留
-        heal -= player.getHP()
-        player.hp = player.getHP() + heal
-        return heal
+//    open fun recovery(player: Player, heal: Int): Int {
+//        var heal = heal
+//        //   heal = player.getMaxHP().coerceAtMost(player.getHP() + heal) 保留
+//        heal -= player.getHP()
+//        player.hp = player.getHP() + heal
+//        return heal
+//    }
+
+   open fun recoveryProcess(defender: Player, healValue: Int): Int {
+        var healValue = healValue
+        healValue = defender.getMaxHp().coerceAtMost(defender.getHP() + healValue)
+        System.out.printf("%sはHPが%d回復した！\n", defender.getName(), healValue - defender.getHP())
+        defender.recovery(healValue - defender.getHP())
+        return healValue - defender.getHP()
     }
+
+    private fun recovery(healValue: Int) {
+        hp += healValue
+    }
+
+
+
 
 //    open fun testBattleLog(testLog: List<String>) {
 //

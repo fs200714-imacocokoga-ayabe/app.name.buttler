@@ -1,9 +1,13 @@
 package com.e.app_namebattler
 
 import android.os.Handler
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class GameManager {
+
+    var random = Random()
 
     private var party01: MutableList<Player> = ArrayList()
 
@@ -18,6 +22,8 @@ class GameManager {
     private val pt = Party()
 
     private val pl = Player()
+
+    var context: Context? = null
 
     private val handler: Handler = Handler()
 
@@ -44,6 +50,12 @@ class GameManager {
     private lateinit var player2: Player
     var job = ""
 
+    private var allyStrategyNumber = 0 // 作戦の選択に使用
+    private var enemyStrategyNumber = 0 // 作戦の選択に使用
+    var strategyNumber = 0// 個別の作戦の選択に使用
+    var strategyData = IntArray(2) // 攻撃プレイヤーIDと守備プレイヤーIDと作戦番号を格納
+
+
     // Activityから指揮権を受け取る
     fun controlTransfer(
         allyPartyList: ArrayList<CharacterAllData>,
@@ -51,19 +63,19 @@ class GameManager {
     ) {
 
         // 敵キャラクターを作成する
-        enemy01 = makeEnemyCharacter(enemyPartyList[0])
-        enemy02 = makeEnemyCharacter(enemyPartyList[1])
-        enemy03 = makeEnemyCharacter(enemyPartyList[2])
+        enemy01 = makeEnemyCharacter(enemyPartyList[0], 0)
+        enemy02 = makeEnemyCharacter(enemyPartyList[1], 1)
+        enemy03 = makeEnemyCharacter(enemyPartyList[2], 2)
 
         // 味方キャラクターを作成する
-        ally01 = makeAllyCharacter(allyPartyList[0])
-        ally02 = makeAllyCharacter(allyPartyList[1])
-        ally03 = makeAllyCharacter(allyPartyList[2])
+        ally01 = makeAllyCharacter(allyPartyList[0], 3)
+        ally02 = makeAllyCharacter(allyPartyList[1], 4)
+        ally03 = makeAllyCharacter(allyPartyList[2], 5)
 
         // スピード順に取得する
         speedOrderList = (speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03))
 
-         huriwake(enemy01, enemy02, enemy03, ally01, ally02, ally03)
+        huriwake(enemy01, enemy02, enemy03, ally01, ally02, ally03)
 
         // パーティの振り分け
         pt.appendPlayer(enemy01, enemy02, enemy03, ally01, ally02, ally03)
@@ -72,16 +84,19 @@ class GameManager {
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
 
 
-
-
-
-
-
     }
 
-    private fun huriwake(enemy01: Player, enemy02: Player, enemy03: Player, ally01: Player, ally02: Player, ally03: Player) {
+    private fun huriwake(
+        enemy01: Player,
+        enemy02: Player,
+        enemy03: Player,
+        ally01: Player,
+        ally02: Player,
+        ally03: Player
+    ) {
 
-        val charaList: MutableList<Player> = mutableListOf(ally01,ally02,ally03,enemy01,enemy02,enemy03)
+        val charaList: MutableList<Player> =
+            mutableListOf(ally01, ally02, ally03, enemy01, enemy02, enemy03)
 
         for (player in charaList) {
 
@@ -98,43 +113,37 @@ class GameManager {
     }
 
 
-
-
-
-
-
-
-    fun battle(){
+    fun battle(strategyNumber: Int) {
 
         attackList.clear()
 
-        for (i in 1..pt.getMembers().size){
+        for (i in 1..pt.getMembers().size) {
 
             attackList.add(pt.getMembers()[i - 1])
         }
-
-        for (i in attackList) {
-
-            player1 = i
-
-            player2 = if (player1.isMark()!!) {
-                println("ログ００2${pt.getParty2()}")
-                val a = (1..pt.getParty2().size).random()
-                pt.getParty2()[a - 1]
-
-            } else {
-                println("ログ００１${pt.getParty1()}")
-                val a = (1..pt.getParty1().size).random()
-                pt.getParty1()[a - 1]
+        for (i in attackList.indices) { // attackに格納したplayerが全員行動する
+            player1 = attackList[i] // 攻撃リストから呼び出し
+            if (player1.isLive) {
+                if (player1.isMark()!!) { // player1が敵の場合
+                    strategyData = selectStrategyNumber(strategyNumber)
+                } else {
+                    enemyStrategyNumber = random.nextInt(5) + 1 // 作戦ランダム
+                    strategyData = selectStrategyNumber(enemyStrategyNumber)
+                }
             }
-
+println("ストラテジーデータ$strategyData[0]")
+            println("ストラテジーデータ$strategyData[0].name")
+            player2 = pt.selectMember(strategyData[0])!! // 作戦で選んだ相手を呼ぶ
             sb.append("@@")
-            sb.append(player1.attack(player2))
+            sb.append(player1.attack(player2, strategyData[1])) // player1に相手と作戦を送り攻撃する
+
+//            sb.append("@@")
+//            sb.append(player1.attack(player2, strategyData[1]))
 
             // 敗北判定
             defeatDecision()
 
-            if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()){
+            if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
                 break
             }
 
@@ -160,6 +169,21 @@ class GameManager {
         sb.clear()
 
     }
+
+    private fun selectStrategyNumber(number: Int): IntArray {
+        when (number) {
+            0 -> context = Context(Strategy1())
+            1 -> context = Context(Strategy2())
+            2 -> context = Context(Strategy3())
+            3 -> context = Context(Strategy4())
+            4 -> context = Context(Strategy5())
+        }
+        strategyData = context?.attackStrategy(player1, pt.getParty1(),
+            pt.getParty2())!!
+        println("ストラテジーデータ$strategyData")
+        return strategyData
+    }
+
 
     private fun defeatDecision(){
 
@@ -215,7 +239,7 @@ class GameManager {
     }
 
     // 職業を数字から文字に変換する
-    private fun OccupationConversion(jobValue: Int): String {
+    private fun occupationConversion(jobValue: Int): String {
 
         when (jobValue) {
 
@@ -236,7 +260,7 @@ class GameManager {
     }
 
     // 敵キャラクターを作成する
-    fun makeEnemyCharacter(enemyPartyList: CharacterAllData): Player {
+    private fun makeEnemyCharacter(enemyPartyList: CharacterAllData, id: Int): Player {
 
         when (enemyPartyList.job) {
 
@@ -290,12 +314,13 @@ class GameManager {
         enemy.setMark(false)
         enemy.isPoison = false
         enemy.isParalysis = false
+        enemy.setIdNumber(id)
 
         return enemy
     }
 
     // 味方キャラクターを作成する
-    private fun makeAllyCharacter(allyPartyList: CharacterAllData): Player {
+    private fun makeAllyCharacter(allyPartyList: CharacterAllData, id: Int): Player {
 
         when (allyPartyList.job) {
 
@@ -349,6 +374,7 @@ class GameManager {
         ally.setMark(true)
         ally.isPoison = false
         ally.isParalysis = false
+        ally.setIdNumber(id)
 
         return ally
     }

@@ -3,11 +3,9 @@ package com.e.app_namebattler
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -54,6 +52,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     lateinit var enemy01: Player
     lateinit var enemy02: Player
     lateinit var enemy03: Player
+    var strategyNumber = 0
 
     private val e = CreateEnemy()
 
@@ -86,7 +85,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 printStrategy(strategyName)
 
             } else {
-                printStrategy("ガンガンいこうぜ")
+                printStrategy("通常攻撃")
 
             }
 
@@ -137,7 +136,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                 }else{
 
-                    gm.battle()
+                    gm.battle(strategyNumber)
 
                 }
             }
@@ -166,11 +165,38 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             val message = data.getStringExtra("strategy_key")
 
+            when (message) {
+                "通常攻撃" -> {
+
+                    strategyNumber = 0
+
+                }
+                "魔法攻撃" -> {
+
+                    strategyNumber = 1
+
+                }
+                "スキル" -> {
+
+                    strategyNumber = 2
+
+                }
+                "回復魔法" -> {
+
+                    strategyNumber = 3
+
+                }
+                "薬草" -> {
+
+                    strategyNumber = 4
+
+                }
+            }
             sn.text = message
 
         } else if(resultCode == Activity.RESULT_CANCELED){
 
-            sn.text = "ガンガンいこうぜ"
+            sn.text = "通常攻撃"
         }
     }
 
@@ -504,7 +530,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         if (turnNumber == 1) {
 
-            gm.battle()
+            gm.battle(strategyNumber)
 
             turnNumber += 1
         }
