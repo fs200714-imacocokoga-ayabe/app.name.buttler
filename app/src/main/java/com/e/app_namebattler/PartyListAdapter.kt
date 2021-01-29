@@ -14,7 +14,6 @@ class PartyListAdapter (val context: Context, val CharacterList: ArrayList<Chara
     Checkable {
 
     private var mRadioButton: RadioButton? = null
-//
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

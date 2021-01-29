@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter
 class CharacterCreatedActivity : AppCompatActivity() {
 
     lateinit var helper: MyOpenHelper
-
     private lateinit var player: Player
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -131,9 +130,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
                 val intent = Intent(this, CharacterListActivity::class.java)
                 startActivity(intent)
             }
-
     }
-
 }
 
 

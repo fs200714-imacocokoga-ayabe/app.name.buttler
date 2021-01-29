@@ -59,7 +59,7 @@
             android:id="@+id/radiobutton_strategy01"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="通常攻撃"
+            android:text="@string/radiobutton_strategy01_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
             android:buttonTint="@color/colorBlue"/>
@@ -68,7 +68,7 @@
             android:id="@+id/radiobutton_strategy02"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="攻撃魔法"
+            android:text="@string/radiobutton_strategy02_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
             android:buttonTint="@color/colorBlue"/>
@@ -77,7 +77,7 @@
             android:id="@+id/radiobutton_strategy03"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="スキル"
+            android:text="@string/radiobutton_strategy03_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
             android:buttonTint="@color/colorBlue"/>
@@ -86,7 +86,7 @@
             android:id="@+id/radiobutton_strategy04"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="回復魔法"
+            android:text="@string/radiobutton_strategy04_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
             android:buttonTint="@color/colorBlue"/>
@@ -95,7 +95,7 @@
             android:id="@+id/radiobutton_strategy05"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="薬草"
+            android:text="@string/radiobutton_strategy05_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
             android:buttonTint="@color/colorBlue"/>

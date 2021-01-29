@@ -33,9 +33,7 @@ class CreateEnemy {
     private fun selectName(): String {
 
         val nNumber = (1..enemyNameList.size).random()
-
         val a = enemyNameList[nNumber - 1].getEnemyName()
-
         enemyNameList.removeAt(nNumber - 1)
 
         return a
@@ -45,7 +43,6 @@ class CreateEnemy {
     private fun selectJob(): String {
 
         val jNumber = (1..jobList.size).random()
-
         val b = jobList[jNumber - 1].getEnemyJob()
 
         return b
@@ -57,7 +54,6 @@ class CreateEnemy {
         for (i in 1 .. 3) {
 
             val enemyName = selectName()
-
             val enemyJob = selectJob()
 
             when (enemyJob) {
@@ -79,35 +75,14 @@ class CreateEnemy {
                     enemy.agi,enemy.luck,create_at
                 )
             )
-
         }
 
         return enemyPartyList
     }
 
-//     fun deleteEnemy(){
-//
-//        val db = helper.writableDatabase
-//
-//        try{
-//
-//          //  var c1 = db.rawQuery("SELECT * FROM ENEMY WHERE name = null",null)
-//
-//          //  if(c1 != null) {
-//
-//                db.execSQL("DELETE FROM ENEMY")
-//
-//           // }
-//
-//        }finally {
-//            db.close()
-//        }
-//    }
-
     fun setEnemyParty(enemyPartyList: ArrayList<CharacterAllData>) {
 
         enemyPartyList02.addAll(enemyPartyList)
-
     }
 
     fun getEnemyParty(): ArrayList<CharacterAllData> {
@@ -148,8 +123,6 @@ class CreateEnemy {
 
             return enemyJob
         }
-
-    }  
-
+    }
 }
 

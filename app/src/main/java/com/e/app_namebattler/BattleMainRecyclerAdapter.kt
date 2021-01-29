@@ -30,7 +30,6 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         }else {
 
             holder.Name.setTextColor(Color.parseColor("#000000"))
-
         }
 
         holder.Status.setOnClickListener{
@@ -52,12 +51,10 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         val Hp: TextView = view.findViewById(R.id.member_hp_id)
         val Mp: TextView = view.findViewById(R.id.member_mp_id)
         val Status: TextView = view.findViewById(R.id.member_status_id)
-
     }
 
     //  リストの行数
     override fun getItemCount(): Int {
-
         return memberList.size
     }
 

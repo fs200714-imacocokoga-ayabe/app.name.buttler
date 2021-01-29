@@ -29,7 +29,6 @@ class Strategy4 : BaseStrategy() {
         }
 
         if (player1 is IRecoveryMagic) {
-       // if (player1.getJob().equals("僧侶")) {
             player = player1
             for (i in _party1.indices) { // HPの低い味方を選ぶ
                 if ((_party1[i].getMaxHp() - _party1[i].getHP()) > player!!.getMaxHp() - player!!.hp) {
@@ -46,6 +45,7 @@ class Strategy4 : BaseStrategy() {
             data[1] = 4 // 作戦番号4を入れる
         } else { // player1が僧侶ではない場合
             if (party2.isNotEmpty()) {
+              //  val a = random.nextInt(party2.size) + 1
                 val a = random.nextInt(party2.size)
                 player2 = _party2[a]
                 data[0] = player2!!.getIdNumber() // 乱数で出た敵のIDを返す
@@ -56,6 +56,5 @@ class Strategy4 : BaseStrategy() {
         _party2.clear() // _party2をクリア
         return data // player1が僧侶の場合HPの低い味方IDと味方IDと作戦番号を返す
     }
-
 }
 

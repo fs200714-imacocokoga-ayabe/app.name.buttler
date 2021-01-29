@@ -85,7 +85,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 printStrategy(strategyName)
 
             } else {
-                printStrategy("通常攻撃")
+                printStrategy("武器でたたかえ")
 
             }
 
@@ -166,37 +166,27 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             val message = data.getStringExtra("strategy_key")
 
             when (message) {
-                "通常攻撃" -> {
-
+                "武器でたたかえ" -> {
                     strategyNumber = 0
-
                 }
-                "魔法攻撃" -> {
-
+                "攻撃魔法をつかえ" -> {
                     strategyNumber = 1
-
                 }
-                "スキル" -> {
-
+                "スキルをつかえ" -> {
                     strategyNumber = 2
-
                 }
-                "回復魔法" -> {
-
+                "回復魔法をつかえ" -> {
                     strategyNumber = 3
-
                 }
-                "薬草" -> {
-
+                "薬草をつかえ" -> {
                     strategyNumber = 4
-
                 }
             }
             sn.text = message
 
         } else if(resultCode == Activity.RESULT_CANCELED){
 
-            sn.text = "通常攻撃"
+            sn.text = "武器でたたかえ"
         }
     }
 
@@ -227,7 +217,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 enemyPartyList.add(
                     CharacterAllData(
                         c.getString(0),
-                        OccupationConversion(c.getInt(1)),
+                        occupationConversion(c.getInt(1)),
                         c.getInt(2),
                         c.getInt(3),
                         c.getInt(4),
@@ -276,7 +266,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 allyPartyList.add(
                     CharacterAllData(
                         c.getString(0),
-                        OccupationConversion(c.getInt(1)),
+                        occupationConversion(c.getInt(1)),
                         c.getInt(2),
                         c.getInt(3),
                         c.getInt(4),
@@ -299,7 +289,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     }
 
     // 職業を数字から文字に変換する
-    private fun OccupationConversion(jobValue: Int): String {
+    private fun occupationConversion(jobValue: Int): String {
 
         when (jobValue) {
 
@@ -558,7 +548,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         BattleMainRecyclerAdapter(memberList).apply {
 
             battle_main_ally_status_recycleView_id.adapter = this
-            
         }
     }
 
@@ -584,6 +573,5 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             battle_main_enemy_status_recycleView_id.adapter = this
         }
     }
-
 }
 

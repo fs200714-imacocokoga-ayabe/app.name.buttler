@@ -9,9 +9,7 @@ import androidx.fragment.app.DialogFragment
 open class CharacterCreateMaxDialogFragment: DialogFragment() {
 
     interface Listener{
-
         fun maxDisplay()
-
     }
 
         private var listener: Listener? = null
@@ -29,7 +27,6 @@ open class CharacterCreateMaxDialogFragment: DialogFragment() {
     builder.setMessage("登録できるキャラクター数が最大です")
     builder.setPositiveButton("OK") {  dialog,which ->
         listener?.maxDisplay()
-
     }
 
     return builder.create()

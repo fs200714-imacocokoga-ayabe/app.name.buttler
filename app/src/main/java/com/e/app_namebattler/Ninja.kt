@@ -82,5 +82,4 @@ class Ninja (name:String):Player(name) {
     private fun hasEnoughMp(): Boolean {
         return this.getMP() >= 10
     }
-
 }

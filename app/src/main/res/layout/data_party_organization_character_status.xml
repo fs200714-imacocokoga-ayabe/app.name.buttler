@@ -17,11 +17,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-<!--            <RadioGroup-->
-<!--                android:id="@+id/radiogroup_id"-->
-<!--                android:layout_width="310dp"-->
-<!--                android:layout_height="32dp">-->
-
                 <RadioButton
                     android:id="@+id/data_party_organization_character_name_radiobutton_id"
                     android:layout_width="310sp"
@@ -32,7 +27,6 @@
                     android:buttonTint="@color/colorBlue"
                     android:onClick="radioCheck"
                     />
-<!--            </RadioGroup>-->
 
             <TextView
                 android:id="@+id/data_party_organization_character_job_id"

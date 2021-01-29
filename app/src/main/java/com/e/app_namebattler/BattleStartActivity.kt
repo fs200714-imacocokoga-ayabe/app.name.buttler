@@ -50,19 +50,14 @@ class BattleStartActivity : AppCompatActivity() {
         name02 = intent.getStringExtra("name_key02").toString()
         name03 = intent.getStringExtra("name_key03").toString()
 
-        //e.deleteEnemy()
         deleteEnemy()
         e.setName()
 
         enemyPartyList.clear()
-
         enemyPartyList = e.makeEnemy()
 
         printEnemy()
-
         printAlly()
-
-        //val namelist = listOf(name01, name02, name03)
 
         // 戻るボタンを押したときの処理
         battle_start_back_button.setOnClickListener{
@@ -83,7 +78,6 @@ class BattleStartActivity : AppCompatActivity() {
             intent.putExtra("enemyName03_key", enemyPartyList[2].name)
 
             saveData(enemyPartyList)
-
             startActivity(intent)
         }
 
@@ -117,7 +111,7 @@ class BattleStartActivity : AppCompatActivity() {
                 // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
                 allyPartyList.add(
                     CharacterAllData(
-                        c.getString(0), OccupationConversion(c.getInt(1)),
+                        c.getString(0), occupationConversion(c.getInt(1)),
                         c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
                         c.getInt(6), c.getInt(7), c.getString(8)
                     )
@@ -132,31 +126,19 @@ class BattleStartActivity : AppCompatActivity() {
         }
 
         val listView = findViewById<ListView>(R.id.list_View_battle_party)
-
         mListAdapter = BattlePartyAdapter(this, allyPartyList)
-
         listView.adapter = mListAdapter
-
     }
 
             // 敵キャラクター表示
             @RequiresApi(Build.VERSION_CODES.O)
             fun printEnemy(){
-
-               // e.deleteEnemy()
-
                 e.setName()
-
                 enemyPartyList.clear()
-
                 enemyPartyList = e.makeEnemy()
-
                 e.setEnemyParty(enemyPartyList)
-
                 val listView = findViewById<ListView>(R.id.list_View_enemy_battle_party)
-
                 mListAdapter = BattlePartyAdapter(this, enemyPartyList)
-
                 listView.adapter = mListAdapter
             }
 
@@ -207,7 +189,7 @@ class BattleStartActivity : AppCompatActivity() {
         }
     }
 
-    fun OccupationConversion(jobValue: Int): String {
+    private fun occupationConversion(jobValue: Int): String {
 
         when (jobValue) {
             0 -> { job = "戦士" }

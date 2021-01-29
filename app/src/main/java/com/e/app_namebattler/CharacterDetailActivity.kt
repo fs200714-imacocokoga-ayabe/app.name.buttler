@@ -12,7 +12,6 @@ class CharacterDetailActivity : AppCompatActivity() {
 
     lateinit var helper: MyOpenHelper
 
-   // var  selectCharacter = arrayListOf<CharacterAllData>()
     var name = ""
     var jobValue = 0
     var hp = 0
@@ -71,10 +70,8 @@ class CharacterDetailActivity : AppCompatActivity() {
         character_detail_delete_button_id.setOnClickListener {
 
             deleteCharacter()
-
             characterStatus()
-
-                }
+        }
 
     }
 
@@ -98,7 +95,6 @@ class CharacterDetailActivity : AppCompatActivity() {
                 agi = 0
                 luck = 0
                 create_at = ""
-
             }
 
             private fun characterStatus(){
@@ -129,7 +125,6 @@ class CharacterDetailActivity : AppCompatActivity() {
 
                 val dateText: TextView = findViewById(R.id.character_detail_date_text_id)
                 dateText.text = ("作成日：$create_at")
-
             }
 
     fun OccupationConversion(jobValue:Int):String{
@@ -142,5 +137,4 @@ class CharacterDetailActivity : AppCompatActivity() {
         }
         return job
     }
-
 }

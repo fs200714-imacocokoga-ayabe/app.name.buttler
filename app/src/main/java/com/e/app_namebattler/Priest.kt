@@ -40,7 +40,7 @@ class Priest (name:String):Player(name), IRecoveryMagic {
     override fun skillAttack(defender: Player) {
         val r: Int = random.nextInt(100) + 1
         if (r > 50) {
-            bsb.append("${getName()}%sは祈りを捧げて${Magic.OPTICALELEMENTAL.getName()}を召還した\n${Magic.OPTICALELEMENTAL.getName()}%sの祝福を受けた！\n")
+            bsb.append("${getName()}は祈りを捧げて${Magic.OPTICALELEMENTAL.getName()}を召還した\n${Magic.OPTICALELEMENTAL.getName()}の祝福を受けた！\n")
             bsb.append("${getName()}はHPが${recoveryProcess(this, Magic.OPTICALELEMENTAL.getRecoveryValue())}回復した！\n")
 
         } else {
@@ -102,7 +102,6 @@ class Priest (name:String):Player(name), IRecoveryMagic {
         this.mp = this.getMP() - Magic.POISON.getMpCost() // MP消費
         bsb.append("${getName()}は${Magic.POISON.getName()}を唱えた！\n瘴気が相手を包んだ！\n")
         defender.isPoison = true
-      //  defender.setPoison(true) // 相手に毒をセット
         bsb.append("${defender.getName()}は毒状態になった！\n")
     }
 
@@ -110,7 +109,6 @@ class Priest (name:String):Player(name), IRecoveryMagic {
         this.mp = this.getMP() - Magic.PARALYSIS.getMpCost() // MP消費
         bsb.append("${getName()}は${Magic.PARALYSIS.getName()}を唱えた！\n蒼い霧が相手を包んだ！\n")
         if (random.nextInt(100) + 1 <= Magic.PARALYSIS.getContinuousRate()) { // 乱数がPARALYSISの値以下の場合麻痺状態になる
-          //  defender.setParalysis(true) // 相手に麻痺をセット
             defender.isParalysis = true
             bsb.append("${defender.getName()}は麻痺を受けた！\n")
         } else { // 麻痺を状態にならなかった場合

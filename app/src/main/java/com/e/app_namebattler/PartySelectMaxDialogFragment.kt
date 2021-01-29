@@ -9,9 +9,7 @@ import androidx.fragment.app.DialogFragment
 class PartySelectMaxDialogFragment : DialogFragment(){
 
     interface Listener{
-
         fun maxParty()
-
     }
 
     private var listener: Listener? = null
@@ -29,12 +27,7 @@ class PartySelectMaxDialogFragment : DialogFragment(){
         builder.setMessage("パーティメンバーは３人です")
         builder.setPositiveButton("OK") {  dialog,which ->
             listener?.maxParty()
-
         }
-
         return builder.create()
-
     }
-
-
 }

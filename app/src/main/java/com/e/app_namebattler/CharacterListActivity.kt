@@ -1,15 +1,18 @@
 package com.e.app_namebattler
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_character_list.*
 
 //キャラクター一覧画面のクラス
 class CharacterListActivity : AppCompatActivity(){
 
+    lateinit var mp0: MediaPlayer
     lateinit var helper: MyOpenHelper
     var  characterList = arrayListOf<CharacterAllData>()
     private lateinit var mListAdapter: ListAdapter
@@ -25,6 +28,13 @@ class CharacterListActivity : AppCompatActivity(){
     var create_at = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        mp0= MediaPlayer.create(this,R.raw.neighofwar)
+        mp0.isLooping=true
+     //   mp0.start()
+
+
+        mp0.start()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_list)
 
@@ -48,7 +58,7 @@ class CharacterListActivity : AppCompatActivity(){
                         // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
                         characterList.add(
                                 CharacterAllData(
-                                    c.getString(0),(OccupationConversion(c.getInt(1))),
+                                    c.getString(0),(occupationConversion(c.getInt(1))),
                                     c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
                                     c.getInt(6), c.getInt(7), c.getString(8)
                                 )
@@ -75,7 +85,6 @@ class CharacterListActivity : AppCompatActivity(){
                     val intent = Intent(this, CharacterDetailActivity::class.java)
                     intent.putExtra("name_key", nameValue)
                     startActivity(intent)
-
         }
 
         // テキストの表示
@@ -90,14 +99,19 @@ class CharacterListActivity : AppCompatActivity(){
 
         // 新しく作成するボタンを押したときの処理
         new_create_button.setOnClickListener {
-            val intent = Intent(this, CharacterCreationActivity::class.java)
-            //intent.putExtra("characterNumber_key",characterList.size)
-            startActivity(intent)
+            if (characterList.size >= 8){
+                val dialog = CharacterCreateMaxDialogFragment()
+                dialog.show(supportFragmentManager, "alert_dialog")
+           // Toast.makeText(applicationContext, "リストがいっぱいです", Toast.LENGTH_LONG).show()
+           }else {
+                val intent = Intent(this, CharacterCreationActivity::class.java)
+                //intent.putExtra("characterNumber_key",characterList.size)
+                startActivity(intent)
+            }
         }
-
     }
 
-    private fun OccupationConversion(jobValue: Int):String {
+    private fun occupationConversion(jobValue: Int):String {
 
         when(jobValue){
 
@@ -109,4 +123,8 @@ class CharacterListActivity : AppCompatActivity(){
         return job
     }
 
+    override fun onDestroy() {
+        mp0.release()
+        super.onDestroy()
+    }
 }

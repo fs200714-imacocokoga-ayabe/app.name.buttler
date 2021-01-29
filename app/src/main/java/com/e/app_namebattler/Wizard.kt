@@ -62,7 +62,7 @@ class Wizard (name:String):Player(name), IMagicalUsable {
     }
 
     override fun eatGrass() {
-        super.eatGrass()
+       super.eatGrass()
     }
 
     private fun effect(defender: Player): Int {
@@ -81,7 +81,6 @@ class Wizard (name:String):Player(name), IMagicalUsable {
 
     private fun useThunder(): Int {
         bsb.append("${getName()}は${Magic.THUNDER.getName()}を唱えた！\n雷が地面を這っていく！\n")
-//
         damage = (random.nextInt(
             Magic.THUNDER.getMaxDamage()
                     - Magic.THUNDER.getMinDamage()

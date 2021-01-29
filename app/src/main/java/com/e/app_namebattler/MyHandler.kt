@@ -15,11 +15,6 @@ class MyHandler: Handler() {
     override fun handleMessage(msg: Message) {
 
         super.handleMessage(msg)
-
-       // myCallBack?.testBattleLog(msg)
-
-
-
     }
 
 

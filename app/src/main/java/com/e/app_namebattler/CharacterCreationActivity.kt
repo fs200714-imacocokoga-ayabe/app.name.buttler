@@ -16,8 +16,6 @@ class CharacterCreationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_creation)
 
-        //val characterNumberExtra = intent.getIntExtra("characterNumber_key", 0)
-
         create_character_back_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
             startActivity(intent)
@@ -40,7 +38,6 @@ class CharacterCreationActivity : AppCompatActivity() {
             //intent.putExtra("characterNumber_key", characterNumberExtra)
             startActivity(intent)
         }
-
     }
 }
 

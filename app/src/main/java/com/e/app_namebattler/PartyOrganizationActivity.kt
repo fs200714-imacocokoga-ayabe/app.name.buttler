@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
+import kotlinx.android.synthetic.main.activity_strategy_change.*
 
 
 class PartyOrganizationActivity : AppCompatActivity() {
@@ -20,11 +21,8 @@ class PartyOrganizationActivity : AppCompatActivity() {
     private var nameValue03: String? = null
 
     lateinit var helper: MyOpenHelper
-
     var characterList = arrayListOf<CharacterAllData>()
-
     private lateinit var mListAdapter: PartyListAdapter
-
     var array = ArrayList<String>()
 
     var name = ""
@@ -40,15 +38,14 @@ class PartyOrganizationActivity : AppCompatActivity() {
     var radioId01 = 0
     var arrayRadioId = ArrayList<Int>()
 
+
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_party_orgnization)
 
         helper = MyOpenHelper(applicationContext)//DB作成
-
         val db = helper.readableDatabase
-
         characterList.clear()
 
         try {
@@ -79,19 +76,15 @@ class PartyOrganizationActivity : AppCompatActivity() {
             db.close()
         }
 
-
-
         val listView = findViewById<ListView>(R.id.list_View_party)
 
         listView.choiceMode = CHOICE_MODE_MULTIPLE
-
         mListAdapter = PartyListAdapter(this, characterList)
-
         listView.adapter = mListAdapter
 
         // 項目をタップしたときの処理
-        listView.setOnItemClickListener { parent, view, position, id ->
-        }
+//        listView.setOnItemClickListener { parent, view, position, id ->
+//        }
 
         // このパーティで開始
         this_party_start.setOnClickListener {
@@ -107,15 +100,13 @@ class PartyOrganizationActivity : AppCompatActivity() {
                     .findViewById(R.id.data_party_organization_character_name_radiobutton_id)
 
                 if (radioName.isChecked) {
-
                     array.add(radioName.text as String)
-
                 }
             }
 
             if (array.size == 3) {
 
-                nameValue01 = array[0].trim()
+                nameValue01 = array[0].trim()//trim:文字列の先頭と末尾の半角空白を取り除く
                 nameValue02 = array[1].trim()
                 nameValue03 = array[2].trim()
 
@@ -126,18 +117,13 @@ class PartyOrganizationActivity : AppCompatActivity() {
                 intent.putExtra("name_key03", nameValue03)
 
                 startActivity(intent)
-
             } else {
-
                 for (i in 1..listView.count) {
-
                     val radioName: RadioButton = listView.getChildAt(i - 1)
                         .findViewById(R.id.data_party_organization_character_name_radiobutton_id)
 
                     if (radioName.isChecked) {
-
                         radioName.isChecked = false
-
                     }
                 }
 
@@ -152,78 +138,149 @@ class PartyOrganizationActivity : AppCompatActivity() {
             party_organizetion_back_button.setOnClickListener {
                 val intent = Intent(this, TopScreenActivity::class.java)
                 startActivity(intent)
-
             }
     }
 
     fun radioCheck(view: View) {
 
+        var rNum = 0
+    radioNumber  = 0
+        val radioButton = view as RadioButton
+
+        //radioButton.isChecked = true
+
         val listView = findViewById<ListView>(R.id.list_View_party)
 
-        // ラジオボタンの選択状態を取得
-        val radioButton = view as RadioButton
-        // getId()でラジオボタンを識別し、ラジオボタンごとの処理を行う
-        val checked = radioButton.isChecked
+        for (i in 1..listView.count) {
 
-        // radioId01 = radioButton.id
+            val radioName: RadioButton = listView.getChildAt(i - 1)
+                .findViewById(R.id.data_party_organization_character_name_radiobutton_id)
 
-       // arrayRadioId.plusAssign(radioId01)
+            if (radioName.isChecked) {
+                rNum += 1
 
-       // println("ラジオID$radioButton.id")
+            }
+        }
 
-      //  println("ラジオログ$arrayRadioId")
+        if (rNum > 3){
+            radioButton.isChecked = false
+          //  radioNumber -= 1
+            rNum -= 1
+            Toast.makeText(applicationContext, "パーティは３人です", Toast.LENGTH_SHORT).show()
 
-        if (checked){
 
+        }else{
+            radioButton.isChecked = true
+           // radioNumber += 1
+        }
+//
+//        if (radioButt){
+//            radioButton.isChecked = false
+//            rNum -= 1
+//        }
+//
+//                val radioName: RadioButton = listView.getChildAt(i - 1)
+//                    .findViewById(R.id.data_party_organization_character_name_radiobutton_id)
+//        if(radioNumber <= 2) {
+//
 //            for (i in 1..listView.count) {
 //
 //                val radioName: RadioButton = listView.getChildAt(i - 1)
 //                    .findViewById(R.id.data_party_organization_character_name_radiobutton_id)
 //
-//                if (radioName.isChecked) {
+//                if (radioName.isChecked ) {
+//                    if (radioName.isChecked == radioButton.isChecked) {
+//                        println("ラジオネーム$radioName.isChecked")
+//                        println("ラジオボタン$radioButton.isChecked")
+//                   //     radioButton.isChecked = !radioButton.isChecked
 //
-//                    array.add(radioName.text as String)
+//                        if (radioName.isChecked) {
+//                            radioButton.isChecked = false
 //
+//                        } else {
+//                            radioName.isChecked = true
+//                            radioNumber += 1
+//
+//                        }
+//                    }
+////                    radioNumber -= 1
 //                }
-//            }
-
-
-
-            radioNumber += 1
-
-            val textView = findViewById<TextView>(R.id.this_party_start)
-            textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
-
-//        }else{
-//
-//            for (i in 1..arrayRadioId.size){
-//
-//                if (radioId01 != (i - 1)){
-//
-//                    radioNumber += 1
-//
-//                    textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
-//
-//                    break
-//
-//                }else{
-//
-//                    break
-//                }
-//            }
-        }
-//        when (radioButton.id) {
-//            R.id.data_party_organization_character_name_radiobutton_id -> if (checked) {
-//                radioNumber += 1
-//                println("ラジオID$radioButton.id")
-//              //  val textView = findViewById<TextView>(R.id.this_party_start)
-//               // textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
-//               // Toast.makeText(applicationContext, "項目1が選択状態になりました。", Toast.LENGTH_SHORT).show()
 //            }
 //
 //        }
-    }
+//        if (radioNumber > 3) {
+//            Toast.makeText(applicationContext, "パーティは３人です", Toast.LENGTH_LONG).show()
+//           // radioButton.isChecked = false
+//          //  radioNumber -= 1
+//        }
+////
+////        }else if (radioNumber <= 2){
+////            radioButton.isChecked = true
+////            radioNumber += 1
+//            val textView = findViewById<TextView>(R.id.this_party_start)
+//            textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
+////
+//
+//
+//                // ラジオボタンの選択状態を取得
+//
+////        var radioa = view
+////        var radiob = view
+////        var radioc = view
+////                // getId()でラジオボタンを識別し、ラジオボタンごとの処理を行う
+////        if (radioNumber == 0){
+////            radioa = radioButton
+////        }else if (radioNumber == 1){
+////            radiob = radioButton
+////        }else if (radioNumber == 2){
+////            radioc = radioButton
+////        }
+////
+////        if (radioButton == radiob){
+////
+////        }
+////
 
+           //     val checked = radioButton.isChecked
+
+           //     if (radioButton.isChecked && rNum > 3){
+
+                   // if (rNum > 2 ) {
+//                        Toast.makeText(applicationContext, "パーティは３人です", Toast.LENGTH_LONG).show()
+             //            radioButton.isChecked = false
+                       // radioNumber -= 1
+
+//                    }else if (radioNumber <= 3){
+//                      //  radioButton.isChecked = true
+//                       // radioNumber += 1
+////                        val textView = findViewById<TextView>(R.id.this_party_start)
+////                        textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
+//
+                 //  }
+             //   }
+        val textView = findViewById<TextView>(R.id.this_party_start)
+        textView.text = "このパーティで開始（".plus(rNum).plus("/3）")
+
+    }
+//-----------------------------------------------------------------
+//    val checked = radioButton.isChecked
+//
+//    if (checked){
+//
+//        if (radioNumber > 2 ) {
+//            Toast.makeText(applicationContext, "パーティは３人です", Toast.LENGTH_LONG).show()
+//            radioButton.isChecked = false
+//            radioNumber -= 1
+//
+//        }else if (radioNumber <= 2 && !radioButton.isChecked){
+//            radioButton.isChecked = true
+//            radioNumber += 1
+////                        val textView = findViewById<TextView>(R.id.this_party_start)
+////                        textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
+//
+//        }
+//    }
+//--------------------------------------------------------------
 
     private fun occupationConversion01(jobValue: Int): String{
 
@@ -243,6 +300,5 @@ class PartyOrganizationActivity : AppCompatActivity() {
             }
         }
         return job
-
     }
 }

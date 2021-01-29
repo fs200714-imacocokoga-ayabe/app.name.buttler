@@ -6,5 +6,4 @@ interface IStrategy {
         player1: Player, party1: List<Player>,
         party2: List<Player>
     ): IntArray
-
 }

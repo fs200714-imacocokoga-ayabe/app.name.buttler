@@ -22,18 +22,14 @@ class Party {
     fun appendPlayer(enemy01: Player, enemy02: Player, enemy03: Player, ally01: Player, ally02: Player, ally03: Player) {
 
         val partyList: MutableList<Player> = mutableListOf(ally01,ally02,ally03,enemy01,enemy02,enemy03)
-
         for (player in partyList) {
 
             if (player.isMark()!!) {
-
                 party1.add(player) // playerがtrueならparty1に入れる
-
                 resultParty1.add(player)
                 println("ログ01$resultParty1")
 
             } else {
-
                 party2.add(player) // playerがfalseならparty2に入れる
                 resultParty2.add(player)
                 println("ログ02$resultParty2")
@@ -48,13 +44,9 @@ class Party {
     fun removePlayer(player: Player) {
 
         if (player.isMark()!!) {
-
             party1.remove(player)
-
         } else {
-
             party2.remove(player)
-
         }
     }
 
@@ -63,7 +55,6 @@ class Party {
      * @param player : プレイヤー
      */
     fun setMembers(player: Player) {
-
         members.add(player)
     }
 
@@ -72,7 +63,6 @@ class Party {
      * @param player : プレイヤー
      */
     fun removeMembers(player: Player) {
-
         members.remove(player)
     }
 
@@ -81,7 +71,6 @@ class Party {
      * @return party1 : パーティ１
      */
     fun getParty1(): List<Player> {
-
         return party1
     }
 
@@ -90,17 +79,16 @@ class Party {
      * @return party2 : パーティ2
      */
     fun getParty2(): List<Player> {
-
         return party2
     }
 
     fun getResultParty1(): List<Player>{
-        println("ログ03$resultParty1")
+
         return resultParty1
     }
 
     fun getResultParty2(): List<Player>{
-        println("ログ04$resultParty1")
+
         return resultParty2
     }
 
@@ -109,13 +97,13 @@ class Party {
      * @param id : プレイヤーのID
      * @return IDのプレイヤー
      */
-    fun selectMember(id: Int): Player? {
-        for (i in 1..members.size) {
-            if (members[i - 1].getIdNumber() == id) {
+    fun selectMember(id: Int): Player?{
+
+        for (i in 1..members.size){
+            if (members[i - 1].getIdNumber() == id){
                 return members[i -1]
             }
         }
-        return null
+     return null
     }
-
 }

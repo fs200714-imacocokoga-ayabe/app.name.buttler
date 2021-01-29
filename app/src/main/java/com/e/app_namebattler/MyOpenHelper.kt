@@ -36,8 +36,6 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
                 "CREATE_AT NULL)")
 
         //テーブルの消去を行う変数
-        //private const val SQL_DELETE_ENTRIES= "DROP TABLE IF EXISTS" + TABLE_NAME
-
         private const val SQL_CREATE_ENEMY = ("CREATE TABLE " + ENEMY_TABLE_NAME + " (" +
                 "NAME TEXT(20) NOT NULL PRIMARY KEY," +
                 "JOB INTEGER NOT NULL," +
@@ -55,7 +53,6 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
     override  fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_CHARACTER)
         db.execSQL(SQL_CREATE_ENEMY)
-
     }
 
     //DBバージョンが上がったときの処理
@@ -71,25 +68,5 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
     override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         onDowngrade(db, oldVersion, newVersion)
     }
-
-    //テーブルにカラムを追加する
-//    fun saveData(db: SQLiteDatabase, name: String, job: String, hp: Int,mp: Int, str: Int, def: Int, agi: Int, luck: Int, create_at: String) {
-//        val values: ContentValues = ContentValues()
-//        values.put(NAME, name)
-//        values.put(JOB, job)
-//        values.put(HP, hp)
-//        values.put(MP, mp)
-//        values.put(STR, str)
-//        values.put(DEF, def)
-//        values.put(AGI, agi)
-//        values.put(LUCK, luck)
-//        values.put(CREATE_AT, create_at)
-//        db.insertOrThrow(TABLE_NAME, null, values)
-//    }
 }
-
-//    // データベースが開かれた時に実行される処理
-//    override fun onOpen(db: SQLiteDatabase?) {
-//        super.onOpen(db)
-//    }
 

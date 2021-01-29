@@ -13,7 +13,6 @@ open class Player{
     var random = Random()
 
     open var myCallBack: BattleLogListener? = null
-
     open var bsb = StringBuilder()
 
     private var name:String = ""
@@ -33,31 +32,18 @@ open class Player{
     }
 
     open var job: String? = "" // 職業
-
     open var hp: Int = 0 // HP
-
     open var mp: Int = 0 // MP
-
     open var str:Int = 0 // 攻撃力
-
     open var def:Int = 0 // 防御力
-
     open var agi:Int = 0 // すばやさ
-
     open var luck: Int = 0 // 運
-
     private var maxHp: Int = 0 // 最大HP
-
     private var maxMp: Int = 0 // 最大MP
-
     open var isPoison: Boolean = false
-
     open var isParalysis: Boolean = false
-
     private var mark: Boolean? = false
-
     private var idNumber: Int = 0
-
     var damage = 0
 
     private val herbRecoveryValue = 30
@@ -67,16 +53,11 @@ open class Player{
      * @param name
      * : プレイヤー名
      * */
-
     open fun Player() {}
 
     open fun getName(): String{
         return name
     }
-
-//    open fun getJob(): String? {
-//        return job
-//    }
 
     /**
      * 現在HPを取得する
@@ -128,7 +109,6 @@ open class Player{
 
     fun getIdNumber(): Int {
         return idNumber
-
     }
 
     /**
@@ -159,7 +139,6 @@ open class Player{
     }
 
     open fun setMaxMp(mp: Int){
-
         maxMp = mp
     }
 
@@ -170,15 +149,6 @@ open class Player{
     open fun makeCharacter(name: String){
 
     }
-
-//    fun setParalysis(b: Boolean) {
-//        isParalysis = b
-//    }
-//
-//    fun setPoison(b: Boolean) {
-//        isPoison = b
-//    }
-
 
     open fun getPoison(): String{
 
@@ -201,8 +171,7 @@ open class Player{
             ""
         }
     }
-    
-  
+
     val isLive: Boolean
         get() = hp > 0
 
@@ -233,8 +202,6 @@ open class Player{
      * 対象プレイヤーに攻撃を行う
      * @param defender: 対象プレイヤー
      */
-  //  open fun attack(defender: Player?, i: Int): StringBuilder {
-
         open fun attack(defender: Player, strategyNumber: Int): StringBuilder {
 
         bsb.clear()
@@ -258,10 +225,10 @@ open class Player{
             } else {
                 System.out.printf("%sは麻痺で動けない！！\n", name)
             }
+
             fall(defender) // 倒れた判定
 
         return bsb
-
     }
 
     open fun normalAttack(defender: Player) {}
@@ -271,7 +238,6 @@ open class Player{
 
     /**
      * 対象プレイヤー(target)に対して与えるダメージを計算する
-     *
      * @param target: 対象プレイヤー
      * @return ダメージ値(0～)
      */
@@ -279,13 +245,11 @@ open class Player{
         val power = (1 ..getSTR()).random()
         val luk = (1..100).random()
         if (luk <= getLUCK()) { // 乱数の値がlukの値の中なら
-         //   println("会心の一撃!\n")
             bsb.append("会心の一撃!\n")
             damage = getSTR()
         } else {
             damage = power - target.getDEF()
             if (damage < 0) {
-             //   System.out.printf("%sの攻撃はミス！\n", getName())
                 bsb.append("${getName()}の攻撃はミス！\n")
                 damage = 0
             }
@@ -299,9 +263,6 @@ open class Player{
      * @param damage :ダメージ
      */
     open fun damageProcess(defender: Player, damage: Int) {
-        // var damage = damage
-        //damage = attributeDecision(type, defender, damage) // 属性処理
-      //  System.out.printf("%sに%dのダメージ！\n", defender.getName(), damage)
         bsb.append("${defender.getName()}に${damage}のダメージ！\n")
         defender.damage(damage) // 求めたダメージを対象プレイヤーに与える
     }
@@ -312,13 +273,11 @@ open class Player{
      */
     open fun fall(defender: Player) {
         if (defender.getHP() <= 0) {
-         //   System.out.printf("%sは力尽きた...\n", defender.getName())
             bsb.append("${defender.getName()}は力尽きた...\n")
             abnormalState() // 状態異常チェック
         } else {
             abnormalState() // 状態異常チェック
             if (getHP() <= 0) { // playerの倒れた判定
-              //  System.out.printf("%sは力尽きた...\n", getName())
                 bsb.append("${getName()}は力尽きた...\n")
             }
         }
@@ -331,16 +290,11 @@ open class Player{
 
         if (isPoison) { // true:毒状態 false:無毒状態
             damage(Magic.POISON.getMaxDamage()) // 毒のダメージ計算
-          //  System.out.printf(
-         //       "%sは毒のダメージを%d受けた！\n", getName(),
-         //       Magic.POISON.getMaxDamage()
-         //   )
             bsb.append("${getName()}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
         }
         if (isParalysis) { // true:麻痺状態 false:麻痺していない
             if ((1..100).random() > Magic.PARALYSIS.getContinuousRate()) { // 麻痺の確立より乱数が上なら麻痺の解除
                 isParalysis = false // 麻痺解除
-             //   System.out.printf("%sは麻痺が解けた！\n", getName())
                 bsb.append("${getName()}は麻痺が解けた！\n")
             }
         }
@@ -353,7 +307,6 @@ open class Player{
     open fun damage(damage: Int) {
         // ダメージ値分、HPを減少させる
         hp = (getHP() - damage).coerceAtLeast(0)
-
     }
 
     /**
@@ -379,38 +332,17 @@ open class Player{
         }
     }
 
-    /**
-     * player,healから対象プレイヤーを回復させ回復に使用した値を返す
-     * @param player :対象プレイヤー
-     * @param heal :回復値
-     * @return 回復に使用した値
-     */
-//    open fun recovery(player: Player, heal: Int): Int {
-//        var heal = heal
-//        //   heal = player.getMaxHP().coerceAtMost(player.getHP() + heal) 保留
-//        heal -= player.getHP()
-//        player.hp = player.getHP() + heal
-//        return heal
-//    }
-
    open fun recoveryProcess(defender: Player, healValue: Int): Int {
         var healValue = healValue
         healValue = defender.getMaxHp().coerceAtMost(defender.getHP() + healValue)
-        System.out.printf("%sはHPが%d回復した！\n", defender.getName(), healValue - defender.getHP())
-        defender.recovery(healValue - defender.getHP())
-        return healValue - defender.getHP()
+       healValue -= defender.getHP()
+        bsb.append("${defender.getName()}はHPが${healValue}回復した！\n")
+        defender.recovery(healValue)
+        return healValue
     }
 
     private fun recovery(healValue: Int) {
         hp += healValue
     }
-
-
-
-
-//    open fun testBattleLog(testLog: List<String>) {
-//
-//        myCallBack?.upDateBattleLog(testLog)
-//    }
 }
 

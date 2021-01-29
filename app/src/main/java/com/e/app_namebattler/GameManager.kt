@@ -131,14 +131,10 @@ class GameManager {
                     strategyData = selectStrategyNumber(enemyStrategyNumber)
                 }
             }
-println("ストラテジーデータ$strategyData[0]")
-            println("ストラテジーデータ$strategyData[0].name")
+
             player2 = pt.selectMember(strategyData[0])!! // 作戦で選んだ相手を呼ぶ
             sb.append("@@")
             sb.append(player1.attack(player2, strategyData[1])) // player1に相手と作戦を送り攻撃する
-
-//            sb.append("@@")
-//            sb.append(player1.attack(player2, strategyData[1]))
 
             // 敗北判定
             defeatDecision()
@@ -146,8 +142,6 @@ println("ストラテジーデータ$strategyData[0]")
             if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
                 break
             }
-
-
         }
 
         val array = sb.split("@@")
@@ -157,15 +151,11 @@ println("ストラテジーデータ$strategyData[0]")
         // キャラクターの表示
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
 
-        sb.clear()
-
         party01.clear()
         party02.clear()
 
         party01.plusAssign(pt.getParty1())
-
         party02.plusAssign(pt.getParty2())
-
         sb.clear()
 
     }
@@ -180,7 +170,7 @@ println("ストラテジーデータ$strategyData[0]")
         }
         strategyData = context?.attackStrategy(player1, pt.getParty1(),
             pt.getParty2())!!
-        println("ストラテジーデータ$strategyData")
+
         return strategyData
     }
 
@@ -197,7 +187,6 @@ println("ストラテジーデータ$strategyData[0]")
             pt.removePlayer(player2)
             pt.removeMembers(player2)
         }
-
     }
 
     private fun speedReordering(
@@ -390,13 +379,11 @@ println("ストラテジーデータ$strategyData[0]")
 
         myCallBack?.upDateAllyStatus(ally01, ally02, ally03)
         myCallBack?.upDateEnemyStatus(enemy01, enemy02, enemy03)
-
     }
 
     fun  getParty01():List<Player>{
 
         return party01
-
     }
 
     fun getParty02(): List<Player>{
@@ -414,5 +401,4 @@ println("ストラテジーデータ$strategyData[0]")
         charaData.enemy02 = enemy02
         charaData.enemy03 = enemy03
     }
-
 }

@@ -24,45 +24,6 @@ class Fighter(name: String):Player(name) {
         this.agi = getNumber(5, 49) + 1 // 1-50
     }
 
-//    override fun attack(defender: Player?, i: Int): StringBuilder {
-//
-//        bsb.clear()
-//
-//        if (!isParalysis) { // 麻痺していない
-//            when ((1..5).random()) {
-//                1 ->
-//                    if (defender != null) {// 直接攻撃
-//                        directAttack(defender)
-//                    }
-//
-//                2 ->
-//                    if (defender != null) {// 回復優先
-//                        recoveryPreferred(defender)
-//                    }
-//
-//                3 -> if (defender != null) {// 直接攻撃
-//                    directAttack(defender)
-//                }
-//
-//                4 -> if (defender != null) {// 直接攻撃
-//                    directAttack(defender)
-//                }
-//
-//                5 -> if (defender != null) {// スキル攻撃
-//                    skillAttack(defender)
-//                }
-//            }
-//        } else {// 麻痺している場合
-//
-//            System.out.printf("%sは麻痺で動けない！！\n", getName())
-//            bsb.append("${getName()}は麻痺で動けない！！\n")
-//
-//        }
-//        super.fall(defender!!) // 倒れた判定
-//
-//        return bsb
-//    }
-
     override fun attack(defender: Player, strategyNumber: Int): StringBuilder {
         super.attack(defender, strategyNumber)
 
@@ -104,5 +65,4 @@ class Fighter(name: String):Player(name) {
         damage = calcDamage(defender) // 与えるダメージを求める
         super.damageProcess(defender, damage) // ダメージ処理
     }
-
 }
