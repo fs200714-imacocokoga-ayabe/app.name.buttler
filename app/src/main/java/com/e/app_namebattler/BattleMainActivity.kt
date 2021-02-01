@@ -85,7 +85,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 printStrategy(strategyName)
 
             } else {
-                printStrategy("武器でたたかえ")
+                printStrategy("武器でたたかおう")
 
             }
 
@@ -166,19 +166,19 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             val message = data.getStringExtra("strategy_key")
 
             when (message) {
-                "武器でたたかえ" -> {
+                "武器でたたかおう" -> {
                     strategyNumber = 0
                 }
-                "攻撃魔法をつかえ" -> {
+                "攻撃魔法をつかおう" -> {
                     strategyNumber = 1
                 }
-                "スキルをつかえ" -> {
+                "スキルをつかおう" -> {
                     strategyNumber = 2
                 }
-                "回復魔法をつかえ" -> {
+                "回復魔法をつか" -> {
                     strategyNumber = 3
                 }
-                "薬草をつかえ" -> {
+                "薬草をつかおう" -> {
                     strategyNumber = 4
                 }
             }
@@ -186,7 +186,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         } else if(resultCode == Activity.RESULT_CANCELED){
 
-            sn.text = "武器でたたかえ"
+            sn.text = "武器でたたかおう"
         }
     }
 

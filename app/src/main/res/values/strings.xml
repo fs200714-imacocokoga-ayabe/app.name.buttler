@@ -60,14 +60,14 @@
     <string name="text_challenge_again">再挑戦</string>
     <string name="text_next_battle">次の対戦へ</string>
     <string name="text_end_battle_button">対戦を終了する</string>
-    <string name="text_strategy">作戦</string>
+    <string name="text_strategy">作戦</string>おう
     <string name="strategy_determination_button_text">決定</string>
     <string name="text_strategy_choice">パーティーの作戦を選んでください</string>
     <string name="text_battle_main_print_strategy">作戦：</string>
-    <string name="radiobutton_strategy01_text">武器でたたかえ</string>
-    <string name="radiobutton_strategy02_text">攻撃魔法をつかえ</string>
-    <string name="radiobutton_strategy03_text">スキルをつかえ</string>
-    <string name="radiobutton_strategy04_text">回復魔法をつかえ</string>
-    <string name="radiobutton_strategy05_text">薬草をつかえ</string>
+    <string name="radiobutton_strategy01_text">武器でたたかおう</string>
+    <string name="radiobutton_strategy02_text">攻撃魔法をつかおう</string>
+    <string name="radiobutton_strategy03_text">スキルをつかおう</string>
+    <string name="radiobutton_strategy04_text">回復魔法をつかおう</string>
+    <string name="radiobutton_strategy05_text">薬草をつかおう</string>
 
 </resources>

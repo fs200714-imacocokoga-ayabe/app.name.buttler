@@ -18,7 +18,8 @@ class PartyListAdapter (val context: Context, val CharacterList: ArrayList<Chara
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = LayoutInflater.from(context).inflate(R.layout.data_party_organization_character_status, null)
-        val Name = view.findViewById<TextView>(R.id.data_party_organization_character_name_radiobutton_id)
+        val Button = view.findViewById<RadioButton>(R.id.data_party_organization_radio_button_id)
+        val Name = view.findViewById<TextView>(R.id.data_party_organization_character_name_id)
         val Job = view.findViewById<TextView>(R.id.data_party_organization_character_job_id)
         val Hp = view.findViewById<TextView>(R.id.data_party_organization_character_hp_id)
         val Mp = view.findViewById<TextView>(R.id.data_party_organization_character_mp_id)

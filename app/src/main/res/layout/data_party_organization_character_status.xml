@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -7,31 +8,49 @@
     <LinearLayout
         android:layout_width="404dp"
         android:layout_height="66dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
         android:background="@drawable/frame_line_01"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="2dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
             android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/data_party_organization_character_name_radiobutton_id"
-                    android:layout_width="310sp"
-                    android:layout_height="32dp"
-                    android:checked="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textSize="25sp"
-                    android:buttonTint="@color/colorBlue"
-                    android:onClick="radioCheck"
-                    />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:text="" />
+
+            <RadioButton
+                android:id="@+id/data_party_organization_radio_button_id"
+                style="@style/MyRadioButton"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_radio_button_custom"
+                android:checked="false"
+                android:onClick="radioCheck"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/data_party_organization_character_name_id"
+                android:layout_width="280dp"
+                android:layout_height="match_parent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/data_party_organization_character_job_id"
-                android:layout_width="92sp"
-                android:layout_height="32dp"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
                 android:gravity="right"
                 android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -41,9 +60,15 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:text="" />
 
             <TextView
                 android:id="@+id/data_party_organization_character_hp_id"
@@ -90,8 +115,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="52dp"
+                android:layout_height="31dp"
+                android:text="" />
         </LinearLayout>
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
