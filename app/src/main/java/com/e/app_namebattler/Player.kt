@@ -314,7 +314,7 @@ open class Player{
      */
     open fun eatGrass() {
 
-        bsb.append("${getName()}は革袋の中にあった草を食べた！\n")
+        bsb.append("${getName()}は革袋の中にあった薬草を食べた！\n")
         when ((1..3).random()) {
             0 -> {
                 bsb.append("${getName()}は体力が${herbRecoveryValue}回復した！\n")

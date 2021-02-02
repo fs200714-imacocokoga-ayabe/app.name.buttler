@@ -135,7 +135,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                     startActivity(intent)
 
                 }else{
-
+println("ストラテジーナンバー$strategyNumber")
                     gm.battle(strategyNumber)
 
                 }
@@ -175,7 +175,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 "スキルをつかおう" -> {
                     strategyNumber = 2
                 }
-                "回復魔法をつか" -> {
+                "回復魔法をつかおう" -> {
                     strategyNumber = 3
                 }
                 "薬草をつかおう" -> {

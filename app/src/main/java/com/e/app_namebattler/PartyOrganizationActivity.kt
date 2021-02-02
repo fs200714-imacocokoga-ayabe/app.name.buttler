@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
-import kotlinx.android.synthetic.main.activity_strategy_change.*
 import kotlinx.android.synthetic.main.data_party_organization_character_status.view.*
 
 

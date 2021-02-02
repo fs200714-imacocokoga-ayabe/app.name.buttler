@@ -1,10 +1,8 @@
 package com.e.app_namebattler
 
 import android.app.Activity
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_strategy_change.*
@@ -20,13 +18,28 @@ class StrategyChangeActivity : AppCompatActivity() {
 
             setResult(Activity.RESULT_CANCELED)
 
-            val radioGroupStrategy: RadioGroup = findViewById(R.id.radiogrupe_strategy_id)
+            val radioGroupStrategy: RadioGroup = findViewById(R.id.radio_grupe_strategy_id)
 
             val radioId = radioGroupStrategy.checkedRadioButtonId
 
-            val strategyValues: RadioButton = radioGroupStrategy.findViewById(radioId)
+            var strategyName = ""
 
-            val strategyName:String = strategyValues.text.toString()
+         when(radioId){
+
+                R.id.radiobutton_strategy01 -> strategyName = "武器でたたかおう"
+
+                R.id.radiobutton_strategy02 -> strategyName = "攻撃魔法をつかおう"
+
+                R.id.radiobutton_strategy03 -> strategyName = "スキルをつかおう"
+
+                R.id.radiobutton_strategy04 -> strategyName = "回復魔法をつかおう"
+
+                R.id.radiobutton_strategy05 -> strategyName = "薬草をつかおう"
+            }
+
+         //   val strategyValues: RadioButton = radioGroupStrategy.findViewById(radioId)
+
+        //    val strategyName:String = strategyValues.text.toString()
 
             val result = Intent()
 
