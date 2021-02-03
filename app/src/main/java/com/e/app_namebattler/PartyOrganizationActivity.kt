@@ -2,6 +2,7 @@ package com.e.app_namebattler
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.widget.AbsListView.CHOICE_MODE_MULTIPLE
@@ -15,6 +16,8 @@ import kotlinx.android.synthetic.main.data_party_organization_character_status.v
 
 
 class PartyOrganizationActivity : AppCompatActivity() {
+
+    lateinit var mp0: MediaPlayer
 
     private var nameValue01: String? = null
     private var nameValue02: String? = null
@@ -43,6 +46,10 @@ class PartyOrganizationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_party_orgnization)
+
+        mp0= MediaPlayer.create(this,R.raw.neighofwar)
+        mp0.isLooping=true
+        mp0.start()
 
         helper = MyOpenHelper(applicationContext)//DB作成
         val db = helper.readableDatabase
@@ -118,6 +125,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
                 intent.putExtra("name_key02", nameValue02)
                 intent.putExtra("name_key03", nameValue03)
 
+                mp0.reset()
                 startActivity(intent)
             } else {
                 for (i in 1..listView.count) {
@@ -139,6 +147,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
         // 戻るボタン
         party_organizetion_back_button.setOnClickListener {
             val intent = Intent(this, TopScreenActivity::class.java)
+            mp0.reset()
             startActivity(intent)
         }
     }
@@ -321,5 +330,10 @@ class PartyOrganizationActivity : AppCompatActivity() {
             }
         }
         return job
+    }
+
+    override fun onDestroy() {
+        mp0.release()
+        super.onDestroy()
     }
 }

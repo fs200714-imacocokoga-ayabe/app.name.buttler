@@ -2,6 +2,7 @@ package com.e.app_namebattler
 
 import android.app.Activity
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -9,10 +10,15 @@ import kotlinx.android.synthetic.main.activity_strategy_change.*
 
 class StrategyChangeActivity : AppCompatActivity() {
 
-    val gm = GameManager()
+    lateinit var mp0: MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_strategy_change)
+
+        mp0= MediaPlayer.create(this,R.raw.lastwar)
+        mp0.isLooping=true
+       // mp0.start()
 
         strategy_determination_button_id.setOnClickListener {
 
@@ -38,7 +44,6 @@ class StrategyChangeActivity : AppCompatActivity() {
             }
 
          //   val strategyValues: RadioButton = radioGroupStrategy.findViewById(radioId)
-
         //    val strategyName:String = strategyValues.text.toString()
 
             val result = Intent()
@@ -46,8 +51,13 @@ class StrategyChangeActivity : AppCompatActivity() {
             result.putExtra("strategy_key", strategyName)
 
             setResult(Activity.RESULT_OK, result)
-
+            mp0.reset()
             finish()
         }
+    }
+
+    override fun onDestroy() {
+        mp0.release()
+        super.onDestroy()
     }
 }

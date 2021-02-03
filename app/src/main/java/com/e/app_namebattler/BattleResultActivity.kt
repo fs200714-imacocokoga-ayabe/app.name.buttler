@@ -1,6 +1,7 @@
 package com.e.app_namebattler
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -8,13 +9,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_battle_result_screen.*
 
-class BattleResultScreenActivity : AppCompatActivity() {
+class BattleResultActivity : AppCompatActivity() {
 
+    lateinit var mp0: MediaPlayer
     lateinit var memberList: MutableList<MemberStatusData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_result_screen)
+
+        mp0= MediaPlayer.create(this,R.raw.newworld)
+        mp0.isLooping=true
+        mp0.start()
 
         val allyName01 = intent.getStringExtra("name_key01")
         val allyName02 = intent.getStringExtra("name_key02")
@@ -72,7 +78,7 @@ class BattleResultScreenActivity : AppCompatActivity() {
             intent.putExtra("name_key01", allyName01)
             intent.putExtra("name_key02", allyName02)
             intent.putExtra("name_key03", allyName03)
-
+            mp0.reset()
             startActivity(intent)
         }
 
@@ -87,7 +93,7 @@ class BattleResultScreenActivity : AppCompatActivity() {
             intent.putExtra("enemyName01_key", enemyName01)
             intent.putExtra("enemyName02_key", enemyName02)
             intent.putExtra("enemyName03_key", enemyName03)
-
+            mp0.reset()
             startActivity(intent)
         }
 
@@ -95,6 +101,7 @@ class BattleResultScreenActivity : AppCompatActivity() {
         end_battle_button_id.setOnClickListener {
 
             val intent = Intent(this, TopScreenActivity::class.java)
+            mp0.reset()
             startActivity(intent)
         }
     }
@@ -143,6 +150,10 @@ class BattleResultScreenActivity : AppCompatActivity() {
 
             battle_result_enemy_status_recycleView_id.adapter = this
         }
+    }
+    override fun onDestroy() {
+        mp0.release()
+        super.onDestroy()
     }
 }
 

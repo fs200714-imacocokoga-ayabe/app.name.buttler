@@ -3,6 +3,7 @@ package com.e.app_namebattler
 import android.content.Intent
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter
 
 class CharacterCreatedActivity : AppCompatActivity() {
 
+    lateinit var mp0: MediaPlayer
     lateinit var helper: MyOpenHelper
     private lateinit var player: Player
 
@@ -21,6 +23,10 @@ class CharacterCreatedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_created)
+
+        mp0= MediaPlayer.create(this,R.raw.yokoku)
+        mp0.isLooping=true
+        mp0.start()
 
         helper = MyOpenHelper(applicationContext)//DB作成
 
@@ -95,6 +101,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
             // 戻るボタン押したときの処理
             created_character_back_button_id.setOnClickListener {
                 val intent = Intent(this, CharacterCreationActivity::class.java)
+                mp0.reset()
                 startActivity(intent)
             }
 
@@ -121,6 +128,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
                //  キャラクター数が8未満の場合続けてキャラクターの作成をする
                }else {
                    val intent = Intent(this, CharacterCreationActivity::class.java)
+                   mp0.reset()
                    startActivity(intent)
                }
             }
@@ -128,8 +136,14 @@ class CharacterCreatedActivity : AppCompatActivity() {
             // 作成を終了するボタンを押したときの処理
             created_character_end_creation_text_id.setOnClickListener{
                 val intent = Intent(this, CharacterListActivity::class.java)
+                mp0.reset()
                 startActivity(intent)
             }
+    }
+
+    override fun onDestroy() {
+        mp0.release()
+        super.onDestroy()
     }
 }
 

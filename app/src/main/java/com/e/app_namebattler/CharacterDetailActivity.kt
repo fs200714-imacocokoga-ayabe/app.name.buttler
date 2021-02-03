@@ -2,6 +2,7 @@ package com.e.app_namebattler
 
 import android.content.Intent
 import android.database.Cursor
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_character_detail.*
 // キャラクター詳細画面のクラス
 class CharacterDetailActivity : AppCompatActivity() {
 
+    lateinit var mp0: MediaPlayer
     lateinit var helper: MyOpenHelper
 
     var name = ""
@@ -27,6 +29,10 @@ class CharacterDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_detail)
 
+        mp0= MediaPlayer.create(this,R.raw.yokoku)
+        mp0.isLooping=true
+        mp0.start()
+
         // 名前を受け取る
         val nameExtra = intent.getStringExtra("name_key")
 
@@ -43,7 +49,7 @@ class CharacterDetailActivity : AppCompatActivity() {
             while (cursor.moveToNext()) {
 
                 name = cursor.getString(0)
-                job =  OccupationConversion(cursor.getInt(1))
+                job =  occupationConversion(cursor.getInt(1))
                 hp = cursor.getInt(2)
                 mp = cursor.getInt(3)
                 str = cursor.getInt(4)
@@ -63,6 +69,7 @@ class CharacterDetailActivity : AppCompatActivity() {
         // 戻るボタンを押したときの処理
         character_detail_back_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
+            mp0.reset()
             startActivity(intent)
         }
 
@@ -127,7 +134,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 dateText.text = ("作成日：$create_at")
             }
 
-    fun OccupationConversion(jobValue:Int):String{
+    private fun occupationConversion(jobValue:Int):String{
 
         when(jobValue){
             0 -> {job = "戦士"}
@@ -136,5 +143,10 @@ class CharacterDetailActivity : AppCompatActivity() {
             3 -> {job = "忍者"}
         }
         return job
+    }
+
+    override fun onDestroy() {
+        mp0.release()
+        super.onDestroy()
     }
 }

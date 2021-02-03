@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BattleResultScreenActivity"></activity>
+        <activity android:name=".BattleResultActivity"></activity>
         <activity android:name=".StrategyChangeActivity" />
         <activity android:name=".BattleMainActivity" />
         <activity android:name=".CharacterCreatedActivity" />

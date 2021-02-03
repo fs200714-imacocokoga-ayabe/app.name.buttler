@@ -29,10 +29,9 @@ class CharacterListActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        mp0= MediaPlayer.create(this,R.raw.neighofwar)
+        mp0= MediaPlayer.create(this,R.raw.yokoku)
         mp0.isLooping=true
-     //   mp0.start()
-
+        mp0.start()
 
         mp0.start()
         super.onCreate(savedInstanceState)
@@ -80,10 +79,10 @@ class CharacterListActivity : AppCompatActivity(){
                 // 項目をタップしたときの処理
                 listView.setOnItemClickListener { parent, view, position, id ->
 
-
                     val nameValue  = characterList[position].name
                     val intent = Intent(this, CharacterDetailActivity::class.java)
                     intent.putExtra("name_key", nameValue)
+                    mp0.reset()
                     startActivity(intent)
         }
 
@@ -94,18 +93,21 @@ class CharacterListActivity : AppCompatActivity(){
         // 戻るボタンを押したときの処理
         characterlist_back_button.setOnClickListener {
             val intent = Intent(this, TopScreenActivity::class.java)
+            mp0.reset()
             startActivity(intent)
         }
 
         // 新しく作成するボタンを押したときの処理
         new_create_button.setOnClickListener {
+
             if (characterList.size >= 8){
                 val dialog = CharacterCreateMaxDialogFragment()
                 dialog.show(supportFragmentManager, "alert_dialog")
-           // Toast.makeText(applicationContext, "リストがいっぱいです", Toast.LENGTH_LONG).show()
+
            }else {
                 val intent = Intent(this, CharacterCreationActivity::class.java)
-                //intent.putExtra("characterNumber_key",characterList.size)
+               
+                mp0.reset()
                 startActivity(intent)
             }
         }

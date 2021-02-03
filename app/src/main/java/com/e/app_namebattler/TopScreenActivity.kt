@@ -22,11 +22,13 @@ class TopScreenActivity : AppCompatActivity() {
         // キャラ一覧のボタン
         top_screen_character_list_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
+            mp0.reset()
             startActivity(intent)
         }
         // バトル開始ボタン
         top_screen_battle_start_button_id.setOnClickListener {
             val intent = Intent(this, PartyOrganizationActivity::class.java)
+            mp0.reset()
             startActivity(intent)
         }
     }

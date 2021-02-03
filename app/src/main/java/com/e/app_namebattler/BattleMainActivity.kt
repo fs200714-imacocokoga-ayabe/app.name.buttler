@@ -3,6 +3,7 @@ package com.e.app_namebattler
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -19,6 +20,8 @@ import kotlin.collections.ArrayList
 class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogListener {
 
     lateinit var mAdapter: BattleMainRecyclerAdapter
+
+    lateinit var mp0: MediaPlayer
 
     lateinit var memberList: MutableList<MemberStatusData>
 
@@ -65,6 +68,10 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_main)
 
+        mp0= MediaPlayer.create(this,R.raw.lastwar)
+        mp0.isLooping=true
+        mp0.start()
+
         this.handler = Handler()
 
         val battleMainLogTextDialog =
@@ -106,6 +113,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         // 作戦変更画面に遷移
         strategy_change_button_id.setOnClickListener {
             val intent = Intent(this, StrategyChangeActivity::class.java)
+          //  mp0.reset()
             startActivityForResult(intent, 1000)
         }
 
@@ -122,7 +130,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                     // パーティの勝ち負け判定に使用
                     val party00 = gm.getParty01().size
 
-                    val intent = Intent(this, BattleResultScreenActivity::class.java)
+                    val intent = Intent(this, BattleResultActivity::class.java)
 
                     intent.putExtra("name_key01", allyName01)
                     intent.putExtra("name_key02", allyName02)
@@ -132,10 +140,11 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                     intent.putExtra("name_key06", enemyName03)
                     intent.putExtra("party_key", party00)
 
+                    mp0.reset()
                     startActivity(intent)
 
                 }else{
-println("ストラテジーナンバー$strategyNumber")
+
                     gm.battle(strategyNumber)
 
                 }
@@ -369,7 +378,7 @@ println("ストラテジーナンバー$strategyNumber")
     }
 
     // 味方キャラクターを作成する
-    fun makeAllyCharacter(allyPartyList: CharacterAllData): Player {
+    private fun makeAllyCharacter(allyPartyList: CharacterAllData): Player {
 
         when (allyPartyList.job) {
 
@@ -572,6 +581,11 @@ println("ストラテジーナンバー$strategyNumber")
 
             battle_main_enemy_status_recycleView_id.adapter = this
         }
+    }
+
+    override fun onDestroy() {
+        mp0.release()
+        super.onDestroy()
     }
 }
 

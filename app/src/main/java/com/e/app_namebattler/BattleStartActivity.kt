@@ -2,6 +2,7 @@ package com.e.app_namebattler
 
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.widget.ListView
@@ -12,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_battle_start.*
 
 class BattleStartActivity : AppCompatActivity() {
 
+    lateinit var mp0: MediaPlayer
     lateinit var helper: MyOpenHelper
 
     private lateinit var mListAdapter: BattlePartyAdapter
@@ -43,6 +45,10 @@ class BattleStartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_start)
 
+        mp0= MediaPlayer.create(this,R.raw.neighofwar)
+        mp0.isLooping=true
+        mp0.start()
+
         helper = MyOpenHelper(applicationContext)//DB作成
 
         // PartyOrganizationActivityから名前を受け取る
@@ -62,6 +68,7 @@ class BattleStartActivity : AppCompatActivity() {
         // 戻るボタンを押したときの処理
         battle_start_back_button.setOnClickListener{
             val intent = Intent(this, PartyOrganizationActivity::class.java)
+            mp0.reset()
             startActivity(intent)
         }
 
@@ -78,6 +85,7 @@ class BattleStartActivity : AppCompatActivity() {
             intent.putExtra("enemyName03_key", enemyPartyList[2].name)
 
             saveData(enemyPartyList)
+            mp0.reset()
             startActivity(intent)
         }
 
@@ -198,6 +206,11 @@ class BattleStartActivity : AppCompatActivity() {
             3 -> { job = "忍者" }
         }
         return job
+    }
+
+    override fun onDestroy() {
+        mp0.release()
+        super.onDestroy()
     }
 }
 
