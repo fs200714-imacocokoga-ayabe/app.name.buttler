@@ -6,6 +6,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -32,10 +33,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     lateinit var helper: MyOpenHelper
 
     private val gm = GameManager()
-
-    val pt = Party()
-
-    val pl = Player()
 
     //val hd = MyHandler()
 
@@ -68,7 +65,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_main)
 
-        mp0= MediaPlayer.create(this,R.raw.lastwar)
+        mp0= MediaPlayer.create(this, R.raw.lastwar)
         mp0.isLooping=true
         mp0.start()
 
@@ -150,17 +147,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 }
             }
         }
-
-        val adapter = BattleMainRecyclerAdapter(memberList)
-        adapter.setOnItemClickListener(object: BattleMainRecyclerAdapter.OnItemClickListener{
-            override fun onItemClickListener(
-                viw: View,
-                position: Int,
-                clickedText: MemberStatusData
-            ) {
-                Toast.makeText(applicationContext, "${clickedText}がタップされました", Toast.LENGTH_LONG).show()
-            }
-        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -476,7 +462,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         for (i in 1..testLog.size) {
             when (i) {
                 1 -> {
-                   // handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
+                    // handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
                     handler?.postDelayed({ tl.text = testLog[i - 1] }, 100)
                     println("ろぐ01${testLog[i - 1]}")
                 }
@@ -488,13 +474,13 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 }
 
                 3 -> {
-                   // handler?.postDelayed({ tl.text = testLog[i - 1] }, 6500)
+                    // handler?.postDelayed({ tl.text = testLog[i - 1] }, 6500)
                     handler?.postDelayed({ tl.text = testLog[i - 1] }, 300)
                     println("ろぐ03${testLog[i - 1]}")
                 }
 
                 4 -> {
-                   // handler?.postDelayed({ tl.text = testLog[i - 1] }, 9500)
+                    // handler?.postDelayed({ tl.text = testLog[i - 1] }, 9500)
                     handler?.postDelayed({ tl.text = testLog[i - 1] }, 400)
                     println("ろぐ04${testLog[i - 1]}")
                 }
@@ -539,9 +525,33 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     override fun upDateAllyStatus(ally01: Player, ally02: Player, ally03: Player){
 
-        val ally001 = MemberStatusData(("  %s".format(ally01.getName())), ("%s %d/%d".format("  HP", ally01.hp, ally01.getMaxHp())), ("%s %d/%d".format("  MP", ally01.mp, ally01.getMaxMp())),("%s %s".format(ally01.getPoison(),ally01.getParalysis())),(ally01.hp))
-        val ally002 = MemberStatusData(("  %s".format(ally02.getName())), ("%s %d/%d".format("  HP", ally02.hp, ally02.getMaxHp())), ("%s %d/%d".format("  MP", ally02.mp, ally02.getMaxMp())),("%s %s".format(ally02.getPoison(),ally02.getParalysis())),(ally02.hp))
-        val ally003 = MemberStatusData(("  %s".format(ally03.getName())), ("%s %d/%d".format("  HP", ally03.hp, ally03.getMaxHp())), ("%s %d/%d".format("  MP", ally03.mp, ally03.getMaxMp())),("%s %s".format(ally03.getPoison(),ally03.getParalysis())),(ally03.hp))
+        val ally001 = MemberStatusData(("  %s".format(ally01.getName())),
+            ("%s %d/%d".format("  HP",
+                ally01.hp,
+                ally01.getMaxHp())),
+            ("%s %d/%d".format("  MP", ally01.mp, ally01.getMaxMp())),
+            ("%s %s".format(
+                ally01.getPoison(),
+                ally01.getParalysis())),
+            (ally01.hp))
+        val ally002 = MemberStatusData(("  %s".format(ally02.getName())),
+            ("%s %d/%d".format("  HP",
+                ally02.hp,
+                ally02.getMaxHp())),
+            ("%s %d/%d".format("  MP", ally02.mp, ally02.getMaxMp())),
+            ("%s %s".format(
+                ally02.getPoison(),
+                ally02.getParalysis())),
+            (ally02.hp))
+        val ally003 = MemberStatusData(("  %s".format(ally03.getName())),
+            ("%s %d/%d".format("  HP",
+                ally03.hp,
+                ally03.getMaxHp())),
+            ("%s %d/%d".format("  MP", ally03.mp, ally03.getMaxMp())),
+            ("%s %s".format(
+                ally03.getPoison(),
+                ally03.getParalysis())),
+            (ally03.hp))
 
         memberList = arrayListOf(ally001, ally002, ally003)
 
@@ -558,13 +568,71 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             battle_main_ally_status_recycleView_id.adapter = this
         }
+
+          battle_main_ally_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+        (battle_main_ally_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
+            object : BattleMainRecyclerAdapter.OnItemClickListener {
+                override fun onItemClickListener(
+                    viw: View,
+                    position: Int
+                ) {
+                    when (position) {
+
+                        0 -> {val ts01 = Toast.makeText(applicationContext,
+                            "${ally01.job} STR:${ally01.str} DEF:${ally01.def} AGI:${ally01.agi} LUCK:${ally01.luck}",
+                            Toast.LENGTH_SHORT)
+                            ts01.setGravity(Gravity.LEFT,0,0)
+                         //   ts01.view?.setBackgroundColor(R.color.colorBlue)
+                            ts01.show()}
+
+                        1 -> {val ts02 = Toast.makeText(applicationContext,
+                            "${ally02.job} STR:${ally02.str} DEF:${ally02.def} AGI:${ally02.agi} LUCK:${ally02.luck}",
+                            Toast.LENGTH_SHORT)
+                            ts02.setGravity(Gravity.CENTER,0,0)
+                          //  ts02.view?.setBackgroundColor(R.color.colorBlue)
+                            ts02.show()}
+
+                        2 -> {val ts03 = Toast.makeText(applicationContext,
+                            "${ally03.job} STR:${ally03.str} DEF:${ally03.def} AGI:${ally03.agi} LUCK:${ally03.luck}",
+                            Toast.LENGTH_SHORT)
+                            ts03.setGravity(Gravity.RIGHT,0,0)
+                         //   ts03.view?.setBackgroundColor(R.color.colorBlue)
+                            ts03.show()}
+
+                    }
+                }
+            })
     }
 
     override fun upDateEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player){
 
-        val enemy001 = MemberStatusData(("  %s".format(enemy01.getName())), ("%s %d/%d".format("  HP", enemy01.hp, enemy01.getMaxHp())), ("%s %d/%d".format("  MP", enemy01.mp, enemy01.getMaxMp())),("%s %s".format(enemy01.getPoison(),enemy01.getParalysis())),(enemy01.hp))
-        val enemy002 = MemberStatusData(("  %s".format(enemy02.getName())), ("%s %d/%d".format("  HP", enemy02.hp, enemy02.getMaxHp())), ("%s %d/%d".format("  MP", enemy02.mp, enemy02.getMaxMp())),("%s %s".format(enemy02.getPoison(),enemy02.getParalysis())),(enemy02.hp))
-        val enemy003 = MemberStatusData(("  %s".format(enemy03.getName())), ("%s %d/%d".format("  HP", enemy03.hp, enemy03.getMaxHp())), ("%s %d/%d".format("  MP", enemy03.mp, enemy03.getMaxMp())),("%s %s".format(enemy03.getPoison(),enemy03.getParalysis())),(enemy03.hp))
+        val enemy001 = MemberStatusData(("  %s".format(enemy01.getName())),
+            ("%s %d/%d".format("  HP",
+                enemy01.hp,
+                enemy01.getMaxHp())),
+            ("%s %d/%d".format("  MP", enemy01.mp, enemy01.getMaxMp())),
+            ("%s %s".format(
+                enemy01.getPoison(),
+                enemy01.getParalysis())),
+            (enemy01.hp))
+        val enemy002 = MemberStatusData(("  %s".format(enemy02.getName())),
+            ("%s %d/%d".format("  HP",
+                enemy02.hp,
+                enemy02.getMaxHp())),
+            ("%s %d/%d".format("  MP", enemy02.mp, enemy02.getMaxMp())),
+            ("%s %s".format(
+                enemy02.getPoison(),
+                enemy02.getParalysis())),
+            (enemy02.hp))
+        val enemy003 = MemberStatusData(("  %s".format(enemy03.getName())),
+            ("%s %d/%d".format("  HP",
+                enemy03.hp,
+                enemy03.getMaxHp())),
+            ("%s %d/%d".format("  MP", enemy03.mp, enemy03.getMaxMp())),
+            ("%s %s".format(
+                enemy03.getPoison(),
+                enemy03.getParalysis())),
+            (enemy03.hp))
 
         memberList = arrayListOf(enemy001, enemy002, enemy003)
 
@@ -581,6 +649,39 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             battle_main_enemy_status_recycleView_id.adapter = this
         }
+
+        battle_main_enemy_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+        (battle_main_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
+            object : BattleMainRecyclerAdapter.OnItemClickListener {
+                @SuppressLint("ResourceAsColor")
+                override fun onItemClickListener(
+                    viw: View,
+                    position: Int
+                ) {
+
+                    when (position) {
+
+                        0 -> {val ts04 = Toast.makeText(applicationContext,
+                            "${enemy01.job} STR:${enemy01.str} DEF:${enemy01.def} AGI:${enemy01.agi} LUCK:${enemy01.luck}",
+                            Toast.LENGTH_SHORT)
+                            ts04.setGravity(Gravity.LEFT,0,0)
+                          //  ts04.view?.setBackgroundColor(R.color.colorBlue)
+                            ts04.show()}
+                        1 -> {val ts05 = Toast.makeText(applicationContext,
+                            "${enemy02.job} STR:${enemy02.str} DEF:${enemy02.def} AGI:${enemy02.agi} LUCK:${enemy02.luck}",
+                            Toast.LENGTH_SHORT)
+                            ts05.setGravity(Gravity.CENTER,0,0)
+                           // ts05.view?.setBackgroundColor(R.color.colorBlue)
+                            ts05.show()}
+                        2 -> {val ts06 = Toast.makeText(applicationContext,
+                            "${enemy03.job} STR:${enemy03.str} DEF:${enemy03.def} AGI:${enemy03.agi} LUCK:${enemy03.luck}",
+                            Toast.LENGTH_SHORT)
+                            ts06.setGravity(Gravity.RIGHT,0,0)
+                           // ts06.view?.setBackgroundColor(R.color.colorBlue)
+                            ts06.show()}
+                    }
+                }
+            })
     }
 
     override fun onDestroy() {

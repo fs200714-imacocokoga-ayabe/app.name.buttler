@@ -24,16 +24,27 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         holder.Status.text = member.Status
 
         if (member.hp02 <= 0){
-
             holder.Name.setTextColor(Color.parseColor("#FF0000"))
 
         }else {
-
             holder.Name.setTextColor(Color.parseColor("#000000"))
         }
 
+        // タップしたとき
+        holder.Name.setOnClickListener{
+            listener.onItemClickListener(it, position)
+        }
+
+        holder.Hp.setOnClickListener{
+            listener.onItemClickListener(it, position)
+        }
+
+        holder.Mp.setOnClickListener{
+            listener.onItemClickListener(it, position)
+        }
+
         holder.Status.setOnClickListener{
-            listener.onItemClickListener(it, position, memberList[position])
+            listener.onItemClickListener(it, position)
         }
     }
 
@@ -51,6 +62,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         val Hp: TextView = view.findViewById(R.id.member_hp_id)
         val Mp: TextView = view.findViewById(R.id.member_mp_id)
         val Status: TextView = view.findViewById(R.id.member_status_id)
+
     }
 
     //  リストの行数
@@ -59,14 +71,14 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     }
 
     interface OnItemClickListener {
-        fun onItemClickListener(viw: View, position: Int, clickedText: MemberStatusData)
+
+        fun onItemClickListener(viw: View, position: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener){
         this.listener = listener
     }
 }
-
 // 1行分のデータモデル
 class MemberStatusData(var name: String, var hp: String, var Mp: String, var Status: String ,var hp02:Int)
 

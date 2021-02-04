@@ -21,8 +21,6 @@ class GameManager {
 
     private val pt = Party()
 
-    private val pl = Player()
-
     var context: Context? = null
 
     private val handler: Handler = Handler()
@@ -75,7 +73,7 @@ class GameManager {
         // スピード順に取得する
         speedOrderList = (speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03))
 
-        huriwake(enemy01, enemy02, enemy03, ally01, ally02, ally03)
+        toEnemyAllySort(enemy01, enemy02, enemy03, ally01, ally02, ally03)
 
         // パーティの振り分け
         pt.appendPlayer(enemy01, enemy02, enemy03, ally01, ally02, ally03)
@@ -86,7 +84,7 @@ class GameManager {
 
     }
 
-    private fun huriwake(
+    private fun toEnemyAllySort(
         enemy01: Player,
         enemy02: Player,
         enemy03: Player,

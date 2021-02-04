@@ -49,7 +49,7 @@ class Strategy4 : BaseStrategy() {
                 val a = random.nextInt(party2.size)
                 player2 = _party2[a]
                 data[0] = player2!!.getIdNumber() // 乱数で出た敵のIDを返す
-                data[1] = 4 // 作戦番号4を入れる
+                data[1] = 1 // 作戦番号4を入れる
             }
         }
         _party1.clear() // _party1をクリア
