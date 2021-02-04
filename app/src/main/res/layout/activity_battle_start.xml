@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:splitMotionEvents="false"
     tools:context=".BattleStartActivity">
 
     // "バトル開始"表示
+
     <TextView
         android:id="@+id/text_battle_start_id"
         android:layout_width="0dp"
@@ -21,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // 戻るボタン
+
     <Button
         android:id="@+id/battle_start_back_button"
         android:layout_width="80dp"
@@ -35,6 +38,7 @@
         app:layout_constraintTop_toTopOf="@+id/text_battle_start_id" />
 
     // vsの表示
+
     <TextView
         android:id="@+id/text_vs"
         android:layout_width="0dp"
@@ -55,6 +59,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="3dp"
         android:orientation="vertical"
+        android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_battle_start_id">
@@ -65,7 +70,8 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:divider="@null"
-            android:dividerHeight="0sp"/>
+            android:dividerHeight="0sp"
+            android:splitMotionEvents="false" />
 
     </LinearLayout>
 
@@ -78,6 +84,7 @@
         android:layout_marginEnd="3dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
+        android:splitMotionEvents="false"
         app:layout_constraintBottom_toTopOf="@+id/this_enemy_battle_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -90,11 +97,13 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:divider="@null"
-            android:dividerHeight="0sp"/>
+            android:dividerHeight="0sp"
+            android:splitMotionEvents="false" />
 
     </LinearLayout>
 
     // この相手と戦うボタン
+
     <Button
         android:id="@+id/this_enemy_battle_button"
         android:layout_width="380dp"
@@ -113,6 +122,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     //　相手を選びなおすボタン
+
     <Button
         android:id="@+id/re_select_enemy_button"
         android:layout_width="380dp"

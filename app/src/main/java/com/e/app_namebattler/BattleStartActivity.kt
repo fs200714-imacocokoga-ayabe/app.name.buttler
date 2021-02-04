@@ -212,6 +212,8 @@ class BattleStartActivity : AppCompatActivity() {
         mp0.release()
         super.onDestroy()
     }
+
+    override fun onBackPressed() {}
 }
 
 

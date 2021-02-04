@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:splitMotionEvents="false"
     tools:context=".PartyOrganizationActivity">
 
     // "パーティ編成"の表示
+
     <TextView
         android:id="@+id/text_party_argnization"
         android:layout_width="410dp"
@@ -22,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // 戻るボタン
+
     <Button
         android:id="@+id/party_organizetion_back_button"
         android:layout_width="80dp"
@@ -38,6 +41,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // "このパーティで開始"のボタン
+
     <Button
         android:id="@+id/this_party_start"
         android:layout_width="410dp"
@@ -60,6 +64,7 @@
         android:layout_marginEnd="3dp"
         android:layout_marginBottom="4dp"
         android:orientation="vertical"
+        android:splitMotionEvents="false"
         app:layout_constraintBottom_toTopOf="@id/this_party_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +76,8 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:divider="@null"
-            android:dividerHeight="0sp"/>
+            android:dividerHeight="0sp"
+            android:splitMotionEvents="false" />
 
     </LinearLayout>
 

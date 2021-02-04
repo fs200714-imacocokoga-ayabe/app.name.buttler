@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:splitMotionEvents="false"
     tools:context=".CharacterListActivity">
 
     // "キャラ一覧の表示"の表示
@@ -23,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // "新しく作成する"ボタン
+
     <Button
         android:id="@+id/new_create_button"
         android:layout_width="0dp"
@@ -37,6 +39,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     // 戻るボタン
+
     <Button
         android:id="@+id/characterlist_back_button"
         android:layout_width="80dp"
@@ -58,6 +61,7 @@
         android:layout_marginEnd="3dp"
         android:layout_marginBottom="2dp"
         android:orientation="vertical"
+        android:splitMotionEvents="false"
         app:layout_constraintBottom_toTopOf="@+id/new_create_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +73,10 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:divider="@null"
-            android:dividerHeight="0sp"/>
-    </LinearLayout>-->
+            android:dividerHeight="0sp"
+            android:splitMotionEvents="false" />
+    </LinearLayout>
+    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

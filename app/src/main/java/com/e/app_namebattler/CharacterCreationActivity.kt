@@ -102,6 +102,8 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         super.onDestroy()
     }
 
+    override fun onBackPressed() {}
+
 }
 
 

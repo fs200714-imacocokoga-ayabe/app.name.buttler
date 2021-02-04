@@ -336,4 +336,6 @@ class PartyOrganizationActivity : AppCompatActivity() {
         mp0.release()
         super.onDestroy()
     }
+
+    override fun onBackPressed() {}
 }

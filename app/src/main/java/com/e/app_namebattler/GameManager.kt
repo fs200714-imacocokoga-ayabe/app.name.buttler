@@ -48,11 +48,8 @@ class GameManager {
     private lateinit var player2: Player
     var job = ""
 
-    private var allyStrategyNumber = 0 // 作戦の選択に使用
     private var enemyStrategyNumber = 0 // 作戦の選択に使用
-    var strategyNumber = 0// 個別の作戦の選択に使用
     var strategyData = IntArray(2) // 攻撃プレイヤーIDと守備プレイヤーIDと作戦番号を格納
-
 
     // Activityから指揮権を受け取る
     fun controlTransfer(
@@ -80,8 +77,6 @@ class GameManager {
 
         // キャラクターの表示
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
-
-
     }
 
     private fun toEnemyAllySort(
@@ -107,9 +102,7 @@ class GameManager {
                 enemyList.add(player)
             }
         }
-
     }
-
 
     fun battle(strategyNumber: Int) {
 
@@ -125,15 +118,15 @@ class GameManager {
                 if (player1.isMark()!!) { // player1が敵の場合
                     strategyData = selectStrategyNumber(strategyNumber)
                 } else {
-                    enemyStrategyNumber = random.nextInt(5) + 1 // 作戦ランダム
+                    enemyStrategyNumber = random.nextInt(5) // 作戦ランダム0-4
                     strategyData = selectStrategyNumber(enemyStrategyNumber)
                 }
             }
 
             player2 = pt.selectMember(strategyData[0])!! // 作戦で選んだ相手を呼ぶ
-            sb.append("@@")
-            sb.append(player1.attack(player2, strategyData[1])) // player1に相手と作戦を送り攻撃する
 
+            sb.append(player1.attack(player2, strategyData[1])) // player1に相手と作戦を送り攻撃する
+            sb.append("@@")
             // 敗北判定
             defeatDecision()
 

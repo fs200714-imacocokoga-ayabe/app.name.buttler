@@ -129,4 +129,6 @@ class CharacterListActivity : AppCompatActivity(){
         mp0.release()
         super.onDestroy()
     }
+
+    override fun onBackPressed() {}
 }

@@ -41,8 +41,8 @@ class Priest (name:String):Player(name), IRecoveryMagic {
         val r: Int = random.nextInt(100) + 1
         if (r > 50) {
             bsb.append("${getName()}は祈りを捧げて${Magic.OPTICALELEMENTAL.getName()}を召還した\n${Magic.OPTICALELEMENTAL.getName()}の祝福を受けた！\n")
-            bsb.append("${getName()}はHPが${recoveryProcess(this, Magic.OPTICALELEMENTAL.getRecoveryValue())}回復した！\n")
-
+          //  bsb.append("${getName()}はHPが${recoveryProcess(this, Magic.OPTICALELEMENTAL.getRecoveryValue())}回復した！\n")
+            recoveryProcess(this, Magic.OPTICALELEMENTAL.getRecoveryValue())
         } else {
             bsb.append("${getName()}は祈りを捧げたが何も起こらなかった！\n")
         }
@@ -61,8 +61,7 @@ class Priest (name:String):Player(name), IRecoveryMagic {
         isHeal = true
         if (hasEnoughMp()) { // MPが20以上の場合ヒールを使用
             this.mp = this.getMP() - Magic.HEAL.getMpCost() // MP消費
-                        bsb.append("${getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${getName()}を包む\nHPが${Magic.HEAL
-                .getRecoveryValue()}回復した！\n")
+                        bsb.append("${getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${getName()}を包む\n")
 
             recoveryProcess(
                 defender, Magic.HEAL

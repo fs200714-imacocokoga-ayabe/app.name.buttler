@@ -31,13 +31,13 @@ class Fighter(name: String):Player(name) {
     }
 
     override fun normalAttack(defender: Player) {
-        System.out.printf("%sの攻撃！\n%sは剣で斬りつけた！\n", getName(), getName())
+        bsb.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
         damage = calcDamage(defender) // 与えるダメージを求める
         damageProcess(defender, damage)
     }
 
     override fun skillAttack(defender: Player) { // スキル攻撃処理
-        // type = "A"
+
         val r = (1..100).random()
         if (r > 75) { // 乱数値が75より大きいなら
 
@@ -59,8 +59,7 @@ class Fighter(name: String):Player(name) {
     }
 
     private fun directAttack(defender: Player) { // 直接攻撃処理
-        //   type = "A" // 攻撃タイプ(直接攻撃)
-        //  System.out.printf("%sの攻撃！\n%sは剣で斬りつけた！\n", getName(), getName())
+
         bsb.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
         damage = calcDamage(defender) // 与えるダメージを求める
         super.damageProcess(defender, damage) // ダメージ処理

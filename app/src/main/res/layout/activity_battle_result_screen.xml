@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:splitMotionEvents="false"
     tools:context=".BattleResultActivity">
 
     // "バトル"表示
@@ -22,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // 敵パーティ表示レイアウト
+
     <LinearLayout
         android:id="@+id/enemy_party_linearLayout_result_id"
         android:layout_width="395dp"
@@ -30,6 +32,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
+        android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_battle_result_id">
@@ -37,10 +40,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_result_enemy_status_recycleView_id"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:splitMotionEvents="false" />
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
+
     <LinearLayout
         android:id="@+id/ally_party_linearLayout_result_id"
         android:layout_width="0dp"
@@ -49,6 +54,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
+        android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enemy_party_linearLayout_result_id">
@@ -56,7 +62,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_result_ally_status_recycleView_id"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:splitMotionEvents="false" />
     </LinearLayout>
 
     <Button

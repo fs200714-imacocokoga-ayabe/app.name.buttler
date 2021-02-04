@@ -31,7 +31,6 @@ class Ninja (name:String):Player(name) {
 
     override fun normalAttack(defender: Player) {
         bsb.append("${getName()}の攻撃！\n刀で突きさした！\n")
-      //  bsb.append("${getName()}の攻撃！\n手裏剣を投げつけた！\n")
         damage = calcDamage(defender) // 与えるダメージを求める
         damageProcess(defender, damage) // ダメージ処理
     }

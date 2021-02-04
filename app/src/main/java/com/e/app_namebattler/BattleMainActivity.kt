@@ -20,8 +20,6 @@ import kotlin.collections.ArrayList
 
 class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogListener {
 
-    lateinit var mAdapter: BattleMainRecyclerAdapter
-
     lateinit var mp0: MediaPlayer
 
     lateinit var memberList: MutableList<MemberStatusData>
@@ -38,27 +36,16 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     private var enemyPartyList = ArrayList<CharacterAllData>()
 
-    private var enemyStatusList = ArrayList<Player>()
-
     private var allyPartyList = ArrayList<CharacterAllData>()
-
-    private var allyStatusList = ArrayList<Player>()
 
     lateinit var ally: Player
     private lateinit var enemy: Player
-    lateinit var ally01: Player
-    lateinit var ally02: Player
-    lateinit var ally03: Player
-    lateinit var enemy01: Player
-    lateinit var enemy02: Player
-    lateinit var enemy03: Player
     var strategyNumber = 0
-
-    private val e = CreateEnemy()
 
     var job = ""
 
-    var turnNumber = 1 // ターンの初期値
+    private var isTurn:Boolean = false
+    var isMessageSpeed:Boolean = false
 
     @SuppressLint("CutPasteId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,15 +69,15 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         val enemyName01 = intent.getStringExtra("enemyName01_key")
         val enemyName02 = intent.getStringExtra("enemyName02_key")
         val enemyName03 = intent.getStringExtra("enemyName03_key")
-        var strategyName = intent.getStringExtra("strategy_key")
+        val strategyName = intent.getStringExtra("strategy_key")
 
             if (strategyName != null) {
 
                 printStrategy(strategyName)
 
             } else {
-                printStrategy("武器でたたかおう")
 
+                printStrategy("武器でたたかおう")
             }
 
         // タップすると始まります
@@ -110,17 +97,15 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         // 作戦変更画面に遷移
         strategy_change_button_id.setOnClickListener {
             val intent = Intent(this, StrategyChangeActivity::class.java)
-          //  mp0.reset()
             startActivityForResult(intent, 1000)
         }
 
         // 次のターンボタンを押したときの処理
         next_turn_button_id.setOnClickListener {
 
-            if(turnNumber > 1) {
+            if (isTurn){
 
                 if (gm.getParty01().isEmpty() || gm.getParty02().isEmpty()) {
-
                     // GameManagerクラス から　CharacterDataクラスにデータを渡す処理
                     gm.sendData()
 
@@ -429,74 +414,96 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     }
 
-    private fun makePartyList(
-        enemyName01: String?,
-        enemyName02: String?,
-        enemyName03: String?,
-        allyName01: String?,
-        allyName02: String?,
-        allyName03: String?
-    ) {
+    override fun upDateBattleLog(battleLog: List<String>){
 
-        // 敵のデータを名前から取得する
-        enemyPartyList = getEnemyData(enemyName01, enemyName02, enemyName03)
-        // 味方のデータを名前から取得する
-        allyPartyList = getAllyData(allyName01, allyName02, allyName03)
+        if (!isMessageSpeed) {
 
-        // 敵キャラクターを作成する
-        enemy01 = makeEnemyCharacter(enemyPartyList[0])
-        enemy02 = makeEnemyCharacter(enemyPartyList[1])
-        enemy03 = makeEnemyCharacter(enemyPartyList[2])
+            val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
 
-        // 味方キャラクターを作成する
-        ally01 = makeAllyCharacter(allyPartyList[0])
-        ally02 = makeAllyCharacter(allyPartyList[1])
-        ally03 = makeAllyCharacter(allyPartyList[2])
+            for (i in 1..battleLog.size) {
+                when (i) {
+                    1 -> {
+                        // handler?.postDelayed({ tl.text = testLog[i - 1] }, 200)
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 100)
+                       // tl.text = testLog[i - 1]
+                        println("ろぐ01${battleLog[i - 1]}")
+                    }
 
-    }
+                    2 -> {
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 3500)
+                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 200)
+                        println("ろぐ02${battleLog[i - 1]}")
+                    }
 
-    override fun upDateBattleLog(testLog: List<String>){
+                    3 -> {
+                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 6500)
+                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 300)
+                        println("ろぐ03${battleLog[i - 1]}")
+                    }
 
-        val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-        println("ろぐ00$testLog")
-        for (i in 1..testLog.size) {
-            when (i) {
-                1 -> {
-                    // handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
-                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 100)
-                    println("ろぐ01${testLog[i - 1]}")
-                }
+                    4 -> {
+                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 9500)
+                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 400)
+                        println("ろぐ04${battleLog[i - 1]}")
+                    }
 
-                2 -> {
-                    //handler?.postDelayed({ tl.text = testLog[i - 1] }, 3500)
-                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 200)
-                    println("ろぐ02${testLog[i - 1]}")
-                }
+                    5 -> {
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 12500)
+                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
+                        println("ろぐ05${battleLog[i - 1]}")
+                    }
 
-                3 -> {
-                    // handler?.postDelayed({ tl.text = testLog[i - 1] }, 6500)
-                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 300)
-                    println("ろぐ03${testLog[i - 1]}")
-                }
-
-                4 -> {
-                    // handler?.postDelayed({ tl.text = testLog[i - 1] }, 9500)
-                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 400)
-                    println("ろぐ04${testLog[i - 1]}")
-                }
-
-                5 -> {
-                    //handler?.postDelayed({ tl.text = testLog[i - 1] }, 12500)
-                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
-                    println("ろぐ05${testLog[i - 1]}")
-                }
-
-                6 -> {
-                    //handler?.postDelayed({ tl.text = testLog[i - 1] }, 15500)
-                    handler?.postDelayed({ tl.text = testLog[i - 1] }, 600)
-                    println("ろぐ06${testLog[i - 1]}")
+                    6 -> {
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 15500)
+                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 600)
+                        println("ろぐ06${battleLog[i - 1]}")
+                    }
                 }
             }
+        }else{
+
+            val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
+
+            for (i in 1..battleLog.size) {
+                when (i) {
+                    1 -> {
+                        // handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 100)
+                        println("ろぐ01${battleLog[i - 1]}")
+                    }
+
+                    2 -> {
+                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 3500)
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 200)
+                        println("ろぐ02${battleLog[i - 1]}")
+                    }
+
+                    3 -> {
+                        // handler?.postDelayed({ tl.text = testLog[i - 1] }, 6500)
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 300)
+                        println("ろぐ03${battleLog[i - 1]}")
+                    }
+
+                    4 -> {
+                        // handler?.postDelayed({ tl.text = testLog[i - 1] }, 9500)
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 400)
+                        println("ろぐ04${battleLog[i - 1]}")
+                    }
+
+                    5 -> {
+                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 12500)
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 500)
+                        println("ろぐ05${battleLog[i - 1]}")
+                    }
+
+                    6 -> {
+                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 15500)
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 600)
+                        println("ろぐ06${battleLog[i - 1]}")
+                    }
+                }
+            }
+
         }
     }
 
@@ -513,14 +520,29 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     override fun onClick(v: View?) {
 
-        if (turnNumber == 1) {
+        if (!isTurn){
 
             gm.battle(strategyNumber)
 
-            turnNumber += 1
-        }
+            isTurn = true
+            val ms00 = Toast.makeText(this, "タップで次のターンの速度を変更できます", Toast.LENGTH_SHORT)
+           // ms00.setGravity(Gravity.CENTER, 0, 0)
+            ms00.show()
+        }else {
+            isMessageSpeed = !isMessageSpeed
 
-        Toast.makeText(this, "テストモード", Toast.LENGTH_SHORT).show()
+            if (isMessageSpeed) {
+
+                val ms01 = Toast.makeText(this, "次のターンのメッセージ速度：早い", Toast.LENGTH_SHORT)
+                ms01.setGravity(Gravity.CENTER, 0, 0)
+                ms01.show()
+            } else {
+
+                val ms02 = Toast.makeText(this, "次のターンのメッセージ速度：遅い", Toast.LENGTH_SHORT)
+                ms02.setGravity(Gravity.CENTER, 0, 0)
+                ms02.show()
+            }
+        }
     }
 
     override fun upDateAllyStatus(ally01: Player, ally02: Player, ally03: Player){
@@ -578,27 +600,32 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 ) {
                     when (position) {
 
-                        0 -> {val ts01 = Toast.makeText(applicationContext,
-                            "${ally01.job} STR:${ally01.str} DEF:${ally01.def} AGI:${ally01.agi} LUCK:${ally01.luck}",
-                            Toast.LENGTH_SHORT)
-                            ts01.setGravity(Gravity.LEFT,0,0)
-                         //   ts01.view?.setBackgroundColor(R.color.colorBlue)
-                            ts01.show()}
+                        0 -> {
+                            val ts01 = Toast.makeText(applicationContext,
+                                "${ally01.job} STR:${ally01.str} DEF:${ally01.def} AGI:${ally01.agi} LUCK:${ally01.luck}",
+                                Toast.LENGTH_SHORT)
+                            ts01.setGravity(Gravity.LEFT, 0, 0)
+                            //   ts01.view?.setBackgroundColor(R.color.colorBlue)
+                            ts01.show()
+                        }
 
-                        1 -> {val ts02 = Toast.makeText(applicationContext,
-                            "${ally02.job} STR:${ally02.str} DEF:${ally02.def} AGI:${ally02.agi} LUCK:${ally02.luck}",
-                            Toast.LENGTH_SHORT)
-                            ts02.setGravity(Gravity.CENTER,0,0)
-                          //  ts02.view?.setBackgroundColor(R.color.colorBlue)
-                            ts02.show()}
+                        1 -> {
+                            val ts02 = Toast.makeText(applicationContext,
+                                "${ally02.job} STR:${ally02.str} DEF:${ally02.def} AGI:${ally02.agi} LUCK:${ally02.luck}",
+                                Toast.LENGTH_SHORT)
+                            ts02.setGravity(Gravity.CENTER, 0, 0)
+                            //  ts02.view?.setBackgroundColor(R.color.colorBlue)
+                            ts02.show()
+                        }
 
-                        2 -> {val ts03 = Toast.makeText(applicationContext,
-                            "${ally03.job} STR:${ally03.str} DEF:${ally03.def} AGI:${ally03.agi} LUCK:${ally03.luck}",
-                            Toast.LENGTH_SHORT)
-                            ts03.setGravity(Gravity.RIGHT,0,0)
-                         //   ts03.view?.setBackgroundColor(R.color.colorBlue)
-                            ts03.show()}
-
+                        2 -> {
+                            val ts03 = Toast.makeText(applicationContext,
+                                "${ally03.job} STR:${ally03.str} DEF:${ally03.def} AGI:${ally03.agi} LUCK:${ally03.luck}",
+                                Toast.LENGTH_SHORT)
+                            ts03.setGravity(Gravity.RIGHT, 0, 0)
+                            //   ts03.view?.setBackgroundColor(R.color.colorBlue)
+                            ts03.show()
+                        }
                     }
                 }
             })
@@ -661,24 +688,30 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                     when (position) {
 
-                        0 -> {val ts04 = Toast.makeText(applicationContext,
-                            "${enemy01.job} STR:${enemy01.str} DEF:${enemy01.def} AGI:${enemy01.agi} LUCK:${enemy01.luck}",
-                            Toast.LENGTH_SHORT)
-                            ts04.setGravity(Gravity.LEFT,0,0)
-                          //  ts04.view?.setBackgroundColor(R.color.colorBlue)
-                            ts04.show()}
-                        1 -> {val ts05 = Toast.makeText(applicationContext,
-                            "${enemy02.job} STR:${enemy02.str} DEF:${enemy02.def} AGI:${enemy02.agi} LUCK:${enemy02.luck}",
-                            Toast.LENGTH_SHORT)
-                            ts05.setGravity(Gravity.CENTER,0,0)
-                           // ts05.view?.setBackgroundColor(R.color.colorBlue)
-                            ts05.show()}
-                        2 -> {val ts06 = Toast.makeText(applicationContext,
-                            "${enemy03.job} STR:${enemy03.str} DEF:${enemy03.def} AGI:${enemy03.agi} LUCK:${enemy03.luck}",
-                            Toast.LENGTH_SHORT)
-                            ts06.setGravity(Gravity.RIGHT,0,0)
-                           // ts06.view?.setBackgroundColor(R.color.colorBlue)
-                            ts06.show()}
+                        0 -> {
+                            val ts04 = Toast.makeText(applicationContext,
+                                "${enemy01.job} STR:${enemy01.str} DEF:${enemy01.def} AGI:${enemy01.agi} LUCK:${enemy01.luck}",
+                                Toast.LENGTH_SHORT)
+                            ts04.setGravity(Gravity.LEFT, 0, 0)
+                            //  ts04.view?.setBackgroundColor(R.color.colorBlue)
+                            ts04.show()
+                        }
+                        1 -> {
+                            val ts05 = Toast.makeText(applicationContext,
+                                "${enemy02.job} STR:${enemy02.str} DEF:${enemy02.def} AGI:${enemy02.agi} LUCK:${enemy02.luck}",
+                                Toast.LENGTH_SHORT)
+                            ts05.setGravity(Gravity.CENTER, 0, 0)
+                            // ts05.view?.setBackgroundColor(R.color.colorBlue)
+                            ts05.show()
+                        }
+                        2 -> {
+                            val ts06 = Toast.makeText(applicationContext,
+                                "${enemy03.job} STR:${enemy03.str} DEF:${enemy03.def} AGI:${enemy03.agi} LUCK:${enemy03.luck}",
+                                Toast.LENGTH_SHORT)
+                            ts06.setGravity(Gravity.RIGHT, 0, 0)
+                            // ts06.view?.setBackgroundColor(R.color.colorBlue)
+                            ts06.show()
+                        }
                     }
                 }
             })
@@ -688,5 +721,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         mp0.release()
         super.onDestroy()
     }
+
+    override fun onBackPressed() {}
 }
 

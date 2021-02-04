@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:splitMotionEvents="false"
     android:verticalScrollbarPosition="defaultPosition"
     tools:context=".BattleMainActivity">
 
@@ -54,6 +55,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     // 敵パーティ表示レイアウト
+
     <LinearLayout
         android:id="@+id/enemy_party_linearLayout_id"
         android:layout_width="395dp"
@@ -62,6 +64,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
+        android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_battle_id">
@@ -69,11 +72,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_main_enemy_status_recycleView_id"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:splitMotionEvents="false" />
 
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
+
     <LinearLayout
         android:id="@+id/ally_party_linearLayout_id"
         android:layout_width="395dp"
@@ -82,6 +87,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
+        android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enemy_party_linearLayout_id">
@@ -89,7 +95,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_main_ally_status_recycleView_id"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:splitMotionEvents="false" />
     </LinearLayout>
 
     // バトルログの表示
@@ -114,6 +121,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     //　"作戦:"の表示と作戦の表示
+
     <TextView
         android:id="@+id/battle_main_strategy_text_id"
         android:layout_width="230dp"
