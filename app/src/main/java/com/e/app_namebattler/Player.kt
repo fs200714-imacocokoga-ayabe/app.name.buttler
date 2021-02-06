@@ -43,6 +43,7 @@ open class Player{
     open var isPoison: Boolean = false
     open var isParalysis: Boolean = false
     private var mark: Boolean? = false
+    private var characterAppearance:Int = 0
     private var idNumber: Int = 0
     var damage = 0
 
@@ -171,6 +172,18 @@ open class Player{
             ""
         }
     }
+
+    open fun getCharacterAppearance(): Int {
+
+        return characterAppearance
+    }
+
+    open fun setCharacterAppearance(appearance: Int){
+
+        characterAppearance = appearance
+    }
+
+
 
     val isLive: Boolean
         get() = hp > 0

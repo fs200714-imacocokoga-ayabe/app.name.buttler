@@ -69,5 +69,9 @@
     <string name="radiobutton_strategy03_text">スキルをつかおう</string>
     <string name="radiobutton_strategy04_text">回復魔法をつかおう</string>
     <string name="radiobutton_strategy05_text">薬草をつかおう</string>
+    <string name="toast_layout_str_text"> STR:</string>
+    <string name="toast_layout_def_text"> DEF:</string>
+    <string name="toast_layout_agi_text"> AGI:</string>
+    <string name="toast_layout_luck_text_id"> LUCK:</string>
 
 </resources>

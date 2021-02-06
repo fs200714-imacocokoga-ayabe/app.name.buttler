@@ -47,6 +47,7 @@ class GameManager {
     private lateinit var player1: Player
     private lateinit var player2: Player
     var job = ""
+    var appearance = 0
 
     private var enemyStrategyNumber = 0 // 作戦の選択に使用
     var strategyData = IntArray(2) // 攻撃プレイヤーIDと守備プレイヤーIDと作戦番号を格納
@@ -295,8 +296,42 @@ class GameManager {
         enemy.isPoison = false
         enemy.isParalysis = false
         enemy.setIdNumber(id)
+        enemy.job?.let { makeEnemyAppearance(it) }?.let { enemy.setCharacterAppearance(it) }
 
         return enemy
+    }
+
+    private fun makeEnemyAppearance(job: String): Int {
+
+        when(job){
+
+            "戦士" -> appearance = 4
+            //appearance = (12..14).random()
+            "魔法使い" -> appearance = 5
+            //appearance = (15..17).random()
+            "僧侶" -> appearance = 6
+            //appearance = (18..20).random()
+            "忍者" -> appearance = 7
+            //appearance = (21..23).random()
+        }
+
+   return appearance
+    }
+
+    private fun makeAllyAppearance(job: String): Int {
+
+        when(job){
+
+            "戦士" -> appearance = 0
+            //appearance = (0..2).random()
+            "魔法使い" -> appearance = 1
+            //appearance = (3..5).random()
+            "僧侶" -> appearance = 2
+            //appearance = (6..8).random()
+            "忍者" -> appearance = 3
+            //appearance = (9..11).random()
+        }
+        return appearance
     }
 
     // 味方キャラクターを作成する
@@ -355,6 +390,7 @@ class GameManager {
         ally.isPoison = false
         ally.isParalysis = false
         ally.setIdNumber(id)
+        ally.job?.let { makeAllyAppearance(it) }?.let { ally.setCharacterAppearance(it) }
 
         return ally
     }

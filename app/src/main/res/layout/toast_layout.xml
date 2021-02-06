@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:splitMotionEvents="false">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:background="@drawable/frame_line_01"
+        android:orientation="horizontal"
+        android:splitMotionEvents="false"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <ImageView
+            android:id="@+id/toast_layout_imageView_id"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="TODO" />
+
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:splitMotionEvents="false">
+
+            <TextView
+                android:id="@+id/toast_layout_text_id"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/toast_layout_str_text_id"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:text="@string/toast_layout_str_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/toast_layout_def_text_id"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:text="@string/toast_layout_def_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/toast_layout_agi_text_id"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:text="@string/toast_layout_agi_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/toast_layout_luck_text_id"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/toast_layout_luck_text_id"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:splitMotionEvents="false">
+
+            <TextView
+                android:id="@+id/toast_layout_job_id"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/toast_layout_str_id"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/toast_layout_def_id"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/toast_layout_agi_id"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/toast_layout_luck_id"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

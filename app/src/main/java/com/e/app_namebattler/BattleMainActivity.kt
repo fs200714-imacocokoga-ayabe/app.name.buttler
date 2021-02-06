@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -417,93 +418,79 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     override fun upDateBattleLog(battleLog: List<String>){
 
         if (!isMessageSpeed) {
-
+            println("------------------------------------------------------------------------------")
             val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
 
             for (i in 1..battleLog.size) {
                 when (i) {
                     1 -> {
-                        // handler?.postDelayed({ tl.text = testLog[i - 1] }, 200)
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 100)
-                       // tl.text = testLog[i - 1]
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 200)
                         println("ろぐ01${battleLog[i - 1]}")
                     }
 
                     2 -> {
                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 3500)
-                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 200)
                         println("ろぐ02${battleLog[i - 1]}")
                     }
 
                     3 -> {
-                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 6500)
-                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 300)
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 6500)
                         println("ろぐ03${battleLog[i - 1]}")
                     }
 
                     4 -> {
-                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 9500)
-                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 400)
+                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 9500)
                         println("ろぐ04${battleLog[i - 1]}")
                     }
 
                     5 -> {
                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 12500)
-                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
                         println("ろぐ05${battleLog[i - 1]}")
                     }
 
                     6 -> {
                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 15500)
-                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 600)
                         println("ろぐ06${battleLog[i - 1]}")
                     }
                 }
             }
         }else{
-
+println("------------------------------------------------------------------------------")
             val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
 
             for (i in 1..battleLog.size) {
                 when (i) {
                     1 -> {
-                        // handler?.postDelayed({ tl.text = testLog[i - 1] }, 500)
                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 100)
                         println("ろぐ01${battleLog[i - 1]}")
                     }
 
                     2 -> {
-                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 3500)
                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 200)
                         println("ろぐ02${battleLog[i - 1]}")
                     }
 
                     3 -> {
-                        // handler?.postDelayed({ tl.text = testLog[i - 1] }, 6500)
                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 300)
                         println("ろぐ03${battleLog[i - 1]}")
                     }
 
                     4 -> {
-                        // handler?.postDelayed({ tl.text = testLog[i - 1] }, 9500)
                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 400)
                         println("ろぐ04${battleLog[i - 1]}")
                     }
 
                     5 -> {
-                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 12500)
                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 500)
                         println("ろぐ05${battleLog[i - 1]}")
                     }
 
                     6 -> {
-                        //handler?.postDelayed({ tl.text = testLog[i - 1] }, 15500)
                         handler?.postDelayed({ tl.text = battleLog[i - 1] }, 600)
                         println("ろぐ06${battleLog[i - 1]}")
                     }
                 }
             }
-
         }
     }
 
@@ -526,7 +513,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             isTurn = true
             val ms00 = Toast.makeText(this, "タップで次のターンの速度を変更できます", Toast.LENGTH_SHORT)
-           // ms00.setGravity(Gravity.CENTER, 0, 0)
+            ms00.setGravity(Gravity.CENTER, 0, 0)
             ms00.show()
         }else {
             isMessageSpeed = !isMessageSpeed
@@ -599,33 +586,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                     position: Int
                 ) {
                     when (position) {
-
-                        0 -> {
-                            val ts01 = Toast.makeText(applicationContext,
-                                "${ally01.job} STR:${ally01.str} DEF:${ally01.def} AGI:${ally01.agi} LUCK:${ally01.luck}",
-                                Toast.LENGTH_SHORT)
-                            ts01.setGravity(Gravity.LEFT, 0, 0)
-                            //   ts01.view?.setBackgroundColor(R.color.colorBlue)
-                            ts01.show()
-                        }
-
-                        1 -> {
-                            val ts02 = Toast.makeText(applicationContext,
-                                "${ally02.job} STR:${ally02.str} DEF:${ally02.def} AGI:${ally02.agi} LUCK:${ally02.luck}",
-                                Toast.LENGTH_SHORT)
-                            ts02.setGravity(Gravity.CENTER, 0, 0)
-                            //  ts02.view?.setBackgroundColor(R.color.colorBlue)
-                            ts02.show()
-                        }
-
-                        2 -> {
-                            val ts03 = Toast.makeText(applicationContext,
-                                "${ally03.job} STR:${ally03.str} DEF:${ally03.def} AGI:${ally03.agi} LUCK:${ally03.luck}",
-                                Toast.LENGTH_SHORT)
-                            ts03.setGravity(Gravity.RIGHT, 0, 0)
-                            //   ts03.view?.setBackgroundColor(R.color.colorBlue)
-                            ts03.show()
-                        }
+                        0 -> setAppearance(ally01)
+                        1 -> setAppearance(ally02)
+                        2 -> setAppearance(ally03)
                     }
                 }
             })
@@ -687,35 +650,44 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 ) {
 
                     when (position) {
-
-                        0 -> {
-                            val ts04 = Toast.makeText(applicationContext,
-                                "${enemy01.job} STR:${enemy01.str} DEF:${enemy01.def} AGI:${enemy01.agi} LUCK:${enemy01.luck}",
-                                Toast.LENGTH_SHORT)
-                            ts04.setGravity(Gravity.LEFT, 0, 0)
-                            //  ts04.view?.setBackgroundColor(R.color.colorBlue)
-                            ts04.show()
-                        }
-                        1 -> {
-                            val ts05 = Toast.makeText(applicationContext,
-                                "${enemy02.job} STR:${enemy02.str} DEF:${enemy02.def} AGI:${enemy02.agi} LUCK:${enemy02.luck}",
-                                Toast.LENGTH_SHORT)
-                            ts05.setGravity(Gravity.CENTER, 0, 0)
-                            // ts05.view?.setBackgroundColor(R.color.colorBlue)
-                            ts05.show()
-                        }
-                        2 -> {
-                            val ts06 = Toast.makeText(applicationContext,
-                                "${enemy03.job} STR:${enemy03.str} DEF:${enemy03.def} AGI:${enemy03.agi} LUCK:${enemy03.luck}",
-                                Toast.LENGTH_SHORT)
-                            ts06.setGravity(Gravity.RIGHT, 0, 0)
-                            // ts06.view?.setBackgroundColor(R.color.colorBlue)
-                            ts06.show()
-                        }
+                        0 -> setAppearance(enemy01)
+                        1 -> setAppearance(enemy02)
+                        2 -> setAppearance(enemy03)
                     }
                 }
             })
     }
+
+    @SuppressLint("ShowToast", "InflateParams")
+    private fun setAppearance(characterAppearance: Player) {
+
+        val layoutInflater = layoutInflater
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout, null)
+
+        when(characterAppearance.getCharacterAppearance()){
+
+            0 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(R.drawable.valkyrie)
+            1 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(R.drawable.high_sorceress)
+            2 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(R.drawable.high_priestess)
+            3 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(R.drawable.master_ninja)
+            4 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(R.drawable.temple_knight)
+            5 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(R.drawable.high_witch)
+            6 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(R.drawable.high_priest)
+            7 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(R.drawable.kunoichi)
+
+        }
+
+        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
+        ts.setGravity(Gravity.CENTER, 0, 0)
+        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text = "${characterAppearance.job}"
+        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text = "${characterAppearance.str}"
+        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text = "${characterAppearance.def}"
+        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text = "${characterAppearance.agi}"
+        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text = "${characterAppearance.luck}"
+        ts.setView(customToastView)
+        ts.show()
+    }
+
 
     override fun onDestroy() {
         mp0.release()
