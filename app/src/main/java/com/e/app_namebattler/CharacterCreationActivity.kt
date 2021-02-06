@@ -75,9 +75,9 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
         inputStr = s.toString()
 
-        if (inputStr.length > 20) {
+        if (inputStr.length > 10) {
             val ic = Toast.makeText(this,
-                "名前は20文字までです",
+                "名前は10文字までです",
                 Toast.LENGTH_SHORT)
             ic.setGravity(Gravity.CENTER, 0, 0)
             //  ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)

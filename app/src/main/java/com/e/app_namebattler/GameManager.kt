@@ -305,14 +305,14 @@ class GameManager {
 
         when(job){
 
-            "戦士" -> appearance = 4
-            //appearance = (12..14).random()
-            "魔法使い" -> appearance = 5
-            //appearance = (15..17).random()
-            "僧侶" -> appearance = 6
-            //appearance = (18..20).random()
-            "忍者" -> appearance = 7
-            //appearance = (21..23).random()
+            "戦士" -> //appearance = 4
+            appearance = (15..18).random()
+            "魔法使い" -> //appearance = 5
+            appearance = (19..22).random()
+            "僧侶" -> //appearance = 6
+            appearance = (23..26).random()
+            "忍者" -> //appearance = 7
+            appearance = (27..29).random()
         }
 
    return appearance
@@ -322,14 +322,15 @@ class GameManager {
 
         when(job){
 
-            "戦士" -> appearance = 0
-            //appearance = (0..2).random()
-            "魔法使い" -> appearance = 1
-            //appearance = (3..5).random()
-            "僧侶" -> appearance = 2
-            //appearance = (6..8).random()
-            "忍者" -> appearance = 3
-            //appearance = (9..11).random()
+            "戦士" ->
+               // appearance = 0
+            appearance = (0..3).random()
+            "魔法使い" -> //appearance = 1
+            appearance = (4..7).random()
+            "僧侶" -> //appearance = 2
+            appearance = (8..11).random()
+            "忍者" -> //appearance = 3
+            appearance = (12..14).random()
         }
         return appearance
     }
