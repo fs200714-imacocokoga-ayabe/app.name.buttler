@@ -24,13 +24,15 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         holder.Status.text = member.Status
 
         if (member.hp02 <= 0){
+            // HPが0以下の場合名前を赤色に表示
             holder.Name.setTextColor(Color.parseColor("#FF0000"))
 
         }else {
+            // HPが0移譲の場合名前を黒色に表示
             holder.Name.setTextColor(Color.parseColor("#000000"))
         }
 
-        // タップしたとき
+        // 名前のエリアをタップしたとき
         holder.Name.setOnClickListener{
             listener.onItemClickListener(it, position)
         }

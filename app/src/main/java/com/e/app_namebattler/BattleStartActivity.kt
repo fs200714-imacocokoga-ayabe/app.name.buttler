@@ -15,15 +15,10 @@ class BattleStartActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
     lateinit var helper: MyOpenHelper
-
     private lateinit var mListAdapter: BattlePartyAdapter
 
     var  allyPartyList = arrayListOf<CharacterAllData>()
-
     var enemyPartyList = arrayListOf<CharacterAllData>()
-
-    private var enemyList = ArrayList<Player>()
-
     private val e = CreateEnemy()
 
     var name = ""
@@ -34,7 +29,6 @@ class BattleStartActivity : AppCompatActivity() {
     var def = 0
     var agi = 0
     var luck = 0
-    var create_at = null
 
     private var name01 = ""
     private var name02 = ""
@@ -137,7 +131,6 @@ class BattleStartActivity : AppCompatActivity() {
         mListAdapter = BattlePartyAdapter(this, allyPartyList)
         listView.adapter = mListAdapter
     }
-
             // 敵キャラクター表示
             @RequiresApi(Build.VERSION_CODES.O)
             fun printEnemy(){
@@ -150,7 +143,7 @@ class BattleStartActivity : AppCompatActivity() {
                 listView.adapter = mListAdapter
             }
 
-            fun saveData(enemyPartyList: ArrayList<CharacterAllData>) {
+            private fun saveData(enemyPartyList: ArrayList<CharacterAllData>) {
 
                 val db: SQLiteDatabase = helper.writableDatabase
 
@@ -187,7 +180,7 @@ class BattleStartActivity : AppCompatActivity() {
                 }
             }
 
-    fun deleteEnemy(){
+    private fun deleteEnemy(){
 
         val db = helper.writableDatabase
         try{

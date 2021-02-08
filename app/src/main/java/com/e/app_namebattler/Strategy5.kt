@@ -9,7 +9,7 @@ class Strategy5 : BaseStrategy() {
         party2: List<Player>
     ): IntArray {
         this.player1 = player1
-        if (player1.isMark()!!) { // player1がtrueの場合
+        if (player1.isMark) { // player1がtrueの場合
                 party.addAll(party2) // partyにparty2を入れる
             } else { // player1がfalseの場合
                 party.addAll(party1) // partyにparty1を入れる

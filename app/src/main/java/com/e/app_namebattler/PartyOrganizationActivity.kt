@@ -36,9 +36,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
     var def = 0
     var agi = 0
     var luck = 0
-    var create_at = ""
     var radioNumber = 0
-    var radioId01 = 0
     var arrayRadioId = ArrayList<Int>()
 
 
@@ -69,7 +67,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
                 // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
                 characterList.add(
                     CharacterAllData(
-                        c.getString(0), (occupationConversion01(c.getInt(1))),
+                        c.getString(0), (occupationConversion(c.getInt(1))),
                         c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
                         c.getInt(6), c.getInt(7), c.getString(8)
                     )
@@ -291,43 +289,17 @@ class PartyOrganizationActivity : AppCompatActivity() {
 //
 //        }
 //    }
-
-//-----------------------------------------------------------------
-//    val checked = radioButton.isChecked
-//
-//    if (checked){
-//
-//        if (radioNumber > 2 ) {
-//            Toast.makeText(applicationContext, "パーティは３人です", Toast.LENGTH_LONG).show()
-//            radioButton.isChecked = false
-//            radioNumber -= 1
-//
-//        }else if (radioNumber <= 2 && !radioButton.isChecked){
-//            radioButton.isChecked = true
-//            radioNumber += 1
-////                        val textView = findViewById<TextView>(R.id.this_party_start)
-////                        textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
-//
-//        }
-//    }
 //--------------------------------------------------------------
 
-    private fun occupationConversion01(jobValue: Int): String{
+    //　数字を文字に変える
+    private fun occupationConversion(jobValue: Int): String{
 
         when(jobValue){
 
-            0 -> {
-                job = "戦士"
-            }
-            1 -> {
-                job = "魔法使い"
-            }
-            2 -> {
-                job = "僧侶"
-            }
-            3 -> {
-                job = "忍者"
-            }
+            0 -> job = "戦士"
+            1 -> job = "魔法使い"
+            2 -> job = "僧侶"
+            3 -> job = "忍者"
         }
         return job
     }

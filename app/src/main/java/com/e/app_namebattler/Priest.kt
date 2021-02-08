@@ -1,6 +1,6 @@
 package com.e.app_namebattler
 
-class Priest (name:String):Player(name), IRecoveryMagic {
+class Priest (name:String):Player(name), IMagicalUsable, IRecoveryMagic {
 
     constructor(
         name: String,
@@ -73,10 +73,6 @@ class Priest (name:String):Player(name), IRecoveryMagic {
             super.damageProcess(defender, damage) // ダメージ処理
         }
         isHeal = false
-    }
-
-    override fun eatGrass() {
-        super.eatGrass()
     }
 
     private fun effect(defender: Player): Int {

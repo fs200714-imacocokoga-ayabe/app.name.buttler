@@ -66,13 +66,13 @@ class CreateEnemy {
 
             val current = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:m")
-            val create_at = current.format(formatter).toString()
+            val createAt = current.format(formatter).toString()
 
             enemyPartyList.add(
                 CharacterAllData(
                     enemyName, enemyJob,
                     enemy.hp, enemy.mp,enemy.str,enemy.def,
-                    enemy.agi,enemy.luck,create_at
+                    enemy.agi,enemy.luck,createAt
                 )
             )
         }
@@ -83,11 +83,6 @@ class CreateEnemy {
     fun setEnemyParty(enemyPartyList: ArrayList<CharacterAllData>) {
 
         enemyPartyList02.addAll(enemyPartyList)
-    }
-
-    fun getEnemyParty(): ArrayList<CharacterAllData> {
-
-        return enemyPartyList02
     }
 
     enum class EnemyName(private val enemyName: String) {

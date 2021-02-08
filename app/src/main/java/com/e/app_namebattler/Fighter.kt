@@ -54,10 +54,6 @@ class Fighter(name: String):Player(name) {
         }
     }
 
-    override fun eatGrass() {
-        super.eatGrass()
-    }
-
     private fun directAttack(defender: Player) { // 直接攻撃処理
 
         bsb.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")

@@ -1,6 +1,6 @@
 package com.e.app_namebattler
 
-class Ninja (name:String):Player(name) {
+class Ninja (name:String):Player(name), IMagicalUsable {
 
     constructor(
         name: String,
@@ -61,10 +61,6 @@ class Ninja (name:String):Player(name) {
             bsb.append("MPが足りない！")
             normalAttack(defender)
         }
-    }
-
-    override fun eatGrass() {
-        super.eatGrass()
     }
 
     private fun effect(defender: Player?): Int {

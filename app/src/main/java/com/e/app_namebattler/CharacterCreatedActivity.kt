@@ -34,21 +34,18 @@ class CharacterCreatedActivity : AppCompatActivity() {
         val nameExtra = intent.getStringExtra("name_key")
         // 職業を受け取る
         val jobExtra = intent.getStringExtra("job_key")
-        // キャラクター数を受け取る
-       // val characterNumberExtra = intent.getIntExtra("characterNumber_key",0)
-
         // 名前の表示
-        val nameText: TextView = findViewById(R.id.textView13)
+        val nameText: TextView = findViewById(R.id.created_character_name_text_id)
         nameText.text = nameExtra
 
         // 職業の表示
-        val jobText:TextView = findViewById(R.id.textView14)
+        val jobText:TextView = findViewById(R.id.created_character_job_text_id)
         jobText.text = jobExtra
 
         val name = nameExtra.toString()
 
             when(jobExtra){
-
+                //nameExtra:名前　Fighter(it):名前から戦士のキャラクターを作成 player = it: 作成したキャラクターをplayerに格納
                 "戦士" -> nameExtra?.let { Fighter(it) }?.let { player = it }
                 "魔法使い" -> nameExtra?.let { Wizard(it) }?.let { player = it }
                 "僧侶" -> nameExtra?.let { Priest(it) }?.let { player = it }
@@ -64,8 +61,9 @@ class CharacterCreatedActivity : AppCompatActivity() {
 
             val current = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:m")
-            val create_at = current.format(formatter).toString()
+            val createAt = current.format(formatter).toString()
 
+        //作成したキャラクターのステータス表示
             val hpText: TextView = findViewById(R.id.created_character_hp_text_id)
             hpText.text = hp.toString()
 
@@ -94,9 +92,9 @@ class CharacterCreatedActivity : AppCompatActivity() {
             "忍者" -> {job = 3}
         }
 
-                db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck','$create_at')")
+        db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck','$createAt')")
 
-            db.close()
+        db.close()
 
             // 戻るボタン押したときの処理
             created_character_back_button_id.setOnClickListener {
@@ -106,7 +104,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
             }
 
             // 続けて作成するボタンを押したときの処理
-            created_character_Continuouslycharacter_text_id.setOnClickListener{
+            created_character_continuously_character_text_id.setOnClickListener{
 
                 val characterCount: Int
 

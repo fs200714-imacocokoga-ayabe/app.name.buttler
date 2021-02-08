@@ -24,7 +24,7 @@ class Party {
         val partyList: MutableList<Player> = mutableListOf(ally01,ally02,ally03,enemy01,enemy02,enemy03)
         for (player in partyList) {
 
-            if (player.isMark()!!) {
+            if (player.isMark) {
                 party1.add(player) // playerがtrueならparty1に入れる
                 resultParty1.add(player)
                 println("ログ01$resultParty1")
@@ -43,7 +43,7 @@ class Party {
      */
     fun removePlayer(player: Player) {
 
-        if (player.isMark()!!) {
+        if (player.isMark) {
             party1.remove(player)
         } else {
             party2.remove(player)

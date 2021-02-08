@@ -15,10 +15,6 @@ class GameManager {
 
     private var attackList: MutableList<Player> = ArrayList()
 
-    private var allyStatusData: MutableList<MemberStatusData> = ArrayList()
-
-    private val enemyStatusData: MutableList<MemberStatusData> = ArrayList()
-
     private val pt = Party()
 
     var context: Context? = null
@@ -94,7 +90,7 @@ class GameManager {
 
         for (player in charaList) {
 
-            if (player.isMark()!!) {
+            if (player.isMark) {
 
                 allyList.add(player)
 
@@ -113,23 +109,28 @@ class GameManager {
 
             attackList.add(pt.getMembers()[i - 1])
         }
-        for (i in attackList.indices) { // attackに格納したplayerが全員行動する
-            player1 = attackList[i] // 攻撃リストから呼び出し
+
+        for (i in 1..attackList.size) { // attackに格納したplayerが全員行動する
+
+            player1 = attackList[i - 1] // 攻撃リストから呼び出し
+
             if (player1.isLive) {
-                if (player1.isMark()!!) { // player1が敵の場合
+
+                if (player1.isMark) { // player1が敵の場合
                     strategyData = selectStrategyNumber(strategyNumber)
                 } else {
                     enemyStrategyNumber = random.nextInt(5) // 作戦ランダム0-4
                     strategyData = selectStrategyNumber(enemyStrategyNumber)
                 }
+
+
+                player2 = pt.selectMember(strategyData[0])!! // 作戦で選んだ相手を呼ぶ
+
+                sb.append(player1.attack(player2, strategyData[1])) // player1に相手と作戦を送り攻撃する
+                sb.append("@@")
+                // 敗北判定
+                defeatDecision()
             }
-
-            player2 = pt.selectMember(strategyData[0])!! // 作戦で選んだ相手を呼ぶ
-
-            sb.append(player1.attack(player2, strategyData[1])) // player1に相手と作戦を送り攻撃する
-            sb.append("@@")
-            // 敗北判定
-            defeatDecision()
 
             if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
                 break
@@ -219,27 +220,6 @@ class GameManager {
         return speedData
     }
 
-    // 職業を数字から文字に変換する
-    private fun occupationConversion(jobValue: Int): String {
-
-        when (jobValue) {
-
-            0 -> {
-                job = "戦士"
-            }
-            1 -> {
-                job = "魔法使い"
-            }
-            2 -> {
-                job = "僧侶"
-            }
-            3 -> {
-                job = "忍者"
-            }
-        }
-        return job
-    }
-
     // 敵キャラクターを作成する
     private fun makeEnemyCharacter(enemyPartyList: CharacterAllData, id: Int): Player {
 
@@ -292,7 +272,7 @@ class GameManager {
 
         enemy.setMaxHp(enemy.hp)
         enemy.setMaxMp(enemy.mp)
-        enemy.setMark(false)
+        enemy.isMark = false
         enemy.isPoison = false
         enemy.isParalysis = false
         enemy.setIdNumber(id)
@@ -305,13 +285,13 @@ class GameManager {
 
         when(job){
 
-            "戦士" -> //appearance = 4
+            "戦士" ->
             appearance = (15..18).random()
-            "魔法使い" -> //appearance = 5
+            "魔法使い" ->
             appearance = (19..22).random()
-            "僧侶" -> //appearance = 6
+            "僧侶" ->
             appearance = (23..26).random()
-            "忍者" -> //appearance = 7
+            "忍者" ->
             appearance = (27..29).random()
         }
 
@@ -323,13 +303,12 @@ class GameManager {
         when(job){
 
             "戦士" ->
-               // appearance = 0
             appearance = (0..3).random()
-            "魔法使い" -> //appearance = 1
+            "魔法使い" ->
             appearance = (4..7).random()
-            "僧侶" -> //appearance = 2
+            "僧侶" ->
             appearance = (8..11).random()
-            "忍者" -> //appearance = 3
+            "忍者" ->
             appearance = (12..14).random()
         }
         return appearance
@@ -387,7 +366,7 @@ class GameManager {
 
         ally.setMaxHp(ally.hp)
         ally.setMaxMp(ally.mp)
-        ally.setMark(true)
+        ally.isMark = true
         ally.isPoison = false
         ally.isParalysis = false
         ally.setIdNumber(id)

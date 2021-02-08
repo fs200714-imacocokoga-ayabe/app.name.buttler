@@ -9,8 +9,6 @@ open class BaseStrategy : IStrategy {
     protected var player1: Player? = null
     protected var player2: Player? = null
     protected var party: MutableList<Player> = ArrayList()
-    protected var party1: MutableList<Player> = ArrayList()
-    protected var party2: MutableList<Player> = ArrayList()
     protected var data = IntArray(2) // 味方IDと敵IDと作戦番号を格納
 
     override fun attackStrategy(

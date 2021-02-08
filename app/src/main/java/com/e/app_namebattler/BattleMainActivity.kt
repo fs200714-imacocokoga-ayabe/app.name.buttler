@@ -290,129 +290,11 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         return job
     }
 
-    // 敵キャラクターを作成する
-    private fun makeEnemyCharacter(enemyPartyList: CharacterAllData): Player {
-
-        when (enemyPartyList.job) {
-
-            "戦士" -> enemy = (Fighter(
-                enemyPartyList.name,
-                enemyPartyList.job,
-                enemyPartyList.hp,
-                enemyPartyList.mp,
-                enemyPartyList.str,
-                enemyPartyList.def,
-                enemyPartyList.agi,
-                enemyPartyList.luck
-            ))
-
-            "魔法使い" -> enemy = (Wizard(
-                enemyPartyList.name,
-                enemyPartyList.job,
-                enemyPartyList.hp,
-                enemyPartyList.mp,
-                enemyPartyList.str,
-                enemyPartyList.def,
-                enemyPartyList.agi,
-                enemyPartyList.luck
-            ))
-
-            "僧侶" -> enemy = (Priest(
-                enemyPartyList.name,
-                enemyPartyList.job,
-                enemyPartyList.hp,
-                enemyPartyList.mp,
-                enemyPartyList.str,
-                enemyPartyList.def,
-                enemyPartyList.agi,
-                enemyPartyList.luck
-            ))
-
-            "忍者" -> enemy = (Ninja(
-                enemyPartyList.name,
-                enemyPartyList.job,
-                enemyPartyList.hp,
-                enemyPartyList.mp,
-                enemyPartyList.str,
-                enemyPartyList.def,
-                enemyPartyList.agi,
-                enemyPartyList.luck
-            ))
-        }
-
-        enemy.setMaxHp(enemy.hp)
-        enemy.setMaxMp(enemy.mp)
-        enemy.setMark(false)
-        enemy.isPoison = false
-        enemy.isParalysis = false
-
-        return enemy
-    }
-
-    // 味方キャラクターを作成する
-    private fun makeAllyCharacter(allyPartyList: CharacterAllData): Player {
-
-        when (allyPartyList.job) {
-
-            "戦士" -> ally = (Fighter(
-                allyPartyList.name,
-                allyPartyList.job,
-                allyPartyList.hp,
-                allyPartyList.mp,
-                allyPartyList.str,
-                allyPartyList.def,
-                allyPartyList.agi,
-                allyPartyList.luck
-            ))
-
-            "魔法使い" -> ally = (Wizard(
-                allyPartyList.name,
-                allyPartyList.job,
-                allyPartyList.hp,
-                allyPartyList.mp,
-                allyPartyList.str,
-                allyPartyList.def,
-                allyPartyList.agi,
-                allyPartyList.luck
-            ))
-
-            "僧侶" -> ally = (Priest(
-                allyPartyList.name,
-                allyPartyList.job,
-                allyPartyList.hp,
-                allyPartyList.mp,
-                allyPartyList.str,
-                allyPartyList.def,
-                allyPartyList.agi,
-                allyPartyList.luck
-            ))
-
-            "忍者" -> ally = (Ninja(
-                allyPartyList.name,
-                allyPartyList.job,
-                allyPartyList.hp,
-                allyPartyList.mp,
-                allyPartyList.str,
-                allyPartyList.def,
-                allyPartyList.agi,
-                allyPartyList.luck
-            ))
-        }
-
-        ally.setMaxHp(ally.hp)
-        ally.setMaxMp(ally.mp)
-        ally.setMark(true)
-        ally.isPoison = false
-        ally.isParalysis = false
-
-        return ally
-    }
-
+    // 作戦の表示
     private fun printStrategy(strategyName: String) {
 
         val strategyText: TextView = findViewById(R.id.battle_main_strategy_text_id)
         strategyText.text = strategyName
-
     }
 
     override fun upDateBattleLog(battleLog: List<String>){
@@ -494,17 +376,6 @@ println("-----------------------------------------------------------------------
         }
     }
 
-    override fun upDateStatus(
-        ally01: Player,
-        ally02: Player,
-        ally03: Player,
-        enemy01: Player,
-        enemy02: Player,
-        enemy03: Player
-    ) {
-
-    }
-
     override fun onClick(v: View?) {
 
         if (!isTurn){
@@ -578,7 +449,7 @@ println("-----------------------------------------------------------------------
             battle_main_ally_status_recycleView_id.adapter = this
         }
 
-          battle_main_ally_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+        battle_main_ally_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
         (battle_main_ally_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
             object : BattleMainRecyclerAdapter.OnItemClickListener {
                 override fun onItemClickListener(
@@ -648,7 +519,6 @@ println("-----------------------------------------------------------------------
                     viw: View,
                     position: Int
                 ) {
-
                     when (position) {
                         0 -> setAppearance(enemy01)
                         1 -> setAppearance(enemy02)

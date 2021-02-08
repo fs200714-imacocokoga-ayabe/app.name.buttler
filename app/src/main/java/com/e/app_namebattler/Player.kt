@@ -42,7 +42,7 @@ open class Player{
     private var maxMp: Int = 0 // 最大MP
     open var isPoison: Boolean = false
     open var isParalysis: Boolean = false
-    private var mark: Boolean? = false
+    open var isMark: Boolean = false
     private var characterAppearance:Int = 0
     private var idNumber: Int = 0
     var damage = 0
@@ -54,7 +54,6 @@ open class Player{
      * @param name
      * : プレイヤー名
      * */
-    open fun Player() {}
 
     open fun getName(): String{
         return name
@@ -112,21 +111,6 @@ open class Player{
         return idNumber
     }
 
-    /**
-     * 敵味方の識別をセットする
-     * @param mark
-     */
-    open fun setMark(mark: Boolean) {
-        this.mark = mark
-    }
-
-    /**
-     * @return mark :敵味方識別を取得する
-     */
-    open fun isMark(): Boolean? {
-        return mark
-    }
-
     open fun getMaxHp(): Int{
         return maxHp
     }
@@ -154,10 +138,8 @@ open class Player{
     open fun getPoison(): String{
 
         return if(this.isPoison){
-
             "毒"
         }else{
-
             ""
         }
     }
@@ -165,10 +147,8 @@ open class Player{
     open fun getParalysis(): String{
 
         return if(this.isParalysis){
-
             "麻痺"
         }else{
-
             ""
         }
     }
@@ -182,8 +162,6 @@ open class Player{
 
         characterAppearance = appearance
     }
-
-
 
     val isLive: Boolean
         get() = hp > 0
@@ -328,15 +306,20 @@ open class Player{
     open fun eatGrass() {
 
         bsb.append("${getName()}は革袋の中にあった薬草を食べた！\n")
-        when ((1..3).random()) {
+        when ((0..2).random()) {
             0 -> {
-                bsb.append("${getName()}は体力が${herbRecoveryValue}回復した！\n")
                 recoveryProcess(this, herbRecoveryValue)
             }
 
             1 -> {
-                bsb.append("${getName()}は毒が消えた！\n")
-                isPoison = false
+
+                if (isPoison) {
+                    bsb.append("${getName()}は毒が消えた！\n")
+                    isPoison = false
+                }else{
+
+                    recoveryProcess(this, herbRecoveryValue)
+                }
             }
 
             2 -> {

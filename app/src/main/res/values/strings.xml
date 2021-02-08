@@ -73,5 +73,11 @@
     <string name="toast_layout_def_text"> DEF:</string>
     <string name="toast_layout_agi_text"> AGI:</string>
     <string name="toast_layout_luck_text_id"> LUCK:</string>
+    <string name="character_created_print_hp_text">HP</string>
+    <string name="character_created_print_mp_text">MP</string>
+    <string name="character_created_print_str_text">STR</string>
+    <string name="character_created_print_def_text">DEF</string>
+    <string name="character_created_print_agi_text">AGI</string>
+    <string name="character_created_print_luck_text">LUCK</string>
 
 </resources>

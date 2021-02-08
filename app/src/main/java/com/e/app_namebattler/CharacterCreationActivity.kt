@@ -21,8 +21,8 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
     lateinit var mp0: MediaPlayer
     lateinit var helper: MyOpenHelper
-    var isSameName :Boolean = false
-    private var inputStr: String = ""
+    var isSameName :Boolean = false // 同じ名前かどうか true:同じ名前 false:違う名前
+    private var inputStr: String = "" // editTextに入力された文字を格納
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +49,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             //表示させる形式に変数を変換
             val nameValue: String = createNameValues.text.toString()
 
+            // データベースの中に同じ名前が存在するかのチェック
             if (sameNameCheck(nameValue)){
 
                 Toast.makeText(this, "同じ名前がすでに存在しています", Toast.LENGTH_SHORT).show()
@@ -60,7 +61,6 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
                 val intent = Intent(this, CharacterCreatedActivity::class.java)
                 intent.putExtra("name_key", nameValue)
                 intent.putExtra("job_key", jobValue)
-                //intent.putExtra("characterNumber_key", characterNumberExtra)
                 mp0.reset()
                 startActivity(intent)
             }
@@ -96,7 +96,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
         try {
             // rawQueryというSELECT専用メソッドを使用してデータを取得する
-            var c = db.rawQuery(
+            val c = db.rawQuery(
                 "select * from CHARACTER WHERE name = '$nameValue'",
                 null
             )
@@ -110,6 +110,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             db.close()
         }
     }
+
     override fun onDestroy() {
         mp0.release()
         super.onDestroy()

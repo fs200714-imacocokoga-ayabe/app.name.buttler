@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/created_character_text_id">
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/created_character_name_text_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text=""
@@ -55,7 +55,7 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/created_character_job_text_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text=""
@@ -64,7 +64,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/created_character_Continuouslycharacter_text_id"
+        android:id="@+id/created_character_continuously_character_text_id"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -97,73 +97,73 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/created_character_Continuouslycharacter_text_id" />
+        app:layout_constraintTop_toBottomOf="@+id/created_character_continuously_character_text_id" />
 
     <TextView
-        android:id="@+id/character_created_print_hp_id"
+        android:id="@+id/character_created_print_hp_text_id"
         android:layout_width="80dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:text="HP"
+        android:text="@string/character_created_print_hp_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/created_character_status_text_id" />
 
     <TextView
-        android:id="@+id/character_created_print_mp_id"
+        android:id="@+id/character_created_print_mp_text_id"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:text="MP"
+        android:text="@string/character_created_print_mp_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/character_created_print_hp_id" />
+        app:layout_constraintTop_toBottomOf="@+id/character_created_print_hp_text_id" />
 
     <TextView
-        android:id="@+id/character_created_print_str_id"
+        android:id="@+id/character_created_print_str_text_id"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:text="STR"
+        android:text="@string/character_created_print_str_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/character_created_print_mp_id" />
+        app:layout_constraintTop_toBottomOf="@+id/character_created_print_mp_text_id" />
 
     <TextView
-        android:id="@+id/character_created_print_def_id"
+        android:id="@+id/character_created_print_def_text_id"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:text="DEF"
+        android:text="@string/character_created_print_def_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/character_created_print_str_id" />
+        app:layout_constraintTop_toBottomOf="@+id/character_created_print_str_text_id" />
 
     <TextView
-        android:id="@+id/character_created_print_agi_id"
+        android:id="@+id/character_created_print_agi_text_id"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:text="AGI"
+        android:text="@string/character_created_print_agi_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/character_created_print_def_id" />
+        app:layout_constraintTop_toBottomOf="@+id/character_created_print_def_text_id" />
 
     <TextView
-        android:id="@+id/character_created_print_luck_id"
+        android:id="@+id/character_created_print_luck_text_id"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:text="LUCK"
+        android:text="@string/character_created_print_luck_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/character_created_print_agi_id" />
+        app:layout_constraintTop_toBottomOf="@+id/character_created_print_agi_text_id" />
 
     <TextView
         android:id="@+id/created_character_hp_text_id"
@@ -173,7 +173,7 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/character_created_print_hp_id"
+        app:layout_constraintStart_toEndOf="@+id/character_created_print_hp_text_id"
         app:layout_constraintTop_toBottomOf="@+id/created_character_status_text_id" />
 
     <TextView
@@ -184,7 +184,7 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/character_created_print_str_id"
+        app:layout_constraintStart_toEndOf="@+id/character_created_print_str_text_id"
         app:layout_constraintTop_toBottomOf="@+id/created_character_mp_text_id" />
 
     <TextView
@@ -195,7 +195,7 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/character_created_print_mp_id"
+        app:layout_constraintStart_toEndOf="@+id/character_created_print_mp_text_id"
         app:layout_constraintTop_toBottomOf="@+id/created_character_hp_text_id" />
 
     <TextView
@@ -206,7 +206,7 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/character_created_print_def_id"
+        app:layout_constraintStart_toEndOf="@+id/character_created_print_def_text_id"
         app:layout_constraintTop_toBottomOf="@+id/created_character_str_text_id" />
 
     <TextView
@@ -217,7 +217,7 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/character_created_print_agi_id"
+        app:layout_constraintStart_toEndOf="@+id/character_created_print_agi_text_id"
         app:layout_constraintTop_toBottomOf="@+id/created_character_def_text_id" />
 
     <TextView
@@ -228,7 +228,7 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/character_created_print_luck_id"
+        app:layout_constraintStart_toEndOf="@+id/character_created_print_luck_text_id"
         app:layout_constraintTop_toBottomOf="@+id/created_character_agi_text_id" />
 
     <TextView

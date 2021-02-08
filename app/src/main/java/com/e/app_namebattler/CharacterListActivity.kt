@@ -33,7 +33,6 @@ class CharacterListActivity : AppCompatActivity(){
         mp0.isLooping=true
         mp0.start()
 
-        mp0.start()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_list)
 
@@ -100,13 +99,13 @@ class CharacterListActivity : AppCompatActivity(){
         // 新しく作成するボタンを押したときの処理
         new_create_button.setOnClickListener {
 
+            //キャラクターリスとが8人以上でボタンが押されたらダイアログが表示される
             if (characterList.size >= 8){
                 val dialog = CharacterCreateMaxDialogFragment()
                 dialog.show(supportFragmentManager, "alert_dialog")
 
            }else {
                 val intent = Intent(this, CharacterCreationActivity::class.java)
-               
                 mp0.reset()
                 startActivity(intent)
             }

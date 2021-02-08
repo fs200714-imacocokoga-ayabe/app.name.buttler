@@ -55,19 +55,16 @@ class BattleResultActivity : AppCompatActivity() {
             }
         }
 
-
         // 味方パーティメンバーが0の場合"you lose" を表示
         if (party00 == 0) {
 
             val imageView = findViewById<ImageView>(R.id.win_or_Loss_imageView_id)
             imageView.setImageResource(R.drawable.i_defeat)
-
             // 味方パーティメンバーが0でない場合　"you win" を表示
         }else{
 
             val imageView = findViewById<ImageView>(R.id.win_or_Loss_imageView_id)
             imageView.setImageResource(R.drawable.i_victory)
-
         }
 
         // 次の対戦ボタンを押したときの処理

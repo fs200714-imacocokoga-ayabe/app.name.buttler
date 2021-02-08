@@ -13,14 +13,14 @@ class Strategy4 : BaseStrategy() {
      * @param player1 :自身
      * @param party1 :パーティ1
      * @param party2 :パーティ2
-     * @return  敵ID,作戦番号2
+     * @return  敵ID,作戦番号4
      */
     override fun attackStrategy(
         player1: Player,
         party1: List<Player>,
         party2: List<Player>
     ): IntArray {
-        if (player1.isMark()!!) { // player1がtrueの場合
+        if (player1.isMark) { // player1がtrueの場合
             _party1.addAll(party1) // _party1にparty1を入れる
             _party2.addAll(party2) // _party2にparty2を入れる
         } else { // player1がfalseの場合
@@ -29,27 +29,34 @@ class Strategy4 : BaseStrategy() {
         }
 
         if (player1 is IRecoveryMagic) {
+
             player = player1
+
             for (i in _party1.indices) { // HPの低い味方を選ぶ
                 if ((_party1[i].getMaxHp() - _party1[i].getHP()) > player!!.getMaxHp() - player!!.hp) {
                     player = _party1[i]
                 }
             }
+
             if (player1.getMP() >= 20) { // 自身のMPが20以上の場合
                 data[0] = player!!.getIdNumber() // 対象プレイヤーにHPの低い味方のIDを入れる
+
             } else if (_party2.size > 0) { // 自身のMPが20未満の場合
                 val a = random.nextInt(party2.size)
                 player2 = _party2[a]
                 data[0] = player2!!.getIdNumber() // 乱数で出た敵のIDを返す
             }
+
             data[1] = 4 // 作戦番号4を入れる
+
         } else { // player1が僧侶ではない場合
-            if (party2.isNotEmpty()) {
-              //  val a = random.nextInt(party2.size) + 1
+
+            if (_party2.size > 0) {
+
                 val a = random.nextInt(party2.size)
                 player2 = _party2[a]
                 data[0] = player2!!.getIdNumber() // 乱数で出た敵のIDを返す
-                data[1] = 1 // 作戦番号4を入れる
+                data[1] = 1 // 作戦番号1を入れる
             }
         }
         _party1.clear() // _party1をクリア

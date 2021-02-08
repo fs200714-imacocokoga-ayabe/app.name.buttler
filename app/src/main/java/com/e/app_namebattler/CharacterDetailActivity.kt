@@ -15,15 +15,14 @@ class CharacterDetailActivity : AppCompatActivity() {
     lateinit var helper: MyOpenHelper
 
     var name = ""
-    var jobValue = 0
+    var job = ""
     var hp = 0
     var mp = 0
     var str = 0
     var def = 0
     var agi = 0
     var luck = 0
-    var create_at = ""
-    var job = ""
+    private var createAt = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +55,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 def = cursor.getInt(5)
                 agi = cursor.getInt(6)
                 luck = cursor.getInt(7)
-                create_at = cursor.getString(8)
+                createAt = cursor.getString(8)
             }
 
         }finally {
@@ -92,7 +91,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 }finally {
                     db.close()
                 }
-
+                // 削除するボタンを押したときに表示するもの
                 name = ""
                 job = ""
                 hp = 0
@@ -101,7 +100,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 def = 0
                 agi = 0
                 luck = 0
-                create_at = ""
+                createAt = ""
             }
 
             private fun characterStatus(){
@@ -131,7 +130,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 luckText.text = ("%6d".format(luck))
 
                 val dateText: TextView = findViewById(R.id.character_detail_date_text_id)
-                dateText.text = ("作成日：$create_at")
+                dateText.text = ("作成日：$createAt")
             }
 
     private fun occupationConversion(jobValue:Int):String{

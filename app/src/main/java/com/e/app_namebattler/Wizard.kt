@@ -61,10 +61,6 @@ class Wizard (name:String):Player(name), IMagicalUsable {
         }
     }
 
-    override fun eatGrass() {
-       super.eatGrass()
-    }
-
     private fun effect(defender: Player): Int {
         if (getMP() >= 20) { // MPが20以上の場合
             val r: Int = random.nextInt(2) + 1 // 乱数1～2

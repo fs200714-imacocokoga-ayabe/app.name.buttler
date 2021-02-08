@@ -38,6 +38,7 @@ class TopScreenActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    //戻るボタンの禁止
     override fun onBackPressed() {}
 
 }
