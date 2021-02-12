@@ -5,7 +5,6 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_character_list.*
 
@@ -70,7 +69,7 @@ class CharacterListActivity : AppCompatActivity(){
                     db.close()
                 }
 
-            val listView = findViewById<ListView>(R.id.list_View_battle_party)
+            val listView = findViewById<ListView>(R.id.character_list_battle_start_ally_battle_party_listView_id)
 
                 mListAdapter = ListAdapter(this, characterList)
 
@@ -86,18 +85,18 @@ class CharacterListActivity : AppCompatActivity(){
         }
 
         // テキストの表示
-        val textView = findViewById<TextView>(R.id.text_characterlist)
+        val textView = findViewById<TextView>(R.id.character_list_chara_list_print_text_id)
         textView.text = "キャラ一覧(".plus(characterList.size).plus("人)")
 
         // 戻るボタンを押したときの処理
-        characterlist_back_button.setOnClickListener {
+        character_list_back_button_id.setOnClickListener {
             val intent = Intent(this, TopScreenActivity::class.java)
             mp0.reset()
             startActivity(intent)
         }
 
         // 新しく作成するボタンを押したときの処理
-        new_create_button.setOnClickListener {
+        character_list_new_create_button_id.setOnClickListener {
 
             //キャラクターリスとが8人以上でボタンが押されたらダイアログが表示される
             if (characterList.size >= 8){

@@ -9,14 +9,13 @@
     tools:context=".BattleMainActivity">
 
     // "バトル"表示
-
     <TextView
-        android:id="@+id/text_battle_id"
+        android:id="@+id/battle_main_battle_print_text_id"
         android:layout_width="411dp"
         android:layout_height="55dp"
         android:background="@drawable/frame_line_03"
         android:gravity="center"
-        android:text="@string/text_battle_start_b"
+        android:text="@string/battle_main_battle_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,29 +23,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-
-        android:id="@+id/strategy_change_button_id"
+        android:id="@+id/battle_main_strategy_change_button_id"
         android:layout_width="80dp"
         android:layout_height="36dp"
-
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/frame_line_02"
-        android:text="@string/text_change"
+        android:text="@string/battle_main_strategy_change_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/battle_main_battle_log_text_id"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ally_party_linearLayout_id" />
+        app:layout_constraintTop_toBottomOf="@+id/battle_main_ally_party_linearLayout_id" />
 
     <Button
-        android:id="@+id/next_turn_button_id"
+        android:id="@+id/battle_main_next_turn_button_id"
         android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circle_angle_quadrangle_01"
-        android:text="@string/text_next_turn"
+        android:text="@string/battle_main_next_turn_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
@@ -55,9 +52,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     // 敵パーティ表示レイアウト
-
     <LinearLayout
-        android:id="@+id/enemy_party_linearLayout_id"
+        android:id="@+id/battle_main_enemy_party_linearLayout_id"
         android:layout_width="395dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
@@ -67,20 +63,18 @@
         android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_battle_id">
+        app:layout_constraintTop_toBottomOf="@+id/battle_main_battle_print_text_id">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_main_enemy_status_recycleView_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:splitMotionEvents="false" />
-
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
-
     <LinearLayout
-        android:id="@+id/ally_party_linearLayout_id"
+        android:id="@+id/battle_main_ally_party_linearLayout_id"
         android:layout_width="395dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
@@ -90,7 +84,7 @@
         android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemy_party_linearLayout_id">
+        app:layout_constraintTop_toBottomOf="@+id/battle_main_enemy_party_linearLayout_id">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_main_ally_status_recycleView_id"
@@ -100,7 +94,6 @@
     </LinearLayout>
 
     // バトルログの表示
-
     <TextView
         android:id="@+id/battle_main_battle_log_text_id"
         android:layout_width="389dp"
@@ -114,7 +107,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/next_turn_button_id"
+        app:layout_constraintBottom_toTopOf="@+id/battle_main_next_turn_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/battle_main_strategy_text_id"
@@ -131,24 +124,23 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/strategy_change_button_id"
-        app:layout_constraintTop_toBottomOf="@+id/ally_party_linearLayout_id" />
+        app:layout_constraintEnd_toStartOf="@+id/battle_main_strategy_change_button_id"
+        app:layout_constraintTop_toBottomOf="@+id/battle_main_ally_party_linearLayout_id" />
 
     <TextView
-        android:id="@+id/battle_main_print_strategy_id"
+        android:id="@+id/battle_main_print_strategy_print_text_id"
         android:layout_width="70dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/text_battle_main_print_strategy"
+        android:text="@string/battle_main_print_strategy_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/battle_main_battle_log_text_id"
         app:layout_constraintEnd_toStartOf="@+id/battle_main_strategy_text_id"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ally_party_linearLayout_id" />
-
+        app:layout_constraintTop_toBottomOf="@+id/battle_main_ally_party_linearLayout_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

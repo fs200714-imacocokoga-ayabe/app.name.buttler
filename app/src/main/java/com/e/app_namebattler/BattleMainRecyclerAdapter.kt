@@ -60,10 +60,10 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     // ViewHolderの定義
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val Name: TextView = view.findViewById(R.id.member_name_id)
-        val Hp: TextView = view.findViewById(R.id.member_hp_id)
-        val Mp: TextView = view.findViewById(R.id.member_mp_id)
-        val Status: TextView = view.findViewById(R.id.member_status_id)
+        val Name: TextView = view.findViewById(R.id.data_battle_main_character_status_member_name_text_id)
+        val Hp: TextView = view.findViewById(R.id.data_battle_main_character_status_member_hp_text_id)
+        val Mp: TextView = view.findViewById(R.id.data_battle_main_character_status_member_mp_text_id)
+        val Status: TextView = view.findViewById(R.id.data_battle_main_character_status_member_status_text_id)
 
     }
 

@@ -12,7 +12,6 @@ open class Player{
 
     var random = Random()
 
-    open var myCallBack: BattleLogListener? = null
     open var bsb = StringBuilder()
 
     private var name:String = ""
@@ -22,9 +21,20 @@ open class Player{
         this.name = name
 
         makeCharacter(name)
+
     }
 
-    constructor()
+    constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int){
+//      this.name = name
+//      this.job = job
+//      this.hp = hp
+//      this.mp = mp
+//      this.str = str
+//      this.def = def
+//      this.agi = agi
+//      this.luck = luck
+  }
+
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     open fun randomInt(rangeFirstNum: Int, rangeLastNum: Int) {
@@ -54,7 +64,6 @@ open class Player{
      * @param name
      * : プレイヤー名
      * */
-
     open fun getName(): String{
         return name
     }
@@ -132,7 +141,6 @@ open class Player{
     }
 
     open fun makeCharacter(name: String){
-
     }
 
     open fun getPoison(): String{
@@ -201,20 +209,20 @@ open class Player{
                 when (strategyNumber) {
                     1 -> normalAttack(defender)
                     2 -> if (this is IMagicalUsable) {
-                        magicAttack(defender)
-                    } else {
-                        normalAttack(defender)
-                    }
+                            magicAttack(defender)
+                         } else {
+                            normalAttack(defender)
+                         }
                     3 -> skillAttack(defender)
                     4 -> if (this is IRecoveryMagic) {
-                        healingMagic(defender)
-                    } else {
-                        normalAttack(defender)
-                    }
+                             healingMagic(defender)
+                         } else {
+                             normalAttack(defender)
+                         }
                     5 -> eatGrass()
                 }
             } else {
-                System.out.printf("%sは麻痺で動けない！！\n", name)
+                bsb.append("${getName()}は麻痺で動けない！！\n")
             }
 
             fall(defender) // 倒れた判定

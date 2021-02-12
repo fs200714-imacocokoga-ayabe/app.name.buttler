@@ -1,7 +1,10 @@
 package com.e.app_namebattler
 
-class Ninja (name:String):Player(name), IMagicalUsable {
+class JobNinja (name:String):Player(name), IMagicalUsable {
 
+//    init {
+//        makeCharacter(name)
+//    }
     constructor(
         name: String,
         job: String,
@@ -55,7 +58,7 @@ class Ninja (name:String):Player(name), IMagicalUsable {
 
     override fun magicAttack(defender: Player) {
         if (hasEnoughMp()) {
-            damage = effect(defender)
+            damage = effect()
             super.damageProcess(defender, damage)
         } else {
             bsb.append("MPが足りない！")
@@ -63,7 +66,7 @@ class Ninja (name:String):Player(name), IMagicalUsable {
         }
     }
 
-    private fun effect(defender: Player?): Int {
+    private fun effect(): Int {
         damage = (random.nextInt(
             Magic.FIREROLL.getMaxDamage()
                     - Magic.FIREROLL.getMinDamage()

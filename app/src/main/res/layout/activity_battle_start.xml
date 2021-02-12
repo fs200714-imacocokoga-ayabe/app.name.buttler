@@ -8,14 +8,13 @@
     tools:context=".BattleStartActivity">
 
     // "バトル開始"表示
-
     <TextView
-        android:id="@+id/text_battle_start_id"
+        android:id="@+id/battle_start_print_text_id"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:background="@drawable/frame_line_03"
         android:gravity="center"
-        android:text="@string/text_battle_start_a"
+        android:text="@string/battle_start_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,36 +22,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // 戻るボタン
-
     <Button
-        android:id="@+id/battle_start_back_button"
+        android:id="@+id/battle_start_back_button_id"
         android:layout_width="80dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame_line_02"
-        android:text="@string/characterlist_back_button"
+        android:text="@string/party_organization_back_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/background_light"
-        app:layout_constraintStart_toStartOf="@+id/text_battle_start_id"
-        app:layout_constraintTop_toTopOf="@+id/text_battle_start_id" />
+        app:layout_constraintStart_toStartOf="@+id/battle_start_print_text_id"
+        app:layout_constraintTop_toTopOf="@+id/battle_start_print_text_id" />
 
     // vsの表示
-
     <TextView
-        android:id="@+id/text_vs"
+        android:id="@+id/battle_start_vs_print_text_id"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:gravity="center"
-        android:text="@string/text_vs"
+        android:text="@string/battle_start_vs_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/battle_start_ally_battle_party_list_linearLayout_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/battle_start_enemy_battle_party_list_linearLayout_id" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/battle_start_enemy_battle_party_list_linearLayout_id"
         android:layout_width="404dp"
         android:layout_height="198dp"
         android:layout_marginStart="3dp"
@@ -62,21 +59,20 @@
         android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_battle_start_id">
+        app:layout_constraintTop_toBottomOf="@+id/battle_start_print_text_id">
 
         <ListView
-            android:id="@+id/list_View_enemy_battle_party"
+            android:id="@+id/battle_start_enemy_battle_party_list_view_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="0sp"
             android:splitMotionEvents="false" />
-
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/battle_start_ally_battle_party_list_linearLayout_id"
         android:layout_width="404dp"
         android:layout_height="198dp"
         android:layout_marginStart="3dp"
@@ -85,27 +81,25 @@
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
         android:splitMotionEvents="false"
-        app:layout_constraintBottom_toTopOf="@+id/this_enemy_battle_button"
+        app:layout_constraintBottom_toTopOf="@+id/battle_start_this_enemy_battle_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_vs">
+        app:layout_constraintTop_toBottomOf="@+id/battle_start_vs_print_text_id">
 
         <ListView
-            android:id="@+id/list_View_battle_party"
+            android:id="@+id/character_list_battle_start_ally_battle_party_listView_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="0sp"
             android:splitMotionEvents="false" />
-
     </LinearLayout>
 
     // この相手と戦うボタン
-
     <Button
-        android:id="@+id/this_enemy_battle_button"
+        android:id="@+id/battle_start_this_enemy_battle_button_id"
         android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_marginStart="13dp"
@@ -113,18 +107,17 @@
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circle_angle_quadrangle_01"
-        android:text="@string/this_enemys_battle_button"
+        android:text="@string/battle_start_this_enemy_battle_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toTopOf="@+id/re_select_enemy_button"
+        app:layout_constraintBottom_toTopOf="@+id/battle_start_re_select_enemy_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/battle_start_ally_battle_party_list_linearLayout_id" />
 
     //　相手を選びなおすボタン
-
     <Button
-        android:id="@+id/re_select_enemy_button"
+        android:id="@+id/battle_start_re_select_enemy_button_id"
         android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_marginStart="13dp"
@@ -132,12 +125,12 @@
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/circle_angle_quadrangle_01"
-        android:text="@string/re_select_enemy"
+        android:text="@string/battle_start_re_select_enemy_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/this_enemy_battle_button" />
+        app:layout_constraintTop_toBottomOf="@+id/battle_start_this_enemy_battle_button_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

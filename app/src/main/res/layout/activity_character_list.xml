@@ -8,14 +8,13 @@
     tools:context=".CharacterListActivity">
 
     // "キャラ一覧の表示"の表示
-
     <TextView
-        android:id="@+id/text_characterlist"
+        android:id="@+id/character_list_chara_list_print_text_id"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:background="@drawable/frame_line_03"
         android:gravity="center"
-        android:text="@string/text_characterlist_a"
+        android:text="@string/character_list_chara_list_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,13 +23,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // "新しく作成する"ボタン
-
     <Button
-        android:id="@+id/new_create_button"
+        android:id="@+id/character_list_new_create_button_id"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:background="@drawable/frame_line_02"
-        android:text="@string/characterlist_newcreate_button"
+        android:text="@string/character_list_new_create_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -39,15 +37,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     // 戻るボタン
-
     <Button
-        android:id="@+id/characterlist_back_button"
+        android:id="@+id/character_list_back_button_id"
         android:layout_width="80dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame_line_02"
-        android:text="@string/characterlist_back_button"
+        android:text="@string/party_organization_back_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/background_light"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,13 +59,13 @@
         android:layout_marginBottom="2dp"
         android:orientation="vertical"
         android:splitMotionEvents="false"
-        app:layout_constraintBottom_toTopOf="@+id/new_create_button"
+        app:layout_constraintBottom_toTopOf="@+id/character_list_new_create_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_characterlist">
+        app:layout_constraintTop_toBottomOf="@+id/character_list_chara_list_print_text_id">
 
         <ListView
-            android:id="@+id/list_View_battle_party"
+            android:id="@+id/character_list_battle_start_ally_battle_party_listView_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -76,7 +73,6 @@
             android:dividerHeight="0sp"
             android:splitMotionEvents="false" />
     </LinearLayout>
-    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

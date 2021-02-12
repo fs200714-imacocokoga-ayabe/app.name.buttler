@@ -5,8 +5,6 @@ class Party {
     private var members: MutableList<Player> = ArrayList() // プレイヤーの入れ物
     private var party1: MutableList<Player> = ArrayList() // パーティ1の入れ物
     private var party2: MutableList<Player> = ArrayList() // パーティ2の入れ物
-    private var resultParty1: MutableList<Player> = ArrayList() // パーティ1の入れ物
-    private var resultParty2: MutableList<Player> = ArrayList() // パーティ2の入れ物
     lateinit var player: Player
 
     /**
@@ -26,13 +24,8 @@ class Party {
 
             if (player.isMark) {
                 party1.add(player) // playerがtrueならparty1に入れる
-                resultParty1.add(player)
-                println("ログ01$resultParty1")
-
             } else {
                 party2.add(player) // playerがfalseならparty2に入れる
-                resultParty2.add(player)
-                println("ログ02$resultParty2")
             }
         }
     }
@@ -80,16 +73,6 @@ class Party {
      */
     fun getParty2(): List<Player> {
         return party2
-    }
-
-    fun getResultParty1(): List<Player>{
-
-        return resultParty1
-    }
-
-    fun getResultParty2(): List<Player>{
-
-        return resultParty2
     }
 
     /**

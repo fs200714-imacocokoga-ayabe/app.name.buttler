@@ -12,13 +12,13 @@ class BattlePartyAdapter (val context: Context, val PartyList: ArrayList<Charact
     @SuppressLint("ViewHolder", "SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = LayoutInflater.from(context).inflate(R.layout.data_character_status, null)
-        val Name = view.findViewById<TextView>(R.id.data_character_name_text_id)
-        val Job = view.findViewById<TextView>(R.id.data_character_job_text_id)
-        val Hp = view.findViewById<TextView>(R.id.data_character_hp_text_id)
-        val Mp = view.findViewById<TextView>(R.id.data_character_mp_text_id)
-        val Str = view.findViewById<TextView>(R.id.data_character_str_text_id)
-        val Def = view.findViewById<TextView>(R.id.data_character_def_text_id)
-        val Agi = view.findViewById<TextView>(R.id.data_character_agi_text_id)
+        val Name = view.findViewById<TextView>(R.id.data_character_status_data_name_text_id)
+        val Job = view.findViewById<TextView>(R.id.data_character_status_data_job_text_id)
+        val Hp = view.findViewById<TextView>(R.id.data_character_status_data_hp_text_id)
+        val Mp = view.findViewById<TextView>(R.id.data_character_status_data_mp_text_id)
+        val Str = view.findViewById<TextView>(R.id.data_character_status_data_str_text_id)
+        val Def = view.findViewById<TextView>(R.id.data_character_status_data_def_text_id)
+        val Agi = view.findViewById<TextView>(R.id.data_character_status_data_agi_text_id)
 
         val character = PartyList[position]
 

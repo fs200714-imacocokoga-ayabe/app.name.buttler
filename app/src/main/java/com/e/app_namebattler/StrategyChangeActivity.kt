@@ -19,21 +19,21 @@ class StrategyChangeActivity : AppCompatActivity() {
         mp0= MediaPlayer.create(this,R.raw.lastwar)
         mp0.isLooping=true
 
-        strategy_determination_button_id.setOnClickListener {
+        strategy_change_determination_button_id.setOnClickListener {
 
             setResult(Activity.RESULT_CANCELED)
 
-            val radioGroupStrategy: RadioGroup = findViewById(R.id.radio_grupe_strategy_id)
+            val radioGroupStrategy: RadioGroup = findViewById(R.id.strategy_change_strategy_radioGroup_id)
             val radioId = radioGroupStrategy.checkedRadioButtonId
             var strategyName = ""
 
          when(radioId){
 
-                R.id.radiobutton_strategy01 -> strategyName = "武器でたたかおう"
-                R.id.radiobutton_strategy02 -> strategyName = "攻撃魔法をつかおう"
-                R.id.radiobutton_strategy03 -> strategyName = "スキルをつかおう"
-                R.id.radiobutton_strategy04 -> strategyName = "回復魔法をつかおう"
-                R.id.radiobutton_strategy05 -> strategyName = "薬草をつかおう"
+                R.id.strategy_change_strategy01_radioButton_id -> strategyName = "武器でたたかおう"
+                R.id.strategy_change_strategy02_radioButton_id -> strategyName = "攻撃魔法をつかおう"
+                R.id.strategy_change_strategy03_radioButton_id -> strategyName = "スキルをつかおう"
+                R.id.strategy_change_strategy04_radioButton_id -> strategyName = "回復魔法をつかおう"
+                R.id.strategy_change_strategy05_radioButton_id -> strategyName = "薬草をつかおう"
             }
 
             val result = Intent()

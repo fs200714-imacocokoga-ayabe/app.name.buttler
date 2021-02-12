@@ -18,14 +18,14 @@ class PartyListAdapter (val context: Context, val CharacterList: ArrayList<Chara
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = LayoutInflater.from(context).inflate(R.layout.data_party_organization_character_status, null)
-        val Button = view.findViewById<RadioButton>(R.id.data_party_organization_radio_button_id)
-        val Name = view.findViewById<TextView>(R.id.data_party_organization_character_name_id)
-        val Job = view.findViewById<TextView>(R.id.data_party_organization_character_job_id)
-        val Hp = view.findViewById<TextView>(R.id.data_party_organization_character_hp_id)
-        val Mp = view.findViewById<TextView>(R.id.data_party_organization_character_mp_id)
-        val Str = view.findViewById<TextView>(R.id.data_party_organization_character_str_id)
-        val Def = view.findViewById<TextView>(R.id.data_party_organization_character_def_id)
-        val Agi = view.findViewById<TextView>(R.id.data_party_organization_character_agi_id)
+        val Button = view.findViewById<RadioButton>(R.id.data_party_organization_character_status_radioButton_id)
+        val Name = view.findViewById<TextView>(R.id.data_party_organization_character_status_name_id)
+        val Job = view.findViewById<TextView>(R.id.data_party_organization_character_status_job_id)
+        val Hp = view.findViewById<TextView>(R.id.data_party_organization_character_status_hp_id)
+        val Mp = view.findViewById<TextView>(R.id.data_party_organization_character_status_mp_id)
+        val Str = view.findViewById<TextView>(R.id.data_party_organization_character_status_str_id)
+        val Def = view.findViewById<TextView>(R.id.data_party_organization_character_status_def_id)
+        val Agi = view.findViewById<TextView>(R.id.data_party_organization_character_status_agi_id)
 
         val character = CharacterList[position]
 

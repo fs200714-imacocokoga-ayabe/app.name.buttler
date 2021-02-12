@@ -15,34 +15,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_battle_main.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogListener {
 
     lateinit var mp0: MediaPlayer
-
-    lateinit var memberList: MutableList<MemberStatusData>
-
     var handler: Handler? = null
-
-    private var s = Scanner(System.`in`)
-
     lateinit var helper: MyOpenHelper
-
     private val gm = GameManager()
 
-    //val hd = MyHandler()
-
     private var enemyPartyList = ArrayList<CharacterAllData>()
-
     private var allyPartyList = ArrayList<CharacterAllData>()
+    lateinit var memberList: MutableList<MemberStatusData>
 
-    lateinit var ally: Player
-    private lateinit var enemy: Player
     var strategyNumber = 0
-
     var job = ""
 
     private var isTurn:Boolean = false
@@ -96,13 +82,13 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         gm.controlTransfer(allyPartyList, enemyPartyList)
 
         // 作戦変更画面に遷移
-        strategy_change_button_id.setOnClickListener {
+        battle_main_strategy_change_button_id.setOnClickListener {
             val intent = Intent(this, StrategyChangeActivity::class.java)
             startActivityForResult(intent, 1000)
         }
 
         // 次のターンボタンを押したときの処理
-        next_turn_button_id.setOnClickListener {
+        battle_main_next_turn_button_id.setOnClickListener {
 
             if (isTurn){
 
@@ -274,18 +260,10 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         when (jobValue) {
 
-            0 -> {
-                job = "戦士"
-            }
-            1 -> {
-                job = "魔法使い"
-            }
-            2 -> {
-                job = "僧侶"
-            }
-            3 -> {
-                job = "忍者"
-            }
+            0 -> job = "戦士"
+            1 -> job = "魔法使い"
+            2 -> job = "僧侶"
+            3 -> job = "忍者"
         }
         return job
     }

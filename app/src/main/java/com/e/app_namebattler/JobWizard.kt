@@ -1,7 +1,10 @@
 package com.e.app_namebattler
 
-class Wizard (name:String):Player(name), IMagicalUsable {
+class JobWizard (name:String):Player(name), IMagicalUsable {
 
+//    init {
+//        makeCharacter(name)
+//    }
     constructor(
         name: String,
         job: String,
@@ -53,7 +56,7 @@ class Wizard (name:String):Player(name), IMagicalUsable {
 
     override fun magicAttack(defender: Player) {
         if (hasEnoughMp()) {
-            damage = effect(defender)
+            damage = effect()
             super.damageProcess(defender, damage)
         } else {
             bsb.append("MPが足りない！")
@@ -61,7 +64,7 @@ class Wizard (name:String):Player(name), IMagicalUsable {
         }
     }
 
-    private fun effect(defender: Player): Int {
+    private fun effect(): Int {
         if (getMP() >= 20) { // MPが20以上の場合
             val r: Int = random.nextInt(2) + 1 // 乱数1～2
             if (r == 1) { // 1の場合サンダーを使用

@@ -7,7 +7,7 @@
     android:splitMotionEvents="false">
 
     <LinearLayout
-        android:id="@+id/data_character_status_id"
+        android:id="@+id/data_character_status_linearLayout_id"
         android:layout_width="404dp"
         android:layout_height="66dp"
         android:layout_marginStart="3dp"
@@ -26,7 +26,7 @@
             android:splitMotionEvents="false">
 
             <TextView
-                android:id="@+id/data_character_name_text_id"
+                android:id="@+id/data_character_status_data_name_text_id"
                 android:layout_width="310dp"
                 android:layout_height="32dp"
                 android:text=""
@@ -34,7 +34,7 @@
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/data_character_job_text_id"
+                android:id="@+id/data_character_status_data_job_text_id"
                 android:layout_width="92dp"
                 android:layout_height="32dp"
                 android:gravity="right"
@@ -51,7 +51,7 @@
             android:splitMotionEvents="false">
 
             <TextView
-                android:id="@+id/data_character_hp_text_id"
+                android:id="@+id/data_character_status_data_hp_text_id"
                 android:layout_width="70dp"
                 android:layout_height="31dp"
                 android:layout_gravity="center"
@@ -61,7 +61,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/data_character_mp_text_id"
+                android:id="@+id/data_character_status_data_mp_text_id"
                 android:layout_width="70dp"
                 android:layout_height="31dp"
                 android:text=""
@@ -70,7 +70,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/data_character_str_text_id"
+                android:id="@+id/data_character_status_data_str_text_id"
                 android:layout_width="70dp"
                 android:layout_height="31dp"
                 android:text=""
@@ -79,7 +79,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/data_character_def_text_id"
+                android:id="@+id/data_character_status_data_def_text_id"
                 android:layout_width="70dp"
                 android:layout_height="31dp"
                 android:text=""
@@ -88,7 +88,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/data_character_agi_text_id"
+                android:id="@+id/data_character_status_data_agi_text_id"
                 android:layout_width="70dp"
                 android:layout_height="31dp"
                 android:text=""

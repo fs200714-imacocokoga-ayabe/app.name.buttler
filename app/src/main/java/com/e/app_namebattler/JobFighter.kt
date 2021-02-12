@@ -1,7 +1,10 @@
 package com.e.app_namebattler
 
-class Fighter(name: String):Player(name) {
+class JobFighter(name: String):Player(name) {
 
+//    init{
+//        makeCharacter(name)
+//    }
     constructor(
         name: String,
         job: String,
@@ -43,7 +46,6 @@ class Fighter(name: String):Player(name) {
 
             bsb.append("${getName()}の捨て身の突撃！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
-
             damage *= 2 // ダメージ2倍
 
             super.damageProcess(defender, damage) // ダメージ処理
@@ -52,12 +54,5 @@ class Fighter(name: String):Player(name) {
 
             bsb.append("${getName()}の捨て身の突撃はかわされた！！\n")
         }
-    }
-
-    private fun directAttack(defender: Player) { // 直接攻撃処理
-
-        bsb.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
-        damage = calcDamage(defender) // 与えるダメージを求める
-        super.damageProcess(defender, damage) // ダメージ処理
     }
 }

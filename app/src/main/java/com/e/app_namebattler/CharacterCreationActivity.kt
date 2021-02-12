@@ -32,18 +32,18 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         mp0.isLooping=true
         mp0.start()
 
-        val createNameValues = findViewById<EditText>(R.id.name_input_field_text_id)
+        val createNameValues = findViewById<EditText>(R.id.character_creation_name_input_field_editText_id)
         createNameValues.addTextChangedListener(this)
 
-        create_character_back_button_id.setOnClickListener {
+        character_creation_create_character_back_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
             mp0.reset()
             startActivity(intent)
         }
 
-        create_character_button_id.setOnClickListener {
+        character_creation_create_character_button_id.setOnClickListener {
           //職業を取得
-            val radioGroupJob: RadioGroup = findViewById(R.id.character_select_radiogroup_id)
+            val radioGroupJob: RadioGroup = findViewById(R.id.character_creation_character_select_radioGroup_id)
             val radioId = radioGroupJob.checkedRadioButtonId
             val createJobValues: RadioButton = radioGroupJob.findViewById(radioId)
             //表示させる形式に変数を変換
@@ -83,7 +83,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             //  ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
             ic.show()
 
-            val editText = findViewById<View>(R.id.name_input_field_text_id) as EditText
+            val editText = findViewById<View>(R.id.character_creation_name_input_field_editText_id) as EditText
             editText.setText("")
         }
     }

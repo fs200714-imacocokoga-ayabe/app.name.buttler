@@ -1,7 +1,10 @@
 package com.e.app_namebattler
 
-class Priest (name:String):Player(name), IMagicalUsable, IRecoveryMagic {
+class JobPriest (name:String):Player(name), IMagicalUsable, IRecoveryMagic {
 
+//    init {
+//        makeCharacter(name)
+//    }
     constructor(
         name: String,
         job: String,
@@ -41,7 +44,6 @@ class Priest (name:String):Player(name), IMagicalUsable, IRecoveryMagic {
         val r: Int = random.nextInt(100) + 1
         if (r > 50) {
             bsb.append("${getName()}は祈りを捧げて${Magic.OPTICALELEMENTAL.getName()}を召還した\n${Magic.OPTICALELEMENTAL.getName()}の祝福を受けた！\n")
-          //  bsb.append("${getName()}はHPが${recoveryProcess(this, Magic.OPTICALELEMENTAL.getRecoveryValue())}回復した！\n")
             recoveryProcess(this, Magic.OPTICALELEMENTAL.getRecoveryValue())
         } else {
             bsb.append("${getName()}は祈りを捧げたが何も起こらなかった！\n")

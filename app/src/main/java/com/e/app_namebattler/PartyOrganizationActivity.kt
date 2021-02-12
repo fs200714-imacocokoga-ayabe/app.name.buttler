@@ -81,7 +81,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
             db.close()
         }
 
-        val listView = findViewById<ListView>(R.id.list_View_party)
+        val listView = findViewById<ListView>(R.id.party_organization_party_list_listView_id)
 
         listView.choiceMode = CHOICE_MODE_MULTIPLE
         mListAdapter = PartyListAdapter(this, characterList)
@@ -92,19 +92,19 @@ class PartyOrganizationActivity : AppCompatActivity() {
 //        }
 
         // このパーティで開始
-        this_party_start.setOnClickListener {
+        party_organization_this_party_start_button_id.setOnClickListener {
 
             radioNumber = 0
             arrayRadioId.clear()
-            val textView = findViewById<TextView>(R.id.this_party_start)
+            val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
             textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
 
             for (i in 1..listView.count) {
 
                 val radioName: RadioButton = listView.getChildAt(i - 1)
-                    .findViewById(R.id.data_party_organization_radio_button_id)
+                    .findViewById(R.id.data_party_organization_character_status_radioButton_id)
 
-                val characterName = listView.getChildAt(i - 1).data_party_organization_character_name_id
+                val characterName = listView.getChildAt(i - 1).data_party_organization_character_status_name_id
 
                 if (radioName.isChecked) {
                     array.add(characterName.text as String)
@@ -128,7 +128,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
             } else {
                 for (i in 1..listView.count) {
                     val radioName: RadioButton = listView.getChildAt(i - 1)
-                        .findViewById(R.id.data_party_organization_character_name_id)
+                        .findViewById(R.id.data_party_organization_character_status_name_id)
 
                     if (radioName.isChecked) {
                         radioName.isChecked = false
@@ -143,7 +143,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
 
 
         // 戻るボタン
-        party_organizetion_back_button.setOnClickListener {
+        party_organization_back_button.setOnClickListener {
             val intent = Intent(this, TopScreenActivity::class.java)
             mp0.reset()
             startActivity(intent)
@@ -158,12 +158,12 @@ class PartyOrganizationActivity : AppCompatActivity() {
 
         //radioButton.isChecked = true
 
-        val listView = findViewById<ListView>(R.id.list_View_party)
+        val listView = findViewById<ListView>(R.id.party_organization_party_list_listView_id)
 
         for (i in 1..listView.count) {
 
             val radioName: RadioButton = listView.getChildAt(i - 1)
-                .findViewById(R.id.data_party_organization_radio_button_id)
+                .findViewById(R.id.data_party_organization_character_status_radioButton_id)
 
             if (radioName.isChecked) {
                 rNum += 1
@@ -267,7 +267,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
 //
         //  }
         //   }
-        val textView = findViewById<TextView>(R.id.this_party_start)
+        val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
         textView.text = "このパーティで開始（".plus(rNum).plus("/3）")
 
     }

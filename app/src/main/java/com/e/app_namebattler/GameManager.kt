@@ -9,12 +9,6 @@ class GameManager {
 
     var random = Random()
 
-    private var party01: MutableList<Player> = ArrayList()
-
-    private val party02: MutableList<Player> = ArrayList()
-
-    private var attackList: MutableList<Player> = ArrayList()
-
     private val pt = Party()
 
     var context: Context? = null
@@ -27,23 +21,23 @@ class GameManager {
 
     private lateinit var speedOrderList: List<Player>
 
-    private var allyList: MutableList<Player> = ArrayList() // パーティ1の入れ物
-
-    private var enemyList: MutableList<Player> = ArrayList() // パーティ1の入れ物
+    private var party01: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
+    private val party02: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
+    private var attackList: MutableList<Player> = ArrayList() //攻撃するキャラクターを格納
 
     lateinit var ally: Player
     private lateinit var enemy: Player
-    lateinit var ally01: Player
+    lateinit var ally01: Player // 味方キャラクターを格納
     lateinit var ally02: Player
     lateinit var ally03: Player
-    lateinit var enemy01: Player
+    lateinit var enemy01: Player // 敵キャラクターを格納
     lateinit var enemy02: Player
     lateinit var enemy03: Player
-    private lateinit var player: Player
+    private lateinit var player: Player // キャラクターを格納
     private lateinit var player1: Player
     private lateinit var player2: Player
-    var job = ""
-    var appearance = 0
+
+    var appearance = 0 // キャラクターの外観に使用
 
     private var enemyStrategyNumber = 0 // 作戦の選択に使用
     var strategyData = IntArray(2) // 攻撃プレイヤーIDと守備プレイヤーIDと作戦番号を格納
@@ -66,39 +60,10 @@ class GameManager {
 
         // スピード順に取得する
         speedOrderList = (speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03))
-
-        toEnemyAllySort(enemy01, enemy02, enemy03, ally01, ally02, ally03)
-
         // パーティの振り分け
         pt.appendPlayer(enemy01, enemy02, enemy03, ally01, ally02, ally03)
-
         // キャラクターの表示
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
-    }
-
-    private fun toEnemyAllySort(
-        enemy01: Player,
-        enemy02: Player,
-        enemy03: Player,
-        ally01: Player,
-        ally02: Player,
-        ally03: Player
-    ) {
-
-        val charaList: MutableList<Player> =
-            mutableListOf(ally01, ally02, ally03, enemy01, enemy02, enemy03)
-
-        for (player in charaList) {
-
-            if (player.isMark) {
-
-                allyList.add(player)
-
-            } else {
-
-                enemyList.add(player)
-            }
-        }
     }
 
     fun battle(strategyNumber: Int) {
@@ -123,7 +88,6 @@ class GameManager {
                     strategyData = selectStrategyNumber(enemyStrategyNumber)
                 }
 
-
                 player2 = pt.selectMember(strategyData[0])!! // 作戦で選んだ相手を呼ぶ
 
                 sb.append(player1.attack(player2, strategyData[1])) // player1に相手と作戦を送り攻撃する
@@ -139,7 +103,7 @@ class GameManager {
 
         val array = sb.split("@@")
 
-        myCallBack?.upDateBattleLog(array)
+        myCallBack?.upDateBattleLog(array) //BattleLogListenerを通してBattleMainActivityにarrayを送る
 
         // キャラクターの表示
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
@@ -225,7 +189,7 @@ class GameManager {
 
         when (enemyPartyList.job) {
 
-            "戦士" -> enemy = (Fighter(
+            "戦士" -> enemy = (JobFighter(
                 enemyPartyList.name,
                 enemyPartyList.job,
                 enemyPartyList.hp,
@@ -236,7 +200,7 @@ class GameManager {
                 enemyPartyList.luck
             ))
 
-            "魔法使い" -> enemy = (Wizard(
+            "魔法使い" -> enemy = (JobWizard(
                 enemyPartyList.name,
                 enemyPartyList.job,
                 enemyPartyList.hp,
@@ -247,7 +211,7 @@ class GameManager {
                 enemyPartyList.luck
             ))
 
-            "僧侶" -> enemy = (Priest(
+            "僧侶" -> enemy = (JobPriest(
                 enemyPartyList.name,
                 enemyPartyList.job,
                 enemyPartyList.hp,
@@ -258,7 +222,7 @@ class GameManager {
                 enemyPartyList.luck
             ))
 
-            "忍者" -> enemy = (Ninja(
+            "忍者" -> enemy = (JobNinja(
                 enemyPartyList.name,
                 enemyPartyList.job,
                 enemyPartyList.hp,
@@ -319,7 +283,7 @@ class GameManager {
 
         when (allyPartyList.job) {
 
-            "戦士" -> ally = (Fighter(
+            "戦士" -> ally = (JobFighter(
                 allyPartyList.name,
                 allyPartyList.job,
                 allyPartyList.hp,
@@ -330,7 +294,7 @@ class GameManager {
                 allyPartyList.luck
             ))
 
-            "魔法使い" -> ally = (Wizard(
+            "魔法使い" -> ally = (JobWizard(
                 allyPartyList.name,
                 allyPartyList.job,
                 allyPartyList.hp,
@@ -341,7 +305,7 @@ class GameManager {
                 allyPartyList.luck
             ))
 
-            "僧侶" -> ally = (Priest(
+            "僧侶" -> ally = (JobPriest(
                 allyPartyList.name,
                 allyPartyList.job,
                 allyPartyList.hp,
@@ -352,7 +316,7 @@ class GameManager {
                 allyPartyList.luck
             ))
 
-            "忍者" -> ally = (Ninja(
+            "忍者" -> ally = (JobNinja(
                 allyPartyList.name,
                 allyPartyList.job,
                 allyPartyList.hp,

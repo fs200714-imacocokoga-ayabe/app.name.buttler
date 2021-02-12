@@ -58,10 +58,10 @@ class CreateEnemy {
 
             when (enemyJob) {
 
-                "戦士" -> Fighter(enemyName).let { enemy = it }
-                "魔法使い" -> Wizard(enemyName).let { enemy = it }
-                "僧侶" -> Priest(enemyName).let { enemy = it }
-                "忍者" -> Ninja(enemyName).let { enemy = it }
+                "戦士" -> JobFighter(enemyName).let { enemy = it }
+                "魔法使い" -> JobWizard(enemyName).let { enemy = it }
+                "僧侶" -> JobPriest(enemyName).let { enemy = it }
+                "忍者" -> JobNinja(enemyName).let { enemy = it }
             }
 
             val current = LocalDateTime.now()

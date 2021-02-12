@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_battle_result_screen.*
+import kotlinx.android.synthetic.main.activity_battle_result.*
 
 class BattleResultActivity : AppCompatActivity() {
 
@@ -16,7 +16,7 @@ class BattleResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_battle_result_screen)
+        setContentView(R.layout.activity_battle_result)
 
         mp0= MediaPlayer.create(this,R.raw.newworld)
         mp0.isLooping=true
@@ -58,17 +58,17 @@ class BattleResultActivity : AppCompatActivity() {
         // 味方パーティメンバーが0の場合"you lose" を表示
         if (party00 == 0) {
 
-            val imageView = findViewById<ImageView>(R.id.win_or_Loss_imageView_id)
+            val imageView = findViewById<ImageView>(R.id.battle_result_win_or_Loss_imageView_id)
             imageView.setImageResource(R.drawable.i_defeat)
             // 味方パーティメンバーが0でない場合　"you win" を表示
         }else{
 
-            val imageView = findViewById<ImageView>(R.id.win_or_Loss_imageView_id)
+            val imageView = findViewById<ImageView>(R.id.battle_result_win_or_Loss_imageView_id)
             imageView.setImageResource(R.drawable.i_victory)
         }
 
         // 次の対戦ボタンを押したときの処理
-        next_battle_button_id.setOnClickListener {
+        battle_result_next_battle_button_id.setOnClickListener {
 
             val intent = Intent(this, BattleStartActivity::class.java)
 
@@ -80,7 +80,7 @@ class BattleResultActivity : AppCompatActivity() {
         }
 
         // 再挑戦ボタンを押したときの処理
-        challenge_again_button_id.setOnClickListener {
+        battle_result_challenge_again_button_id.setOnClickListener {
 
             val intent = Intent(this, BattleMainActivity::class.java)
 
@@ -95,7 +95,7 @@ class BattleResultActivity : AppCompatActivity() {
         }
 
         // 対戦を終了するボタンを押したときの処理
-        end_battle_button_id.setOnClickListener {
+        battle_result_end_battle_button_id.setOnClickListener {
 
             val intent = Intent(this, TopScreenActivity::class.java)
             mp0.reset()

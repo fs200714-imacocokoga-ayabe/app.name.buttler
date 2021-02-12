@@ -60,14 +60,14 @@ class BattleStartActivity : AppCompatActivity() {
         printAlly()
 
         // 戻るボタンを押したときの処理
-        battle_start_back_button.setOnClickListener{
+        battle_start_back_button_id.setOnClickListener{
             val intent = Intent(this, PartyOrganizationActivity::class.java)
             mp0.reset()
             startActivity(intent)
         }
 
         // この相手と戦うボタンを押したときの処理
-        this_enemy_battle_button.setOnClickListener {
+        battle_start_this_enemy_battle_button_id.setOnClickListener {
 
             val intent = Intent(this, BattleMainActivity::class.java)
 
@@ -84,7 +84,7 @@ class BattleStartActivity : AppCompatActivity() {
         }
 
         // 相手を選び直すボタンを押したときの処理
-        re_select_enemy_button.setOnClickListener {
+        battle_start_re_select_enemy_button_id.setOnClickListener {
             val intent = Intent(this, PartyOrganizationActivity::class.java)
             printEnemy()
         }
@@ -127,7 +127,7 @@ class BattleStartActivity : AppCompatActivity() {
             db.close()
         }
 
-        val listView = findViewById<ListView>(R.id.list_View_battle_party)
+        val listView = findViewById<ListView>(R.id.character_list_battle_start_ally_battle_party_listView_id)
         mListAdapter = BattlePartyAdapter(this, allyPartyList)
         listView.adapter = mListAdapter
     }
@@ -138,7 +138,7 @@ class BattleStartActivity : AppCompatActivity() {
                 enemyPartyList.clear()
                 enemyPartyList = e.makeEnemy()
                 e.setEnemyParty(enemyPartyList)
-                val listView = findViewById<ListView>(R.id.list_View_enemy_battle_party)
+                val listView = findViewById<ListView>(R.id.battle_start_enemy_battle_party_list_view_id)
                 mListAdapter = BattlePartyAdapter(this, enemyPartyList)
                 listView.adapter = mListAdapter
             }

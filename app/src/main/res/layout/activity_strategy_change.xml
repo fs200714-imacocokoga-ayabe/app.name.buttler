@@ -8,14 +8,13 @@
     tools:context=".StrategyChangeActivity">
 
     // 作戦の表示
-
     <TextView
-        android:id="@+id/text_strategy_id"
+        android:id="@+id/strategy_change_strategy_text_id"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:background="@drawable/frame_line_03"
         android:gravity="center"
-        android:text="@string/text_strategy"
+        android:text="@string/strategy_change_strategy_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,31 +22,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // 決定のボタン
-
     <Button
-        android:id="@+id/strategy_determination_button_id"
+        android:id="@+id/strategy_change_determination_button_id"
         android:layout_width="80dp"
         android:layout_height="36dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/frame_line_02"
-        android:text="@string/strategy_determination_button_text"
+        android:text="@string/strategy_change_determination_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
-        app:layout_constraintEnd_toEndOf="@+id/text_strategy_id"
-        app:layout_constraintTop_toTopOf="@+id/text_strategy_id" />
+        app:layout_constraintEnd_toEndOf="@+id/strategy_change_strategy_text_id"
+        app:layout_constraintTop_toTopOf="@+id/strategy_change_strategy_text_id" />
 
     <TextView
-        android:id="@+id/text_strategy_choice_id"
+        android:id="@+id/strategy_change_strategy_choice_text_id"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:text="@string/text_strategy_choice"
+        android:text="@string/strategy_change_strategy_choice_print_text"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_strategy_id" />
+        app:layout_constraintTop_toBottomOf="@+id/strategy_change_strategy_text_id" />
 
     <LinearLayout
         android:layout_width="380dp"
@@ -59,20 +57,20 @@
         android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_strategy_choice_id">
+        app:layout_constraintTop_toBottomOf="@+id/strategy_change_strategy_choice_text_id">
 
         <RadioGroup
-            android:id="@+id/radio_grupe_strategy_id"
+            android:id="@+id/strategy_change_strategy_radioGroup_id"
             android:layout_width="30dp"
             android:layout_height="300dp">
 
             <TextView
-                android:id="@+id/padding_gap_text01_id"
+                android:id="@+id/strategy_change_padding_gap_text01_id"
                 android:layout_width="30dp"
                 android:layout_height="15dp" />
 
             <RadioButton
-                android:id="@+id/radiobutton_strategy01"
+                android:id="@+id/strategy_change_strategy01_radioButton_id"
                 style="@style/MyRadioButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -80,58 +78,57 @@
                 android:checked="true" />
 
             <TextView
-                android:id="@+id/padding_gap_text02_id"
+                android:id="@+id/strategy_change_padding_gap_text02_id"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
 
             <RadioButton
-                android:id="@+id/radiobutton_strategy02"
+                android:id="@+id/strategy_change_strategy02_radioButton_id"
                 style="@style/MyRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@drawable/selector_radio_button_custom" />
 
             <TextView
-                android:id="@+id/padding_gap_text03_id"
+                android:id="@+id/strategy_change_padding_gap_text03_id"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
 
             <RadioButton
-                android:id="@+id/radiobutton_strategy03"
+                android:id="@+id/strategy_change_strategy03_radioButton_id"
                 style="@style/MyRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@drawable/selector_radio_button_custom" />
 
             <TextView
-                android:id="@+id/padding_gap_text04_id"
+                android:id="@+id/strategy_change_padding_gap_text04_id"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
 
             <RadioButton
-                android:id="@+id/radiobutton_strategy04"
+                android:id="@+id/strategy_change_strategy04_radioButton_id"
                 style="@style/MyRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@drawable/selector_radio_button_custom" />
 
             <TextView
-                android:id="@+id/padding_gap_text05_id"
+                android:id="@+id/strategy_change_padding_gap_text05_id"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
 
             <RadioButton
-                android:id="@+id/radiobutton_strategy05"
+                android:id="@+id/strategy_change_strategy05_radioButton_id"
                 style="@style/MyRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@drawable/selector_radio_button_custom" />
 
             <TextView
-                android:id="@+id/padding_gap_text06_id"
+                android:id="@+id/strategy_change_padding_gap_text06_id"
                 android:layout_width="30dp"
                 android:layout_height="15dp" />
-
         </RadioGroup>
 
         <LinearLayout
@@ -141,60 +138,59 @@
             android:splitMotionEvents="false">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/strategy_change_strategy01_name_text_id"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/radiobutton_strategy01_text"
+                android:text="@string/strategy_change_strategy01_name_print_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
                 tools:ignore="RtlHardcoded" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/strategy_change_strategy02_name_text_id"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/radiobutton_strategy02_text"
+                android:text="@string/strategy_change_strategy02_name_print_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
                 tools:ignore="RtlHardcoded" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/strategy_change_strategy03_name_text_id"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/radiobutton_strategy03_text"
+                android:text="@string/strategy_change_strategy03_name_print_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
                 tools:ignore="RtlHardcoded" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/strategy_change_strategy04_name_text_id"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/radiobutton_strategy04_text"
+                android:text="@string/strategy_change_strategy04_name_print_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
                 tools:ignore="RtlHardcoded" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/strategy_change_strategy05_name_text_id"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/radiobutton_strategy05_text"
+                android:text="@string/strategy_change_strategy05_name_print_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
                 tools:ignore="RtlHardcoded" />
-
         </LinearLayout>
     </LinearLayout>
 

@@ -8,14 +8,13 @@
     tools:context=".BattleResultActivity">
 
     // "バトル"表示
-
     <TextView
-        android:id="@+id/text_battle_result_id"
+        android:id="@+id/battle_result_battle_result_print_text_id"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:background="@drawable/frame_line_03"
         android:gravity="center"
-        android:text="@string/text_battle_result"
+        android:text="@string/battle_result_battle_result_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +24,7 @@
     // 敵パーティ表示レイアウト
 
     <LinearLayout
-        android:id="@+id/enemy_party_linearLayout_result_id"
+        android:id="@+id/battle_result_enemy_party_result_linearLayout_id"
         android:layout_width="395dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
@@ -35,7 +34,7 @@
         android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_battle_result_id">
+        app:layout_constraintTop_toBottomOf="@+id/battle_result_battle_result_print_text_id">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_result_enemy_status_recycleView_id"
@@ -45,9 +44,8 @@
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
-
     <LinearLayout
-        android:id="@+id/ally_party_linearLayout_result_id"
+        android:id="@+id/battle_result_ally_party_result_linearLayout_id"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
@@ -57,7 +55,7 @@
         android:splitMotionEvents="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemy_party_linearLayout_result_id">
+        app:layout_constraintTop_toBottomOf="@+id/battle_result_enemy_party_result_linearLayout_id">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_result_ally_status_recycleView_id"
@@ -67,46 +65,46 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/challenge_again_button_id"
+        android:id="@+id/battle_result_challenge_again_button_id"
         android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circle_angle_quadrangle_01"
-        android:text="@string/text_challenge_again"
+        android:text="@string/battle_result_challenge_again_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/next_battle_button_id"
+        app:layout_constraintBottom_toTopOf="@+id/battle_result_next_battle_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/next_battle_button_id"
+        android:id="@+id/battle_result_next_battle_button_id"
         android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circle_angle_quadrangle_01"
-        android:text="@string/text_next_battle"
+        android:text="@string/battle_result_next_battle_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/end_battle_button_id"
+        app:layout_constraintBottom_toTopOf="@+id/battle_result_end_battle_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/end_battle_button_id"
+        android:id="@+id/battle_result_end_battle_button_id"
         android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circle_angle_quadrangle_01"
-        android:text="@string/text_end_battle_button"
+        android:text="@string/battle_result_end_battle_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
@@ -115,16 +113,16 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/win_or_Loss_imageView_id"
+        android:id="@+id/battle_result_win_or_Loss_imageView_id"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/challenge_again_button_id"
+        app:layout_constraintBottom_toTopOf="@+id/battle_result_challenge_again_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ally_party_linearLayout_result_id"
+        app:layout_constraintTop_toBottomOf="@+id/battle_result_ally_party_result_linearLayout_id"
         app:srcCompat="@drawable/frame_line_01" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,15 +8,14 @@
     tools:context=".PartyOrganizationActivity">
 
     // "パーティ編成"の表示
-
     <TextView
-        android:id="@+id/text_party_argnization"
+        android:id="@+id/party_organization_party_organization_text_id"
         android:layout_width="410dp"
         android:layout_height="55dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/frame_line_03"
         android:gravity="center"
-        android:text="@string/text_party_organization"
+        android:text="@string/party_organization_party_organization_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -24,31 +23,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // 戻るボタン
-
     <Button
-        android:id="@+id/party_organizetion_back_button"
+        android:id="@+id/party_organization_back_button"
         android:layout_width="80dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/frame_line_02"
-        android:text="@string/characterlist_back_button"
+        android:text="@string/party_organization_back_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/text_party_argnization"
+        app:layout_constraintBottom_toBottomOf="@+id/party_organization_party_organization_text_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     // "このパーティで開始"のボタン
 
     <Button
-        android:id="@+id/this_party_start"
+        android:id="@+id/party_organization_this_party_start_button_id"
         android:layout_width="410dp"
         android:layout_height="55dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/frame_line_02"
-        android:text="@string/this_party_start_button"
+        android:text="@string/party_organization_this_party_start_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -65,13 +62,13 @@
         android:layout_marginBottom="4dp"
         android:orientation="vertical"
         android:splitMotionEvents="false"
-        app:layout_constraintBottom_toTopOf="@id/this_party_start"
+        app:layout_constraintBottom_toTopOf="@id/party_organization_this_party_start_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_party_argnization">
+        app:layout_constraintTop_toBottomOf="@id/party_organization_party_organization_text_id">
 
         <ListView
-            android:id="@+id/list_View_party"
+            android:id="@+id/party_organization_party_list_listView_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
