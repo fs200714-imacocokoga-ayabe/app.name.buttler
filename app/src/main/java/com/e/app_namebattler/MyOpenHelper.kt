@@ -11,7 +11,7 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
         const val VERSION = 1
         //データベース情報
         const val DBNmae = "Aya.db01"//データベース名
-        const val TABLE_NAME = "CHARACTER"//テーブル名
+        private const val TABLE_NAME = "CHARACTER"//テーブル名
         private const val ENEMY_TABLE_NAME = "ENEMY"
         //カラムの種類
         const val NAME = "name"
@@ -35,7 +35,6 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
                 "LUCK INTEGER NOT NULL," +
                 "CREATE_AT NULL)")
 
-        //テーブルの消去を行う変数
         private const val SQL_CREATE_ENEMY = ("CREATE TABLE " + ENEMY_TABLE_NAME + " (" +
                 "NAME TEXT(20) NOT NULL PRIMARY KEY," +
                 "JOB INTEGER NOT NULL," +

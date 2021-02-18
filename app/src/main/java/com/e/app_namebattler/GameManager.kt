@@ -10,16 +10,14 @@ class GameManager {
     var random = Random()
 
     private val pt = Party()
-
     var context: Context? = null
 
     private val handler: Handler = Handler()
-
     private val sb = StringBuilder()
 
     var myCallBack: BattleLogListener? = null
 
-    private lateinit var speedOrderList: List<Player>
+    private lateinit var speedOrderList: List<Player>// 速さ順キャラクターを格納
 
     private var party01: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
     private val party02: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
@@ -66,10 +64,12 @@ class GameManager {
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
     }
 
+    // 戦闘処理
     fun battle(strategyNumber: Int) {
 
         attackList.clear()
 
+        // 行動するキャラクターattackListに格納
         for (i in 1..pt.getMembers().size) {
 
             attackList.add(pt.getMembers()[i - 1])
@@ -79,34 +79,40 @@ class GameManager {
 
             player1 = attackList[i - 1] // 攻撃リストから呼び出し
 
-            if (player1.isLive) {
+            if (player1.isLive) {// player1のHPが0より大きい場合
 
-                if (player1.isMark) { // player1が敵の場合
+                if (player1.isMark) { // player1が味方の場合
+
                     strategyData = selectStrategyNumber(strategyNumber)
+
                 } else {
-                    enemyStrategyNumber = random.nextInt(5) // 作戦ランダム0-4
+                    enemyStrategyNumber = (0..4).random()// 作戦ランダム0-4
+
                     strategyData = selectStrategyNumber(enemyStrategyNumber)
                 }
 
                 player2 = pt.selectMember(strategyData[0])!! // 作戦で選んだ相手を呼ぶ
 
                 sb.append(player1.attack(player2, strategyData[1])) // player1に相手と作戦を送り攻撃する
-                sb.append("@@")
+                sb.append("@@")// playerごとのログを@@で分けるために加える
                 // 敗北判定
                 defeatDecision()
             }
 
+            // どちらかのパーティが全滅した場合処理を抜ける
             if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
                 break
             }
         }
 
-        val array = sb.split("@@")
+        val array = sb.split("@@") //playerごとに分ける
 
         myCallBack?.upDateBattleLog(array) //BattleLogListenerを通してBattleMainActivityにarrayを送る
 
         // キャラクターの表示
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
+
+      //  allLog(ally01, ally02, ally03, enemy01, enemy02, enemy03, array)
 
         party01.clear()
         party02.clear()
@@ -117,6 +123,12 @@ class GameManager {
 
     }
 
+//    private fun allLog(ally01: Player, ally02: Player, ally03: Player, enemy01: Player, enemy02: Player, enemy03: Player, array: List<String>) {
+//
+//        myCallBack?.upAllLog(ally01, ally02, ally03, enemy01, enemy02, enemy03, array)
+//    }
+
+    // 選んだ作戦番号から対象プレイヤーと作戦を得て返す
     private fun selectStrategyNumber(number: Int): IntArray {
         when (number) {
             0 -> context = Context(Strategy1())
@@ -125,6 +137,7 @@ class GameManager {
             3 -> context = Context(Strategy4())
             4 -> context = Context(Strategy5())
         }
+
         strategyData = context?.attackStrategy(player1, pt.getParty1(),
             pt.getParty2())!!
 
@@ -132,6 +145,7 @@ class GameManager {
     }
 
 
+    // 敗北判定の処理
     private fun defeatDecision(){
 
         if (player1.getHP() <= 0) { // プレイヤー１相手プレイヤーの敗北判定
@@ -146,6 +160,7 @@ class GameManager {
         }
     }
 
+    // 速さ順に並び処理
     private fun speedReordering(
         enemy01: Player,
         enemy02: Player,
@@ -162,7 +177,7 @@ class GameManager {
             enemy02,
             enemy03)
 
-        for (i in 0 until speedData.size - 1) { // 速さ順の並び替え処理
+        for (i in 0 until speedData.size - 1) { // 速さ順の並び変える処理
             for (j in 0 until speedData.size - i - 1) {
                 player1 = speedData[j]
                     player2 = speedData[j + 1]
@@ -245,37 +260,36 @@ class GameManager {
         return enemy
     }
 
+    // 敵キャラクターの外観を決める
     private fun makeEnemyAppearance(job: String): Int {
 
         when(job){
 
-            "戦士" ->
-            appearance = (15..18).random()
-            "魔法使い" ->
-            appearance = (19..22).random()
-            "僧侶" ->
-            appearance = (23..26).random()
-            "忍者" ->
-            appearance = (27..29).random()
-        }
+            "戦士" -> appearance = (15..18).random()
 
-   return appearance
+            "魔法使い" ->  appearance = (19..22).random()
+
+            "僧侶" ->  appearance = (23..26).random()
+
+            "忍者" -> appearance = (27..29).random()
+        }
+            return appearance
     }
 
+    // 味方キャラクターの外観を決める
     private fun makeAllyAppearance(job: String): Int {
 
         when(job){
 
-            "戦士" ->
-            appearance = (0..3).random()
-            "魔法使い" ->
-            appearance = (4..7).random()
-            "僧侶" ->
-            appearance = (8..11).random()
-            "忍者" ->
-            appearance = (12..14).random()
+            "戦士" -> appearance = (0..3).random()
+
+            "魔法使い" -> appearance = (4..7).random()
+
+            "僧侶" -> appearance = (8..11).random()
+
+            "忍者" -> appearance = (12..14).random()
         }
-        return appearance
+            return appearance
     }
 
     // 味方キャラクターを作成する
@@ -339,6 +353,7 @@ class GameManager {
         return ally
     }
 
+    // BattleLogListenerを通してBattleMainActivityのメソッドを使用
     private fun statusLog(
         ally01: Player,
         ally02: Player,
@@ -347,10 +362,10 @@ class GameManager {
         enemy02: Player,
         enemy03: Player
     ) {
-
         myCallBack?.upDateAllyStatus(ally01, ally02, ally03)
         myCallBack?.upDateEnemyStatus(enemy01, enemy02, enemy03)
     }
+
 
     fun  getParty01():List<Player>{
 
@@ -362,6 +377,7 @@ class GameManager {
         return party02
     }
 
+    // データをcharaDataに保存
     fun sendData() {
 
         val charaData = CharacterData.getInstance()

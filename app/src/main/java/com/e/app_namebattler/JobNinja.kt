@@ -2,9 +2,6 @@ package com.e.app_namebattler
 
 class JobNinja (name:String):Player(name), IMagicalUsable {
 
-//    init {
-//        makeCharacter(name)
-//    }
     constructor(
         name: String,
         job: String,
@@ -39,15 +36,24 @@ class JobNinja (name:String):Player(name), IMagicalUsable {
     }
 
     override fun skillAttack(defender: Player) {
-        val r: Int = random.nextInt(100) + 1
+
+        val r = (1..100).random()
+
         damage = 0
+
         if (r > 75) { // 25%で発動
             bsb.append("${getName()}は目にも止まらぬ速さで攻撃した！\n")
+
             for (i in 1..2) {
+
                 bsb.append("${i}回目の攻撃\n")
+
                 damage = calcDamage(defender) // 攻撃処理
+
                 super.damageProcess(defender, damage) // ダメージ処理
+
                 if (defender.getHP() <= 0) { // 倒れた判定
+
                     break
                 }
             }
@@ -67,13 +73,13 @@ class JobNinja (name:String):Player(name), IMagicalUsable {
     }
 
     private fun effect(): Int {
-        damage = (random.nextInt(
-            Magic.FIREROLL.getMaxDamage()
-                    - Magic.FIREROLL.getMinDamage()
-        )
-                + Magic.FIREROLL.getMinDamage()) // 乱数10～30
+
+        damage = (Magic.FIREROLL.getMinDamage()..Magic.FIREROLL.getMaxDamage()).random() // 乱数10～30
+
         this.mp = this.getMP() - Magic.FIREROLL.getMpCost() // MP消費
+
         bsb.append("${getName()}は${Magic.FIREROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
+
         return damage
     }
 

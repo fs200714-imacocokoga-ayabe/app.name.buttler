@@ -1,8 +1,8 @@
 package com.e.app_namebattler
 
 
-class Strategy5 : BaseStrategy() {
-    // 草を食べる
+class Strategy5 : BaseStrategy() { // 草を食べる
+
     override fun attackStrategy(
         player1: Player,
         party1: List<Player>,
@@ -14,8 +14,9 @@ class Strategy5 : BaseStrategy() {
             } else { // player1がfalseの場合
                 party.addAll(party1) // partyにparty1を入れる
             }
-        val a = random.nextInt(party.size)
-        player2 = party[a]
+
+        val a = (1..party.size).random()
+        player2 = party[a - 1]
         data[0] = player2!!.getIdNumber() // ランダムで出た相手ID
         data[1] = 5 // 作戦番号5を入れる
         party.clear()

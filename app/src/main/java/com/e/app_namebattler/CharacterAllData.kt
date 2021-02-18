@@ -1,5 +1,6 @@
 package com.e.app_namebattler
 
+// 1行分のデータモデル
 class CharacterAllData(
     val name: String,
     val job: String,

@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_top_screen.*
 
-
 class TopScreenActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
@@ -34,7 +33,7 @@ class TopScreenActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        mp0.release()
+        mp0.release() // リソース?の開放
         super.onDestroy()
     }
 

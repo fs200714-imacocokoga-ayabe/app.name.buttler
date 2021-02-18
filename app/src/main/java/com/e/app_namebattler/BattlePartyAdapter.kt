@@ -33,14 +33,17 @@ class BattlePartyAdapter (val context: Context, val PartyList: ArrayList<Charact
         return view
     }
 
+    // データの中身
     override fun getItem(position: Int): Any {
         return PartyList[position]
     }
 
+    // データのID
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
+    // データの総数
     override fun getCount(): Int {
         return PartyList.count()
     }

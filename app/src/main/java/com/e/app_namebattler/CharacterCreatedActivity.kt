@@ -37,20 +37,20 @@ class CharacterCreatedActivity : AppCompatActivity() {
         // 名前の表示
         val nameText: TextView = findViewById(R.id.character_created_character_name_text_id)
         nameText.text = nameExtra
-
         // 職業の表示
         val jobText:TextView = findViewById(R.id.character_created_character_job_text_id)
         jobText.text = jobExtra
 
         val name = nameExtra.toString()
 
+        // 職業と名前からキャラクターを作成
             when(jobExtra){
-                //nameExtra:名前　Fighter(it):名前から戦士のキャラクターを作成 player = it: 作成したキャラクターをplayerに格納
-                "戦士" -> nameExtra?.let { JobFighter(it) }?.let { player = it }
-                "魔法使い" -> nameExtra?.let { JobWizard(it) }?.let { player = it }
-                "僧侶" -> nameExtra?.let { JobPriest(it) }?.let { player = it }
-                "忍者" -> nameExtra?.let { JobNinja(it) }?.let { player = it }
+                "戦士" -> JobFighter(name).let { player = it }
+                "魔法使い" -> JobWizard(name).let { player = it }
+                "僧侶" -> JobPriest(name).let { player = it }
+                "忍者" -> JobNinja(name).let { player = it }
             }
+
             var job = 0
             val hp = player.getHP()
             val mp = player.getMP()
@@ -84,12 +84,13 @@ class CharacterCreatedActivity : AppCompatActivity() {
 
             val db:SQLiteDatabase = helper.writableDatabase
 
+        // 職業を数字に変換
         when(jobExtra){
 
-            "戦士" -> {job = 0}
-            "魔法使い" -> {job = 1}
-            "僧侶" -> {job = 2}
-            "忍者" -> {job = 3}
+            "戦士" -> job = 0
+            "魔法使い" -> job = 1
+            "僧侶" -> job = 2
+            "忍者" -> job = 3
         }
 
         db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck','$createAt')")

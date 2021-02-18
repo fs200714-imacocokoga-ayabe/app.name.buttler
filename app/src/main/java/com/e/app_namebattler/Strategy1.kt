@@ -1,14 +1,7 @@
 package com.e.app_namebattler
 
-class Strategy1 : BaseStrategy() {
-    // 通常攻撃
-    /**
-     * player,party1,party2を受け取りdata(味方ID,敵ID,作戦番号)を返す
-     * @param player1 :自身
-     * @param party1 :パーティ1
-     * @param party2 :パーティ2
-     * @return  :敵ID,作戦番号1
-     */
+class Strategy1 : BaseStrategy() {// 通常攻撃
+
     override fun attackStrategy(
         player1: Player,
         party1: List<Player>,
@@ -20,8 +13,9 @@ class Strategy1 : BaseStrategy() {
         } else { // player1がfalseの場合
             party.addAll(party1) // partyにparty1を入れる
         }
-        val a = random.nextInt(party.size)
-        player2 = party[a]
+
+        val a = (1..party.size).random()
+        player2 = party[a - 1]
         data[0] = player2!!.getIdNumber() // ランダムで出た相手ID
         data[1] = 1 // 作戦番号1を入れる
         party.clear()

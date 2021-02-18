@@ -2,9 +2,6 @@ package com.e.app_namebattler
 
 class JobFighter(name: String):Player(name) {
 
-//    init{
-//        makeCharacter(name)
-//    }
     constructor(
         name: String,
         job: String,

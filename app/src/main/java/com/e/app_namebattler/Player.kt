@@ -7,7 +7,6 @@ import java.security.MessageDigest
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
-
 open class Player{
 
     var random = Random()

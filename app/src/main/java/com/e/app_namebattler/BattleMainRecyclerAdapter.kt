@@ -28,7 +28,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
             holder.Name.setTextColor(Color.parseColor("#FF0000"))
 
         }else {
-            // HPが0移譲の場合名前を黒色に表示
+            // HPが0以上の場合名前を黒色に表示
             holder.Name.setTextColor(Color.parseColor("#000000"))
         }
 

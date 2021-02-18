@@ -35,7 +35,7 @@ class CharacterDetailActivity : AppCompatActivity() {
         // 名前を受け取る
         val nameExtra = intent.getStringExtra("name_key")
 
-               helper = MyOpenHelper(applicationContext)//DB作成
+        helper = MyOpenHelper(applicationContext)//DB作成
 
         val db = helper.readableDatabase
 
@@ -103,6 +103,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 createAt = ""
             }
 
+    // キャラクターステータス表示
             private fun characterStatus(){
 
                 val nameText: TextView = findViewById(R.id.character_detail_name_text_id)
@@ -133,6 +134,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 dateText.text = ("作成日：$createAt")
             }
 
+    // 数字を職業に変換
     private fun occupationConversion(jobValue:Int):String{
 
         when(jobValue){

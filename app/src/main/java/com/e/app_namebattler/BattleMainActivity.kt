@@ -22,17 +22,18 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     lateinit var mp0: MediaPlayer
     var handler: Handler? = null
     lateinit var helper: MyOpenHelper
+
     private val gm = GameManager()
 
     private var enemyPartyList = ArrayList<CharacterAllData>()
     private var allyPartyList = ArrayList<CharacterAllData>()
     lateinit var memberList: MutableList<MemberStatusData>
 
-    var strategyNumber = 0
-    var job = ""
+    var strategyNumber = 0 //作戦番号を格納
+    var job = "" // 職業名を格納
 
-    private var isTurn:Boolean = false
-    var isMessageSpeed:Boolean = false
+    private var isTurn:Boolean = false// true: 最初のターンが実行される　false:バトルログ画面を最初にタップするとtrueになる
+    var isMessageSpeed:Boolean = false// メッセージ速度変更に使用
 
     @SuppressLint("CutPasteId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,43 +46,35 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         this.handler = Handler()
 
+        // "Tap to start"の表示とバトルログ画面のタップ処理
         val battleMainLogTextDialog =
             findViewById<View>(R.id.battle_main_battle_log_text_id) as TextView
-
         battleMainLogTextDialog.setOnClickListener(this)
+        val bl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
+        bl.text = "Tap to start"
 
+        // BattleStartActivityからデータを受け取る
         val allyName01 = intent.getStringExtra("name01_key")
         val allyName02 = intent.getStringExtra("name02_key")
         val allyName03 = intent.getStringExtra("name03_key")
         val enemyName01 = intent.getStringExtra("enemyName01_key")
         val enemyName02 = intent.getStringExtra("enemyName02_key")
         val enemyName03 = intent.getStringExtra("enemyName03_key")
-        val strategyName = intent.getStringExtra("strategy_key")
 
-            if (strategyName != null) {
-
-                printStrategy(strategyName)
-
-            } else {
-
-                printStrategy("武器でたたかおう")
-            }
-
-        // タップすると始まります
-        val bl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-        bl.text = "Tap to start"
+        //  最初の作戦の表示
+        printStrategy()
 
         // 敵のデータを名前から取得する
         enemyPartyList = getEnemyData(enemyName01, enemyName02, enemyName03)
         // 味方のデータを名前から取得する
         allyPartyList = getAllyData(allyName01, allyName02, allyName03)
 
-        gm.myCallBack = this
+        gm.myCallBack = this// GameManagerクラスからBattleLogListenerを経てデータを戻す準備
 
         // コントロールをGameManagerに移譲
         gm.controlTransfer(allyPartyList, enemyPartyList)
 
-        // 作戦変更画面に遷移
+        // 作戦変更画面に遷移する処理
         battle_main_strategy_change_button_id.setOnClickListener {
             val intent = Intent(this, StrategyChangeActivity::class.java)
             startActivityForResult(intent, 1000)
@@ -92,26 +85,22 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             if (isTurn){
 
+                // どちらかのパーティが全滅した場合
                 if (gm.getParty01().isEmpty() || gm.getParty02().isEmpty()) {
                     // GameManagerクラス から　CharacterDataクラスにデータを渡す処理
                     gm.sendData()
 
-                    // パーティの勝ち負け判定に使用
-                    val party00 = gm.getParty01().size
-
                     val intent = Intent(this, BattleResultActivity::class.java)
 
-                    intent.putExtra("name_key01", allyName01)
-                    intent.putExtra("name_key02", allyName02)
-                    intent.putExtra("name_key03", allyName03)
-                    intent.putExtra("name_key04", enemyName01)
-                    intent.putExtra("name_key05", enemyName02)
-                    intent.putExtra("name_key06", enemyName03)
+                    // パーティの勝ち負け判定に使用　Party01のsizeが0なら敵の勝利1以上なら味方の勝利
+                    val party00 = gm.getParty01().size
+                    // BattleResultActivityにparty00を送る
                     intent.putExtra("party_key", party00)
 
                     mp0.reset()
                     startActivity(intent)
 
+                    //どちらのパーティも全滅していない場合
                 }else{
 
                     gm.battle(strategyNumber)
@@ -269,10 +258,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     }
 
     // 作戦の表示
-    private fun printStrategy(strategyName: String) {
-
+    private fun printStrategy() {
         val strategyText: TextView = findViewById(R.id.battle_main_strategy_text_id)
-        strategyText.text = strategyName
+        strategyText.text =  "武器でたたかおう"
     }
 
     override fun upDateBattleLog(battleLog: List<String>){
@@ -354,6 +342,7 @@ println("-----------------------------------------------------------------------
         }
     }
 
+    // バトルログ画面でのタップした時の処理
     override fun onClick(v: View?) {
 
         if (!isTurn){
@@ -365,7 +354,7 @@ println("-----------------------------------------------------------------------
             ms00.setGravity(Gravity.CENTER, 0, 0)
             ms00.show()
         }else {
-            isMessageSpeed = !isMessageSpeed
+            isMessageSpeed = !isMessageSpeed // 反転
 
             if (isMessageSpeed) {
 
@@ -381,6 +370,7 @@ println("-----------------------------------------------------------------------
         }
     }
 
+    // GameManagerクラスからBattleLogListener経て呼ばれる
     override fun upDateAllyStatus(ally01: Player, ally02: Player, ally03: Player){
 
         val ally001 = MemberStatusData(("  %s".format(ally01.getName())),
@@ -443,6 +433,7 @@ println("-----------------------------------------------------------------------
             })
     }
 
+    // GameManagerクラスからBattleLogListener経て呼ばれる
     override fun upDateEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player){
 
         val enemy001 = MemberStatusData(("  %s".format(enemy01.getName())),
@@ -493,6 +484,7 @@ println("-----------------------------------------------------------------------
         (battle_main_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
             object : BattleMainRecyclerAdapter.OnItemClickListener {
                 @SuppressLint("ResourceAsColor")
+
                 override fun onItemClickListener(
                     viw: View,
                     position: Int
@@ -565,5 +557,17 @@ println("-----------------------------------------------------------------------
     }
 
     override fun onBackPressed() {}
+
+    override fun upAllLog(
+        ally01: Player,
+        ally02: Player,
+        ally03: Player,
+        enemy01: Player,
+        enemy02: Player,
+        enemy03: Player,
+        battleLog: List<String>
+    ) {
+
+    }
 }
 

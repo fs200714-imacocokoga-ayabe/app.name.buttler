@@ -48,6 +48,7 @@ class CreateEnemy {
         return b
     }
 
+    // 敵キャラクターを作成
     @RequiresApi(Build.VERSION_CODES.O)
     fun makeEnemy(): ArrayList<CharacterAllData> {
 
@@ -79,6 +80,7 @@ class CreateEnemy {
 
         return enemyPartyList
     }
+
 
     fun setEnemyParty(enemyPartyList: ArrayList<CharacterAllData>) {
 

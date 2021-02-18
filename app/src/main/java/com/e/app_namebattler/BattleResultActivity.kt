@@ -14,6 +14,23 @@ class BattleResultActivity : AppCompatActivity() {
     lateinit var mp0: MediaPlayer
     lateinit var memberList: MutableList<MemberStatusData>
 
+    // CharacterDataクラスのデータを呼び出す
+    private val charaData = CharacterData.getInstance()
+    private val ally01 = charaData.ally01
+    private val ally02 = charaData.ally02
+    private val ally03 = charaData.ally03
+    private val enemy01 = charaData.enemy01
+    private val enemy02 = charaData.enemy02
+    private val enemy03 = charaData.enemy03
+
+    // 名前を格納
+    private val allyName01 = ally01?.getName()
+    private val allyName02 = ally02?.getName()
+    private val allyName03 = ally03?.getName()
+    private val enemyName01 = enemy01?.getName()
+    private val enemyName02 = enemy02?.getName()
+    private val enemyName03 = enemy03?.getName()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_result)
@@ -22,22 +39,8 @@ class BattleResultActivity : AppCompatActivity() {
         mp0.isLooping=true
         mp0.start()
 
-        val allyName01 = intent.getStringExtra("name_key01")
-        val allyName02 = intent.getStringExtra("name_key02")
-        val allyName03 = intent.getStringExtra("name_key03")
-        val enemyName01 = intent.getStringExtra("name_key04")
-        val enemyName02 = intent.getStringExtra("name_key05")
-        val enemyName03 = intent.getStringExtra("name_key06")
+        // BattleMainActivityからデータを受け取る
         val party00 = intent.getIntExtra("party_key",0)
-
-        val charaData = CharacterData.getInstance()
-
-        val ally01 = charaData.ally01
-        val ally02 = charaData.ally02
-        val ally03 = charaData.ally03
-        val enemy01 = charaData.enemy01
-        val enemy02 = charaData.enemy02
-        val enemy03 = charaData.enemy03
 
         if (ally01 != null) {
             if (ally02 != null) {
@@ -57,33 +60,31 @@ class BattleResultActivity : AppCompatActivity() {
 
         // 味方パーティメンバーが0の場合"you lose" を表示
         if (party00 == 0) {
-
             val imageView = findViewById<ImageView>(R.id.battle_result_win_or_Loss_imageView_id)
             imageView.setImageResource(R.drawable.i_defeat)
+
             // 味方パーティメンバーが0でない場合　"you win" を表示
         }else{
-
             val imageView = findViewById<ImageView>(R.id.battle_result_win_or_Loss_imageView_id)
             imageView.setImageResource(R.drawable.i_victory)
         }
 
-        // 次の対戦ボタンを押したときの処理
+        // 次の対戦ボタンを押したときの処理-BattleStartActivityに遷移
         battle_result_next_battle_button_id.setOnClickListener {
 
             val intent = Intent(this, BattleStartActivity::class.java)
-
             intent.putExtra("name_key01", allyName01)
             intent.putExtra("name_key02", allyName02)
             intent.putExtra("name_key03", allyName03)
+
             mp0.reset()
             startActivity(intent)
         }
 
-        // 再挑戦ボタンを押したときの処理
+        // 再挑戦ボタンを押したときの処理-BattleMainActivityに遷移
         battle_result_challenge_again_button_id.setOnClickListener {
 
             val intent = Intent(this, BattleMainActivity::class.java)
-
             intent.putExtra("name01_key", allyName01)
             intent.putExtra("name02_key", allyName02)
             intent.putExtra("name03_key", allyName03)
@@ -94,7 +95,7 @@ class BattleResultActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // 対戦を終了するボタンを押したときの処理
+        // 対戦を終了するボタンを押したときの処理-TopScreenActivityに遷移
         battle_result_end_battle_button_id.setOnClickListener {
 
             val intent = Intent(this, TopScreenActivity::class.java)
@@ -103,6 +104,7 @@ class BattleResultActivity : AppCompatActivity() {
         }
     }
 
+    // 味方キャラクターのステータス表示
      private fun resultAllyStatus(ally01: Player, ally02: Player, ally03: Player) {
 
          val ally001 = MemberStatusData(("  %s".format(ally01.getName())), ("%s %d/%d".format("  HP", ally01.hp, ally01.getMaxHp())), ("%s %d/%d".format("  MP", ally01.mp, ally01.getMaxMp())),("%s %s".format(ally01.getPoison(),ally01.getParalysis())),(ally01.hp))
@@ -126,6 +128,7 @@ class BattleResultActivity : AppCompatActivity() {
         }
     }
 
+    // 敵キャラクターのステータス表示
      private fun resultEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player) {
 
          val enemy001 = MemberStatusData(("  %s".format(enemy01.getName())), ("%s %d/%d".format("  HP", enemy01.hp, enemy01.getMaxHp())), ("%s %d/%d".format("  MP", enemy01.mp, enemy01.getMaxMp())),("%s %s".format(enemy01.getPoison(),enemy01.getParalysis())),(enemy01.hp))
@@ -148,6 +151,7 @@ class BattleResultActivity : AppCompatActivity() {
             battle_result_enemy_status_recycleView_id.adapter = this
         }
     }
+
     override fun onDestroy() {
         mp0.release()
         super.onDestroy()

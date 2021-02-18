@@ -3,18 +3,11 @@ package com.e.app_namebattler
 import java.util.*
 
 
-class Strategy4 : BaseStrategy() {
-    // 回復優先の作戦
+class Strategy4 : BaseStrategy() {// 回復優先の作戦
+
     private var _party1: MutableList<Player> = ArrayList()
     private var _party2: MutableList<Player> = ArrayList()
 
-    /**
-     * player,party1,party2を受け取りdata(味方ID,敵ID,作戦番号)を返す
-     * @param player1 :自身
-     * @param party1 :パーティ1
-     * @param party2 :パーティ2
-     * @return  敵ID,作戦番号4
-     */
     override fun attackStrategy(
         player1: Player,
         party1: List<Player>,
@@ -42,8 +35,9 @@ class Strategy4 : BaseStrategy() {
                 data[0] = player!!.getIdNumber() // 対象プレイヤーにHPの低い味方のIDを入れる
 
             } else if (_party2.size > 0) { // 自身のMPが20未満の場合
-                val a = random.nextInt(_party2.size)
-                player2 = _party2[a]
+
+                val a = (1.._party2.size).random()
+                player2 = _party2[a - 1]
                 data[0] = player2!!.getIdNumber() // 乱数で出た敵のIDを返す
             }
 
@@ -53,8 +47,8 @@ class Strategy4 : BaseStrategy() {
 
             if (_party2.size > 0) {
 
-                val a = random.nextInt(_party2.size)
-                player2 = _party2[a]
+                val a = (1.._party2.size).random()
+                player2 = _party2[a - 1]
                 data[0] = player2!!.getIdNumber() // 乱数で出た敵のIDを返す
                 data[1] = 4 // 作戦番号4を入れる
             }

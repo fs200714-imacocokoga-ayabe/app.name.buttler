@@ -24,7 +24,6 @@ class CharacterListActivity : AppCompatActivity(){
     var def = 0
     var agi = 0
     var luck = 0
-    var create_at = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -41,6 +40,7 @@ class CharacterListActivity : AppCompatActivity(){
 
                 characterList.clear()
 
+        // データベースからキャラクターを取得
                 try {
                     // rawQueryというSELECT専用メソッドを使用してデータを取得する
                     val c = db.rawQuery(
@@ -69,6 +69,7 @@ class CharacterListActivity : AppCompatActivity(){
                     db.close()
                 }
 
+             // listViewにListAdapterを関連付け、データの表示を行う
             val listView = findViewById<ListView>(R.id.character_list_battle_start_ally_battle_party_listView_id)
 
                 mListAdapter = ListAdapter(this, characterList)
@@ -77,8 +78,9 @@ class CharacterListActivity : AppCompatActivity(){
                 // 項目をタップしたときの処理
                 listView.setOnItemClickListener { parent, view, position, id ->
 
-                    val nameValue  = characterList[position].name
+                    val nameValue  = characterList[position].name // タップした場所のキャラクターの名前を取得
                     val intent = Intent(this, CharacterDetailActivity::class.java)
+                    // 名前をCharacterDetailActivityに渡す
                     intent.putExtra("name_key", nameValue)
                     mp0.reset()
                     startActivity(intent)
@@ -111,14 +113,15 @@ class CharacterListActivity : AppCompatActivity(){
         }
     }
 
+    // 数字を職業に変換
     private fun occupationConversion(jobValue: Int):String {
 
         when(jobValue){
 
-            0 -> {job = "戦士"}
-            1 -> {job = "魔法使い"}
-            2 -> {job = "僧侶"}
-            3 -> {job = "忍者"}
+            0 -> job = "戦士"
+            1 -> job = "魔法使い"
+            2 -> job = "僧侶"
+            3 -> job = "忍者"
         }
         return job
     }

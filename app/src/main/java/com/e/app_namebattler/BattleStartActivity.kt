@@ -17,7 +17,7 @@ class BattleStartActivity : AppCompatActivity() {
     lateinit var helper: MyOpenHelper
     private lateinit var mListAdapter: BattlePartyAdapter
 
-    var  allyPartyList = arrayListOf<CharacterAllData>()
+    var allyPartyList = arrayListOf<CharacterAllData>()
     var enemyPartyList = arrayListOf<CharacterAllData>()
     private val e = CreateEnemy()
 
@@ -50,12 +50,15 @@ class BattleStartActivity : AppCompatActivity() {
         name02 = intent.getStringExtra("name_key02").toString()
         name03 = intent.getStringExtra("name_key03").toString()
 
+        // データベースから敵の情報を削除
         deleteEnemy()
+        // CreateEnemyクラスで敵を作成
         e.setName()
 
         enemyPartyList.clear()
         enemyPartyList = e.makeEnemy()
 
+        // 敵と味方の表示
         printEnemy()
         printAlly()
 
@@ -71,6 +74,7 @@ class BattleStartActivity : AppCompatActivity() {
 
             val intent = Intent(this, BattleMainActivity::class.java)
 
+            // BattleMainActivityにデータを送る
             intent.putExtra("name01_key", name01)
             intent.putExtra("name02_key", name02)
             intent.putExtra("name03_key", name03)
@@ -78,6 +82,7 @@ class BattleStartActivity : AppCompatActivity() {
             intent.putExtra("enemyName02_key", enemyPartyList[1].name)
             intent.putExtra("enemyName03_key", enemyPartyList[2].name)
 
+            //　敵の情報をデータベースに入れる
             saveData(enemyPartyList)
             mp0.reset()
             startActivity(intent)
@@ -86,6 +91,7 @@ class BattleStartActivity : AppCompatActivity() {
         // 相手を選び直すボタンを押したときの処理
         battle_start_re_select_enemy_button_id.setOnClickListener {
             val intent = Intent(this, PartyOrganizationActivity::class.java)
+            // 敵を新しく作成して表示
             printEnemy()
         }
     }
@@ -120,7 +126,7 @@ class BattleStartActivity : AppCompatActivity() {
                 )
                 next = c.moveToNext()
             }
-            // }
+
         } finally {
             // finallyは、tryの中で例外が発生した時でも必ず実行される
             // dbを開いたら確実にclose
@@ -142,7 +148,7 @@ class BattleStartActivity : AppCompatActivity() {
                 mListAdapter = BattlePartyAdapter(this, enemyPartyList)
                 listView.adapter = mListAdapter
             }
-
+    //　データベースに入れる処理
             private fun saveData(enemyPartyList: ArrayList<CharacterAllData>) {
 
                 val db: SQLiteDatabase = helper.writableDatabase
@@ -180,6 +186,7 @@ class BattleStartActivity : AppCompatActivity() {
                 }
             }
 
+    // データベースから削除する処理
     private fun deleteEnemy(){
 
         val db = helper.writableDatabase
@@ -190,6 +197,7 @@ class BattleStartActivity : AppCompatActivity() {
         }
     }
 
+    // 数字からjob に職業を格納
     private fun occupationConversion(jobValue: Int): String {
 
         when (jobValue) {

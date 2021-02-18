@@ -32,15 +32,18 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         mp0.isLooping=true
         mp0.start()
 
+        // textWatcherのリスナーを登録　
         val createNameValues = findViewById<EditText>(R.id.character_creation_name_input_field_editText_id)
         createNameValues.addTextChangedListener(this)
 
+        // 戻るボタンを押した時の処理
         character_creation_create_character_back_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
             mp0.reset()
             startActivity(intent)
         }
 
+        // 作成するボタンを押したときの処理
         character_creation_create_character_button_id.setOnClickListener {
           //職業を取得
             val radioGroupJob: RadioGroup = findViewById(R.id.character_creation_character_select_radioGroup_id)
@@ -48,7 +51,6 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             val createJobValues: RadioButton = radioGroupJob.findViewById(radioId)
             //表示させる形式に変数を変換
             val nameValue: String = createNameValues.text.toString()
-
             // データベースの中に同じ名前が存在するかのチェック
             if (sameNameCheck(nameValue)){
 
@@ -59,6 +61,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
                 val jobValue: String = createJobValues.text.toString()
                 // 入力した名前と選択した職業を渡す
                 val intent = Intent(this, CharacterCreatedActivity::class.java)
+                // 名前と職業をCharacterCreateActivityに渡す
                 intent.putExtra("name_key", nameValue)
                 intent.putExtra("job_key", jobValue)
                 mp0.reset()
@@ -66,10 +69,14 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             }
         }
     }
-
+    // ---textWatcher---
+    // 文字列が修正される直前に呼び出される
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+    // 文字１つを入力した時に呼び出される
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
+    // 最後にこのメソッドが呼び出される
     @SuppressLint("ResourceAsColor")
     override fun afterTextChanged(s: Editable?) {
 
@@ -79,8 +86,8 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             val ic = Toast.makeText(this,
                 "名前は10文字までです",
                 Toast.LENGTH_SHORT)
-            ic.setGravity(Gravity.CENTER, 0, 0)
-            //  ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
+            ic.setGravity(Gravity.TOP, -0, 400)
+             // ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
             ic.show()
 
             val editText = findViewById<View>(R.id.character_creation_name_input_field_editText_id) as EditText
@@ -88,6 +95,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         }
     }
 
+    // 同じ名前がデータベースに存在しているかのチェック
     private fun sameNameCheck(nameValue: String?): Boolean{
 
         helper = MyOpenHelper(applicationContext)//DB作成
