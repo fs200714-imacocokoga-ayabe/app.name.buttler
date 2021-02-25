@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:splitMotionEvents="false"
-    tools:context=".BattleStartActivity">
+    tools:context=".view.view.activity.BattleStartActivity">
 
     // "バトル開始"表示
     <TextView

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:splitMotionEvents="false"
     android:verticalScrollbarPosition="defaultPosition"
-    tools:context=".BattleMainActivity">
+    tools:context=".view.view.activity.BattleMainActivity">
 
     // "バトル"表示
     <TextView

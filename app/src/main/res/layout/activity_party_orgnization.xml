@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:splitMotionEvents="false"
-    tools:context=".PartyOrganizationActivity">
+    tools:context=".view.view.activity.PartyOrganizationActivity">
 
     // "パーティ編成"の表示
     <TextView

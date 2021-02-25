@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:splitMotionEvents="false"
-    tools:context=".CharacterCreationActivity">
+    tools:context=".view.view.activity.CharacterCreationActivity">
 
     <TextView
         android:id="@+id/character_creation_create_character_print_text_id"

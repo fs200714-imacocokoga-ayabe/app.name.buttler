@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:splitMotionEvents="false"
-    tools:context=".CharacterDetailActivity"
+    tools:context=".view.view.activity.CharacterDetailActivity"
     tools:ignore="ExtraText">
 
     // "キャラ詳細"の表示

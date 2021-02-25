@@ -3,26 +3,26 @@
     package="com.e.app_namebattler">
 
     <application
-        android:name=".CharacterData"
+        android:name=".view.party.player.CharacterData"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BattleResultActivity"></activity>
-        <activity android:name=".StrategyChangeActivity" />
-        <activity android:name=".BattleMainActivity" />
-        <activity android:name=".CharacterCreatedActivity" />
-        <activity android:name=".CharacterCreationActivity" />
-        <activity android:name=".CharacterDetailActivity" />
+        <activity android:name=".view.view.activity.BattleResultActivity"></activity>
+        <activity android:name=".view.view.activity.StrategyChangeActivity" />
+        <activity android:name=".view.view.activity.BattleMainActivity" />
+        <activity android:name=".view.view.activity.CharacterCreatedActivity" />
+        <activity android:name=".view.view.activity.CharacterCreationActivity" />
+        <activity android:name=".view.view.activity.CharacterDetailActivity" />
         <activity
-            android:name=".BattleStartActivity"
+            android:name=".view.view.activity.BattleStartActivity"
             android:label="@string/title_activity_battle_start"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PartyOrganizationActivity" />
-        <activity android:name=".CharacterListActivity" />
-        <activity android:name=".TopScreenActivity">
+        <activity android:name=".view.view.activity.PartyOrganizationActivity" />
+        <activity android:name=".view.view.activity.CharacterListActivity" />
+        <activity android:name=".view.view.activity.TopScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
