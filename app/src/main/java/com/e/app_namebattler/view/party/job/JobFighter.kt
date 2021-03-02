@@ -1,6 +1,7 @@
 package com.e.app_namebattler.view.party.job
 
 import com.e.app_namebattler.view.party.player.Player
+import com.e.app_namebattler.view.party.skill.Skill
 
 class JobFighter(name: String): Player(name) {
 
@@ -26,20 +27,24 @@ class JobFighter(name: String): Player(name) {
         this.agi = getNumber(5, 49) + 1 // 1-50
     }
 
-    override fun attack(defender: Player, strategyNumber: Int): StringBuilder {
-        super.attack(defender, strategyNumber)
+    override fun normalAttack(defender: Player): StringBuilder {
+
+        log.clear()
+
+        log.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
+
+        damage = calcDamage(defender) // 与えるダメージを求める
+        damageProcess(defender, damage)
+        knockedDownCheck(defender)
+
         return log
     }
 
-    override fun normalAttack(defender: Player) {
-        log.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
-        damage = calcDamage(defender) // 与えるダメージを求める
-        damageProcess(defender, damage)
-    }
+    override fun skillAttack(defender: Player): StringBuilder { // スキル攻撃処理
 
-    override fun skillAttack(defender: Player) { // スキル攻撃処理
+        log.clear()
 
-        if ((1..100).random() > 75) { // 乱数値が75より大きいなら
+        if ((1..100).random() < Skill.ASSAULT.getInvocationRate()) { // 乱数値が30より小さい時
             log.append("${getName()}の捨て身の突撃！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             damage *= 2 // ダメージ2倍
@@ -48,5 +53,7 @@ class JobFighter(name: String): Player(name) {
         } else {
             log.append("${getName()}の捨て身の突撃はかわされた！！\n")
         }
+        knockedDownCheck(defender)
+        return log
     }
 }

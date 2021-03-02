@@ -107,7 +107,7 @@ class CharacterListActivity : AppCompatActivity(){
         character_list_new_create_button_id.setOnClickListener {
 
             //キャラクターリスとが8人以上でボタンが押されたらダイアログが表示される
-            if (characterList.size >= 8){
+            if (8 <= characterList.size){
                 val dialog = CharacterCreateMaxDialogFragment()
                 dialog.show(supportFragmentManager, "alert_dialog")
 

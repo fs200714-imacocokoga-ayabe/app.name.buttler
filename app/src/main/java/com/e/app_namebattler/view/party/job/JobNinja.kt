@@ -3,6 +3,7 @@ package com.e.app_namebattler.view.party.job
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.magic.IMagicalUsable
 import com.e.app_namebattler.view.party.magic.Magic
+import com.e.app_namebattler.view.party.skill.Skill
 
 class JobNinja (name:String): Player(name), IMagicalUsable {
 
@@ -17,8 +18,9 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
         luck: Int
     ) : this(name)
 
+    // 忍者のパラメータを名前から生成する
     override fun makeCharacter(name: String) {
-        // 忍者のパラメータを名前から生成する
+
         this.job = "忍者"
         this.hp = getNumber(0, 100) + 70 // 70-170
         this.mp = getNumber(1, 20) + 10 // 10-30
@@ -28,22 +30,20 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
         this.agi = getNumber(5, 40) + 40 // 40-80
     }
 
-    override fun attack(defender: Player, strategyNumber: Int): StringBuilder {
-        super.attack(defender, strategyNumber)
-        return log
-    }
-
-    override fun normalAttack(defender: Player) {
+    override fun normalAttack(defender: Player): StringBuilder {
+        log.clear()
         log.append("${getName()}の攻撃！\n刀で突きさした！\n")
         damage = calcDamage(defender) // 与えるダメージを求める
         damageProcess(defender, damage) // ダメージ処理
+        knockedDownCheck(defender)
+        return log
     }
 
-    override fun skillAttack(defender: Player) {
+    override fun skillAttack(defender: Player): StringBuilder {
 
-        damage = 0
+        log.clear()
 
-        if ((1..100).random() > 75) { // 25%で発動
+        if ((1..100).random() < Skill.SWALLOW.getInvocationRate()) { // 30%の確率で発動
 
             log.append("${getName()}は目にも止まらぬ速さで攻撃した！\n")
 
@@ -56,30 +56,37 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
                     break
                 }
             }
-        } else { // 75%で不発
+        } else { // 70%で不発
             log.append("${getName()}は転んだ！\n")
         }
+        knockedDownCheck(defender)
+        return log
     }
 
-    override fun magicAttack(defender: Player) {
+    override fun magicAttack(defender: Player): StringBuilder {
+
+        log.clear()
+
         if (hasEnoughMp()) {
             damage = effect()
             super.damageProcess(defender, damage)
+            knockedDownCheck(defender)
         } else {
-            log.append("MPが足りない！")
+            log.append("${getName()}は術を唱えようとしたが、MPが足りない！！\n")
             normalAttack(defender)
         }
+        return log
     }
 
     private fun effect(): Int {
 
-        damage = (Magic.FIREROLL.getMinDamage()..Magic.FIREROLL.getMaxDamage()).random() // 乱数10～30
-        this.mp = this.getMP() - Magic.FIREROLL.getMpCost() // MP消費
-        log.append("${getName()}は${Magic.FIREROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
+        damage = (Magic.FIRE_ROLL.getMinDamage()..Magic.FIRE_ROLL.getMaxDamage()).random() // 乱数10～30
+        this.mp = this.getMP() - Magic.FIRE_ROLL.getMpCost() // MP消費
+        log.append("${getName()}は${Magic.FIRE_ROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
         return damage
     }
 
     private fun hasEnoughMp(): Boolean {
-        return this.getMP() >= 10
+        return 10 <= this.getMP()
     }
 }

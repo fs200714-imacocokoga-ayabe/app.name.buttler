@@ -2,8 +2,6 @@ package com.e.app_namebattler.view.party.player
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.e.app_namebattler.view.party.magic.IMagicalUsable
-import com.e.app_namebattler.view.party.magic.IRecoveryMagic
 import com.e.app_namebattler.view.party.magic.Magic
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -23,7 +21,6 @@ open class Player{
         this.name = name
 
         makeCharacter(name)
-
     }
 
     constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int){
@@ -36,7 +33,6 @@ open class Player{
 //      this.agi = agi
 //      this.luck = luck
   }
-
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     open fun randomInt(rangeFirstNum: Int, rangeLastNum: Int) {
@@ -164,17 +160,15 @@ open class Player{
     }
 
     open fun getCharacterImageType(): Int {
-
         return characterImageType
     }
 
     open fun setCharacterImageType(appearance: Int){
-
         characterImageType = appearance
     }
 
     val isLive: Boolean
-        get() = hp > 0
+        get() = 0 < hp
 
     /**
      * 名前(name)からキャラクターに必要なパラメータを生成する
@@ -199,43 +193,10 @@ open class Player{
         return 0
     }
 
-    /**
-     * 対象プレイヤーに攻撃を行う
-     * @param defender: 対象プレイヤー
-     */
-        open fun attack(defender: Player, strategyNumber: Int): StringBuilder {
-
-        log.clear()
-
-            if (!isParalysis) { // 麻痺していない
-                when (strategyNumber) {
-                    1 -> normalAttack(defender)
-                    2 -> if (this is IMagicalUsable) {
-                            magicAttack(defender)
-                         } else {
-                            normalAttack(defender)
-                         }
-                    3 -> skillAttack(defender)
-                    4 -> if (this is IRecoveryMagic) {
-                             healingMagic(defender)
-                         } else {
-                             normalAttack(defender)
-                         }
-                    5 -> eatGrass()
-                }
-            } else {
-                log.append("${getName()}は麻痺で動けない！！\n")
-            }
-
-            fall(defender) // 倒れた判定
-
-        return log
-    }
-
-    open fun normalAttack(defender: Player) {}
-    open fun skillAttack(defender: Player) {}
-    open fun magicAttack(defender: Player) {}
-    open fun healingMagic(defender: Player) {}
+    open fun normalAttack(defender: Player): StringBuilder {return log}
+    open fun skillAttack(defender: Player): StringBuilder {return log}
+    open fun magicAttack(defender: Player): StringBuilder {return log}
+    open fun healingMagic(defender: Player): StringBuilder {return log}
 
     /**
      * 対象プレイヤー(target)に対して与えるダメージを計算する
@@ -272,32 +233,28 @@ open class Player{
      * defenderが倒れたかの判定
      * @param defender 相手
      */
-    open fun fall(defender: Player) {
+    open fun knockedDownCheck(defender: Player) {
         if (defender.getHP() <= 0) {
             log.append("${defender.getName()}は力尽きた...\n")
-            abnormalState() // 状態異常チェック
-        } else {
-            abnormalState() // 状態異常チェック
-            if (getHP() <= 0) { // playerの倒れた判定
-                log.append("${getName()}は力尽きた...\n")
-            }
         }
+            conditionCheck() // 状態異常チェック
     }
 
     /**
      * 状態異常のチェック
      */
-    private fun abnormalState() {
+    private fun conditionCheck() {
+
+        if (isParalysis) { // true:麻痺状態 false:麻痺していない
+            if ((1..100).random() <= Magic.PARALYSIS.getContinuousRate()) { // 麻痺の確立より乱数が上なら麻痺の解除
+                isParalysis = false // 麻痺解除
+                log.append("${getName()}は麻痺が解けた！\n")
+            }
+        }
 
         if (isPoison) { // true:毒状態 false:無毒状態
             damage(Magic.POISON.getMaxDamage()) // 毒のダメージ計算
             log.append("${getName()}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
-        }
-        if (isParalysis) { // true:麻痺状態 false:麻痺していない
-            if ((1..100).random() > Magic.PARALYSIS.getContinuousRate()) { // 麻痺の確立より乱数が上なら麻痺の解除
-                isParalysis = false // 麻痺解除
-                log.append("${getName()}は麻痺が解けた！\n")
-            }
         }
     }
 
@@ -313,9 +270,12 @@ open class Player{
     /**
      * 草を食べる処理
      */
-    open fun eatGrass() {
+    open fun eatGrass():StringBuilder {
+
+        log.clear()
 
         log.append("${getName()}は革袋の中にあった薬草を食べた！\n")
+
         when ((0..2).random()) {
             0 -> {
                 recoveryProcess(this, herbRecoveryValue)
@@ -336,6 +296,8 @@ open class Player{
                 log.append("${getName()}は何も起こらなかった！\n")
             }
         }
+        knockedDownCheck(this)
+        return log
     }
 
    open fun recoveryProcess(defender: Player, healValue: Int): Int {

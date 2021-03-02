@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.R
+import com.e.app_namebattler.view.strategy.StrategyName
 import kotlinx.android.synthetic.main.activity_strategy_change.*
 
 class StrategyChangeActivity : AppCompatActivity() {
@@ -26,19 +27,19 @@ class StrategyChangeActivity : AppCompatActivity() {
 
             val radioGroupStrategy: RadioGroup = findViewById(R.id.strategy_change_strategy_radioGroup_id)
             val radioId = radioGroupStrategy.checkedRadioButtonId
-            var strategyName = ""
+            var strategyNumber = 0
 
          when(radioId){
 
-                R.id.strategy_change_strategy01_radioButton_id -> strategyName = "武器でたたかおう"
-                R.id.strategy_change_strategy02_radioButton_id -> strategyName = "攻撃魔法をつかおう"
-                R.id.strategy_change_strategy03_radioButton_id -> strategyName = "スキルをつかおう"
-                R.id.strategy_change_strategy04_radioButton_id -> strategyName = "回復魔法をつかおう"
-                R.id.strategy_change_strategy05_radioButton_id -> strategyName = "薬草をつかおう"
+                R.id.strategy_change_strategy01_radioButton_id -> strategyNumber = StrategyName.S0.getStrategyNumber()
+                R.id.strategy_change_strategy02_radioButton_id -> strategyNumber = StrategyName.S1.getStrategyNumber()
+                R.id.strategy_change_strategy03_radioButton_id -> strategyNumber = StrategyName.S2.getStrategyNumber()
+                R.id.strategy_change_strategy04_radioButton_id -> strategyNumber = StrategyName.S3.getStrategyNumber()
+                R.id.strategy_change_strategy05_radioButton_id -> strategyNumber = StrategyName.S4.getStrategyNumber()
             }
 
             val result = Intent()
-            result.putExtra("strategy_key", strategyName)
+            result.putExtra("strategy_key", strategyNumber)
 
             setResult(Activity.RESULT_OK, result)
             mp0.reset()
@@ -53,3 +54,5 @@ class StrategyChangeActivity : AppCompatActivity() {
 
     override fun onBackPressed() {}
 }
+
+

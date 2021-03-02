@@ -84,7 +84,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
         inputStr = s.toString()
 
-        if (inputStr.length > 10) {
+        if (10 < inputStr.length) {
             val ic = Toast.makeText(this,
                 "名前は10文字までです",
                 Toast.LENGTH_SHORT)

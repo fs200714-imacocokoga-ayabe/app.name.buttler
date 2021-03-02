@@ -8,13 +8,14 @@ open class BaseStrategy : IStrategy {
     protected var player1: Player? = null
     protected var player2: Player? = null
     protected var party: MutableList<Player> = ArrayList()
-    protected var data = IntArray(2) // 味方IDと敵IDと作戦番号を格納
+
+    protected val battleLog = StringBuilder()
 
     override fun attackStrategy(
         player1: Player,
         party1: List<Player>,
         party2: List<Player>
-    ): IntArray {
-        return data
+    ): StringBuilder{
+        return battleLog
     }
 }

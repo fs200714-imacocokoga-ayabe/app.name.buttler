@@ -8,8 +8,7 @@ class Context(var istrategy: IStrategy) {
         player1: Player?,
         party1: List<Player>,
         party2: List<Player>
-    ): IntArray {
-
+    ): StringBuilder {
         return istrategy.attackStrategy(player1!!, party1, party2)
     }
 }

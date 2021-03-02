@@ -10,6 +10,7 @@ import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.CharacterData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.*
+import java.lang.Character.getName
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,7 +23,7 @@ class GameManager {
     var context: Context? = null
 
     private val handler: Handler = Handler()
-    private val battleLog = StringBuilder()
+    private var battleLog = StringBuilder()
 
     var myCallBack: BattleLogListener? = null
 
@@ -47,7 +48,6 @@ class GameManager {
     var imageType = 0 // キャラクターの外観に使用
 
     private var enemyStrategyNumber = 0 // 作戦の選択に使用
-    var strategyData = IntArray(2) // 攻撃プレイヤーIDと守備プレイヤーIDと作戦番号を格納
 
     // Activityから指揮権を受け取る
     fun controlTransfer(
@@ -80,7 +80,6 @@ class GameManager {
 
         // 行動するキャラクターattackListに格納
         for (i in 1..pt.getMembers().size) {
-
             attackList.add(pt.getMembers()[i - 1])
         }
 
@@ -90,29 +89,35 @@ class GameManager {
 
             if (player1.isLive) {// player1のHPが0より大きい場合
 
-                if (player1.isMark) { // player1が味方の場合
+                if (player1.isParalysis){// 麻痺している場合
 
-                    strategyData = selectStrategyNumber(strategyNumber)
+                    battleLog.append("${player1.getName()}は麻痺で動けない！！\n")
 
-                } else {
-                    enemyStrategyNumber = (0..4).random()// 作戦ランダム0-4
+                }else {// 麻痺していない場合
 
-                    strategyData = selectStrategyNumber(enemyStrategyNumber)
+                    if (player1.isMark) { // player1が味方の場合
+                        battleLog.append(selectStrategyNumber(strategyNumber))
+
+                    } else {
+                        enemyStrategyNumber = (0..4).random()// 敵の作戦ランダム
+                        battleLog.append(selectStrategyNumber(enemyStrategyNumber))
+
+                    }
                 }
 
-                player2 = pt.selectMember(strategyData[0])!! // 作戦で選んだ相手を呼ぶ
-
-                battleLog.append(player1.attack(player2, strategyData[1])) // player1に相手と作戦を送り攻撃する
                 battleLog.append("@@")// playerごとのログを@@で分けるために加える
-                // 敗北判定
-                judgment()
             }
+
+            // 敗北判定
+            judgment()
 
             // どちらかのパーティが全滅した場合処理を抜ける
             if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
                 break
             }
         }
+
+
 
         val array = battleLog.split("@@") //playerごとに分ける
 
@@ -138,7 +143,7 @@ class GameManager {
 //    }
 
     // 選んだ作戦番号から対象プレイヤーと作戦を得て返す
-    private fun selectStrategyNumber(number: Int): IntArray {
+    private fun selectStrategyNumber(number: Int): StringBuilder {
         when (number) {
             0 -> context = Context(StrategyNormalAttack())
             1 -> context = Context(StrategyUseMagic())
@@ -146,27 +151,23 @@ class GameManager {
             3 -> context = Context(StrategyUseHealingMagic())
             4 -> context = Context(StrategyUseHerb())
         }
-
-        strategyData = context?.attackStrategy(player1, pt.getParty1(),
+        return context?.attackStrategy(player1, pt.getParty1(),
             pt.getParty2())!!
-
-        return strategyData
     }
 
 
     // 敗北判定の処理
     private fun judgment(){
+        
+        for (i in attackList){
 
-        if (player1.getHP() <= 0) { // プレイヤー１相手プレイヤーの敗北判定
-            speedOrderList-=player1
-            pt.removePlayer(player1)
-            pt.removeMembers(player1)
+            if (i.hp <= 0) {
+                speedOrderList -= i
+                pt.removePlayer(i)
+                pt.removeMembers(i)
+            }
         }
-        if (player2.getHP() <= 0) { // 相手プレイヤーがHP0の場合
-            speedOrderList -= player2
-            pt.removePlayer(player2)
-            pt.removeMembers(player2)
-        }
+
     }
 
     // 速さ順に並び処理
@@ -372,7 +373,6 @@ class GameManager {
         myCallBack?.upDateAllyStatus(ally01, ally02, ally03)
         myCallBack?.upDateEnemyStatus(enemy01, enemy02, enemy03)
     }
-
 
     fun  getParty01():List<Player>{
         return party01

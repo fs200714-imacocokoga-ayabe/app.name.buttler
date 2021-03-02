@@ -6,9 +6,6 @@ import com.e.app_namebattler.view.party.magic.Magic
 
 class JobWizard (name:String): Player(name), IMagicalUsable {
 
-//    init {
-//        makeCharacter(name)
-//    }
     constructor(
         name: String,
         job: String,
@@ -31,46 +28,54 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
         this.agi = getNumber(5, 40) + 20 // 20-60
     }
 
-    override fun attack(defender: Player, strategyNumber: Int): StringBuilder {
-        super.attack(defender, strategyNumber)
-        return log
-    }
+    override fun normalAttack(defender: Player): StringBuilder {
 
-    override fun normalAttack(defender: Player) {
+        log.clear()
 
         log.append("${getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
         damage = calcDamage(defender) // 与えるダメージを求める
         damageProcess(defender, damage)
+        knockedDownCheck(defender)
+        return log
     }
 
-    override fun skillAttack(defender: Player) {
+    override fun skillAttack(defender: Player): StringBuilder {
 
-        if ((1..100).random() > 75) { // 25％で発動
+        log.clear()
 
-            log.append("${getName()}は魔法陣を描いて${Magic.FIREELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
+        if ((1..100).random() < Magic.FIRE_ELEMENTAL.getContinuousRate()) { // 40％で発動
+
+            log.append("${getName()}は魔法陣を描いて${Magic.FIRE_ELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
 
             super.damageProcess(
                 defender,
-                Magic.FIREELEMENTAL.getMinDamage()
+                Magic.FIRE_ELEMENTAL.getMinDamage()
             ) // ダメージ処理
-        } else { // 75%で不発
+        } else { // 60%で不発
             log.append("${getName()}の攻撃だがスキルは発動しなかった！\n")
         }
+        knockedDownCheck(defender)
+        return log
     }
 
-    override fun magicAttack(defender: Player) {
+    override fun magicAttack(defender: Player): StringBuilder {
+
+        log.clear()
+
         if (hasEnoughMp()) {
             damage = effect()
             super.damageProcess(defender, damage)
+            knockedDownCheck(defender)
         } else {
-            log.append("MPが足りない！")
+            log.append("${getName()}は魔法を唱えようとしたが、MPが足りない！！\n")
             normalAttack(defender)
         }
+        return log
     }
 
     private fun effect(): Int {
 
-        if (getMP() >= 20) { // MPが20以上の場合
+        if (20 <= getMP()) { // MPが20以上の場合
 
             damage = if ((1..2).random() == 1) { // 1の場合サンダーを使用
                 useThunder()
@@ -100,6 +105,6 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
     }
 
     private fun hasEnoughMp(): Boolean {
-        return this.getMP() >= 10
+        return 10 <= this.getMP()
     }
 }

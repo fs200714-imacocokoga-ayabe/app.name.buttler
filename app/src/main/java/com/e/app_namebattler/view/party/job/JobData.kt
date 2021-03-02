@@ -2,19 +2,21 @@ package com.e.app_namebattler.view.party.job
 
 enum class JobData(
 
-    private val jobName: String,
-    private val jobNumber: Int) {
+    private val jobNumber: Int,
+    private val jobName: String) {
 
-    FIGHTER("戦士", 0),
-    WIZARD("魔法使い", 1),
-    PRIEST("僧侶", 2),
-    NINJA("忍者", 3);
+    FIGHTER(0,"戦士"),
+    WIZARD(1,"魔法使い"),
+    PRIEST(2,"僧侶"),
+    NINJA(3,"忍者");
+
+    fun getJobNumber(): Int {
+        return jobNumber
+    }
 
     fun getJobName(): String {
         return jobName
     }
 
-    fun getJobNumber(): Int {
-        return jobNumber
-    }
+
 }

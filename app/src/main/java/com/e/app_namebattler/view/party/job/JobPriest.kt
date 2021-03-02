@@ -7,9 +7,6 @@ import com.e.app_namebattler.view.party.magic.Magic
 
 class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
-//    init {
-//        makeCharacter(name)
-//    }
     constructor(
         name: String,
         job: String,
@@ -34,38 +31,49 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
         this.agi = getNumber(5, 40) + 20 // 20-60
     }
 
-    override fun attack(defender: Player, strategyNumber: Int): StringBuilder {
-        super.attack(defender, strategyNumber)
-        return log
-    }
+    override fun normalAttack(defender: Player): StringBuilder {
 
-    override fun normalAttack(defender: Player) {
+        log.clear()
+
         log.append("${getName()}の攻撃！\n錫杖で突いた！\n")
         damage = calcDamage(defender) // 与えるダメージを求める
         damageProcess(defender, damage) // ダメージ処理
+        knockedDownCheck(defender)
+        return log
     }
 
-    override fun skillAttack(defender: Player) {
+    override fun skillAttack(defender: Player): StringBuilder {
 
-        if ((1..100).random() > 50) {
-            log.append("${getName()}は祈りを捧げて${Magic.OPTICALELEMENTAL.getName()}を召還した\n${Magic.OPTICALELEMENTAL.getName()}の祝福を受けた！\n")
-            recoveryProcess(this, Magic.OPTICALELEMENTAL.getRecoveryValue())
+        log.clear()
+
+        if ((1..100).random() < Magic.OPTICAL_ELEMENTAL.getInvocationRate()) {
+            log.append("${getName()}は祈りを捧げて${Magic.OPTICAL_ELEMENTAL.getName()}を召還した\n${Magic.OPTICAL_ELEMENTAL.getName()}の祝福を受けた！\n")
+            recoveryProcess(this, Magic.OPTICAL_ELEMENTAL.getRecoveryValue())
         } else {
             log.append("${getName()}は祈りを捧げたが何も起こらなかった！\n")
         }
+        knockedDownCheck(this)
+        return log
     }
 
-    override fun magicAttack(defender: Player) {
+    override fun magicAttack(defender: Player): StringBuilder {
+
+        log.clear()
+
         if (hasEnoughMp()) {
             damage = effect(defender)
+            knockedDownCheck(defender)
         } else {
-            log.append("MPが足りない！")
+            log.append("{getName()}は魔法を唱えようとしたが、MPが足りない！！\n")
             normalAttack(defender)
         }
+        return log
     }
 
-    override fun healingMagic(defender: Player) {
+    override fun healingMagic(defender: Player): StringBuilder {
+
         isHeal = true
+
         if (hasEnoughMp()) { // MPが20以上の場合ヒールを使用
             this.mp = this.getMP() - Magic.HEAL.getMpCost() // MP消費
                         log.append("${getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${getName()}を包む\n")
@@ -74,12 +82,16 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
                 defender, Magic.HEAL
                     .getRecoveryValue()
             )
+            knockedDownCheck(this)
         } else { // MPが20未満の場合
-           log.append("${getName()}の攻撃！\n錫杖を振りかざした！\n")
+            log.append("{getName()}はヒールを唱えようとしたが、MPが足りない！！\n")
+            log.append("${getName()}の攻撃！\n錫杖を振りかざした！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             super.damageProcess(defender, damage) // ダメージ処理
+            knockedDownCheck(defender)
         }
         isHeal = false
+        return log
     }
 
     private fun effect(defender: Player): Int {
@@ -121,8 +133,8 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
     }
 
     private fun hasEnoughMp(): Boolean {
-        return if (this.getMP() >= 10 && !isHeal) {
+        return if (10 <= this.getMP() && !isHeal) {
             true
-        } else this.getMP() >= 20 && isHeal
+        } else 20 <= this.getMP() && isHeal
     }
 }

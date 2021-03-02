@@ -21,6 +21,7 @@ import com.e.app_namebattler.model.MyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
+import com.e.app_namebattler.view.strategy.StrategyName
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
 import kotlinx.android.synthetic.main.activity_battle_main.*
@@ -128,30 +129,23 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         if (resultCode == Activity.RESULT_OK && data != null){
 
-            val message = data.getStringExtra("strategy_key")
+            var message = ""
 
-            when (message) {
-                "武器でたたかおう" -> {
-                    strategyNumber = 0
-                }
-                "攻撃魔法をつかおう" -> {
-                    strategyNumber = 1
-                }
-                "スキルをつかおう" -> {
-                    strategyNumber = 2
-                }
-                "回復魔法をつかおう" -> {
-                    strategyNumber = 3
-                }
-                "薬草をつかおう" -> {
-                    strategyNumber = 4
-                }
+            strategyNumber = data.getIntExtra("strategy_key",0)
+
+            when (strategyNumber) {
+
+                0 -> message = StrategyName.S0.getStrategyName()
+                1 ->  message = StrategyName.S1.getStrategyName()
+                2 ->  message = StrategyName.S2.getStrategyName()
+                3 ->  message = StrategyName.S3.getStrategyName()
+                4 ->  message = StrategyName.S4.getStrategyName()
             }
             sn.text = message
 
         } else if(resultCode == Activity.RESULT_CANCELED){
 
-            sn.text = "武器でたたかおう"
+            sn.text = StrategyName.S0.getStrategyName()
         }
     }
 
@@ -269,7 +263,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     // 作戦の表示
     private fun printStrategy() {
         val strategyText: TextView = findViewById(R.id.battle_main_strategy_text_id)
-        strategyText.text =  "武器でたたかおう"
+        strategyText.text =  StrategyName.S0.getStrategyName()
     }
 
     override fun upDateBattleLog(battleLog: List<String>){
