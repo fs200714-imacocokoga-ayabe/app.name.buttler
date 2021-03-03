@@ -163,8 +163,8 @@ open class Player{
         return characterImageType
     }
 
-    open fun setCharacterImageType(appearance: Int){
-        characterImageType = appearance
+    open fun setCharacterImageType(characterImage: Int){
+        characterImageType = characterImage
     }
 
     val isLive: Boolean

@@ -19,7 +19,6 @@ import com.e.app_namebattler.view.view.fragment.PartySelectMaxDialogFragment
 import com.e.app_namebattler.view.view.adapter.PartyListAdapter
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
 import kotlinx.android.synthetic.main.data_party_organization_character_status.view.*
-import kotlinx.coroutines.Job
 
 
 class PartyOrganizationActivity : AppCompatActivity() {
@@ -46,7 +45,6 @@ class PartyOrganizationActivity : AppCompatActivity() {
     var radioNumber = 0
     var arrayRadioId = ArrayList<Int>()
 
-
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +61,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
         try {
             // rawQueryというSELECT専用メソッドを使用してデータを取得する
             val c = db.rawQuery(
-                "select NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT from CHARACTER",
+                "select NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT, CHARACTER_IMAGE from CHARACTER",
                 null
             )
             // Cursorの先頭行があるかどうか確認
@@ -76,7 +74,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
                     CharacterAllData(
                         c.getString(0), (occupationConversion(c.getInt(1))),
                         c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
-                        c.getInt(6), c.getInt(7), c.getString(8)
+                        c.getInt(6), c.getInt(7), c.getString(8), c.getInt(9)
                     )
                 )
                 next = c.moveToNext()
@@ -195,7 +193,6 @@ class PartyOrganizationActivity : AppCompatActivity() {
             }
 
             rNum = 0
-
 
         }else{
             radioButton.isChecked = true

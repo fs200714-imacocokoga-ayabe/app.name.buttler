@@ -10,10 +10,8 @@ import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.CharacterData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.*
-import java.lang.Character.getName
 import java.util.*
 import kotlin.collections.ArrayList
-
 
 class GameManager {
 
@@ -117,8 +115,6 @@ class GameManager {
             }
         }
 
-
-
         val array = battleLog.split("@@") //playerごとに分ける
 
         myCallBack?.upDateBattleLog(array) //BattleLogListenerを通してBattleMainActivityにarrayを送る
@@ -167,7 +163,6 @@ class GameManager {
                 pt.removeMembers(i)
             }
         }
-
     }
 
     // 速さ順に並び処理
@@ -205,7 +200,6 @@ class GameManager {
             player = i
             pt.setMembers(player)
         }
-
         return speedData
     }
 
@@ -265,39 +259,9 @@ class GameManager {
         enemy.isPoison = false
         enemy.isParalysis = false
         enemy.setIdNumber(id)
-        enemy.job?.let { makeEnemyImageType(it) }?.let { enemy.setCharacterImageType(it) }
+        enemy.setCharacterImageType(enemyPartyList.character_image)
 
         return enemy
-    }
-
-    // 敵キャラクターの外観を決める
-    private fun makeEnemyImageType(job: String): Int {
-
-        when(job){
-
-            "戦士" -> imageType = (15..18).random()
-            "魔法使い" ->  imageType = (19..22).random()
-            "僧侶" ->  imageType = (23..26).random()
-            "忍者" -> imageType = (27..29).random()
-//            "戦士" -> imageType = (1..ImageTypeData.ALLY_FIGHTER_IMAGE.getAllyImageTypeNumber()).random()
-//            "魔法使い" ->  imageType = (19..22).random()
-//            "僧侶" ->  imageType = (23..26).random()
-//            "忍者" -> imageType = (27..29).random()
-        }
-            return imageType
-    }
-
-    // 味方キャラクターの外観を決める
-    private fun makeAllyImageType(job: String): Int {
-
-        when(job){
-
-            "戦士" -> imageType = (0..3).random()
-            "魔法使い" -> imageType = (4..7).random()
-            "僧侶" -> imageType = (8..11).random()
-            "忍者" -> imageType = (12..14).random()
-        }
-            return imageType
     }
 
     // 味方キャラクターを作成する
@@ -356,7 +320,7 @@ class GameManager {
         ally.isPoison = false
         ally.isParalysis = false
         ally.setIdNumber(id)
-        ally.job?.let { makeAllyImageType(it) }?.let { ally.setCharacterImageType(it) }
+        ally.setCharacterImageType(allyPartyList.character_image)
 
         return ally
     }

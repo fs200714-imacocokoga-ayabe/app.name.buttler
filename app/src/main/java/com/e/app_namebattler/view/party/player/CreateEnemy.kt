@@ -17,6 +17,12 @@ class CreateEnemy {
     var enemyPartyList02 = arrayListOf<CharacterAllData>()
     private val enemyNameList = ArrayList<EnemyName>()
     private val jobList = ArrayList<EnemyJob>()
+    private val enemyFighterImageList = ArrayList<EnemyFighterImageData>()
+    private val enemyWizardImageList = ArrayList<EnemyWizardImageData>()
+    private val enemyPriestImageList = ArrayList<EnemyPriestImageData>()
+    private val enemyNinjaImageList = ArrayList<EnemyNinjaImageData>()
+    private var enemyImage: Int = 0
+
 
     // 相手の名前をenemyListに格納する
    fun setName() {
@@ -52,6 +58,34 @@ class CreateEnemy {
         return b
     }
 
+    // 敵キャラクターのイメージ画像をランダムで取得
+    private fun selectImage(enemyJob: String): Int {
+
+        for (e in EnemyFighterImageData.values()) {
+            enemyFighterImageList.add(e)
+        }
+
+        for (e in EnemyWizardImageData.values()) {
+            enemyWizardImageList.add(e)
+        }
+
+        for (e in EnemyPriestImageData.values()) {
+            enemyPriestImageList.add(e)
+        }
+
+        for (e in EnemyNinjaImageData.values()) {
+            enemyNinjaImageList.add(e)
+        }
+
+        when(enemyJob){
+            "戦士" -> enemyImage = enemyFighterImageList[(1..enemyFighterImageList.size).random() - 1].getCharacterImage()
+            "魔法使い" -> enemyImage = enemyWizardImageList[(1..enemyWizardImageList.size).random() - 1].getCharacterImage()
+            "僧侶" -> enemyImage = enemyPriestImageList[(1..enemyPriestImageList.size).random() - 1].getCharacterImage()
+            "忍者" -> enemyImage = enemyNinjaImageList[(1..enemyNinjaImageList.size).random() - 1].getCharacterImage()
+        }
+        return  enemyImage
+    }
+
     // 敵キャラクターを作成
     @RequiresApi(Build.VERSION_CODES.O)
     fun makeEnemy(): ArrayList<CharacterAllData> {
@@ -60,6 +94,7 @@ class CreateEnemy {
 
             val enemyName = selectName()
             val enemyJob = selectJob()
+            val enemyImage = selectImage(enemyJob)
 
             when (enemyJob) {
 
@@ -76,15 +111,14 @@ class CreateEnemy {
             enemyPartyList.add(
                 CharacterAllData(
                     enemyName, enemyJob,
-                    enemy.hp, enemy.mp,enemy.str,enemy.def,
-                    enemy.agi,enemy.luck,createAt
+                    enemy.hp, enemy.mp, enemy.str, enemy.def,
+                    enemy.agi, enemy.luck, createAt, enemyImage
                 )
             )
         }
 
         return enemyPartyList
     }
-
 
     fun setEnemyParty(enemyPartyList: ArrayList<CharacterAllData>) {
 

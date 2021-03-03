@@ -19,6 +19,7 @@ import com.e.app_namebattler.controller.BattleLogListener
 import com.e.app_namebattler.controller.GameManager
 import com.e.app_namebattler.model.MyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.party.player.AllyFighterImageData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.StrategyName
@@ -114,7 +115,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 }else{
 
                     gm.battle(strategyNumber)
-
                 }
             }
         }
@@ -183,7 +183,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                         c.getInt(5),
                         c.getInt(6),
                         c.getInt(7),
-                        c.getString(8)
+                        c.getString(8),
+                        c.getInt(9)
                     )
                 )
                 next = c.moveToNext()
@@ -232,7 +233,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                         c.getInt(5),
                         c.getInt(6),
                         c.getInt(7),
-                        c.getString(8)
+                        c.getString(8),
+                        c.getInt(9)
                     )
                 )
                 next = c.moveToNext()
@@ -251,7 +253,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private fun occupationConversion(jobValue: Int): String {
 
         when (jobValue) {
-
             0 -> job = JobData.FIGHTER.getJobName()
             1 -> job = JobData.WIZARD.getJobName()
             2 -> job = JobData.PRIEST.getJobName()
@@ -501,87 +502,24 @@ println("-----------------------------------------------------------------------
             })
     }
 
+    // バトルメイン画面でステータスをタップでキャラクターのステータスを表示する
     @SuppressLint("ShowToast", "InflateParams")
-    private fun setImageType(characterImageType: Player) {
+    private fun setImageType(character: Player) {
 
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout, null)
 
-        when(characterImageType.getCharacterImageType()){
-
-            0 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.fighter_ally01)
-            1 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.fighter_ally02)
-            2 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.fighter_ally03)
-            3 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.fighter_ally04)
-            4 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.wizard_ally01)
-            5 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.wizard_ally02)
-            6 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.wizard_ally03)
-            7 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.wizard_ally04)
-            8 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.priest_ally01)
-            9 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.priest_ally02)
-            10 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.priest_ally03)
-            11 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.priest_ally04)
-            12 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.ninja_ally01)
-            13 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.ninja_ally02)
-            14 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.ninja_ally03)
-            15 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.fighter_enemy01)
-            16 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.fighter_enemy02)
-            17 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.fighter_enemy03)
-            18 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.fighter_enemy04)
-            19 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.wizard_enemy01)
-            20 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.wizard_enemy02)
-            21 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.wizard_enemy03)
-            22 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.wizard_enemy04)
-            23 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.priest_enemy01)
-            24 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.priest_enemy02)
-            25 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.priest_enemy03)
-            26 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.priest_enemy04)
-            27 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.ninja_enemy01)
-            28 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.ninja_enemy02)
-            29 -> (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-                R.drawable.ninja_enemy03)
-        }
-
+        (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(character.getCharacterImageType())
         val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
         ts.setGravity(Gravity.CENTER, 0, 0)
-        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text = "${characterImageType.job}"
-        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text = "${characterImageType.str}"
-        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text = "${characterImageType.def}"
-        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text = "${characterImageType.agi}"
-        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text = "${characterImageType.luck}"
+        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text = "${character.job}"
+        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text = "${character.str}"
+        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text = "${character.def}"
+        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text = "${character.agi}"
+        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text = "${character.luck}"
         ts.setView(customToastView)
         ts.show()
     }
-
 
     override fun onDestroy() {
         mp0.release()

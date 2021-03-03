@@ -127,7 +127,7 @@ class BattleStartActivity : AppCompatActivity() {
                     CharacterAllData(
                         c.getString(0), occupationConversion(c.getInt(1)),
                         c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
-                        c.getInt(6), c.getInt(7), c.getString(8)
+                        c.getInt(6), c.getInt(7), c.getString(8), c.getInt(9)
                     )
                 )
                 next = c.moveToNext()
@@ -172,6 +172,7 @@ class BattleStartActivity : AppCompatActivity() {
                         val enemyAgi = enemyPartyList[i - 1].agi
                         val enemyLuck = enemyPartyList[i - 1].luck
                         val enemyDate = enemyPartyList[i - 1].create_at
+                        val enemyImage = enemyPartyList[i - 1].character_image
 
                         var jobI = 0
 
@@ -183,7 +184,7 @@ class BattleStartActivity : AppCompatActivity() {
                             "忍者" -> jobI = JobData.NINJA.getJobNumber()
                         }
 
-                        db.execSQL("INSERT INTO ENEMY(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$enemyName','$jobI','$enemyHp','$enemyMp','$enemyStr','$enemyDef','$enemyAgi','$enemyLuck','$enemyDate')")
+                        db.execSQL("INSERT INTO ENEMY(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT, CHARACTER_IMAGE) VALUES ('$enemyName','$jobI','$enemyHp','$enemyMp','$enemyStr','$enemyDef','$enemyAgi','$enemyLuck','$enemyDate','$enemyImage')")
                     }
 
                 }finally {

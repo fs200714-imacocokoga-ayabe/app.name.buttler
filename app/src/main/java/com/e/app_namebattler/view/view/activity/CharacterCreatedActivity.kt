@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.*
 import com.e.app_namebattler.model.MyOpenHelper
 import com.e.app_namebattler.view.party.job.*
-import com.e.app_namebattler.view.party.player.Player
+import com.e.app_namebattler.view.party.player.*
 import com.e.app_namebattler.view.view.fragment.CharacterCreateMaxDialogFragment
 import kotlinx.android.synthetic.main.activity_character_created.*
 import java.time.LocalDateTime
@@ -23,6 +23,12 @@ class CharacterCreatedActivity : AppCompatActivity() {
     lateinit var mp0: MediaPlayer
     lateinit var helper: MyOpenHelper
     private lateinit var player: Player
+
+    private val allyFighterImageList = ArrayList<AllyFighterImageData>()
+    private val allyWizardImageList = ArrayList<AllyWizardImageData>()
+    private val allyPriestImageList = ArrayList<AllyPriestImageData>()
+    private val allyNinjaImageList = ArrayList<AllyNinjaImageData>()
+    private var allyImage: Int = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,15 +54,24 @@ class CharacterCreatedActivity : AppCompatActivity() {
 
         val name = nameExtra.toString()
 
+        var job = 0
+
+        // 職業を数字に変換
+        when(jobExtra){
+            "戦士" -> job = JobData.FIGHTER.getJobNumber()
+            "魔法使い" -> job = JobData.WIZARD.getJobNumber()
+            "僧侶" -> job = JobData.PRIEST.getJobNumber()
+            "忍者" -> job = JobData.NINJA.getJobNumber()
+        }
+
         // 職業と名前からキャラクターを作成
-            when(jobExtra){
-                "戦士" -> JobFighter(name).let { player = it }
-                "魔法使い" -> JobWizard(name).let { player = it }
-                "僧侶" -> JobPriest(name).let { player = it }
-                "忍者" -> JobNinja(name).let { player = it }
+            when(job){
+                0 -> JobFighter(name).let { player = it }
+                1 -> JobWizard(name).let { player = it }
+                2 -> JobPriest(name).let { player = it }
+                3 -> JobNinja(name).let { player = it }
             }
 
-            var job = 0
             val hp = player.getHP()
             val mp = player.getMP()
             val str = player.getSTR()
@@ -67,6 +82,8 @@ class CharacterCreatedActivity : AppCompatActivity() {
             val current = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:m")
             val createAt = current.format(formatter).toString()
+
+            val characterImage = selectImage(job)
 
         //作成したキャラクターのステータス表示
             val hpText: TextView = findViewById(R.id.character_created_character_hp_text_id)
@@ -89,16 +106,8 @@ class CharacterCreatedActivity : AppCompatActivity() {
 
             val db:SQLiteDatabase = helper.writableDatabase
 
-        // 職業を数字に変換
-        when(jobExtra){
 
-            "戦士" -> job = JobData.FIGHTER.getJobNumber()
-            "魔法使い" -> job = JobData.WIZARD.getJobNumber()
-            "僧侶" -> job = JobData.PRIEST.getJobNumber()
-            "忍者" -> job = JobData.NINJA.getJobNumber()
-        }
-
-        db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck','$createAt')")
+        db.execSQL("INSERT INTO CHARACTER(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT, CHARACTER_IMAGE) VALUES ('$name','$job','$hp','$mp','$str','$def','$agi','$luck','$createAt','$characterImage')")
 
         db.close()
 
@@ -143,6 +152,34 @@ class CharacterCreatedActivity : AppCompatActivity() {
                 mp0.reset()
                 startActivity(intent)
             }
+    }
+
+    // 味方キャラクターのイメージ画像をランダムで取得
+    private fun selectImage(allyJob: Int): Int {
+
+        for (e in AllyFighterImageData.values()) {
+            allyFighterImageList.add(e)
+        }
+
+        for (e in AllyWizardImageData.values()) {
+            allyWizardImageList.add(e)
+        }
+
+        for (e in AllyPriestImageData.values()) {
+            allyPriestImageList.add(e)
+        }
+
+        for (e in AllyNinjaImageData.values()) {
+            allyNinjaImageList.add(e)
+        }
+
+        when(allyJob){
+            0 -> allyImage = allyFighterImageList[(1..allyFighterImageList.size).random() - 1].getCharacterImage()
+            1 -> allyImage = allyWizardImageList[(1..allyWizardImageList.size).random() - 1].getCharacterImage()
+            2 -> allyImage = allyPriestImageList[(1..allyPriestImageList.size).random() - 1].getCharacterImage()
+            3 -> allyImage = allyNinjaImageList[(1..allyNinjaImageList.size).random() - 1].getCharacterImage()
+        }
+        return  allyImage
     }
 
     override fun onDestroy() {

@@ -25,6 +25,7 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
         const val AGI = "agi"
         const val LUCK = "luck"
         const val CREATE_AT = "create_at"
+        const val CHARACTER_IMAGE = "character_image"
 
         private const val SQL_CREATE_CHARACTER = ("CREATE TABLE " + TABLE_NAME + " (" +
                 "NAME TEXT(20) NOT NULL PRIMARY KEY," +
@@ -35,7 +36,8 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
                 "DEF INTEGER NOT NULL," +
                 "AGI INTEGER NOT NULL," +
                 "LUCK INTEGER NOT NULL," +
-                "CREATE_AT NULL)")
+                "CREATE_AT NULL," +
+                "CHARACTER_IMAGE INTEGER NOT NULL)")
 
         private const val SQL_CREATE_ENEMY = ("CREATE TABLE " + ENEMY_TABLE_NAME + " (" +
                 "NAME TEXT(20) NOT NULL PRIMARY KEY," +
@@ -46,7 +48,8 @@ class MyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBNmae,null, 
                 "DEF INTEGER NOT NULL," +
                 "AGI INTEGER NOT NULL," +
                 "LUCK INTEGER NOT NULL," +
-                "CREATE_AT NULL)")
+                "CREATE_AT NULL," +
+                "CHARACTER_IMAGE INTEGER NOT NULL)")
     }
 
     /*テーブルが存在しないときに呼び出す

@@ -10,6 +10,7 @@ class CharacterAllData(
     val def: Int,
     val agi: Int,
     val luck: Int,
-    val create_at: String
+    val create_at: String,
+    val character_image: Int
 )
 

@@ -50,7 +50,7 @@ class CharacterListActivity : AppCompatActivity(){
                 try {
                     // rawQueryというSELECT専用メソッドを使用してデータを取得する
                     val c = db.rawQuery(
-                        "select NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT from CHARACTER",
+                        "select NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT, CHARACTER_IMAGE from CHARACTER",
                         null
                     )
                     // Cursorの先頭行があるかどうか確認
@@ -63,7 +63,7 @@ class CharacterListActivity : AppCompatActivity(){
                                 CharacterAllData(
                                     c.getString(0),(occupationConversion(c.getInt(1))),
                                     c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
-                                    c.getInt(6), c.getInt(7), c.getString(8)
+                                    c.getInt(6), c.getInt(7), c.getString(8), c.getInt(9)
                                 )
                         )
                         next = c.moveToNext()
