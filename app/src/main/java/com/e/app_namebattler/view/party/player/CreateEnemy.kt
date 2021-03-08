@@ -2,10 +2,7 @@ package com.e.app_namebattler.view.party.player
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.e.app_namebattler.view.party.job.JobFighter
-import com.e.app_namebattler.view.party.job.JobNinja
-import com.e.app_namebattler.view.party.job.JobPriest
-import com.e.app_namebattler.view.party.job.JobWizard
+import com.e.app_namebattler.view.party.job.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -50,7 +47,7 @@ class CreateEnemy {
     }
 
     // 職業を選択する
-    private fun selectJob(): String {
+    private fun selectJob(): Int {
 
         val jNumber = (1..jobList.size).random()
         val b = jobList[jNumber - 1].getEnemyJob()
@@ -59,7 +56,7 @@ class CreateEnemy {
     }
 
     // 敵キャラクターのイメージ画像をランダムで取得
-    private fun selectImage(enemyJob: String): Int {
+    private fun selectImage(enemyJob: Int): Int {
 
         for (e in EnemyFighterImageData.values()) {
             enemyFighterImageList.add(e)
@@ -78,10 +75,10 @@ class CreateEnemy {
         }
 
         when(enemyJob){
-            "戦士" -> enemyImage = enemyFighterImageList[(1..enemyFighterImageList.size).random() - 1].getCharacterImage()
-            "魔法使い" -> enemyImage = enemyWizardImageList[(1..enemyWizardImageList.size).random() - 1].getCharacterImage()
-            "僧侶" -> enemyImage = enemyPriestImageList[(1..enemyPriestImageList.size).random() - 1].getCharacterImage()
-            "忍者" -> enemyImage = enemyNinjaImageList[(1..enemyNinjaImageList.size).random() - 1].getCharacterImage()
+            0 -> enemyImage = enemyFighterImageList[(1..enemyFighterImageList.size).random() - 1].getCharacterImage()
+            1 -> enemyImage = enemyWizardImageList[(1..enemyWizardImageList.size).random() - 1].getCharacterImage()
+            2 -> enemyImage = enemyPriestImageList[(1..enemyPriestImageList.size).random() - 1].getCharacterImage()
+            3 -> enemyImage = enemyNinjaImageList[(1..enemyNinjaImageList.size).random() - 1].getCharacterImage()
         }
         return  enemyImage
     }
@@ -98,10 +95,10 @@ class CreateEnemy {
 
             when (enemyJob) {
 
-                "戦士" -> JobFighter(enemyName).let { enemy = it }
-                "魔法使い" -> JobWizard(enemyName).let { enemy = it }
-                "僧侶" -> JobPriest(enemyName).let { enemy = it }
-                "忍者" -> JobNinja(enemyName).let { enemy = it }
+                0 -> JobFighter(enemyName).let { enemy = it }
+                1 -> JobWizard(enemyName).let { enemy = it }
+                2 -> JobPriest(enemyName).let { enemy = it }
+                3 -> JobNinja(enemyName).let { enemy = it }
             }
 
             val current = LocalDateTime.now()
@@ -110,7 +107,7 @@ class CreateEnemy {
 
             enemyPartyList.add(
                 CharacterAllData(
-                    enemyName, enemyJob,
+                    enemyName, occupationConversion(enemyJob),
                     enemy.hp, enemy.mp, enemy.str, enemy.def,
                     enemy.agi, enemy.luck, createAt, enemyImage
                 )
@@ -150,14 +147,29 @@ class CreateEnemy {
         }
     }
 
-    enum class EnemyJob(private val enemyJob: String) {
+    enum class EnemyJob(private val enemyJob: Int) {
 
-        J01("戦士"), J02("魔法使い"), J03("僧侶"), J04("忍者");
+        FIGHTER(0), WIZARD(1), PRIEST(2), NINJA(3);
 
-        fun getEnemyJob(): String {
+        fun getEnemyJob(): Int {
 
             return enemyJob
         }
     }
+
+    // 数字を職業に変換
+    private fun occupationConversion(jobValue:Int):String{
+
+        var job = ""
+
+        when(jobValue){
+            0 -> job = JobData.FIGHTER.getJobName()
+            1 -> job = JobData.WIZARD.getJobName()
+            2 -> job = JobData.PRIEST.getJobName()
+            3 -> job = JobData.NINJA.getJobName()
+        }
+        return job
+    }
+
 }
 

@@ -37,8 +37,6 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         mp0.isLooping=true
         mp0.start()
 
-
-
         // textWatcherのリスナーを登録　
         val createNameValues = findViewById<EditText>(R.id.character_creation_name_input_field_editText_id)
         createNameValues.addTextChangedListener(this)

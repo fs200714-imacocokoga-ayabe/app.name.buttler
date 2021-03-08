@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.R
+import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_top_screen.*
 
 class TopScreenActivity : AppCompatActivity() {
@@ -15,7 +16,8 @@ class TopScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_screen)
 
-        mp0= MediaPlayer.create(this, R.raw.neighofwar)
+        //mp0= MediaPlayer.create(this, R.raw.neighofwar)
+        mp0= MediaPlayer.create(this, MusicData.BGM02.getBgm())
         mp0.isLooping=true
         mp0.start()
 

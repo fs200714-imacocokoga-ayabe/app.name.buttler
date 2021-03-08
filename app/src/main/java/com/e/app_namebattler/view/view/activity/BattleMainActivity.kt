@@ -14,12 +14,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.e.app_namebattler.*
+import com.e.app_namebattler.R
 import com.e.app_namebattler.controller.BattleLogListener
 import com.e.app_namebattler.controller.GameManager
 import com.e.app_namebattler.model.MyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
-import com.e.app_namebattler.view.party.player.AllyFighterImageData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.StrategyName

@@ -1,11 +1,8 @@
 package com.e.app_namebattler.controller
 
 import android.os.Handler
+import com.e.app_namebattler.view.party.job.*
 import com.e.app_namebattler.view.party.party.Party
-import com.e.app_namebattler.view.party.job.JobFighter
-import com.e.app_namebattler.view.party.job.JobNinja
-import com.e.app_namebattler.view.party.job.JobPriest
-import com.e.app_namebattler.view.party.job.JobWizard
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.CharacterData
 import com.e.app_namebattler.view.party.player.Player
@@ -206,9 +203,9 @@ class GameManager {
     // 敵キャラクターを作成する
     private fun makeEnemyCharacter(enemyPartyList: CharacterAllData, id: Int): Player {
 
-        when (enemyPartyList.job) {
+        when (occupationConversion(enemyPartyList.job)) {
 
-            "戦士" -> enemy = (JobFighter(
+            0 -> enemy = (JobFighter(
                 enemyPartyList.name,
                 enemyPartyList.job,
                 enemyPartyList.hp,
@@ -219,7 +216,7 @@ class GameManager {
                 enemyPartyList.luck
             ))
 
-            "魔法使い" -> enemy = (JobWizard(
+            1 -> enemy = (JobWizard(
                 enemyPartyList.name,
                 enemyPartyList.job,
                 enemyPartyList.hp,
@@ -230,7 +227,7 @@ class GameManager {
                 enemyPartyList.luck
             ))
 
-            "僧侶" -> enemy = (JobPriest(
+            2 -> enemy = (JobPriest(
                 enemyPartyList.name,
                 enemyPartyList.job,
                 enemyPartyList.hp,
@@ -241,7 +238,7 @@ class GameManager {
                 enemyPartyList.luck
             ))
 
-            "忍者" -> enemy = (JobNinja(
+            3 -> enemy = (JobNinja(
                 enemyPartyList.name,
                 enemyPartyList.job,
                 enemyPartyList.hp,
@@ -267,9 +264,9 @@ class GameManager {
     // 味方キャラクターを作成する
     private fun makeAllyCharacter(allyPartyList: CharacterAllData, id: Int): Player {
 
-        when (allyPartyList.job) {
+        when (occupationConversion(allyPartyList.job)) {
 
-            "戦士" -> ally = (JobFighter(
+            0 -> ally = (JobFighter(
                 allyPartyList.name,
                 allyPartyList.job,
                 allyPartyList.hp,
@@ -280,7 +277,7 @@ class GameManager {
                 allyPartyList.luck
             ))
 
-            "魔法使い" -> ally = (JobWizard(
+            1 -> ally = (JobWizard(
                 allyPartyList.name,
                 allyPartyList.job,
                 allyPartyList.hp,
@@ -291,7 +288,7 @@ class GameManager {
                 allyPartyList.luck
             ))
 
-            "僧侶" -> ally = (JobPriest(
+            2 -> ally = (JobPriest(
                 allyPartyList.name,
                 allyPartyList.job,
                 allyPartyList.hp,
@@ -302,7 +299,7 @@ class GameManager {
                 allyPartyList.luck
             ))
 
-            "忍者" -> ally = (JobNinja(
+            3 -> ally = (JobNinja(
                 allyPartyList.name,
                 allyPartyList.job,
                 allyPartyList.hp,
@@ -356,5 +353,19 @@ class GameManager {
         charaData.enemy01 = enemy01
         charaData.enemy02 = enemy02
         charaData.enemy03 = enemy03
+    }
+
+    // 数字を職業に変換
+    private fun occupationConversion(jobValue: String): Int{
+
+        var job = 0
+
+        when(jobValue){
+            JobData.FIGHTER.getJobName() -> job = JobData.FIGHTER.getJobNumber()
+            JobData.WIZARD.getJobName() -> job = JobData.WIZARD.getJobNumber()
+            JobData.PRIEST.getJobName()-> job = JobData.PRIEST.getJobNumber()
+            JobData.NINJA.getJobName() -> job = JobData.NINJA.getJobNumber()
+        }
+        return job
     }
 }

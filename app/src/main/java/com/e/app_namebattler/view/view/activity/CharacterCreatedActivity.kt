@@ -58,10 +58,10 @@ class CharacterCreatedActivity : AppCompatActivity() {
 
         // 職業を数字に変換
         when(jobExtra){
-            "戦士" -> job = JobData.FIGHTER.getJobNumber()
-            "魔法使い" -> job = JobData.WIZARD.getJobNumber()
-            "僧侶" -> job = JobData.PRIEST.getJobNumber()
-            "忍者" -> job = JobData.NINJA.getJobNumber()
+            JobData.FIGHTER.getJobName() -> job = JobData.FIGHTER.getJobNumber()
+            JobData.WIZARD.getJobName() -> job = JobData.WIZARD.getJobNumber()
+            JobData.PRIEST.getJobName() -> job = JobData.PRIEST.getJobNumber()
+            JobData.NINJA.getJobName() -> job = JobData.NINJA.getJobNumber()
         }
 
         // 職業と名前からキャラクターを作成

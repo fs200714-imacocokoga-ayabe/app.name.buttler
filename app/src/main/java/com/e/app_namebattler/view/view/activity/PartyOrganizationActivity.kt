@@ -173,6 +173,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
                 }
         }
 
+
         // チェックされているラジオボタンの数が3より大きい場合
         if (rNum > 3){
             radioButton.isChecked = false
@@ -195,7 +196,9 @@ class PartyOrganizationActivity : AppCompatActivity() {
             rNum = 0
 
         }else{
+
             radioButton.isChecked = true
+
         }
 
         val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
