@@ -11,12 +11,12 @@ import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.e.app_namebattler.*
+import com.e.app_namebattler.R
 import com.e.app_namebattler.model.MyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
-import com.e.app_namebattler.view.view.fragment.PartySelectMaxDialogFragment
 import com.e.app_namebattler.view.view.adapter.PartyListAdapter
+import com.e.app_namebattler.view.view.fragment.PartySelectMaxDialogFragment
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
 import kotlinx.android.synthetic.main.data_party_organization_character_status.view.*
 
@@ -33,6 +33,8 @@ class PartyOrganizationActivity : AppCompatActivity() {
     var characterList = arrayListOf<CharacterAllData>()
     private lateinit var mListAdapter: PartyListAdapter
     var array = ArrayList<String>()
+    var array02 = ArrayList<RadioButton>()
+    var rNum = 0
 
     var name = ""
     var job = ""
@@ -91,10 +93,6 @@ class PartyOrganizationActivity : AppCompatActivity() {
         listView.choiceMode = CHOICE_MODE_MULTIPLE
         mListAdapter = PartyListAdapter(this, characterList)
         listView.adapter = mListAdapter
-
-        // 項目をタップしたときの処理
-//        listView.setOnItemClickListener { parent, view, position, id ->
-//        }
 
         // このパーティで開始
         party_organization_this_party_start_button_id.setOnClickListener {
@@ -155,50 +153,72 @@ class PartyOrganizationActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ResourceType")
     fun radioCheck(view: View) {
 
-        var rNum = 0
-        radioNumber  = 0
         val radioButton = view as RadioButton
 
-        val listView = findViewById<ListView>(R.id.party_organization_party_list_listView_id)
-        // リストの中のチェックされているラジオボタンの数をrNumに格納
-        for (i in 1..listView.count) {
-
-            val radioName: RadioButton = listView.getChildAt(i - 1)
-                .findViewById(R.id.data_party_organization_character_status_radioButton_id)
-
-                if (radioName.isChecked) {
-                    rNum += 1
-                }
-        }
-
-
-        // チェックされているラジオボタンの数が3より大きい場合
-        if (rNum > 3){
-            radioButton.isChecked = false
-            rNum -= 1
-
-            // ダイアフラグで　"パーティメンバーは３人です"　が表示される
-            val dialog = PartySelectMaxDialogFragment()
-            dialog.show(supportFragmentManager,"alert_dialog")
-
-            // チェックされているラジオボタンのチェックを外す
-            for (i in 1..listView.count) {
-                val radioName: RadioButton = listView.getChildAt(i - 1)
-                    .findViewById(R.id.data_party_organization_character_status_radioButton_id)
-
-                    if (radioName.isChecked) {
-                        radioName.isChecked = false
-                    }
-            }
-
-            rNum = 0
-
-        }else{
+        if (rNum == 0) {
 
             radioButton.isChecked = true
+            array02.add(radioButton)
+            rNum += 1
 
+        } else if (rNum == 1) {
+
+            if (array02[0] == radioButton) {
+                array02.remove(array02[0])
+                radioButton.isChecked = false
+                rNum -= 1
+
+            } else {
+                array02.add(radioButton)
+                radioButton.isChecked = true
+                rNum += 1
+            }
+
+        }else if (rNum == 2) {
+
+            if (array02[0] == radioButton) {
+                array02.remove(array02[0])
+                radioButton.isChecked = false
+                rNum -= 1
+
+            } else if (array02[1] == radioButton) {
+                array02.remove(array02[1])
+                radioButton.isChecked = false
+                rNum -= 1
+
+            } else {
+                array02.add(radioButton)
+                radioButton.isChecked = true
+                rNum += 1
+            }
+
+        }else if (rNum == 3){
+
+            if (array02[0] == radioButton) {
+                array02.remove(array02[0])
+                radioButton.isChecked = false
+                rNum -= 1
+
+            } else if (array02[1] == radioButton) {
+                array02.remove(array02[1])
+                radioButton.isChecked = false
+                rNum -= 1
+
+            } else if (array02[2] == radioButton){
+                array02.remove(array02[2])
+                radioButton.isChecked = false
+                rNum -= 1
+
+            }else {
+
+                radioButton.isChecked = false
+                // ダイアフラグで　"パーティメンバーは３人です"　が表示される
+                val dialog = PartySelectMaxDialogFragment()
+                dialog.show(supportFragmentManager, "alert_dialog")
+            }
         }
 
         val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
