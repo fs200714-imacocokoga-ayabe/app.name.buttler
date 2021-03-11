@@ -8,6 +8,7 @@ import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.R
 import com.e.app_namebattler.view.strategy.StrategyName
+import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_strategy_change.*
 
 class StrategyChangeActivity : AppCompatActivity() {
@@ -18,7 +19,8 @@ class StrategyChangeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_strategy_change)
 
-        mp0= MediaPlayer.create(this, R.raw.lastwar)
+       // mp0= MediaPlayer.create(this, R.raw.lastwar)
+        mp0= MediaPlayer.create(this, MusicData.BGM01.getBgm())
         mp0.isLooping=true
 
         strategy_change_determination_button_id.setOnClickListener {

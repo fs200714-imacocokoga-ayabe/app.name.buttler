@@ -84,7 +84,7 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
             )
             knockedDownCheck(this)
         } else { // MPが20未満の場合
-            log.append("{getName()}はヒールを唱えようとしたが、MPが足りない！！\n")
+            log.append("${getName()}はヒールを唱えようとしたが、MPが足りない！！\n")
             log.append("${getName()}の攻撃！\n錫杖を振りかざした！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             super.damageProcess(defender, damage) // ダメージ処理

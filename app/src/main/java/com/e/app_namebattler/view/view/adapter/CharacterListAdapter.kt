@@ -11,7 +11,7 @@ import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.player.CharacterAllData
 
 
-class ListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter() {
+class CharacterListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter() {
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

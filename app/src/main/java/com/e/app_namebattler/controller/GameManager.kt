@@ -40,8 +40,6 @@ class GameManager {
     private lateinit var player1: Player
     private lateinit var player2: Player
 
-    var imageType = 0 // キャラクターの外観に使用
-
     private var enemyStrategyNumber = 0 // 作戦の選択に使用
 
     // Activityから指揮権を受け取る
@@ -147,7 +145,6 @@ class GameManager {
         return context?.attackStrategy(player1, pt.getParty1(),
             pt.getParty2())!!
     }
-
 
     // 敗北判定の処理
     private fun judgment(){

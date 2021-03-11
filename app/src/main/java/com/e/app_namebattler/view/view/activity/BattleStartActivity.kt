@@ -9,19 +9,22 @@ import android.widget.ListView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.*
-import com.e.app_namebattler.model.MyOpenHelper
+import com.e.app_namebattler.model.EnemyOpenHelper
+import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.CreateEnemy
-import com.e.app_namebattler.view.view.adapter.BattlePartyAdapter
+import com.e.app_namebattler.view.view.adapter.BattleStartPartyAdapter
+import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_battle_start.*
 
 
 class BattleStartActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
-    lateinit var helper: MyOpenHelper
-    private lateinit var mListAdapter: BattlePartyAdapter
+    lateinit var helper: AllyOpenHelper
+    lateinit var helper02: EnemyOpenHelper
+    private lateinit var mListAdapterStart: BattleStartPartyAdapter
 
     var allyPartyList = arrayListOf<CharacterAllData>()
     var enemyPartyList = arrayListOf<CharacterAllData>()
@@ -45,11 +48,13 @@ class BattleStartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_start)
 
-        mp0= MediaPlayer.create(this, R.raw.neighofwar)
+       // mp0= MediaPlayer.create(this, R.raw.neighofwar)
+        mp0= MediaPlayer.create(this, MusicData.BGM02.getBgm())
         mp0.isLooping=true
         mp0.start()
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+        helper = AllyOpenHelper(applicationContext)//DB作成
+        helper02 = EnemyOpenHelper(applicationContext)//DB作成
 
         // PartyOrganizationActivityから名前を受け取る
         name01 = intent.getStringExtra("name_key01").toString()
@@ -105,7 +110,7 @@ class BattleStartActivity : AppCompatActivity() {
     // 味方キャラクター表示
     private fun printAlly() {
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+        helper = AllyOpenHelper(applicationContext)//DB作成
 
         val db = helper.readableDatabase
 
@@ -140,8 +145,8 @@ class BattleStartActivity : AppCompatActivity() {
         }
 
         val listView = findViewById<ListView>(R.id.character_list_battle_start_ally_battle_party_listView_id)
-        mListAdapter = BattlePartyAdapter(this, allyPartyList)
-        listView.adapter = mListAdapter
+        mListAdapterStart = BattleStartPartyAdapter(this, allyPartyList)
+        listView.adapter = mListAdapterStart
     }
             // 敵キャラクター表示
             @RequiresApi(Build.VERSION_CODES.O)
@@ -151,13 +156,14 @@ class BattleStartActivity : AppCompatActivity() {
                 enemyPartyList = e.makeEnemy()
                 e.setEnemyParty(enemyPartyList)
                 val listView = findViewById<ListView>(R.id.battle_start_enemy_battle_party_list_view_id)
-                mListAdapter = BattlePartyAdapter(this, enemyPartyList)
-                listView.adapter = mListAdapter
+                mListAdapterStart = BattleStartPartyAdapter(this, enemyPartyList)
+                listView.adapter = mListAdapterStart
             }
     //　データベースに入れる処理
             private fun saveData(enemyPartyList: ArrayList<CharacterAllData>) {
 
-                val db: SQLiteDatabase = helper.writableDatabase
+                helper02 = EnemyOpenHelper(applicationContext)//DB作成
+                val db: SQLiteDatabase = helper02.writableDatabase
 
                 try {
 
@@ -196,8 +202,11 @@ class BattleStartActivity : AppCompatActivity() {
     // データベースから削除する処理
     private fun deleteEnemy(){
 
-        val db = helper.writableDatabase
+        helper02 = EnemyOpenHelper(applicationContext)//DB作成
+        val db:SQLiteDatabase = helper02.writableDatabase
+
         try{
+
             db.execSQL("DELETE FROM ENEMY")
         }finally {
             db.close()

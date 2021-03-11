@@ -1,9 +1,14 @@
 package com.e.app_namebattler.view.view.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +17,8 @@ import com.e.app_namebattler.view.party.player.CharacterData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
+import com.e.app_namebattler.view.view.music.MusicData
+import kotlinx.android.synthetic.main.activity_battle_main.*
 import kotlinx.android.synthetic.main.activity_battle_result.*
 
 class BattleResultActivity : AppCompatActivity() {
@@ -40,7 +47,8 @@ class BattleResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_result)
 
-        mp0= MediaPlayer.create(this, R.raw.newworld)
+        //mp0= MediaPlayer.create(this, R.raw.newworld)
+        mp0= MediaPlayer.create(this, MusicData.BGM03.getBgm())
         mp0.isLooping=true
         mp0.start()
 
@@ -131,6 +139,21 @@ class BattleResultActivity : AppCompatActivity() {
 
             battle_result_ally_status_recycleView_id.adapter = this
         }
+
+        battle_result_ally_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+        (battle_result_ally_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
+            object : BattleMainRecyclerAdapter.OnItemClickListener {
+                override fun onItemClickListener(
+                    viw: View,
+                    position: Int
+                ) {
+                    when (position) {
+                        0 -> setImageType(ally01)
+                        1 -> setImageType(ally02)
+                        2 -> setImageType(ally03)
+                    }
+                }
+            })
     }
 
     // 敵キャラクターのステータス表示
@@ -155,6 +178,42 @@ class BattleResultActivity : AppCompatActivity() {
 
             battle_result_enemy_status_recycleView_id.adapter = this
         }
+
+        battle_result_enemy_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+        (battle_result_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
+            object : BattleMainRecyclerAdapter.OnItemClickListener {
+                @SuppressLint("ResourceAsColor")
+
+                override fun onItemClickListener(
+                    viw: View,
+                    position: Int
+                ) {
+                    when (position) {
+                        0 -> setImageType(enemy01)
+                        1 -> setImageType(enemy02)
+                        2 -> setImageType(enemy03)
+                    }
+                }
+            })
+    }
+
+    // バトルメイン画面でステータスをタップでキャラクターのステータスを表示する
+    @SuppressLint("ShowToast", "InflateParams")
+    private fun setImageType(character: Player) {
+
+        val layoutInflater = layoutInflater
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout, null)
+
+        (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(character.getCharacterImageType())
+        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
+        ts.setGravity(Gravity.CENTER, 0, 0)
+        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text = "${character.job}"
+        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text = "${character.str}"
+        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text = "${character.def}"
+        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text = "${character.agi}"
+        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text = "${character.luck}"
+        ts.setView(customToastView)
+        ts.show()
     }
 
     override fun onDestroy() {

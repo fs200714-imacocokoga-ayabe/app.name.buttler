@@ -12,11 +12,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.R
-import com.e.app_namebattler.model.MyOpenHelper
+import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
-import com.e.app_namebattler.view.view.adapter.PartyListAdapter
+import com.e.app_namebattler.view.view.adapter.PartyOrganizationListAdapter
 import com.e.app_namebattler.view.view.fragment.PartySelectMaxDialogFragment
+import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
 import kotlinx.android.synthetic.main.data_party_organization_character_status.view.*
 
@@ -29,9 +30,9 @@ class PartyOrganizationActivity : AppCompatActivity() {
     private var nameValue02: String? = null
     private var nameValue03: String? = null
 
-    lateinit var helper: MyOpenHelper
+    lateinit var helper: AllyOpenHelper
     var characterList = arrayListOf<CharacterAllData>()
-    private lateinit var mListAdapter: PartyListAdapter
+    private lateinit var mOrganizationListAdapter: PartyOrganizationListAdapter
     var array = ArrayList<String>()
     var array02 = ArrayList<RadioButton>()
     var rNum = 0
@@ -52,11 +53,12 @@ class PartyOrganizationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_party_orgnization)
 
-        mp0= MediaPlayer.create(this, R.raw.neighofwar)
+       // mp0= MediaPlayer.create(this, R.raw.neighofwar)
+        mp0= MediaPlayer.create(this, MusicData.BGM02.getBgm())
         mp0.isLooping=true
         mp0.start()
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+        helper = AllyOpenHelper(applicationContext)//DB作成
         val db = helper.readableDatabase
         characterList.clear()
 
@@ -91,8 +93,8 @@ class PartyOrganizationActivity : AppCompatActivity() {
         val listView = findViewById<ListView>(R.id.party_organization_party_list_listView_id)
 
         listView.choiceMode = CHOICE_MODE_MULTIPLE
-        mListAdapter = PartyListAdapter(this, characterList)
-        listView.adapter = mListAdapter
+        mOrganizationListAdapter = PartyOrganizationListAdapter(this, characterList)
+        listView.adapter = mOrganizationListAdapter
 
         // このパーティで開始
         party_organization_this_party_start_button_id.setOnClickListener {

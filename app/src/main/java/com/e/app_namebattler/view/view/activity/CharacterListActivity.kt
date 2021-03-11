@@ -7,20 +7,21 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.*
-import com.e.app_namebattler.model.MyOpenHelper
+import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.view.fragment.CharacterCreateMaxDialogFragment
-import com.e.app_namebattler.view.view.adapter.ListAdapter
+import com.e.app_namebattler.view.view.adapter.CharacterListAdapter
+import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_character_list.*
 
 //キャラクター一覧画面のクラス
 class CharacterListActivity : AppCompatActivity(){
 
     lateinit var mp0: MediaPlayer
-    lateinit var helper: MyOpenHelper
+    lateinit var helper: AllyOpenHelper
     var  characterList = arrayListOf<CharacterAllData>()
-    private lateinit var mListAdapter: ListAdapter
+    private lateinit var mCharacterListAdapter: CharacterListAdapter
 
     var name = ""
     var job = ""
@@ -33,14 +34,15 @@ class CharacterListActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        mp0= MediaPlayer.create(this, R.raw.yokoku)
+        //mp0= MediaPlayer.create(this, R.raw.yokoku)
+        mp0= MediaPlayer.create(this, MusicData.BGM04.getBgm())
         mp0.isLooping=true
         mp0.start()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_list)
 
-            helper = MyOpenHelper(applicationContext)//DB作成
+            helper = AllyOpenHelper(applicationContext)//DB作成
 
             val db = helper.readableDatabase
 
@@ -78,9 +80,9 @@ class CharacterListActivity : AppCompatActivity(){
              // listViewにListAdapterを関連付け、データの表示を行う
             val listView = findViewById<ListView>(R.id.character_list_battle_start_ally_battle_party_listView_id)
 
-                mListAdapter = ListAdapter(this, characterList)
+                mCharacterListAdapter = CharacterListAdapter(this, characterList)
 
-                listView.adapter = mListAdapter
+                listView.adapter = mCharacterListAdapter
                 // 項目をタップしたときの処理
                 listView.setOnItemClickListener { parent, view, position, id ->
 

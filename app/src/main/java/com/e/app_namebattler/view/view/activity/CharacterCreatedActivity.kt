@@ -10,10 +10,11 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.*
-import com.e.app_namebattler.model.MyOpenHelper
+import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.*
 import com.e.app_namebattler.view.party.player.*
 import com.e.app_namebattler.view.view.fragment.CharacterCreateMaxDialogFragment
+import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_character_created.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -21,7 +22,7 @@ import java.time.format.DateTimeFormatter
 class CharacterCreatedActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
-    lateinit var helper: MyOpenHelper
+    lateinit var helper: AllyOpenHelper
     private lateinit var player: Player
 
     private val allyFighterImageList = ArrayList<AllyFighterImageData>()
@@ -35,11 +36,12 @@ class CharacterCreatedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_created)
 
-        mp0= MediaPlayer.create(this, R.raw.yokoku)
+        //mp0= MediaPlayer.create(this, R.raw.yokoku)
+        mp0= MediaPlayer.create(this, MusicData.BGM04.getBgm())
         mp0.isLooping=true
         mp0.start()
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+        helper = AllyOpenHelper(applicationContext)//DB作成
 
         // 名前を受け取る
         val nameExtra = intent.getStringExtra("name_key")

@@ -6,16 +6,17 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.e.app_namebattler.model.MyOpenHelper
+import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_character_detail.*
 
 // キャラクター詳細画面のクラス
 class CharacterDetailActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
-    lateinit var helper: MyOpenHelper
+    lateinit var helper: AllyOpenHelper
 
     var name = ""
     var job = ""
@@ -31,14 +32,15 @@ class CharacterDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_detail)
 
-        mp0= MediaPlayer.create(this, R.raw.yokoku)
+       // mp0= MediaPlayer.create(this, R.raw.yokoku)
+        mp0= MediaPlayer.create(this, MusicData.BGM04.getBgm())
         mp0.isLooping=true
         mp0.start()
 
         // 名前を受け取る
         val nameExtra = intent.getStringExtra("name_key")
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+        helper = AllyOpenHelper(applicationContext)//DB作成
 
         val db = helper.readableDatabase
 
@@ -85,7 +87,7 @@ class CharacterDetailActivity : AppCompatActivity() {
 
             private fun deleteCharacter(){
 
-                helper = MyOpenHelper(applicationContext)//DB作成
+                helper = AllyOpenHelper(applicationContext)//DB作成
 
                 val db = helper.writableDatabase
                 try{

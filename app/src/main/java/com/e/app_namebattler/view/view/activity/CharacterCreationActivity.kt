@@ -15,25 +15,29 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.e.app_namebattler.model.MyOpenHelper
+import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.R
 import com.e.app_namebattler.view.view.fragment.CharacterCreateMaxDialogFragment
+import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_character_creation.*
 
 
 class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
     lateinit var mp0: MediaPlayer
-    lateinit var helper: MyOpenHelper
-    var isSameName :Boolean = false // 同じ名前かどうか true:同じ名前 false:違う名前
+    lateinit var helper: AllyOpenHelper
+    private var isSameName :Boolean = false // 同じ名前かどうか true:同じ名前 false:違う名前
     private var inputStr: String = "" // editTextに入力された文字を格納
+    private var limitLength = StringBuilder()
+
     private var characterCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_creation)
 
-        mp0= MediaPlayer.create(this, R.raw.yokoku)
+       //mp0= MediaPlayer.create(this, R.raw.yokoku)
+        mp0= MediaPlayer.create(this, MusicData.BGM04.getBgm())
         mp0.isLooping=true
         mp0.start()
 
@@ -90,7 +94,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         val characterNumber = characterNumberCheck()
 
         val ic = Toast.makeText(this,
-            "現在${characterNumber}人です,あと${8 - characterNumber}人作成出来ます。",
+            "現在${characterNumber}人です、あと${8 - characterNumber}人作成出来ます。",
             Toast.LENGTH_LONG)
         ic.setGravity(Gravity.TOP, 0, 150)
         // ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
@@ -111,22 +115,25 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         inputStr = s.toString()
 
         if (10 < inputStr.length) {
+            limitLength.append(inputStr)
+            limitLength.deleteCharAt(10)
             val ic = Toast.makeText(this,
-                "名前は10文字までです",
+                "名前は10文字までしか入力できません",
                 Toast.LENGTH_SHORT)
-            ic.setGravity(Gravity.TOP, -0, 400)
+            ic.setGravity(Gravity.TOP, -0, 150)
              // ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
             ic.show()
 
             val editText = findViewById<View>(R.id.character_creation_name_input_field_editText_id) as EditText
-            editText.setText("")
+            editText.setText(limitLength)
+            limitLength.clear()
         }
     }
 
     // 同じ名前がデータベースに存在しているかのチェック
     private fun sameNameCheck(nameValue: String?): Boolean{
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+        helper = AllyOpenHelper(applicationContext)//DB作成
 
         val db = helper.readableDatabase
 
@@ -149,7 +156,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
     private fun characterNumberCheck(): Int {
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+        helper = AllyOpenHelper(applicationContext)//DB作成
 
         val db = helper.readableDatabase
 

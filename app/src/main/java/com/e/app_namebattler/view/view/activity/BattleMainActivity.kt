@@ -17,13 +17,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.e.app_namebattler.R
 import com.e.app_namebattler.controller.BattleLogListener
 import com.e.app_namebattler.controller.GameManager
-import com.e.app_namebattler.model.MyOpenHelper
+import com.e.app_namebattler.model.EnemyOpenHelper
+import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.StrategyName
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
+import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_battle_main.*
 
 
@@ -31,7 +33,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     lateinit var mp0: MediaPlayer
     var handler: Handler? = null
-    lateinit var helper: MyOpenHelper
+    lateinit var helper: AllyOpenHelper
+    lateinit var helper02: EnemyOpenHelper
 
     private val gm = GameManager()
 
@@ -50,7 +53,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_main)
 
-        mp0= MediaPlayer.create(this, R.raw.lastwar)
+        //mp0= MediaPlayer.create(this, R.raw.lastwar)
+        mp0= MediaPlayer.create(this, MusicData.BGM01.getBgm())
         mp0.isLooping=true
         mp0.start()
 
@@ -155,9 +159,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         enemyName03: String?
     ): ArrayList<CharacterAllData> {
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+        helper02 = EnemyOpenHelper(applicationContext)//DB作成
 
-        val db = helper.readableDatabase
+        val db = helper02.readableDatabase
 
         try {
             // rawQueryというSELECT専用メソッドを使用してデータを取得する
@@ -205,7 +209,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         allyName03: String?
     ): ArrayList<CharacterAllData> {
 
-        helper = MyOpenHelper(applicationContext)//DB作成
+        helper = AllyOpenHelper(applicationContext)//DB作成
 
         val db = helper.readableDatabase
 

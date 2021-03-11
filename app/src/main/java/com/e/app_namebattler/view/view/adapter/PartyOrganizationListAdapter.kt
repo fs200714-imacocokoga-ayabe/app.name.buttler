@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.player.CharacterAllData
 
-class PartyListAdapter (val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter(),
+class PartyOrganizationListAdapter (val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter(),
     Checkable {
 
     private var mRadioButton: RadioButton? = null

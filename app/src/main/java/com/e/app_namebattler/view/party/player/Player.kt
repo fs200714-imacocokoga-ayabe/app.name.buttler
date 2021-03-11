@@ -193,6 +193,7 @@ open class Player{
         return 0
     }
 
+    // ジョブごとにオーバーライドして処理を記述してください
     open fun normalAttack(defender: Player): StringBuilder {return log}
     open fun skillAttack(defender: Player): StringBuilder {return log}
     open fun magicAttack(defender: Player): StringBuilder {return log}
