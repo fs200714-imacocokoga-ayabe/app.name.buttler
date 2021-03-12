@@ -32,10 +32,18 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        log.append("${getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
-        damage = calcDamage(defender) // 与えるダメージを求める
-        damageProcess(defender, damage)
-        knockedDownCheck(defender)
+        if (this.isParalysis){// 麻痺している場合
+
+            log.append("${getName()}は麻痺で動けない！！\n")
+            knockedDownCheck(defender)
+
+        }else {// 麻痺していない場合
+
+            log.append("${getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
+            damage = calcDamage(defender) // 与えるダメージを求める
+            damageProcess(defender, damage)
+            knockedDownCheck(defender)
+        }
         return log
     }
 
@@ -43,18 +51,26 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if ((1..100).random() < Magic.FIRE_ELEMENTAL.getContinuousRate()) { // 40％で発動
+        if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は魔法陣を描いて${Magic.FIRE_ELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
+            log.append("${getName()}は麻痺で動けない！！\n")
+            knockedDownCheck(defender)
 
-            super.damageProcess(
-                defender,
-                Magic.FIRE_ELEMENTAL.getMinDamage()
-            ) // ダメージ処理
-        } else { // 60%で不発
-            log.append("${getName()}の攻撃だがスキルは発動しなかった！\n")
+        }else {// 麻痺していない場合
+
+            if ((1..100).random() < Magic.FIRE_ELEMENTAL.getContinuousRate()) { // 40％で発動
+
+                log.append("${getName()}は魔法陣を描いて${Magic.FIRE_ELEMENTAL.getName()}を召還した\n${getName()}の攻撃！\n")
+
+                super.damageProcess(
+                    defender,
+                    Magic.FIRE_ELEMENTAL.getMinDamage()
+                ) // ダメージ処理
+            } else { // 60%で不発
+                log.append("${getName()}の攻撃だがスキルは発動しなかった！\n")
+            }
+            knockedDownCheck(defender)
         }
-        knockedDownCheck(defender)
         return log
     }
 
@@ -62,13 +78,21 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if (hasEnoughMp()) {
-            damage = effect()
-            super.damageProcess(defender, damage)
+        if (this.isParalysis){// 麻痺している場合
+
+            log.append("${getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
-        } else {
-            log.append("${getName()}は魔法を唱えようとしたが、MPが足りない！！\n")
-            normalAttack(defender)
+
+        }else {// 麻痺していない場合
+
+            if (hasEnoughMp()) {
+                damage = effect()
+                super.damageProcess(defender, damage)
+                knockedDownCheck(defender)
+            } else {
+                log.append("${getName()}は魔法を唱えようとしたが、MPが足りない！！\n")
+                normalAttack(defender)
+            }
         }
         return log
     }

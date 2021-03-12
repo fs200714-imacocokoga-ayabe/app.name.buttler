@@ -31,12 +31,18 @@ class JobFighter(name: String): Player(name) {
 
         log.clear()
 
-        log.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
+        if (this.isParalysis){// 麻痺している場合
 
-        damage = calcDamage(defender) // 与えるダメージを求める
-        damageProcess(defender, damage)
-        knockedDownCheck(defender)
+            log.append("${getName()}は麻痺で動けない！！\n")
+            knockedDownCheck(defender)
 
+        }else {// 麻痺していない場合
+
+            log.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
+            damage = calcDamage(defender) // 与えるダメージを求める
+            damageProcess(defender, damage)
+            knockedDownCheck(defender)
+        }
         return log
     }
 
@@ -44,16 +50,24 @@ class JobFighter(name: String): Player(name) {
 
         log.clear()
 
-        if ((1..100).random() < Skill.ASSAULT.getInvocationRate()) { // 乱数値が30より小さい時
-            log.append("${getName()}の捨て身の突撃！\n")
-            damage = calcDamage(defender) // 与えるダメージを求める
-            damage *= 2 // ダメージ2倍
-            super.damageProcess(defender, damage) // ダメージ処理
+        if (this.isParalysis){// 麻痺している場合
 
-        } else {
-            log.append("${getName()}の捨て身の突撃はかわされた！！\n")
+            log.append("${getName()}は麻痺で動けない！！\n")
+            knockedDownCheck(defender)
+
+        }else {// 麻痺していない場合
+
+            if ((1..100).random() < Skill.ASSAULT.getInvocationRate()) { // 乱数値が30より小さい時
+                log.append("${getName()}の捨て身の突撃！\n")
+                damage = calcDamage(defender) // 与えるダメージを求める
+                damage *= 2 // ダメージ2倍
+                super.damageProcess(defender, damage) // ダメージ処理
+
+            } else {
+                log.append("${getName()}の捨て身の突撃はかわされた！！\n")
+            }
+            knockedDownCheck(defender)
         }
-        knockedDownCheck(defender)
         return log
     }
 }

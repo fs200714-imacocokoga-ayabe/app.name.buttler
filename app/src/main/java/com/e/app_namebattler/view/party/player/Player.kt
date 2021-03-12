@@ -271,30 +271,38 @@ open class Player{
     /**
      * 草を食べる処理
      */
-    open fun eatGrass():StringBuilder {
+    open fun eatHerb():StringBuilder {
 
         log.clear()
 
-        log.append("${getName()}は革袋の中にあった薬草を食べた！\n")
+        if (this.isParalysis){// 麻痺している場合
 
-        when ((0..2).random()) {
-            0 -> {
-                recoveryProcess(this, herbRecoveryValue)
-            }
+            log.append("${getName()}は麻痺で動けない！！\n")
 
-            1 -> {
+        }else {// 麻痺していない場合
 
-                if (isPoison) {
-                    log.append("${getName()}は毒が消えた！\n")
-                    isPoison = false
-                }else{
 
+            log.append("${getName()}は革袋の中にあった薬草を食べた！\n")
+
+            when ((0..2).random()) {
+                0 -> {
                     recoveryProcess(this, herbRecoveryValue)
                 }
-            }
 
-            2 -> {
-                log.append("${getName()}は何も起こらなかった！\n")
+                1 -> {
+
+                    if (isPoison) {
+                        log.append("${getName()}は毒が消えた！\n")
+                        isPoison = false
+                    } else {
+
+                        recoveryProcess(this, herbRecoveryValue)
+                    }
+                }
+
+                2 -> {
+                    log.append("${getName()}は何も起こらなかった！\n")
+                }
             }
         }
         knockedDownCheck(this)
@@ -304,7 +312,7 @@ open class Player{
    open fun recoveryProcess(defender: Player, healValue: Int): Int {
         var healValue = healValue
         healValue = defender.getMaxHp().coerceAtMost(defender.getHP() + healValue)
-       healValue -= defender.getHP()
+        healValue -= defender.getHP()
         log.append("${defender.getName()}はHPが${healValue}回復した！\n")
         defender.recovery(healValue)
         return healValue

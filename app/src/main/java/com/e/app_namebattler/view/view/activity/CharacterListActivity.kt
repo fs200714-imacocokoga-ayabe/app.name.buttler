@@ -34,7 +34,6 @@ class CharacterListActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        //mp0= MediaPlayer.create(this, R.raw.yokoku)
         mp0= MediaPlayer.create(this, MusicData.BGM04.getBgm())
         mp0.isLooping=true
         mp0.start()

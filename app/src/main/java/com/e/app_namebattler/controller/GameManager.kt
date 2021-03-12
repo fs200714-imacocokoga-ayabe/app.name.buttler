@@ -7,12 +7,8 @@ import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.CharacterData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class GameManager {
-
-    var random = Random()
 
     private val pt = Party()
     var context: Context? = null
@@ -28,14 +24,13 @@ class GameManager {
     private val party02: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
     private var attackList: MutableList<Player> = ArrayList() //攻撃するキャラクターを格納
 
-    lateinit var ally: Player
-    private lateinit var enemy: Player
     lateinit var ally01: Player // 味方キャラクターを格納
     lateinit var ally02: Player
     lateinit var ally03: Player
     lateinit var enemy01: Player // 敵キャラクターを格納
     lateinit var enemy02: Player
     lateinit var enemy03: Player
+    lateinit var character: Player
     private lateinit var player: Player // キャラクターを格納
     private lateinit var player1: Player
     private lateinit var player2: Player
@@ -49,14 +44,14 @@ class GameManager {
     ) {
 
         // 敵キャラクターを作成する
-        enemy01 = makeEnemyCharacter(enemyPartyList[0], 0)
-        enemy02 = makeEnemyCharacter(enemyPartyList[1], 1)
-        enemy03 = makeEnemyCharacter(enemyPartyList[2], 2)
+        enemy01 = makeCharacter(enemyPartyList[0], 0)
+        enemy02 = makeCharacter(enemyPartyList[1], 1)
+        enemy03 = makeCharacter(enemyPartyList[2], 2)
 
         // 味方キャラクターを作成する
-        ally01 = makeAllyCharacter(allyPartyList[0], 3)
-        ally02 = makeAllyCharacter(allyPartyList[1], 4)
-        ally03 = makeAllyCharacter(allyPartyList[2], 5)
+        ally01 = makeCharacter(allyPartyList[0], 3)
+        ally02 = makeCharacter(allyPartyList[1], 4)
+        ally03 = makeCharacter(allyPartyList[2], 5)
 
         // スピード順に取得する
         speedOrderList = (speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03))
@@ -82,22 +77,14 @@ class GameManager {
 
             if (player1.isLive) {// player1のHPが0より大きい場合
 
-                if (player1.isParalysis){// 麻痺している場合
+               if (player1.isMark) { // player1が味方の場合
 
-                    battleLog.append("${player1.getName()}は麻痺で動けない！！\n")
+                   battleLog.append(selectStrategyNumber(strategyNumber))
 
-                }else {// 麻痺していない場合
-
-                    if (player1.isMark) { // player1が味方の場合
-                        battleLog.append(selectStrategyNumber(strategyNumber))
-
-                    } else {
-                        enemyStrategyNumber = (0..4).random()// 敵の作戦ランダム
-                        battleLog.append(selectStrategyNumber(enemyStrategyNumber))
-
-                    }
-                }
-
+               } else {
+                   enemyStrategyNumber = (0..4).random()// 敵の作戦ランダム
+                   battleLog.append(selectStrategyNumber(enemyStrategyNumber))
+               }
                 battleLog.append("@@")// playerごとのログを@@で分けるために加える
             }
 
@@ -198,125 +185,77 @@ class GameManager {
     }
 
     // 敵キャラクターを作成する
-    private fun makeEnemyCharacter(enemyPartyList: CharacterAllData, id: Int): Player {
+    private fun makeCharacter(characterPartyList: CharacterAllData, id: Int): Player {
 
-        when (occupationConversion(enemyPartyList.job)) {
+        when (occupationConversion(characterPartyList.job)) {
 
-            0 -> enemy = (JobFighter(
-                enemyPartyList.name,
-                enemyPartyList.job,
-                enemyPartyList.hp,
-                enemyPartyList.mp,
-                enemyPartyList.str,
-                enemyPartyList.def,
-                enemyPartyList.agi,
-                enemyPartyList.luck
+            0 -> character = (JobFighter(
+                characterPartyList.name,
+                characterPartyList.job,
+                characterPartyList.hp,
+                characterPartyList.mp,
+                characterPartyList.str,
+                characterPartyList.def,
+                characterPartyList.agi,
+                characterPartyList.luck
             ))
 
-            1 -> enemy = (JobWizard(
-                enemyPartyList.name,
-                enemyPartyList.job,
-                enemyPartyList.hp,
-                enemyPartyList.mp,
-                enemyPartyList.str,
-                enemyPartyList.def,
-                enemyPartyList.agi,
-                enemyPartyList.luck
+            1 -> character = (JobWizard(
+                characterPartyList.name,
+                characterPartyList.job,
+                characterPartyList.hp,
+                characterPartyList.mp,
+                characterPartyList.str,
+                characterPartyList.def,
+                characterPartyList.agi,
+                characterPartyList.luck
             ))
 
-            2 -> enemy = (JobPriest(
-                enemyPartyList.name,
-                enemyPartyList.job,
-                enemyPartyList.hp,
-                enemyPartyList.mp,
-                enemyPartyList.str,
-                enemyPartyList.def,
-                enemyPartyList.agi,
-                enemyPartyList.luck
+            2 -> character = (JobPriest(
+                characterPartyList.name,
+                characterPartyList.job,
+                characterPartyList.hp,
+                characterPartyList.mp,
+                characterPartyList.str,
+                characterPartyList.def,
+                characterPartyList.agi,
+                characterPartyList.luck
             ))
 
-            3 -> enemy = (JobNinja(
-                enemyPartyList.name,
-                enemyPartyList.job,
-                enemyPartyList.hp,
-                enemyPartyList.mp,
-                enemyPartyList.str,
-                enemyPartyList.def,
-                enemyPartyList.agi,
-                enemyPartyList.luck
-            ))
-        }
-
-        enemy.setMaxHp(enemy.hp)
-        enemy.setMaxMp(enemy.mp)
-        enemy.isMark = false
-        enemy.isPoison = false
-        enemy.isParalysis = false
-        enemy.setIdNumber(id)
-        enemy.setCharacterImageType(enemyPartyList.character_image)
-
-        return enemy
-    }
-
-    // 味方キャラクターを作成する
-    private fun makeAllyCharacter(allyPartyList: CharacterAllData, id: Int): Player {
-
-        when (occupationConversion(allyPartyList.job)) {
-
-            0 -> ally = (JobFighter(
-                allyPartyList.name,
-                allyPartyList.job,
-                allyPartyList.hp,
-                allyPartyList.mp,
-                allyPartyList.str,
-                allyPartyList.def,
-                allyPartyList.agi,
-                allyPartyList.luck
-            ))
-
-            1 -> ally = (JobWizard(
-                allyPartyList.name,
-                allyPartyList.job,
-                allyPartyList.hp,
-                allyPartyList.mp,
-                allyPartyList.str,
-                allyPartyList.def,
-                allyPartyList.agi,
-                allyPartyList.luck
-            ))
-
-            2 -> ally = (JobPriest(
-                allyPartyList.name,
-                allyPartyList.job,
-                allyPartyList.hp,
-                allyPartyList.mp,
-                allyPartyList.str,
-                allyPartyList.def,
-                allyPartyList.agi,
-                allyPartyList.luck
-            ))
-
-            3 -> ally = (JobNinja(
-                allyPartyList.name,
-                allyPartyList.job,
-                allyPartyList.hp,
-                allyPartyList.mp,
-                allyPartyList.str,
-                allyPartyList.def,
-                allyPartyList.agi,
-                allyPartyList.luck
+            3 -> character = (JobNinja(
+                characterPartyList.name,
+                characterPartyList.job,
+                characterPartyList.hp,
+                characterPartyList.mp,
+                characterPartyList.str,
+                characterPartyList.def,
+                characterPartyList.agi,
+                characterPartyList.luck
             ))
         }
 
-        ally.setMaxHp(ally.hp)
-        ally.setMaxMp(ally.mp)
-        ally.isMark = true
-        ally.isPoison = false
-        ally.isParalysis = false
-        ally.setIdNumber(id)
-        ally.setCharacterImageType(allyPartyList.character_image)
+        // 敵キャラクターの場合
+        if (id < 3) {
+            character.setMaxHp(character.hp)
+            character.setMaxMp(character.mp)
+            character.isMark = false
+            character.isPoison = false
+            character.isParalysis = false
+            character.setIdNumber(id)
+            character.setCharacterImageType(characterPartyList.character_image)
 
-        return ally
+            // 味方キャラクターの場合
+        }else{
+            character.setMaxHp(character.hp)
+            character.setMaxMp(character.mp)
+            character.isMark = true
+            character.isPoison = false
+            character.isParalysis = false
+            character.setIdNumber(id)
+            character.setCharacterImageType(characterPartyList.character_image)
+
+        }
+        return character
     }
 
     // BattleLogListenerを通してBattleMainActivityのメソッドを使用

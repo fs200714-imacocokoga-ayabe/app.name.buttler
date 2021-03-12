@@ -32,7 +32,6 @@ class CharacterDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_detail)
 
-       // mp0= MediaPlayer.create(this, R.raw.yokoku)
         mp0= MediaPlayer.create(this, MusicData.BGM04.getBgm())
         mp0.isLooping=true
         mp0.start()

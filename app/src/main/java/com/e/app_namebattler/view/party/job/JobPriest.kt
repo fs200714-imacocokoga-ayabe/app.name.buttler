@@ -35,10 +35,17 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         log.clear()
 
-        log.append("${getName()}の攻撃！\n錫杖で突いた！\n")
-        damage = calcDamage(defender) // 与えるダメージを求める
-        damageProcess(defender, damage) // ダメージ処理
-        knockedDownCheck(defender)
+        if (this.isParalysis){// 麻痺している場合
+
+            log.append("${getName()}は麻痺で動けない！！\n")
+            knockedDownCheck(defender)
+
+        }else {// 麻痺していない場合
+            log.append("${getName()}の攻撃！\n錫杖で突いた！\n")
+            damage = calcDamage(defender) // 与えるダメージを求める
+            damageProcess(defender, damage) // ダメージ処理
+            knockedDownCheck(defender)
+        }
         return log
     }
 
@@ -46,13 +53,21 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         log.clear()
 
-        if ((1..100).random() < Magic.OPTICAL_ELEMENTAL.getInvocationRate()) {
-            log.append("${getName()}は祈りを捧げて${Magic.OPTICAL_ELEMENTAL.getName()}を召還した\n${Magic.OPTICAL_ELEMENTAL.getName()}の祝福を受けた！\n")
-            recoveryProcess(this, Magic.OPTICAL_ELEMENTAL.getRecoveryValue())
-        } else {
-            log.append("${getName()}は祈りを捧げたが何も起こらなかった！\n")
+        if (this.isParalysis){// 麻痺している場合
+
+            log.append("${getName()}は麻痺で動けない！！\n")
+            knockedDownCheck(this)
+
+        }else {// 麻痺していない場合
+
+            if ((1..100).random() < Magic.OPTICAL_ELEMENTAL.getInvocationRate()) {
+                log.append("${getName()}は祈りを捧げて${Magic.OPTICAL_ELEMENTAL.getName()}を召還した\n${Magic.OPTICAL_ELEMENTAL.getName()}の祝福を受けた！\n")
+                recoveryProcess(this, Magic.OPTICAL_ELEMENTAL.getRecoveryValue())
+            } else {
+                log.append("${getName()}は祈りを捧げたが何も起こらなかった！\n")
+            }
+            knockedDownCheck(this)
         }
-        knockedDownCheck(this)
         return log
     }
 
@@ -60,37 +75,54 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         log.clear()
 
-        if (hasEnoughMp()) {
-            damage = effect(defender)
+        if (this.isParalysis){// 麻痺している場合
+
+            log.append("${getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
-        } else {
-            log.append("{getName()}は魔法を唱えようとしたが、MPが足りない！！\n")
-            normalAttack(defender)
+
+        }else {// 麻痺していない場合
+            if (hasEnoughMp()) {
+                damage = effect(defender)
+                knockedDownCheck(defender)
+            } else {
+                log.append("{getName()}は魔法を唱えようとしたが、MPが足りない！！\n")
+                normalAttack(defender)
+            }
         }
         return log
     }
 
     override fun healingMagic(defender: Player): StringBuilder {
 
-        isHeal = true
+        log.clear()
 
-        if (hasEnoughMp()) { // MPが20以上の場合ヒールを使用
-            this.mp = this.getMP() - Magic.HEAL.getMpCost() // MP消費
-                        log.append("${getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${getName()}を包む\n")
+        if (this.isParalysis){// 麻痺している場合
 
-            recoveryProcess(
-                defender, Magic.HEAL
-                    .getRecoveryValue()
-            )
+            log.append("${getName()}は麻痺で動けない！！\n")
             knockedDownCheck(this)
-        } else { // MPが20未満の場合
-            log.append("${getName()}はヒールを唱えようとしたが、MPが足りない！！\n")
-            log.append("${getName()}の攻撃！\n錫杖を振りかざした！\n")
-            damage = calcDamage(defender) // 与えるダメージを求める
-            super.damageProcess(defender, damage) // ダメージ処理
-            knockedDownCheck(defender)
+
+        }else {// 麻痺していない場合
+
+            isHeal = true
+
+            if (hasEnoughMp()) { // MPが20以上の場合ヒールを使用
+                this.mp = this.getMP() - Magic.HEAL.getMpCost() // MP消費
+                log.append("${getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${defender.getName()}を包む\n")
+
+                recoveryProcess(
+                    defender, Magic.HEAL
+                        .getRecoveryValue()
+                )
+
+            } else { // MPが20未満の場合
+                log.append("${getName()}はヒールを唱えようとしたが、MPが足りない！！\n")
+                log.append("${getName()}の攻撃！\n錫杖を振りかざした！\n")
+                damage = calcDamage(defender) // 与えるダメージを求める
+                super.damageProcess(defender, damage) // ダメージ処理
+            }
+            knockedDownCheck(this)
+            isHeal = false
         }
-        isHeal = false
         return log
     }
 
@@ -133,6 +165,7 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
     }
 
     private fun hasEnoughMp(): Boolean {
+
         return if (10 <= this.getMP() && !isHeal) {
             true
         } else 20 <= this.getMP() && isHeal

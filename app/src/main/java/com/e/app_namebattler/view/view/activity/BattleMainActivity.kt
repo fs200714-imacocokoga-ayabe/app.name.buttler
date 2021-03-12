@@ -53,7 +53,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_main)
 
-        //mp0= MediaPlayer.create(this, R.raw.lastwar)
         mp0= MediaPlayer.create(this, MusicData.BGM01.getBgm())
         mp0.isLooping=true
         mp0.start()

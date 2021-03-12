@@ -16,7 +16,6 @@ class TopScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_screen)
 
-        //mp0= MediaPlayer.create(this, R.raw.neighofwar)
         mp0= MediaPlayer.create(this, MusicData.BGM02.getBgm())
         mp0.isLooping=true
         mp0.start()

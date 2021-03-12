@@ -48,7 +48,6 @@ class BattleStartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_start)
 
-       // mp0= MediaPlayer.create(this, R.raw.neighofwar)
         mp0= MediaPlayer.create(this, MusicData.BGM02.getBgm())
         mp0.isLooping=true
         mp0.start()

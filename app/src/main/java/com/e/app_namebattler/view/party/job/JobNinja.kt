@@ -31,11 +31,20 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
     }
 
     override fun normalAttack(defender: Player): StringBuilder {
+
         log.clear()
-        log.append("${getName()}の攻撃！\n刀で突きさした！\n")
-        damage = calcDamage(defender) // 与えるダメージを求める
-        damageProcess(defender, damage) // ダメージ処理
-        knockedDownCheck(defender)
+
+        if (this.isParalysis){// 麻痺している場合
+
+            log.append("${getName()}は麻痺で動けない！！\n")
+            knockedDownCheck(defender)
+
+        }else {// 麻痺していない場合
+            log.append("${getName()}の攻撃！\n刀で突きさした！\n")
+            damage = calcDamage(defender) // 与えるダメージを求める
+            damageProcess(defender, damage) // ダメージ処理
+            knockedDownCheck(defender)
+        }
         return log
     }
 
@@ -43,23 +52,31 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if ((1..100).random() < Skill.SWALLOW.getInvocationRate()) { // 30%の確率で発動
+        if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は目にも止まらぬ速さで攻撃した！\n")
+            log.append("${getName()}は麻痺で動けない！！\n")
+            knockedDownCheck(defender)
 
-            for (i in 1..2) {
-                log.append("${i}回目の攻撃\n")
-                damage = calcDamage(defender) // 攻撃処理
-                super.damageProcess(defender, damage) // ダメージ処理
+        }else {// 麻痺していない場合
 
-                if (defender.getHP() <= 0) { // 倒れた判定
-                    break
+            if ((1..100).random() < Skill.SWALLOW.getInvocationRate()) { // 30%の確率で発動
+
+                log.append("${getName()}は目にも止まらぬ速さで攻撃した！\n")
+
+                for (i in 1..2) {
+                    log.append("${i}回目の攻撃\n")
+                    damage = calcDamage(defender) // 攻撃処理
+                    super.damageProcess(defender, damage) // ダメージ処理
+
+                    if (defender.getHP() <= 0) { // 倒れた判定
+                        break
+                    }
                 }
+            } else { // 70%で不発
+                log.append("${getName()}は転んだ！\n")
             }
-        } else { // 70%で不発
-            log.append("${getName()}は転んだ！\n")
+            knockedDownCheck(defender)
         }
-        knockedDownCheck(defender)
         return log
     }
 
@@ -67,13 +84,22 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if (hasEnoughMp()) {
-            damage = effect()
-            super.damageProcess(defender, damage)
+        if (this.isParalysis){// 麻痺している場合
+
+            log.append("${getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
-        } else {
-            log.append("${getName()}は術を唱えようとしたが、MPが足りない！！\n")
-            normalAttack(defender)
+
+        }else {// 麻痺していない場合
+
+            if (hasEnoughMp()) {
+                damage = effect()
+                super.damageProcess(defender, damage)
+                knockedDownCheck(defender)
+
+            } else {
+                log.append("${getName()}は術を唱えようとしたが、MPが足りない！！\n")
+                normalAttack(defender)
+            }
         }
         return log
     }

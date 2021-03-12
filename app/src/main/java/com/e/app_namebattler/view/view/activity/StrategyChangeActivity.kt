@@ -18,8 +18,7 @@ class StrategyChangeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_strategy_change)
-
-       // mp0= MediaPlayer.create(this, R.raw.lastwar)
+        
         mp0= MediaPlayer.create(this, MusicData.BGM01.getBgm())
         mp0.isLooping=true
 
