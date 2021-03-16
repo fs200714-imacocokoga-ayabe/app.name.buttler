@@ -32,21 +32,21 @@ import kotlinx.android.synthetic.main.activity_battle_main.*
 class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogListener {
 
     lateinit var mp0: MediaPlayer
-    var handler: Handler? = null
-    lateinit var helper: AllyOpenHelper
-    lateinit var helper02: EnemyOpenHelper
+    private var handler: Handler? = null
+    private lateinit var helper: AllyOpenHelper
+    private lateinit var helper02: EnemyOpenHelper
 
     private val gm = GameManager()
 
     private var enemyPartyList = ArrayList<CharacterAllData>()
     private var allyPartyList = ArrayList<CharacterAllData>()
-    lateinit var memberList: MutableList<MemberStatusData>
+    private lateinit var memberList: MutableList<MemberStatusData>
 
-    var strategyNumber = 0 //作戦番号を格納
+    private var strategyNumber = 0 //作戦番号を格納
     var job = "" // 職業名を格納
 
     private var isTurn:Boolean = false// true: 最初のターンが実行される　false:バトルログ画面を最初にタップするとtrueになる
-    var isMessageSpeed:Boolean = false// メッセージ速度変更に使用
+    private var isMessageSpeed:Boolean = false// メッセージ速度変更に使用
 
     @SuppressLint("CutPasteId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {

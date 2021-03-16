@@ -68,7 +68,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circle_angle_quadrangle_01"
@@ -87,7 +87,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/circle_angle_quadrangle_01"
         android:gravity="center"
@@ -113,7 +113,7 @@
     <TextView
         android:id="@+id/character_created_mp_print_text_id"
         android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:text="@string/character_created_mp_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -124,7 +124,7 @@
     <TextView
         android:id="@+id/character_created_str_print_text_id"
         android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:text="@string/character_created_str_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -135,7 +135,7 @@
     <TextView
         android:id="@+id/character_created_def_print_text_id"
         android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:text="@string/character_created_def_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -146,7 +146,7 @@
     <TextView
         android:id="@+id/character_created_agi_print_text_id"
         android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:text="@string/character_created_agi_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -157,7 +157,7 @@
     <TextView
         android:id="@+id/character_created_luck_print_text_id"
         android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:text="@string/character_created_luck_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -179,7 +179,7 @@
     <TextView
         android:id="@+id/character_created_character_str_text_id"
         android:layout_width="75dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:gravity="right"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -190,7 +190,7 @@
     <TextView
         android:id="@+id/character_created_character_mp_text_id"
         android:layout_width="75dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:gravity="right"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -201,7 +201,7 @@
     <TextView
         android:id="@+id/character_created_character_def_text_id"
         android:layout_width="75dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:gravity="right"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -212,7 +212,7 @@
     <TextView
         android:id="@+id/character_created_character_agi_text_id"
         android:layout_width="75dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:gravity="right"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -223,7 +223,7 @@
     <TextView
         android:id="@+id/character_created_character_luck_text_id"
         android:layout_width="75dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:gravity="right"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -234,7 +234,7 @@
     <TextView
         android:id="@+id/character_created_character_status_print_text_id"
         android:layout_width="155dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
         android:gravity="center"

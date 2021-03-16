@@ -77,5 +77,6 @@
     <string name="character_detail_def_print_text">DEF</string>
     <string name="character_detail_agi_print_text">AGI</string>
     <string name="character_detail_luck_print_text">LUCK</string>
+    <string name="character_creation_name_input_hint">名前は最大10文字です</string>
 
 </resources>

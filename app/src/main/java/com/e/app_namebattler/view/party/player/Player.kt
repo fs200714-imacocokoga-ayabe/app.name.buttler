@@ -5,14 +5,9 @@ import androidx.annotation.RequiresApi
 import com.e.app_namebattler.view.party.magic.Magic
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
-open class Player{
-
-    var random = Random()
-
-    open var log = StringBuilder()
+open class Player {
 
     private var name:String = ""
 
@@ -54,6 +49,7 @@ open class Player{
     private var characterImageType:Int = 0
     private var idNumber: Int = 0
     var damage = 0
+    open var log = StringBuilder()
 
     private val herbRecoveryValue = 30
 
@@ -112,10 +108,6 @@ open class Player{
      */
     open fun getAGI(): Int {
         return agi
-    }
-
-    fun getIdNumber(): Int {
-        return idNumber
     }
 
     open fun getMaxHp(): Int{

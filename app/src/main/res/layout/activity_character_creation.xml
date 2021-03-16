@@ -53,6 +53,7 @@
 
     <EditText
         android:id="@+id/character_creation_name_input_field_editText_id"
+        android:hint="@string/character_creation_name_input_hint"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -62,6 +63,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="30sp"
+        android:maxLength="10"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/character_creation_occupation_selection_print_text_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -7,6 +7,8 @@ import android.database.DatabaseUtils
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
+import android.text.InputType
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
@@ -29,7 +31,6 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
     private var isSameName :Boolean = false // 同じ名前かどうか true:同じ名前 false:違う名前
     private var inputStr: String = "" // editTextに入力された文字を格納
     private var limitLength = StringBuilder()
-
     private var characterCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +72,9 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
                 // データベースの中に同じ名前が存在するかのチェック
                 if (sameNameCheck(nameValue)) {
 
-                    Toast.makeText(this, "同じ名前がすでに存在しています", Toast.LENGTH_SHORT).show()
+                    val ts = Toast.makeText(this, "同じ名前がすでに存在しています", Toast.LENGTH_LONG)
+                    ts.setGravity(Gravity.TOP,0,150)
+                    ts.show()
 
                 } else {
 
@@ -114,8 +117,10 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         inputStr = s.toString()
 
         if (10 < inputStr.length) {
+
             limitLength.append(inputStr)
-            limitLength.deleteCharAt(10)
+            limitLength.deleteCharAt(10)// 11文字目を消去
+
             val ic = Toast.makeText(this,
                 "名前は10文字までしか入力できません",
                 Toast.LENGTH_SHORT)
@@ -125,6 +130,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
             val editText = findViewById<View>(R.id.character_creation_name_input_field_editText_id) as EditText
             editText.setText(limitLength)
+
             limitLength.clear()
         }
     }

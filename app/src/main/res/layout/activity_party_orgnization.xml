@@ -16,6 +16,7 @@
         android:background="@drawable/frame_line_03"
         android:gravity="center"
         android:text="@string/party_organization_party_organization_print_text"
+        android:textSize="30sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
