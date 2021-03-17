@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:splitMotionEvents="false"
-    tools:context=".view.view.activity.CharacterCreatedActivity">
+    tools:context=".view.view.activity.CharacterCreatedActivity"
+    tools:ignore="ExtraText">
 
     <TextView
         android:id="@+id/character_created_create_character_text_id"
@@ -243,5 +244,21 @@
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_created_job_name_linearLayout" />
+
+    // キャラクター画像
+    <ImageView
+        android:id="@+id/character_created_imageView_id"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="74dp"
+        app:layout_constraintBottom_toTopOf="@+id/character_created_character_continuously_character_text_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/character_created_character_hp_text_id"
+        app:layout_constraintTop_toBottomOf="@+id/character_created_job_name_linearLayout"
+        app:srcCompat="@drawable/frame_line_01"
+        android:contentDescription="TODO" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

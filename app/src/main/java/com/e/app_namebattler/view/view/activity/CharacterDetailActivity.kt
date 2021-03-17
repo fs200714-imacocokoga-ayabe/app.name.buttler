@@ -4,6 +4,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.model.AllyOpenHelper
@@ -27,6 +28,7 @@ class CharacterDetailActivity : AppCompatActivity() {
     var agi = 0
     var luck = 0
     private var createAt = ""
+    private var characterImage = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,8 @@ class CharacterDetailActivity : AppCompatActivity() {
                 agi = cursor.getInt(6)
                 luck = cursor.getInt(7)
                 createAt = cursor.getString(8)
+                characterImage = cursor.getInt(9)
+
             }
 
         }finally {
@@ -135,6 +139,9 @@ class CharacterDetailActivity : AppCompatActivity() {
 
                 val dateText: TextView = findViewById(R.id.character_detail_date_text_id)
                 dateText.text = ("作成日：$createAt")
+
+                val characterImageView: ImageView = findViewById(R.id.character_detail_imageView_id)
+                characterImageView.setImageResource(characterImage)
             }
 
     // 数字を職業に変換

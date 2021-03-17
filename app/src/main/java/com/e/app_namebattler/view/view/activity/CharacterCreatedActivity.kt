@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -103,7 +104,10 @@ class CharacterCreatedActivity : AppCompatActivity() {
             agiText.text = agi.toString()
 
             val luckText: TextView = findViewById(R.id.character_created_character_luck_text_id)
-                luckText.text = luck.toString()
+            luckText.text = luck.toString()
+
+            val characterImageView: ImageView = findViewById(R.id.character_created_imageView_id)
+            characterImageView.setImageResource(characterImage)
 
             val db:SQLiteDatabase = helper.writableDatabase
 
