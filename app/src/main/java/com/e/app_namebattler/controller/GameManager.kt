@@ -13,12 +13,9 @@ class GameManager {
     private val pt = Party()
     var context: Context? = null
 
-    private val handler: Handler = Handler()
     private var battleLog = StringBuilder()
 
     var myCallBack: BattleLogListener? = null
-
-    private lateinit var speedOrderList: List<Player>// 速さ順キャラクターを格納
 
     private var party01: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
     private val party02: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
@@ -55,7 +52,7 @@ class GameManager {
         ally03 = makeCharacter(allyPartyList[2], 5)
 
         // スピード順に取得する
-        speedOrderList = (speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03))
+        speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03)
         // パーティの振り分け
         pt.appendPlayer(enemy01, enemy02, enemy03, ally01, ally02, ally03)
         // キャラクターの表示
@@ -65,11 +62,11 @@ class GameManager {
     // 戦闘処理
     fun battle(num: Int, strategyNumber: Int) {
 
-        player1 = attackList[num - 1] // 攻撃リストから呼び出し
+        player = attackList[num - 1] // 攻撃リストから呼び出し
 
-        if (player1.isLive) {// player1のHPが0より大きい場合
+        if (player.isLive) {// player1のHPが0より大きい場合
 
-            if (player1.isMark) { // player1が味方の場合
+            if (player.isMark) { // player1が味方の場合
                 battleLog.append(selectStrategyNumber(strategyNumber))
 
             } else {
@@ -80,9 +77,8 @@ class GameManager {
         // 敗北判定
         judgment()
 
-        myCallBack?.upDateBattleLog(battleLog) //BattleLogListenerを通してBattleMainActivityにarrayを送る
-
-        // キャラクターの表示
+        // キャラクターのステータスとバトルログを表示
+        battleLog(battleLog)
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
 
         party01.clear()
@@ -104,7 +100,7 @@ class GameManager {
             3 -> context = Context(StrategyUseHealingMagic())
             4 -> context = Context(StrategyUseHerb())
         }
-        return context?.attackStrategy(player1, pt.getParty1(),
+        return context?.attackStrategy(player, pt.getParty1(),
             pt.getParty2())!!
     }
 
@@ -114,7 +110,6 @@ class GameManager {
         for (i in attackList){
 
             if (i.hp <= 0) {
-                speedOrderList -= i
                 pt.removePlayer(i)
                 pt.removeMembers(i)
             }
@@ -129,7 +124,7 @@ class GameManager {
         ally01: Player,
         ally02: Player,
         ally03: Player
-    ): List<Player> {
+    ) {
 
         val speedData: MutableList<Player> = mutableListOf(ally01,
             ally02,
@@ -156,7 +151,6 @@ class GameManager {
             player = i
             pt.setMembers(player)
         }
-        return speedData
     }
 
     // 敵キャラクターを作成する
@@ -233,14 +227,11 @@ class GameManager {
         return character
     }
 
+    private fun battleLog(battleLog: StringBuilder){
+        myCallBack?.upDateBattleLog(battleLog)
+    }
     // BattleLogListenerを通してBattleMainActivityのメソッドを使用
-    private fun statusLog(
-        ally01: Player,
-        ally02: Player,
-        ally03: Player,
-        enemy01: Player,
-        enemy02: Player,
-        enemy03: Player
+    private fun statusLog(ally01: Player, ally02: Player, ally03: Player, enemy01: Player, enemy02: Player, enemy03: Player
     ) {
         myCallBack?.upDateAllyStatus(ally01, ally02, ally03)
         myCallBack?.upDateEnemyStatus(enemy01, enemy02, enemy03)

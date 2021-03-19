@@ -141,11 +141,10 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         gm.setAttackList(attackList)
 
         for (i in 1..attackList.size) { // attackに格納したplayerが全員行動する
-
             party01Count = gm.getParty01().size
-          party02Count = gm.getParty02().size
+            party02Count = gm.getParty02().size
 
-            player = attackList[i - 1] // 攻撃リストから呼び出し
+            player = attackList[i - 1]
 
             if (party01Count != 0 || party02Count != 0 && player.isLive) {
 

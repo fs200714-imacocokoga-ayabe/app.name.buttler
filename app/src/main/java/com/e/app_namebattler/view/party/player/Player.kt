@@ -231,6 +231,10 @@ open class Player {
             log.append("${defender.getName()}は力尽きた...\n")
         }
             conditionCheck() // 状態異常チェック
+
+        if (this.getHP() <= 0) {
+            log.append("${this.getName()}は力尽きた...\n")
+        }
     }
 
     /**

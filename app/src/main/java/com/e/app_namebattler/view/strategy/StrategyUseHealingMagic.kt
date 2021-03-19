@@ -41,7 +41,11 @@ class StrategyUseHealingMagic : BaseStrategy() {// 回復優先の作戦
                 }
             }
 
-            battleLog.append(player1.healingMagic(player!!))
+            if (20 <= player1.mp) {
+                battleLog.append(player1.healingMagic(player!!))
+            }else{
+                battleLog.append(player1.healingMagic(player2!!))
+            }
 
         } else { // player1が僧侶ではない場合
 
