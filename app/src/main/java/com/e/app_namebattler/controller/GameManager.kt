@@ -22,6 +22,7 @@ class GameManager {
 
     private var party01: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
     private val party02: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
+    private var members01: MutableList<Player> = ArrayList() // プレイヤーの入れ物
     private var attackList: MutableList<Player> = ArrayList() //攻撃するキャラクターを格納
 
     lateinit var ally01: Player // 味方キャラクターを格納
@@ -34,7 +35,7 @@ class GameManager {
     private lateinit var player: Player // キャラクターを格納
     private lateinit var player1: Player
     private lateinit var player2: Player
-
+    
     private var enemyStrategyNumber = 0 // 作戦の選択に使用
 
     // Activityから指揮権を受け取る
@@ -62,63 +63,37 @@ class GameManager {
     }
 
     // 戦闘処理
-    fun battle(strategyNumber: Int) {
+    fun battle(num: Int, strategyNumber: Int) {
 
-        attackList.clear()
+        player1 = attackList[num - 1] // 攻撃リストから呼び出し
 
-        // 行動するキャラクターattackListに格納
-        for (i in 1..pt.getMembers().size) {
-            attackList.add(pt.getMembers()[i - 1])
-        }
+        if (player1.isLive) {// player1のHPが0より大きい場合
 
-        for (i in 1..attackList.size) { // attackに格納したplayerが全員行動する
+            if (player1.isMark) { // player1が味方の場合
+                battleLog.append(selectStrategyNumber(strategyNumber))
 
-            player1 = attackList[i - 1] // 攻撃リストから呼び出し
-
-            if (player1.isLive) {// player1のHPが0より大きい場合
-
-               if (player1.isMark) { // player1が味方の場合
-
-                   battleLog.append(selectStrategyNumber(strategyNumber))
-
-               } else {
-                   enemyStrategyNumber = (0..4).random()// 敵の作戦ランダム
-                   battleLog.append(selectStrategyNumber(enemyStrategyNumber))
-               }
-                battleLog.append("@@")// playerごとのログを@@で分けるために加える
+            } else {
+                enemyStrategyNumber = (0..4).random()// 敵の作戦ランダム
+                battleLog.append(selectStrategyNumber(enemyStrategyNumber))
+                }
             }
+        // 敗北判定
+        judgment()
 
-            // 敗北判定
-            judgment()
-
-            // どちらかのパーティが全滅した場合処理を抜ける
-            if (pt.getParty1().isEmpty() || pt.getParty2().isEmpty()) {
-                break
-            }
-        }
-
-        val array = battleLog.split("@@") //playerごとに分ける
-
-        myCallBack?.upDateBattleLog(array) //BattleLogListenerを通してBattleMainActivityにarrayを送る
+        myCallBack?.upDateBattleLog(battleLog) //BattleLogListenerを通してBattleMainActivityにarrayを送る
 
         // キャラクターの表示
         statusLog(ally01, ally02, ally03, enemy01, enemy02, enemy03)
 
-      //  allLog(ally01, ally02, ally03, enemy01, enemy02, enemy03, array)
-
         party01.clear()
         party02.clear()
+        members01.clear()
 
         party01.plusAssign(pt.getParty1())
         party02.plusAssign(pt.getParty2())
+        members01.plusAssign(pt.getMembers())
         battleLog.clear()
-
     }
-
-//    private fun allLog(ally01: Player, ally02: Player, ally03: Player, enemy01: Player, enemy02: Player, enemy03: Player, array: List<String>) {
-//
-//        myCallBack?.upAllLog(ally01, ally02, ally03, enemy01, enemy02, enemy03, array)
-//    }
 
     // 選んだ作戦番号から対象プレイヤーと作戦を得て返す
     private fun selectStrategyNumber(number: Int): StringBuilder {
@@ -272,11 +247,20 @@ class GameManager {
     }
 
     fun  getParty01():List<Player>{
-        return party01
+        return pt.getParty1()
     }
 
     fun getParty02(): List<Player>{
-        return party02
+        return pt.getParty2()
+    }
+
+    fun getMembers():List<Player>{
+        return pt.getMembers()
+    }
+
+    fun setAttackList(attackList: MutableList<Player>) {
+        this.attackList = attackList
+
     }
 
     // データをcharaDataに保存

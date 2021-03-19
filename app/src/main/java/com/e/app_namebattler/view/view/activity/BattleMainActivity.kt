@@ -20,6 +20,7 @@ import com.e.app_namebattler.controller.GameManager
 import com.e.app_namebattler.model.EnemyOpenHelper
 import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.party.party.Party
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.StrategyName
@@ -41,12 +42,18 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private var enemyPartyList = ArrayList<CharacterAllData>()
     private var allyPartyList = ArrayList<CharacterAllData>()
     private lateinit var memberList: MutableList<MemberStatusData>
+    private var attackList: MutableList<Player> = ArrayList() //攻撃するキャラクターを格納
 
     private var strategyNumber = 0 //作戦番号を格納
     var job = "" // 職業名を格納
 
+    private lateinit var player: Player // キャラクターを格納
+
     private var isTurn:Boolean = false// true: 最初のターンが実行される　false:バトルログ画面を最初にタップするとtrueになる
     private var isMessageSpeed:Boolean = false// メッセージ速度変更に使用
+
+    var party01Count = 1
+    var party02Count = 1
 
     @SuppressLint("CutPasteId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,12 +123,57 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                     //どちらのパーティも全滅していない場合
                 }else{
 
-                    gm.battle(strategyNumber)
+                    battle(strategyNumber)
                 }
             }
         }
     }
 
+    private fun battle(strategyNumber: Int) {
+
+        attackList.clear()
+
+        // 行動するキャラクターattackListに格納
+        for (i in 1..gm.getMembers().size) {
+            attackList.add(gm.getMembers()[i - 1])
+        }
+
+        gm.setAttackList(attackList)
+
+        for (i in 1..attackList.size) { // attackに格納したplayerが全員行動する
+
+            party01Count = gm.getParty01().size
+          party02Count = gm.getParty02().size
+
+            player = attackList[i - 1] // 攻撃リストから呼び出し
+
+            if (party01Count != 0 || party02Count != 0 && player.isLive) {
+
+                if (!isMessageSpeed) {
+
+                    when (i) {
+                        1 -> {handler?.postDelayed({ gm.battle(1, strategyNumber) }, 200)}
+                        2 -> {handler?.postDelayed({ gm.battle(2, strategyNumber) }, 3500)}
+                        3 -> {handler?.postDelayed({ gm.battle(3, strategyNumber) }, 6500)}
+                        4 -> {handler?.postDelayed({ gm.battle(4, strategyNumber) }, 9500)}
+                        5 -> {handler?.postDelayed({ gm.battle(5, strategyNumber) }, 12500)}
+                        6 -> {handler?.postDelayed({ gm.battle(6, strategyNumber) }, 15500)}
+                    }
+
+                } else {
+
+                    when (i) {
+                        1 -> {handler?.postDelayed({ gm.battle(1, strategyNumber) }, 100)}
+                        2 -> {handler?.postDelayed({ gm.battle(2, strategyNumber) }, 200)}
+                        3 -> {handler?.postDelayed({ gm.battle(3, strategyNumber) }, 300)}
+                        4 -> {handler?.postDelayed({ gm.battle(4, strategyNumber) }, 400)}
+                        5 -> {handler?.postDelayed({ gm.battle(5, strategyNumber) }, 500)}
+                        6 -> {handler?.postDelayed({ gm.battle(6, strategyNumber) }, 600)}
+                    }
+                }
+            }
+        }
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -269,83 +321,10 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         strategyText.text =  StrategyName.S0.getStrategyName()
     }
 
-    override fun upDateBattleLog(battleLog: List<String>){
+    override fun upDateBattleLog(battleLog: StringBuilder){
 
-        if (!isMessageSpeed) {
-            println("------------------------------------------------------------------------------")
             val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-
-            for (i in 1..battleLog.size) {
-                when (i) {
-                    1 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 200)
-                        println("ろぐ01${battleLog[i - 1]}")
-                    }
-
-                    2 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 3500)
-                        println("ろぐ02${battleLog[i - 1]}")
-                    }
-
-                    3 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 6500)
-                        println("ろぐ03${battleLog[i - 1]}")
-                    }
-
-                    4 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 9500)
-                        println("ろぐ04${battleLog[i - 1]}")
-                    }
-
-                    5 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 12500)
-                        println("ろぐ05${battleLog[i - 1]}")
-                    }
-
-                    6 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 15500)
-                        println("ろぐ06${battleLog[i - 1]}")
-                    }
-                }
-            }
-        }else{
-println("------------------------------------------------------------------------------")
-            val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-
-            for (i in 1..battleLog.size) {
-                when (i) {
-                    1 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 100)
-                        println("ろぐ01${battleLog[i - 1]}")
-                    }
-
-                    2 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 200)
-                        println("ろぐ02${battleLog[i - 1]}")
-                    }
-
-                    3 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 300)
-                        println("ろぐ03${battleLog[i - 1]}")
-                    }
-
-                    4 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 400)
-                        println("ろぐ04${battleLog[i - 1]}")
-                    }
-
-                    5 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 500)
-                        println("ろぐ05${battleLog[i - 1]}")
-                    }
-
-                    6 -> {
-                        handler?.postDelayed({ tl.text = battleLog[i - 1] }, 600)
-                        println("ろぐ06${battleLog[i - 1]}")
-                    }
-                }
-            }
-        }
+            tl.text = battleLog.toString()
     }
 
     // バトルログ画面でのタップした時の処理
@@ -353,13 +332,16 @@ println("-----------------------------------------------------------------------
 
         if (!isTurn){
 
-            gm.battle(strategyNumber)
+            battle(strategyNumber)
 
             isTurn = true
+
             val ms00 = Toast.makeText(this, "タップで次のターンの速度を変更できます", Toast.LENGTH_SHORT)
             ms00.setGravity(Gravity.CENTER, 0, 0)
             ms00.show()
+
         }else {
+
             isMessageSpeed = !isMessageSpeed // 反転
 
             if (isMessageSpeed) {
@@ -367,6 +349,7 @@ println("-----------------------------------------------------------------------
                 val ms01 = Toast.makeText(this, "次のターンのメッセージ速度：早い", Toast.LENGTH_SHORT)
                 ms01.setGravity(Gravity.CENTER, 0, 0)
                 ms01.show()
+
             } else {
 
                 val ms02 = Toast.makeText(this, "次のターンのメッセージ速度：遅い", Toast.LENGTH_SHORT)
@@ -529,18 +512,6 @@ println("-----------------------------------------------------------------------
     }
 
     override fun onBackPressed() {}
-
-    override fun upAllLog(
-        ally01: Player,
-        ally02: Player,
-        ally03: Player,
-        enemy01: Player,
-        enemy02: Player,
-        enemy03: Player,
-        battleLog: List<String>
-    ) {
-
-    }
 }
 
 
