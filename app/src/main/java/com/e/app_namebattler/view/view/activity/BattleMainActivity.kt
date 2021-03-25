@@ -20,7 +20,6 @@ import com.e.app_namebattler.controller.GameManager
 import com.e.app_namebattler.model.EnemyOpenHelper
 import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
-import com.e.app_namebattler.view.party.party.Party
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.StrategyName
@@ -33,7 +32,8 @@ import kotlinx.android.synthetic.main.activity_battle_main.*
 class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogListener {
 
     lateinit var mp0: MediaPlayer
-    private var handler: Handler? = null
+    //private var handler: Handler? = null
+    private var handler = Handler()
     private lateinit var helper: AllyOpenHelper
     private lateinit var helper02: EnemyOpenHelper
 
@@ -42,15 +42,20 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private var enemyPartyList = ArrayList<CharacterAllData>()
     private var allyPartyList = ArrayList<CharacterAllData>()
     private lateinit var memberList: MutableList<MemberStatusData>
-    private var attackList: MutableList<Player> = ArrayList() //攻撃するキャラクターを格納
+
+    private var ally01StatusList:MutableList<String> = ArrayList()
+    private var ally02StatusList:MutableList<String> = ArrayList()
+    private var ally03StatusList:MutableList<String> = ArrayList()
+    private var enemy01StatusList:MutableList<String> = ArrayList()
+    private var enemy02StatusList:MutableList<String> = ArrayList()
+    private var enemy03StatusList:MutableList<String> = ArrayList()
 
     private var strategyNumber = 0 //作戦番号を格納
     var job = "" // 職業名を格納
 
-    private lateinit var player: Player // キャラクターを格納
-
-    private var isTurn:Boolean = false// true: 最初のターンが実行される　false:バトルログ画面を最初にタップするとtrueになる
+    private var isNextTurn:Boolean = false// true: 最初のターンが実行される　false:バトルログ画面を最初にタップするとtrueになる
     private var isMessageSpeed:Boolean = false// メッセージ速度変更に使用
+    private var isTurnEnd:Boolean = false
 
     var party01Count = 1
     var party02Count = 1
@@ -103,76 +108,62 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         // 次のターンボタンを押したときの処理
         battle_main_next_turn_button_id.setOnClickListener {
 
-            if (isTurn){
+            if (isNextTurn && isTurnEnd){
+                if (isNextTurn) {
 
-                // どちらかのパーティが全滅した場合
-                if (gm.getParty01().isEmpty() || gm.getParty02().isEmpty()) {
-                    // GameManagerクラス から　CharacterDataクラスにデータを渡す処理
-                    gm.sendData()
+                    // どちらかのパーティが全滅した場合
+                    if (gm.getParty01().isEmpty() || gm.getParty02().isEmpty()) {
+                        // GameManagerクラス から　CharacterDataクラスにデータを渡す処理
+                        gm.sendData()
 
-                    val intent = Intent(this, BattleResultActivity::class.java)
+                        val intent = Intent(this, BattleResultActivity::class.java)
 
-                    // パーティの勝ち負け判定に使用　Party01のsizeが0なら敵の勝利1以上なら味方の勝利
-                    val party00 = gm.getParty01().size
-                    // BattleResultActivityにparty00を送る
-                    intent.putExtra("party_key", party00)
+                        // パーティの勝ち負け判定に使用　Party01のsizeが0なら敵の勝利1以上なら味方の勝利
+                        val party00 = gm.getParty01().size
+                        // BattleResultActivityにparty00を送る
+                        intent.putExtra("party_key", party00)
 
-                    mp0.reset()
-                    startActivity(intent)
+                        mp0.reset()
+                        startActivity(intent)
 
-                    //どちらのパーティも全滅していない場合
-                }else{
+                        //どちらのパーティも全滅していない場合
+                    } else {
 
-                    battle(strategyNumber)
+                        gm.battle(strategyNumber)
+                        turnEnd()
+                    }
                 }
+            }else{
+
+                val ts = Toast.makeText(this, "ターンが終了していません", Toast.LENGTH_SHORT)
+                ts.setGravity(Gravity.BOTTOM, 0, 30)
+                ts.show()
+
             }
         }
     }
 
-    private fun battle(strategyNumber: Int) {
+    private fun turnEnd() {
 
-        attackList.clear()
+        party01Count = gm.getParty01().size
+        party02Count = gm.getParty02().size
 
-        // 行動するキャラクターattackListに格納
-        for (i in 1..gm.getMembers().size) {
-            attackList.add(gm.getMembers()[i - 1])
-        }
+        if (gm.getParty01().isEmpty() || gm.getParty02().isEmpty()) {
+            // GameManagerクラス から　CharacterDataクラスにデータを渡す処理
+            gm.sendData()
 
-        gm.setAttackList(attackList)
+            val intent = Intent(this, BattleResultActivity::class.java)
 
-        for (i in 1..attackList.size) { // attackに格納したplayerが全員行動する
-            party01Count = gm.getParty01().size
-            party02Count = gm.getParty02().size
+            // パーティの勝ち負け判定に使用　Party01のsizeが0なら敵の勝利1以上なら味方の勝利
+            val party00 = gm.getParty01().size
+            // BattleResultActivityにparty00を送る
+            intent.putExtra("party_key", party00)
 
-            player = attackList[i - 1]
-
-            if (party01Count != 0 || party02Count != 0 && player.isLive) {
-
-                if (!isMessageSpeed) {
-
-                    when (i) {
-                        1 -> {handler?.postDelayed({ gm.battle(1, strategyNumber) }, 200)}
-                        2 -> {handler?.postDelayed({ gm.battle(2, strategyNumber) }, 3500)}
-                        3 -> {handler?.postDelayed({ gm.battle(3, strategyNumber) }, 6500)}
-                        4 -> {handler?.postDelayed({ gm.battle(4, strategyNumber) }, 9500)}
-                        5 -> {handler?.postDelayed({ gm.battle(5, strategyNumber) }, 12500)}
-                        6 -> {handler?.postDelayed({ gm.battle(6, strategyNumber) }, 15500)}
-                    }
-
-                } else {
-
-                    when (i) {
-                        1 -> {handler?.postDelayed({ gm.battle(1, strategyNumber) }, 100)}
-                        2 -> {handler?.postDelayed({ gm.battle(2, strategyNumber) }, 200)}
-                        3 -> {handler?.postDelayed({ gm.battle(3, strategyNumber) }, 300)}
-                        4 -> {handler?.postDelayed({ gm.battle(4, strategyNumber) }, 400)}
-                        5 -> {handler?.postDelayed({ gm.battle(5, strategyNumber) }, 500)}
-                        6 -> {handler?.postDelayed({ gm.battle(6, strategyNumber) }, 600)}
-                    }
-                }
-            }
+            mp0.reset()
+            startActivity(intent)
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -320,25 +311,21 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         strategyText.text =  StrategyName.S0.getStrategyName()
     }
 
-    override fun upDateBattleLog(battleLog: StringBuilder){
-
-            val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-            tl.text = battleLog.toString()
-    }
-
     // バトルログ画面でのタップした時の処理
     override fun onClick(v: View?) {
 
-        if (!isTurn){
+        // 最初のターンの場合
+        if (!isNextTurn){
 
-            battle(strategyNumber)
-
-            isTurn = true
+            gm.battle(strategyNumber)
+            turnEnd()
+            isNextTurn = true
 
             val ms00 = Toast.makeText(this, "タップで次のターンの速度を変更できます", Toast.LENGTH_SHORT)
-            ms00.setGravity(Gravity.CENTER, 0, 0)
+            ms00.setGravity(Gravity.CENTER, 0, 250)
             ms00.show()
 
+            //2ターン目以降の場合
         }else {
 
             isMessageSpeed = !isMessageSpeed // 反転
@@ -346,13 +333,13 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             if (isMessageSpeed) {
 
                 val ms01 = Toast.makeText(this, "次のターンのメッセージ速度：早い", Toast.LENGTH_SHORT)
-                ms01.setGravity(Gravity.CENTER, 0, 0)
+                ms01.setGravity(Gravity.CENTER, 0, 250)
                 ms01.show()
 
             } else {
 
                 val ms02 = Toast.makeText(this, "次のターンのメッセージ速度：遅い", Toast.LENGTH_SHORT)
-                ms02.setGravity(Gravity.CENTER, 0, 0)
+                ms02.setGravity(Gravity.CENTER, 0, 250)
                 ms02.show()
             }
         }
@@ -361,32 +348,365 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     // GameManagerクラスからBattleLogListener経て呼ばれる
     override fun upDateAllyStatus(ally01: Player, ally02: Player, ally03: Player){
 
+        ally01StatusList.plusAssign(ally01.getHP().toString())
+        ally01StatusList.plusAssign(ally01.getMaxHp().toString())
+        ally01StatusList.plusAssign(ally01.getMP().toString())
+        ally01StatusList.plusAssign(ally01.getMaxMp().toString())
+        ally01StatusList.plusAssign(ally01.getPoison())
+        ally01StatusList.plusAssign(ally01.getParalysis())
+
+        ally02StatusList.plusAssign(ally02.getHP().toString())
+        ally02StatusList.plusAssign(ally02.getMaxHp().toString())
+        ally02StatusList.plusAssign(ally02.getMP().toString())
+        ally02StatusList.plusAssign(ally02.getMaxMp().toString())
+        ally02StatusList.plusAssign(ally02.getPoison())
+        ally02StatusList.plusAssign(ally02.getParalysis())
+
+        ally03StatusList.plusAssign(ally03.getHP().toString())
+        ally03StatusList.plusAssign(ally03.getMaxHp().toString())
+        ally03StatusList.plusAssign(ally03.getMP().toString())
+        ally03StatusList.plusAssign(ally03.getMaxMp().toString())
+        ally03StatusList.plusAssign(ally03.getPoison())
+        ally03StatusList.plusAssign(ally03.getParalysis())
+
+        printAllyStatus(0, ally01StatusList, ally02StatusList, ally03StatusList, ally01, ally02, ally03)
+    }
+
+    // GameManagerクラスからBattleLogListener経て呼ばれる
+    override fun upDateEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player){
+
+        enemy01StatusList.plusAssign(enemy01.getHP().toString())
+        enemy01StatusList.plusAssign(enemy01.getMaxHp().toString())
+        enemy01StatusList.plusAssign(enemy01.getMP().toString())
+        enemy01StatusList.plusAssign(enemy01.getMaxMp().toString())
+        enemy01StatusList.plusAssign(enemy01.getPoison())
+        enemy01StatusList.plusAssign(enemy01.getParalysis())
+
+        enemy02StatusList.plusAssign(enemy02.getHP().toString())
+        enemy02StatusList.plusAssign(enemy02.getMaxHp().toString())
+        enemy02StatusList.plusAssign(enemy02.getMP().toString())
+        enemy02StatusList.plusAssign(enemy02.getMaxMp().toString())
+        enemy02StatusList.plusAssign(enemy02.getPoison())
+        enemy02StatusList.plusAssign(enemy02.getParalysis())
+
+        enemy03StatusList.plusAssign(enemy03.getHP().toString())
+        enemy03StatusList.plusAssign(enemy03.getMaxHp().toString())
+        enemy03StatusList.plusAssign(enemy03.getMP().toString())
+        enemy03StatusList.plusAssign(enemy03.getMaxMp().toString())
+        enemy03StatusList.plusAssign(enemy03.getPoison())
+        enemy03StatusList.plusAssign(enemy03.getParalysis())
+
+        printEnemyStatus(0, enemy01StatusList, enemy02StatusList, enemy03StatusList, enemy01, enemy02, enemy03)
+    }
+
+    override fun upDateAllLog(
+        battleLog: MutableList<Any>,
+        ally01StatusLog: MutableList<String>,
+        ally02StatusLog: MutableList<String>,
+        ally03StatusLog: MutableList<String>,
+        enemy01StatusLog: MutableList<String>,
+        enemy02StatusLog: MutableList<String>,
+        enemy03StatusLog: MutableList<String>,
+        ally01: Player,
+        ally02: Player,
+        ally03: Player,
+        enemy01: Player,
+        enemy02: Player,
+        enemy03: Player
+    ) {
+
+        isTurnEnd = false
+
+        if (!isMessageSpeed) {
+
+            for (i in 1..battleLog.size) {
+                when (i) {
+                    1 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(0, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(0, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 200)
+                    }
+
+                    2 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(6, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(6, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 3500)
+                    }
+
+                    3 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(12, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(12, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 6500)
+                    }
+
+                    4 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(18, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(18, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 9500)
+                    }
+
+                    5 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(24, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(24, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 12500)
+                    }
+
+                    6 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(30, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(30, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 15500)
+                    }
+                }
+            }
+        } else {
+
+            for (i in 1..battleLog.size) {
+                when (i) {
+                    1 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(0, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(0, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 100)
+                    }
+
+                    2 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(6, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(6, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 200)
+                    }
+
+                    3 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(12, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(12, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 300)
+                    }
+
+                    4 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(18, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(18, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 400)
+                    }
+
+                    5 -> {
+                            handler.postDelayed({
+                                printBattleLog(battleLog[i - 1].toString())
+                                printAllyStatus(24, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                                printEnemyStatus(24, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                            }, 500)
+                    }
+
+                    6 -> {
+                        handler.postDelayed({
+                            printBattleLog(battleLog[i - 1].toString())
+                            printAllyStatus(30, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03)
+                            printEnemyStatus(30, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03)
+                        }, 600)
+                    }
+                }
+            }
+        }
+
+//        if (!isMessageSpeed) {
+//            when (battleLog.size) {
+//                1 -> handler.postDelayed({ isTurnEnd = true }, 200)
+//                2 -> handler.postDelayed({ isTurnEnd = true }, 3500)
+//                3 -> handler.postDelayed({ isTurnEnd = true }, 6500)
+//                4 -> handler.postDelayed({ isTurnEnd = true }, 9500)
+//                5 -> handler.postDelayed({ isTurnEnd = true }, 12500)
+//                6 -> handler.postDelayed({ isTurnEnd = true }, 15500)
+//            }
+//           // isTurnEnd = true
+//
+//        } else {
+//            when (battleLog.size) {
+//                1 -> handler.postDelayed({ isTurnEnd = true }, 100)
+//                2 -> handler.postDelayed({ isTurnEnd = true }, 200)
+//                3 -> handler.postDelayed({ isTurnEnd = true }, 300)
+//                4 -> handler.postDelayed({ isTurnEnd = true }, 400)
+//                5 -> handler.postDelayed({ isTurnEnd = true }, 500)
+//                6 -> handler.postDelayed({ isTurnEnd = true }, 600)
+//            }
+          //  isTurnEnd = true
+      //  }
+        isTurnEnd = true
+    }
+        private fun printEnemyStatus(
+            num: Int,
+            enemy01StatusLog: MutableList<String>,
+            enemy02StatusLog: MutableList<String>,
+            enemy03StatusLog: MutableList<String>,
+            enemy01: Player,
+            enemy02: Player,
+            enemy03: Player
+        ) {
+
+            val enemy01Hp = enemy01StatusLog[num + 0]
+            val enemy01MaxHp = enemy01StatusLog[num + 1]
+            val enemy01Mp = enemy01StatusLog[num + 2]
+            val enemy01MaxMp = enemy01StatusLog[num + 3]
+            val enemy01Poison = enemy01StatusLog[num + 4]
+            val enemy01Paralysis = enemy01StatusLog[num + 5]
+
+            val enemy02Hp = enemy02StatusLog[num + 0]
+            val enemy02MaxHp = enemy02StatusLog[num + 1]
+            val enemy02Mp = enemy02StatusLog[num + 2]
+            val enemy02MaxMp = enemy02StatusLog[num + 3]
+            val enemy02Poison = enemy02StatusLog[num + 4]
+            val enemy02Paralysis = enemy02StatusLog[num + 5]
+
+            val enemy03Hp = enemy03StatusLog[num + 0]
+            val enemy03MaxHp = enemy03StatusLog[num + 1]
+            val enemy03Mp = enemy03StatusLog[num + 2]
+            val enemy03MaxMp = enemy03StatusLog[num + 3]
+            val enemy03Poison = enemy03StatusLog[num + 4]
+            val enemy03Paralysis = enemy03StatusLog[num + 5]
+
+            val enemy001 = MemberStatusData(("  %s".format(enemy01.getName())),
+                ("%s %s/%s".format("  HP",
+                    enemy01Hp,
+                    enemy01MaxHp)),
+                ("%s %s/%s".format("  MP", enemy01Mp, enemy01MaxMp)),
+                ("%s %s".format(
+                    enemy01Poison,
+                    enemy01Paralysis)),
+                (enemy01.hp))
+            val enemy002 = MemberStatusData(("  %s".format(enemy02.getName())),
+                ("%s %s/%s".format("  HP",
+                    enemy02Hp,
+                    enemy02MaxHp)),
+                ("%s %s/%s".format("  MP", enemy02Mp, enemy02MaxMp)),
+                ("%s %s".format(
+                    enemy02Poison,
+                    enemy02Paralysis)),
+                (enemy02.hp))
+            val enemy003 = MemberStatusData(("  %s".format(enemy03.getName())),
+                ("%s %s/%s".format("  HP",
+                    enemy03Hp,
+                    enemy03MaxHp)),
+                ("%s %s/%s".format("  MP", enemy03Mp, enemy03MaxMp)),
+                ("%s %s".format(
+                    enemy03Poison,
+                    enemy03Paralysis)),
+                (enemy03.hp))
+
+            memberList = arrayListOf(enemy001, enemy002, enemy003)
+
+            val layoutManager = LinearLayoutManager(
+                this,
+                RecyclerView.HORIZONTAL,
+                false
+            ).apply {
+
+                battle_main_enemy_status_recycleView_id.layoutManager = this
+            }
+
+            BattleMainRecyclerAdapter(memberList).apply {
+
+                battle_main_enemy_status_recycleView_id.adapter = this
+            }
+
+            battle_main_enemy_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+            (battle_main_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
+                object : BattleMainRecyclerAdapter.OnItemClickListener {
+                    @SuppressLint("ResourceAsColor")
+
+                    override fun onItemClickListener(
+                        viw: View,
+                        position: Int
+                    ) {
+                        when (position) {
+                            0 -> setImageType(enemy01)
+                            1 -> setImageType(enemy02)
+                            2 -> setImageType(enemy03)
+                        }
+                    }
+                })
+        }
+
+    private fun printBattleLog(str: String) {
+        val tl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
+        tl.text = str
+    }
+
+    private fun printAllyStatus(
+        num : Int,
+        ally01StatusLog: MutableList<String>,
+        ally02StatusLog: MutableList<String>,
+        ally03StatusLog: MutableList<String>,
+        ally01: Player,
+        ally02: Player,
+        ally03: Player
+
+    ) {
+
+        val ally01Hp = ally01StatusLog[num]
+        val ally01MaxHp = ally01StatusLog[num + 1]
+        val ally01Mp = ally01StatusLog[num + 2]
+        val ally01MaxMp = ally01StatusLog[num + 3]
+        val ally01Poison = ally01StatusLog[num + 4]
+        val ally01Paralysis = ally01StatusLog[num + 5]
+
+        val ally02Hp = ally02StatusLog[num]
+        val ally02MaxHp = ally02StatusLog[num + 1]
+        val ally02Mp = ally02StatusLog[num + 2]
+        val ally02MaxMp = ally02StatusLog[num + 3]
+        val ally02Poison = ally02StatusLog[num + 4]
+        val ally02Paralysis = ally02StatusLog[num + 5]
+
+        val ally03Hp = ally03StatusLog[num]
+        val ally03MaxHp = ally03StatusLog[num + 1]
+        val ally03Mp = ally03StatusLog[num + 2]
+        val ally03MaxMp = ally03StatusLog[num + 3]
+        val ally03Poison = ally03StatusLog[num + 4]
+        val ally03Paralysis = ally03StatusLog[num + 5]
+
         val ally001 = MemberStatusData(("  %s".format(ally01.getName())),
-            ("%s %d/%d".format("  HP",
-                ally01.hp,
-                ally01.getMaxHp())),
-            ("%s %d/%d".format("  MP", ally01.mp, ally01.getMaxMp())),
+            ("%s %s/%s".format("  HP",
+                ally01Hp,
+                ally01MaxHp)),
+            ("%s %s/%s".format("  MP", ally01Mp, ally01MaxMp)),
             ("%s %s".format(
-                ally01.getPoison(),
-                ally01.getParalysis())),
+                ally01Poison,
+                ally01Paralysis)),
             (ally01.hp))
+
         val ally002 = MemberStatusData(("  %s".format(ally02.getName())),
-            ("%s %d/%d".format("  HP",
-                ally02.hp,
-                ally02.getMaxHp())),
-            ("%s %d/%d".format("  MP", ally02.mp, ally02.getMaxMp())),
+            ("%s %s/%s".format("  HP",
+                ally02Hp,
+                ally02MaxHp)),
+            ("%s %s/%s".format("  MP", ally02Mp, ally02MaxMp)),
             ("%s %s".format(
-                ally02.getPoison(),
-                ally02.getParalysis())),
+                ally02Poison,
+                ally02Paralysis)),
             (ally02.hp))
+
         val ally003 = MemberStatusData(("  %s".format(ally03.getName())),
-            ("%s %d/%d".format("  HP",
-                ally03.hp,
-                ally03.getMaxHp())),
-            ("%s %d/%d".format("  MP", ally03.mp, ally03.getMaxMp())),
+            ("%s %s/%s".format("  HP",
+                ally03Hp,
+                ally03MaxHp)),
+            ("%s %s/%s".format("  MP", ally03Mp, ally03MaxMp)),
             ("%s %s".format(
-                ally03.getPoison(),
-                ally03.getParalysis())),
+                ally03Poison,
+                ally03Paralysis)),
             (ally03.hp))
 
         memberList = arrayListOf(ally001, ally002, ally003)
@@ -421,71 +741,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             })
     }
 
-    // GameManagerクラスからBattleLogListener経て呼ばれる
-    override fun upDateEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player){
-
-        val enemy001 = MemberStatusData(("  %s".format(enemy01.getName())),
-            ("%s %d/%d".format("  HP",
-                enemy01.hp,
-                enemy01.getMaxHp())),
-            ("%s %d/%d".format("  MP", enemy01.mp, enemy01.getMaxMp())),
-            ("%s %s".format(
-                enemy01.getPoison(),
-                enemy01.getParalysis())),
-            (enemy01.hp))
-        val enemy002 = MemberStatusData(("  %s".format(enemy02.getName())),
-            ("%s %d/%d".format("  HP",
-                enemy02.hp,
-                enemy02.getMaxHp())),
-            ("%s %d/%d".format("  MP", enemy02.mp, enemy02.getMaxMp())),
-            ("%s %s".format(
-                enemy02.getPoison(),
-                enemy02.getParalysis())),
-            (enemy02.hp))
-        val enemy003 = MemberStatusData(("  %s".format(enemy03.getName())),
-            ("%s %d/%d".format("  HP",
-                enemy03.hp,
-                enemy03.getMaxHp())),
-            ("%s %d/%d".format("  MP", enemy03.mp, enemy03.getMaxMp())),
-            ("%s %s".format(
-                enemy03.getPoison(),
-                enemy03.getParalysis())),
-            (enemy03.hp))
-
-        memberList = arrayListOf(enemy001, enemy002, enemy003)
-
-        val layoutManager = LinearLayoutManager(
-            this,
-            RecyclerView.HORIZONTAL,
-            false
-        ).apply {
-
-            battle_main_enemy_status_recycleView_id.layoutManager = this
-        }
-
-        BattleMainRecyclerAdapter(memberList).apply {
-
-            battle_main_enemy_status_recycleView_id.adapter = this
-        }
-
-        battle_main_enemy_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
-        (battle_main_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
-            object : BattleMainRecyclerAdapter.OnItemClickListener {
-                @SuppressLint("ResourceAsColor")
-
-                override fun onItemClickListener(
-                    viw: View,
-                    position: Int
-                ) {
-                    when (position) {
-                        0 -> setImageType(enemy01)
-                        1 -> setImageType(enemy02)
-                        2 -> setImageType(enemy03)
-                    }
-                }
-            })
-    }
-
     // バトルメイン画面でステータスをタップでキャラクターのステータスを表示する
     @SuppressLint("ShowToast", "InflateParams")
     private fun setImageType(character: Player) {
@@ -512,6 +767,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     override fun onBackPressed() {}
 }
+
 
 
 

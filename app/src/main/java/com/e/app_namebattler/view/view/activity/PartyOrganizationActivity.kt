@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.AbsListView.CHOICE_MODE_MULTIPLE
 import android.widget.ListView
@@ -45,7 +46,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
     var def = 0
     var agi = 0
     var luck = 0
-    var radioNumber = 0
+    private val partyResetNumber = 0
     var arrayRadioId = ArrayList<Int>()
 
     @SuppressLint("WrongViewCast")
@@ -98,11 +99,6 @@ class PartyOrganizationActivity : AppCompatActivity() {
         // このパーティで開始
         party_organization_this_party_start_button_id.setOnClickListener {
 
-            radioNumber = 0
-            arrayRadioId.clear()
-            val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
-            textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
-
             for (i in 1..listView.count) {
 
                 val radioName: RadioButton = listView.getChildAt(i - 1)
@@ -115,7 +111,11 @@ class PartyOrganizationActivity : AppCompatActivity() {
                 }
             }
 
-            if (array.size == 3) {
+            if(3 <= array.size){
+
+                arrayRadioId.clear()
+                val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
+                textView.text = "このパーティで開始（".plus(partyResetNumber).plus("/3）")
 
                 nameValue01 = array[0].trim()//trim:文字列の先頭と末尾の半角空白を取り除く
                 nameValue02 = array[1].trim()
@@ -127,24 +127,18 @@ class PartyOrganizationActivity : AppCompatActivity() {
                 intent.putExtra("name_key02", nameValue02)
                 intent.putExtra("name_key03", nameValue03)
 
+                array.clear()
                 mp0.reset()
                 startActivity(intent)
-            } else {
-                for (i in 1..listView.count) {
-                    val radioName: RadioButton = listView.getChildAt(i - 1)
-                        .findViewById(R.id.data_party_organization_character_status_name_id)
 
-                    if (radioName.isChecked) {
-                        radioName.isChecked = false
-                    }
-                }
+            } else {
 
                 array.clear()
-
-                Toast.makeText(this, "3人選択してください", Toast.LENGTH_SHORT).show()
+                val ts = Toast.makeText(this, "3人選択してください", Toast.LENGTH_SHORT)
+                ts.setGravity(Gravity.BOTTOM,0,0)
+                ts.show()
             }
         }
-
 
         // 戻るボタン
         party_organization_back_button.setOnClickListener {

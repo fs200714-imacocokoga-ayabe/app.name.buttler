@@ -4,11 +4,25 @@ import com.e.app_namebattler.view.party.player.Player
 
 interface BattleLogListener {
 
-    fun upDateBattleLog(battleLog: StringBuilder)
-
     fun upDateAllyStatus(ally01: Player, ally02: Player, ally03: Player)
 
     fun upDateEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player)
+
+    fun upDateAllLog(
+        battleLog: MutableList<Any>,
+        ally01StatusLog: MutableList<String>,
+        ally02StatusLog: MutableList<String>,
+        ally03StatusLog: MutableList<String>,
+        enemy01StatusLog: MutableList<String>,
+        enemy02StatusLog: MutableList<String>,
+        enemy03StatusLog: MutableList<String>,
+        ally01: Player,
+        ally02: Player,
+        ally03: Player,
+        enemy01: Player,
+        enemy02: Player,
+        enemy03: Player
+    )
 }
 
 

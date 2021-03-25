@@ -2,6 +2,7 @@ package com.e.app_namebattler.view.party.party
 
 import com.e.app_namebattler.view.party.player.Player
 
+
 class Party {
 
     private var members: MutableList<Player> = ArrayList() // プレイヤーの入れ物
@@ -19,9 +20,21 @@ class Party {
     /**
      * パーティー1,パーティー2にプレイヤーを追加する
      */
-    fun appendPlayer(enemy01: Player, enemy02: Player, enemy03: Player, ally01: Player, ally02: Player, ally03: Player) {
+    fun appendPlayer(
+        enemy01: Player,
+        enemy02: Player,
+        enemy03: Player,
+        ally01: Player,
+        ally02: Player,
+        ally03: Player
+    ) {
 
-        val partyList: MutableList<Player> = mutableListOf(ally01,ally02,ally03,enemy01,enemy02,enemy03)
+        val partyList: MutableList<Player> = mutableListOf(ally01,
+            ally02,
+            ally03,
+            enemy01,
+            enemy02,
+            enemy03)
         for (player in partyList) {
 
             if (player.isMark) {
@@ -75,5 +88,14 @@ class Party {
      */
     fun getParty2(): List<Player> {
         return party2
+    }
+
+    fun selectMember(id: Int): Player? {
+        for (i in members.indices) {
+            if (members[i].getIdNumber() == id) {
+                return members[i]
+            }
+        }
+        return null
     }
 }

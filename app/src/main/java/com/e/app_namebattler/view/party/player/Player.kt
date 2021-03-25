@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadLocalRandom
 
 open class Player {
 
+
     private var name:String = ""
 
     constructor(name: String){
@@ -124,6 +125,10 @@ open class Player {
 
     open fun setMaxMp(mp: Int){
         maxMp = mp
+    }
+
+    open fun getIdNumber(): Int{
+        return idNumber
     }
 
     fun setIdNumber(id: Int) {
