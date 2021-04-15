@@ -3,32 +3,12 @@ package com.e.app_namebattler.view.party.player
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.e.app_namebattler.view.party.magic.Magic
+import com.e.app_namebattler.view.view.music.SoundData
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.concurrent.ThreadLocalRandom
 
-open class Player {
-
-
-    private var name:String = ""
-
-    constructor(name: String){
-
-        this.name = name
-
-        makeCharacter(name)
-    }
-
-    constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int){
-//      this.name = name
-//      this.job = job
-//      this.hp = hp
-//      this.mp = mp
-//      this.str = str
-//      this.def = def
-//      this.agi = agi
-//      this.luck = luck
-  }
+open class Player(private var name: String) {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     open fun randomInt(rangeFirstNum: Int, rangeLastNum: Int) {
@@ -48,17 +28,23 @@ open class Player {
     open var isParalysis: Boolean = false
     open var isMark: Boolean = false
     private var characterImageType:Int = 0
+    private var characterEffect = 0
+    private var characterStatusEffect = 0
+    private var attackSoundEffect = 0
     private var idNumber: Int = 0
     var damage = 0
     open var log = StringBuilder()
 
     private val herbRecoveryValue = 30
 
+    init {
+        makeCharacter(name)
+    }
+
     /**
      * コンストラクタ
-     * @param name
-     * : プレイヤー名
-     * */
+     * @return name: プレイヤー名
+      */
     open fun getName(): String{
         return name
     }
@@ -81,7 +67,7 @@ open class Player {
 
     /**
      * 攻撃力を取得する
-     * @return atk :攻撃力
+     * @return str :攻撃力
      */
     open fun getSTR(): Int {
         return str
@@ -127,10 +113,6 @@ open class Player {
         maxMp = mp
     }
 
-    open fun getIdNumber(): Int{
-        return idNumber
-    }
-
     fun setIdNumber(id: Int) {
         idNumber = id
     }
@@ -162,6 +144,30 @@ open class Player {
 
     open fun setCharacterImageType(characterImage: Int){
         characterImageType = characterImage
+    }
+
+    open fun getPrintStatusEffect(): Int{
+        return characterEffect
+    }
+
+    open fun setPrintStatusEffect(effect: Int){
+        characterEffect = effect
+    }
+
+    open fun getStatusEffect(): Int{
+        return characterStatusEffect
+    }
+
+    open fun setStatusEffect(statusEffect: Int){
+        characterStatusEffect = statusEffect
+    }
+
+    open fun getAttackSoundEffect(): Int{
+        return attackSoundEffect
+    }
+
+    open fun setAttackSoundEffect(soundEffect: Int){
+        attackSoundEffect = soundEffect
     }
 
     val isLive: Boolean
@@ -202,15 +208,15 @@ open class Player {
      * @return ダメージ値(0～)
      */
     open fun calcDamage(target: Player): Int {
-        val power = (1 ..getSTR()).random()
+        val power = (1 ..this.str).random()
         val luk = (1..100).random()
-        if (luk <= getLUCK()) { // 乱数の値がlukの値の中なら
+        if (luk <= this.luck) { // 乱数の値がlukの値の中なら
             log.append("会心の一撃!\n")
-            damage = getSTR()
+            damage = this.str
         } else {
-            damage = power - target.getDEF()
+            damage = power - target.def
             if (damage < 0) {
-                log.append("${getName()}の攻撃はミス！\n")
+                log.append("${this.name}の攻撃はミス！\n")
                 damage = 0
             }
         }
@@ -223,7 +229,12 @@ open class Player {
      * @param damage :ダメージ
      */
     open fun damageProcess(defender: Player, damage: Int) {
-        log.append("${defender.getName()}に${damage}のダメージ！\n")
+        log.append("${defender.name}に${damage}のダメージ！\n")
+
+        if (0 < damage) {
+            defender.setPrintStatusEffect(1)
+        }
+
         defender.damage(damage) // 求めたダメージを対象プレイヤーに与える
     }
 
@@ -232,13 +243,13 @@ open class Player {
      * @param defender 相手
      */
     open fun knockedDownCheck(defender: Player) {
-        if (defender.getHP() <= 0) {
-            log.append("${defender.getName()}は力尽きた...\n")
+        if (defender.hp <= 0) {
+            log.append("${defender.name}は力尽きた...\n")
         }
             conditionCheck() // 状態異常チェック
 
-        if (this.getHP() <= 0) {
-            log.append("${this.getName()}は力尽きた...\n")
+        if (this.hp <= 0) {
+            log.append("${this.name}は力尽きた...\n")
         }
     }
 
@@ -248,15 +259,16 @@ open class Player {
     private fun conditionCheck() {
 
         if (isParalysis) { // true:麻痺状態 false:麻痺していない
-            if ((1..100).random() <= Magic.PARALYSIS.getContinuousRate()) { // 麻痺の確立より乱数が上なら麻痺の解除
+            if (Magic.PARALYSIS.getContinuousRate() <= (1..100).random()  ) { // 麻痺の確立より乱数が上なら麻痺の解除
                 isParalysis = false // 麻痺解除
-                log.append("${getName()}は麻痺が解けた！\n")
+                log.append("${this.name}は麻痺が解けた！\n")
             }
         }
 
         if (isPoison) { // true:毒状態 false:無毒状態
             damage(Magic.POISON.getMaxDamage()) // 毒のダメージ計算
-            log.append("${getName()}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
+            log.append("${this.name}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
+            setStatusEffect(12)
         }
     }
 
@@ -266,7 +278,7 @@ open class Player {
      */
     open fun damage(damage: Int) {
         // ダメージ値分、HPを減少させる
-        hp = (getHP() - damage).coerceAtLeast(0)
+        hp = (this.hp - damage).coerceAtLeast(0)
     }
 
     /**
@@ -278,12 +290,12 @@ open class Player {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.name}は麻痺で動けない！！\n")
+            setStatusEffect(1)
 
         }else {// 麻痺していない場合
 
-
-            log.append("${getName()}は革袋の中にあった薬草を食べた！\n")
+            log.append("${this.name}は革袋の中にあった薬草を食べた！\n")
 
             when ((0..2).random()) {
                 0 -> {
@@ -293,8 +305,9 @@ open class Player {
                 1 -> {
 
                     if (isPoison) {
-                        log.append("${getName()}は毒が消えた！\n")
+                        log.append("${this.name}は毒が消えた！\n")
                         isPoison = false
+                        setAttackSoundEffect(SoundData.S_RECOVERY01.getSoundNumber())
                     } else {
 
                         recoveryProcess(this, herbRecoveryValue)
@@ -302,7 +315,7 @@ open class Player {
                 }
 
                 2 -> {
-                    log.append("${getName()}は何も起こらなかった！\n")
+                    log.append("${this.name}は何も起こらなかった！\n")
                 }
             }
         }
@@ -310,12 +323,17 @@ open class Player {
         return log
     }
 
-   open fun recoveryProcess(defender: Player, healValue: Int): Int {
-        var healValue = healValue
-        healValue = defender.getMaxHp().coerceAtMost(defender.getHP() + healValue)
-        healValue -= defender.getHP()
-        log.append("${defender.getName()}はHPが${healValue}回復した！\n")
+   open fun recoveryProcess(defender: Player, heal: Int): Int {
+
+        var healValue = heal
+       
+        healValue = defender.maxHp.coerceAtMost(defender.hp + healValue)
+        healValue -= defender.hp
+        log.append("${defender.name}はHPが${healValue}回復した！\n")
         defender.recovery(healValue)
+        defender.setPrintStatusEffect(2)
+        setAttackSoundEffect(SoundData.S_HEAL01.getSoundNumber())
+
         return healValue
     }
 

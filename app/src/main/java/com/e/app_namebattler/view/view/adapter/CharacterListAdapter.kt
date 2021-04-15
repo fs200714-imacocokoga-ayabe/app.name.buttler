@@ -13,7 +13,7 @@ import com.e.app_namebattler.view.party.player.CharacterAllData
 
 class CharacterListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter() {
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint("ViewHolder", "SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = LayoutInflater.from(context).inflate(R.layout.data_character_status, null)
         val Name = view.findViewById<TextView>(R.id.data_character_status_data_name_text_id)

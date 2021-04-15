@@ -108,6 +108,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 agi = 0
                 luck = 0
                 createAt = ""
+                characterImage = 0
             }
 
     // キャラクターステータス表示

@@ -5,8 +5,8 @@ enum class Skill (
     private val skillName: String,
     private val invocationRate: Int){
 
-    ASSAULT("突撃", 30),
-    SWALLOW("燕返し",30),
+    ASSAULT("捨て身の突撃", 35),
+    SWALLOW("燕返し",35),
     ;
 
     fun getSkillName(): String{

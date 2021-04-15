@@ -39,7 +39,6 @@
         app:layout_constraintTop_toTopOf="@+id/character_detail_character_detail_text_id" />
 
     // 名前
-
     <TextView
         android:id="@+id/character_detail_name_text_id"
         android:layout_width="0dp"
@@ -54,7 +53,6 @@
         app:layout_constraintTop_toBottomOf="@+id/character_detail_character_detail_text_id" />
 
     // 職業
-
     <TextView
         android:id="@+id/character_detail_job_text_id"
         android:layout_width="0dp"

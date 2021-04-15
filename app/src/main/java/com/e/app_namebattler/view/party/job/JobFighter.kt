@@ -2,6 +2,7 @@ package com.e.app_namebattler.view.party.job
 
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.skill.Skill
+import com.e.app_namebattler.view.view.music.SoundData
 
 class JobFighter(name: String): Player(name) {
 
@@ -33,15 +34,17 @@ class JobFighter(name: String): Player(name) {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
         }else {// 麻痺していない場合
 
-            log.append("${getName()}の攻撃！\n${getName()}は剣で斬りつけた！\n")
+            log.append("${this.getName()}の攻撃！\n${this.getName()}は剣で斬りつけた！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             damageProcess(defender, damage)
+            setAttackSoundEffect(SoundData.S_SWORD01.getSoundNumber())
             knockedDownCheck(defender)
+
         }
         return log
     }
@@ -52,19 +55,20 @@ class JobFighter(name: String): Player(name) {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
         }else {// 麻痺していない場合
 
             if ((1..100).random() < Skill.ASSAULT.getInvocationRate()) { // 乱数値が30より小さい時
-                log.append("${getName()}の捨て身の突撃！\n")
+                log.append("${this.getName()}の${Skill.ASSAULT.getSkillName()}！\n")
                 damage = calcDamage(defender) // 与えるダメージを求める
                 damage *= 2 // ダメージ2倍
                 super.damageProcess(defender, damage) // ダメージ処理
+                setAttackSoundEffect(SoundData.S_SWORD01.getSoundNumber())
 
             } else {
-                log.append("${getName()}の捨て身の突撃はかわされた！！\n")
+                log.append("${this.getName()}の${Skill.ASSAULT.getSkillName()}はかわされた！！\n")
             }
             knockedDownCheck(defender)
         }

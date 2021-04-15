@@ -20,27 +20,27 @@ class GameManager {
     private var enemy02StatusLogList:MutableList<String> = ArrayList()
     private var enemy03StatusLogList:MutableList<String> = ArrayList()
 
-    var myCallBack: BattleLogListener? = null
+    var callBack: BattleLogListener? = null
 
-    private lateinit var speedOrderList: List<Player>// 速さ順キャラクターを格納
+  //  private lateinit var speedOrderList: List<Player>// 速さ順キャラクターを格納
 
-    private var party01: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
-    private val party02: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
-    private var members01: MutableList<Player> = ArrayList() // プレイヤーの入れ物
+//    private var party01: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
+//    private val party02: MutableList<Player> = ArrayList() // BattleMainActivityからの呼び出しに使用
+//    private var members01: MutableList<Player> = ArrayList() // プレイヤーの入れ物
     private var attackList: MutableList<Player> = ArrayList() //攻撃するキャラクターを格納
 
-    lateinit var ally01: Player // 味方キャラクターを格納
-    lateinit var ally02: Player
-    lateinit var ally03: Player
-    lateinit var enemy01: Player // 敵キャラクターを格納
-    lateinit var enemy02: Player
-    lateinit var enemy03: Player
-    lateinit var character: Player
+    private lateinit var ally01: Player // 味方キャラクターを格納
+    private lateinit var ally02: Player
+    private lateinit var ally03: Player
+    private lateinit var enemy01: Player // 敵キャラクターを格納
+    private lateinit var enemy02: Player
+    private lateinit var enemy03: Player
+    private lateinit var character: Player
     private lateinit var player: Player // キャラクターを格納
     private lateinit var player1: Player
     private lateinit var player2: Player
 
-    private var enemyStrategyNumber = 0 // 作戦の選択に使用
+    private val enemyStrategyNumber = 5 // 作戦の選択に使用
 
     // Activityから指揮権を受け取る
     fun controlTransfer(
@@ -49,23 +49,44 @@ class GameManager {
     ) {
 
         // 敵キャラクターを作成する
-        enemy01 = makeCharacter(enemyPartyList[0], 0)
-        enemy02 = makeCharacter(enemyPartyList[1], 1)
-        enemy03 = makeCharacter(enemyPartyList[2], 2)
+        enemy01 = rebirthCharacter(enemyPartyList[0], 0)
+        enemy02 = rebirthCharacter(enemyPartyList[1], 1)
+        enemy03 = rebirthCharacter(enemyPartyList[2], 2)
 
         // 味方キャラクターを作成する
-        ally01 = makeCharacter(allyPartyList[0], 3)
-        ally02 = makeCharacter(allyPartyList[1], 4)
-        ally03 = makeCharacter(allyPartyList[2], 5)
+        ally01 = rebirthCharacter(allyPartyList[0], 3)
+        ally02 = rebirthCharacter(allyPartyList[1], 4)
+        ally03 = rebirthCharacter(allyPartyList[2], 5)
 
         // スピード順に取得する
-        speedOrderList = speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03)
+       // speedOrderList = speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03)
+        speedReordering(enemy01, enemy02, enemy03, ally01, ally02, ally03)
         // パーティの振り分け
         pt.appendPlayer(enemy01, enemy02, enemy03, ally01, ally02, ally03)
-        // キャラクターの表示
-        myCallBack?.upDateAllyStatus(ally01, ally02, ally03)
-        myCallBack?.upDateEnemyStatus(enemy01, enemy02, enemy03)
 
+        // キャラクターの初期ステータスの取得
+        ally01StatusLogList = getAlly01StatusLogList(ally01)
+        ally02StatusLogList = getAlly02StatusLogList(ally02)
+        ally03StatusLogList = getAlly03StatusLogList(ally03)
+        enemy01StatusLogList = getEnemy01StatusLogList(enemy01)
+        enemy02StatusLogList = getEnemy02StatusLogList(enemy02)
+        enemy03StatusLogList = getEnemy03StatusLogList(enemy03)
+
+        // キャラクターの表示
+        callBack?.upDateInitialStatus(
+            ally01StatusLogList,
+            ally02StatusLogList,
+            ally03StatusLogList,
+            enemy01StatusLogList,
+            enemy02StatusLogList,
+            enemy03StatusLogList,
+            ally01,
+            ally02,
+            ally03,
+            enemy01,
+            enemy02,
+            enemy03
+        )
     }
 
     // 戦闘処理
@@ -93,58 +114,22 @@ class GameManager {
 
                 if (player.isMark) { // player1が味方の場合
 
-                    //battleLog.append(selectStrategyNumber(strategyNumber))
                     battleLogList.plusAssign(selectStrategyNumber(strategyNumber))
 
                 } else {
-                    enemyStrategyNumber = (0..4).random()// 敵の作戦ランダム
-                   // battleLog.append(selectStrategyNumber(enemyStrategyNumber))
+                  //  enemyStrategyNumber = (0..4).random()// 敵の作戦ランダム
+
                     battleLogList.plusAssign(selectStrategyNumber(enemyStrategyNumber))
                 }
 
-               // battleLog.append("@@")// playerごとのログを@@で分けるために加える
+                // キャラクターステータスの取得
+                ally01StatusLogList = getAlly01StatusLogList(ally01)
+                ally02StatusLogList = getAlly02StatusLogList(ally02)
+                ally03StatusLogList = getAlly03StatusLogList(ally03)
+                enemy01StatusLogList = getEnemy01StatusLogList(enemy01)
+                enemy02StatusLogList = getEnemy02StatusLogList(enemy02)
+                enemy03StatusLogList = getEnemy03StatusLogList(enemy03)
 
-                ally01StatusLogList.plusAssign(ally01.getHP().toString())
-                ally01StatusLogList.plusAssign(ally01.getMaxHp().toString())
-                ally01StatusLogList.plusAssign(ally01.getMP().toString())
-                ally01StatusLogList.plusAssign(ally01.getMaxMp().toString())
-                ally01StatusLogList.plusAssign(ally01.getPoison())
-                ally01StatusLogList.plusAssign(ally01.getParalysis())
-
-                ally02StatusLogList.plusAssign(ally02.getHP().toString())
-                ally02StatusLogList.plusAssign(ally02.getMaxHp().toString())
-                ally02StatusLogList.plusAssign(ally02.getMP().toString())
-                ally02StatusLogList.plusAssign(ally02.getMaxMp().toString())
-                ally02StatusLogList.plusAssign(ally02.getPoison())
-                ally02StatusLogList.plusAssign(ally02.getParalysis())
-
-                ally03StatusLogList.plusAssign(ally03.getHP().toString())
-                ally03StatusLogList.plusAssign(ally03.getMaxHp().toString())
-                ally03StatusLogList.plusAssign(ally03.getMP().toString())
-                ally03StatusLogList.plusAssign(ally03.getMaxMp().toString())
-                ally03StatusLogList.plusAssign(ally03.getPoison())
-                ally03StatusLogList.plusAssign(ally03.getParalysis())
-
-                enemy01StatusLogList.plusAssign(enemy01.getHP().toString())
-                enemy01StatusLogList.plusAssign(enemy01.getMaxHp().toString())
-                enemy01StatusLogList.plusAssign(enemy01.getMP().toString())
-                enemy01StatusLogList.plusAssign(enemy01.getMaxMp().toString())
-                enemy01StatusLogList.plusAssign(enemy01.getPoison())
-                enemy01StatusLogList.plusAssign(enemy01.getParalysis())
-
-                enemy02StatusLogList.plusAssign(enemy02.getHP().toString())
-                enemy02StatusLogList.plusAssign(enemy02.getMaxHp().toString())
-                enemy02StatusLogList.plusAssign(enemy02.getMP().toString())
-                enemy02StatusLogList.plusAssign(enemy02.getMaxMp().toString())
-                enemy02StatusLogList.plusAssign(enemy02.getPoison())
-                enemy02StatusLogList.plusAssign(enemy02.getParalysis())
-
-                enemy03StatusLogList.plusAssign(enemy03.getHP().toString())
-                enemy03StatusLogList.plusAssign(enemy03.getMaxHp().toString())
-                enemy03StatusLogList.plusAssign(enemy03.getMP().toString())
-                enemy03StatusLogList.plusAssign(enemy03.getMaxMp().toString())
-                enemy03StatusLogList.plusAssign(enemy03.getPoison())
-                enemy03StatusLogList.plusAssign(enemy03.getParalysis())
             }
 
             // 敗北判定
@@ -156,14 +141,8 @@ class GameManager {
             }
         }
 
-       // val array = listOfNotNull(battleLog.split("@@"))
-       // val array = battleLog.split("@@").toMutableList() //playerごとに分ける
-       // val array = battleLog.split("@@") //playerごとに分ける
-
-        println("ろぐ０３${battleLogList.size}")
-        println("ろぐ０３${battleLogList}")
-
-            myCallBack?.upDateAllLog(
+        // ステータスとログの表示
+            callBack?.upDateAllLog(
                 battleLogList,
                 ally01StatusLogList,
                 ally02StatusLogList,
@@ -179,14 +158,13 @@ class GameManager {
                 enemy03
             )
 
-
-        party01.clear()
-        party02.clear()
-        members01.clear()
-
-        party01.plusAssign(pt.getParty1())
-        party02.plusAssign(pt.getParty2())
-        members01.plusAssign(pt.getMembers())
+//        party01.clear()
+//        party02.clear()
+//        members01.clear()
+//
+//        party01.plusAssign(pt.getParty1())
+//        party02.plusAssign(pt.getParty2())
+//        members01.plusAssign(pt.getMembers())
     }
 
     // 選んだ作戦番号から対象プレイヤーと作戦を得て返す
@@ -197,6 +175,7 @@ class GameManager {
             2 -> context = Context(StrategySkillAttack())
             3 -> context = Context(StrategyUseHealingMagic())
             4 -> context = Context(StrategyUseHerb())
+            5 -> context = Context(StrategyEnemyAttackPattern())
         }
         return context?.attackStrategy(player, pt.getParty1(),
             pt.getParty2())!!
@@ -208,7 +187,6 @@ class GameManager {
         for (i in attackList){
 
             if (i.hp <= 0) {
-                this.speedOrderList -= i
                 pt.removePlayer(i)
                 pt.removeMembers(i)
             }
@@ -223,7 +201,7 @@ class GameManager {
         ally01: Player,
         ally02: Player,
         ally03: Player
-    ): List<Player> {
+    ) {
 
         val speedData: MutableList<Player> = mutableListOf(ally01,
             ally02,
@@ -235,14 +213,15 @@ class GameManager {
         for (i in 0 until speedData.size - 1) { // 速さ順の並び変える処理
             for (j in 0 until speedData.size - i - 1) {
                 player1 = speedData[j]
-                    player2 = speedData[j + 1]
-                    if (player1.getAGI() < player2.getAGI()) {
-                        val box: Player? = speedData[j]
-                        speedData[j] = speedData[j + 1]
-                        if (box != null) {
-                            speedData[j + 1] = box
-                        }
+                player2 = speedData[j + 1]
+
+                if (player1.agi < player2.agi) {
+                    val box: Player? = speedData[j]
+                    speedData[j] = speedData[j + 1]
+                    if (box != null) {
+                        speedData[j + 1] = box
                     }
+                }
             }
         }
 
@@ -250,11 +229,10 @@ class GameManager {
             player = i
             pt.setMembers(player)
         }
-        return speedData
     }
 
     // 敵キャラクターを作成する
-    private fun makeCharacter(characterPartyList: CharacterAllData, id: Int): Player {
+    private fun rebirthCharacter(characterPartyList: CharacterAllData, id: Int): Player {
 
         when (occupationConversion(characterPartyList.job)) {
 
@@ -312,6 +290,9 @@ class GameManager {
             character.isParalysis = false
             character.setIdNumber(id)
             character.setCharacterImageType(characterPartyList.character_image)
+            character.setPrintStatusEffect(0)
+            character.setStatusEffect(0)
+            character.setAttackSoundEffect(0)
 
             // 味方キャラクターの場合
         }else{
@@ -322,6 +303,9 @@ class GameManager {
             character.isParalysis = false
             character.setIdNumber(id)
             character.setCharacterImageType(characterPartyList.character_image)
+            character.setPrintStatusEffect(0)
+            character.setStatusEffect(0)
+            character.setAttackSoundEffect(0)
 
         }
         return character
@@ -333,15 +317,6 @@ class GameManager {
 
     fun getParty02(): List<Player>{
         return pt.getParty2()
-    }
-
-    fun getMembers():List<Player>{
-        return pt.getMembers()
-    }
-
-    fun setAttackList(attackList: MutableList<Player>) {
-        this.attackList = attackList
-
     }
 
     // データをcharaDataに保存
@@ -369,4 +344,119 @@ class GameManager {
         }
         return job
     }
+
+private fun getAlly01StatusLogList(ally01: Player):MutableList<String> {
+
+    ally01StatusLogList.plusAssign(ally01.getHP().toString())
+    ally01StatusLogList.plusAssign(ally01.getMaxHp().toString())
+    ally01StatusLogList.plusAssign(ally01.getMP().toString())
+    ally01StatusLogList.plusAssign(ally01.getMaxMp().toString())
+    ally01StatusLogList.plusAssign(ally01.getPoison())
+    ally01StatusLogList.plusAssign(ally01.getParalysis())
+    ally01StatusLogList.plusAssign(ally01.getPrintStatusEffect().toString())
+    ally01StatusLogList.plusAssign(ally01.getStatusEffect().toString())
+    ally01StatusLogList.plusAssign(ally01.getAttackSoundEffect().toString())
+
+    ally01.setPrintStatusEffect(0)
+    ally01.setStatusEffect(0)
+    ally01.setAttackSoundEffect(0)
+
+    return ally01StatusLogList
+}
+
+    private fun getAlly02StatusLogList(ally02: Player):MutableList<String> {
+
+        ally02StatusLogList.plusAssign(ally02.getHP().toString())
+        ally02StatusLogList.plusAssign(ally02.getMaxHp().toString())
+        ally02StatusLogList.plusAssign(ally02.getMP().toString())
+        ally02StatusLogList.plusAssign(ally02.getMaxMp().toString())
+        ally02StatusLogList.plusAssign(ally02.getPoison())
+        ally02StatusLogList.plusAssign(ally02.getParalysis())
+        ally02StatusLogList.plusAssign(ally02.getPrintStatusEffect().toString())
+        ally02StatusLogList.plusAssign(ally02.getStatusEffect().toString())
+        ally02StatusLogList.plusAssign(ally02.getAttackSoundEffect().toString())
+
+        ally02.setPrintStatusEffect(0)
+        ally02.setStatusEffect(0)
+        ally02.setAttackSoundEffect(0)
+
+        return ally02StatusLogList
+    }
+
+    private fun getAlly03StatusLogList(ally03: Player):MutableList<String> {
+
+        ally03StatusLogList.plusAssign(ally03.getHP().toString())
+        ally03StatusLogList.plusAssign(ally03.getMaxHp().toString())
+        ally03StatusLogList.plusAssign(ally03.getMP().toString())
+        ally03StatusLogList.plusAssign(ally03.getMaxMp().toString())
+        ally03StatusLogList.plusAssign(ally03.getPoison())
+        ally03StatusLogList.plusAssign(ally03.getParalysis())
+        ally03StatusLogList.plusAssign(ally03.getPrintStatusEffect().toString())
+        ally03StatusLogList.plusAssign(ally03.getStatusEffect().toString())
+        ally03StatusLogList.plusAssign(ally03.getAttackSoundEffect().toString())
+
+        ally03.setPrintStatusEffect(0)
+        ally03.setStatusEffect(0)
+        ally03.setAttackSoundEffect(0)
+
+        return ally03StatusLogList
+    }
+
+    private fun getEnemy01StatusLogList(enemy01: Player):MutableList<String> {
+
+        enemy01StatusLogList.plusAssign(enemy01.getHP().toString())
+        enemy01StatusLogList.plusAssign(enemy01.getMaxHp().toString())
+        enemy01StatusLogList.plusAssign(enemy01.getMP().toString())
+        enemy01StatusLogList.plusAssign(enemy01.getMaxMp().toString())
+        enemy01StatusLogList.plusAssign(enemy01.getPoison())
+        enemy01StatusLogList.plusAssign(enemy01.getParalysis())
+        enemy01StatusLogList.plusAssign(enemy01.getPrintStatusEffect().toString())
+        enemy01StatusLogList.plusAssign(enemy01.getStatusEffect().toString())
+        enemy01StatusLogList.plusAssign(enemy01.getAttackSoundEffect().toString())
+
+        enemy01.setPrintStatusEffect(0)
+        enemy01.setStatusEffect(0)
+        enemy01.setAttackSoundEffect(0)
+
+        return enemy01StatusLogList
+    }
+
+    private fun getEnemy02StatusLogList(enemy02: Player):MutableList<String> {
+
+        enemy02StatusLogList.plusAssign(enemy02.getHP().toString())
+        enemy02StatusLogList.plusAssign(enemy02.getMaxHp().toString())
+        enemy02StatusLogList.plusAssign(enemy02.getMP().toString())
+        enemy02StatusLogList.plusAssign(enemy02.getMaxMp().toString())
+        enemy02StatusLogList.plusAssign(enemy02.getPoison())
+        enemy02StatusLogList.plusAssign(enemy02.getParalysis())
+        enemy02StatusLogList.plusAssign(enemy02.getPrintStatusEffect().toString())
+        enemy02StatusLogList.plusAssign(enemy02.getStatusEffect().toString())
+        enemy02StatusLogList.plusAssign(enemy02.getAttackSoundEffect().toString())
+
+        enemy02.setPrintStatusEffect(0)
+        enemy02.setStatusEffect(0)
+        enemy02.setAttackSoundEffect(0)
+
+        return enemy02StatusLogList
+    }
+
+    private fun getEnemy03StatusLogList(enemy03: Player):MutableList<String> {
+
+        enemy03StatusLogList.plusAssign(enemy03.getHP().toString())
+        enemy03StatusLogList.plusAssign(enemy03.getMaxHp().toString())
+        enemy03StatusLogList.plusAssign(enemy03.getMP().toString())
+        enemy03StatusLogList.plusAssign(enemy03.getMaxMp().toString())
+        enemy03StatusLogList.plusAssign(enemy03.getPoison())
+        enemy03StatusLogList.plusAssign(enemy03.getParalysis())
+        enemy03StatusLogList.plusAssign(enemy03.getPrintStatusEffect().toString())
+        enemy03StatusLogList.plusAssign(enemy03.getStatusEffect().toString())
+        enemy03StatusLogList.plusAssign(enemy03.getAttackSoundEffect().toString())
+
+        enemy03.setPrintStatusEffect(0)
+        enemy03.setStatusEffect(0)
+        enemy03.setAttackSoundEffect(0)
+
+        return enemy03StatusLogList
+    }
+
 }

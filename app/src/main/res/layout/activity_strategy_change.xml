@@ -143,10 +143,12 @@
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/strategy_change_strategy01_name_print_text"
+                android:clickable="true"
+                android:onClick="onClickStrategy01"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="OnClick,RtlHardcoded" />
 
             <TextView
                 android:id="@+id/strategy_change_strategy02_name_text_id"
@@ -154,7 +156,9 @@
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/strategy_change_strategy02_name_print_text"
+                android:clickable="true"
+                android:onClick="onClickStrategy02"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
                 tools:ignore="RtlHardcoded" />
@@ -165,7 +169,9 @@
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/strategy_change_strategy03_name_print_text"
+                android:clickable="true"
+                android:onClick="onClickStrategy03"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
                 tools:ignore="RtlHardcoded" />
@@ -176,7 +182,9 @@
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/strategy_change_strategy04_name_print_text"
+                android:clickable="true"
+                android:onClick="onClickStrategy04"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
                 tools:ignore="RtlHardcoded" />
@@ -187,7 +195,9 @@
                 android:layout_height="60dp"
                 android:buttonTint="@color/colorBlue"
                 android:gravity="left|center"
-                android:text="@string/strategy_change_strategy05_name_print_text"
+                android:clickable="true"
+                android:onClick="onClickStrategy05"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp"
                 tools:ignore="RtlHardcoded" />

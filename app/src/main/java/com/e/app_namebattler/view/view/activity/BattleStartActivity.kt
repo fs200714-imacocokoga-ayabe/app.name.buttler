@@ -179,17 +179,17 @@ class BattleStartActivity : AppCompatActivity() {
                         val enemyDate = enemyPartyList[i - 1].create_at
                         val enemyImage = enemyPartyList[i - 1].character_image
 
-                        var jobI = 0
+                        var jobNumber = 0
 
                         when(enemyJob){
 
-                            "戦士" -> jobI = JobData.FIGHTER.getJobNumber()
-                            "魔法使い" -> jobI = JobData.WIZARD.getJobNumber()
-                            "僧侶" -> jobI = JobData.PRIEST.getJobNumber()
-                            "忍者" -> jobI = JobData.NINJA.getJobNumber()
+                            JobData.FIGHTER.getJobName() -> jobNumber = JobData.FIGHTER.getJobNumber()
+                            JobData.WIZARD.getJobName() -> jobNumber = JobData.WIZARD.getJobNumber()
+                            JobData.PRIEST.getJobName() -> jobNumber = JobData.PRIEST.getJobNumber()
+                            JobData.NINJA.getJobName() -> jobNumber = JobData.NINJA.getJobNumber()
                         }
 
-                        db.execSQL("INSERT INTO ENEMY(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT, CHARACTER_IMAGE) VALUES ('$enemyName','$jobI','$enemyHp','$enemyMp','$enemyStr','$enemyDef','$enemyAgi','$enemyLuck','$enemyDate','$enemyImage')")
+                        db.execSQL("INSERT INTO ENEMY(NAME, JOB, HP, MP, STR, DEF, AGI, LUCK, CREATE_AT, CHARACTER_IMAGE) VALUES ('$enemyName','$jobNumber','$enemyHp','$enemyMp','$enemyStr','$enemyDef','$enemyAgi','$enemyLuck','$enemyDate','$enemyImage')")
                     }
 
                 }finally {

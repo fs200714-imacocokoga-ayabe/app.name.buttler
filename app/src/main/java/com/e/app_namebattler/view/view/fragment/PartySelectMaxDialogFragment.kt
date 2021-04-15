@@ -22,6 +22,7 @@ class PartySelectMaxDialogFragment : DialogFragment(){
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         val builder = AlertDialog.Builder(requireActivity())
 
         builder.setMessage("パーティメンバーは３人です")

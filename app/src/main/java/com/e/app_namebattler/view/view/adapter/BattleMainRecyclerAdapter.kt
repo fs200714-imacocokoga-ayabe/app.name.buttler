@@ -1,5 +1,6 @@
 package com.e.app_namebattler.view.view.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     lateinit var listener: OnItemClickListener
 
     // Viewの設定
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val member = memberList[position]
@@ -31,6 +33,23 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         }else {
             // HPが0以上の場合名前を黒色に表示
             holder.Name.setTextColor(Color.parseColor("#000000"))
+        }
+
+        // ダメージを受けた時
+        if (member.printEffect == 1){
+            holder.Name.setBackgroundColor(Color.parseColor("#f4b3c2"))
+            holder.Hp.setBackgroundColor(Color.parseColor("#f4b3c2"))
+            holder.Mp.setBackgroundColor(Color.parseColor("#f4b3c2"))
+            holder.Status.setBackgroundColor(Color.parseColor("#f4b3c2"))
+        }
+
+        // 回復した時
+        if (member.printEffect == 2){
+            holder.Name.setBackgroundColor(Color.parseColor("#00ff7f"))//#00ff7f
+            holder.Hp.setBackgroundColor(Color.parseColor("#00ff7f"))
+            holder.Mp.setBackgroundColor(Color.parseColor("#00ff7f"))
+            holder.Status.setBackgroundColor(Color.parseColor("#00ff7f"))
+
         }
 
         // 名前のエリアをタップしたとき
@@ -65,6 +84,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         val Hp: TextView = view.findViewById(R.id.data_battle_main_character_status_member_hp_text_id)
         val Mp: TextView = view.findViewById(R.id.data_battle_main_character_status_member_mp_text_id)
         val Status: TextView = view.findViewById(R.id.data_battle_main_character_status_member_status_text_id)
+       // val aa:Boolean = false
 
     }
 
@@ -83,7 +103,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     }
 }
 // 1行分のデータモデル
-class MemberStatusData(var name: String, var hp: String, var Mp: String, var Status: String ,var hp02:Int)
+class MemberStatusData(var name: String, var hp: String, var Mp: String, var Status: String ,var hp02:Int, var printEffect: Int, var statusEffect: Int)
 
 
 

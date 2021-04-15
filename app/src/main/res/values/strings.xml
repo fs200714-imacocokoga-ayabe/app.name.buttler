@@ -30,10 +30,6 @@
     <string name="character_creation_create_character_print_button">作成する</string>
     <string name="character_creation_print_name_input_print_text">名前を入力してください</string>
     <string name="character_creation_occupation_selection_print_text">職業を選択してください</string>
-    <string name="character_creation_occupation_selection_print_radioButton01">戦士</string>
-    <string name="character_creation_occupation_selection_print_radioButton02">魔法使い</string>
-    <string name="character_creation_occupation_selection_print_radioButton03">僧侶</string>
-    <string name="character_creation_occupation_selection_print_radioButton04">忍者</string>
     <string name="character_created_create_character_print_text">キャラ作成</string>
     <string name="character_created_character_back_print__button">戻る</string>
     <string name="character_created_character_status_print_text">ステータス</string>
@@ -51,15 +47,10 @@
     <string name="battle_result_challenge_again_print_button">再挑戦</string>
     <string name="battle_result_next_battle_print_button">次の対戦へ</string>
     <string name="battle_result_end_battle_print_button">対戦を終了する</string>
-    <string name="strategy_change_strategy_print_text">作戦</string>おう
+    <string name="strategy_change_strategy_print_text">作戦</string>
     <string name="strategy_change_determination_print_button">決定</string>
     <string name="strategy_change_strategy_choice_print_text">パーティーの作戦を選んでください</string>
     <string name="battle_main_print_strategy_text">作戦：</string>
-    <string name="strategy_change_strategy01_name_print_text">武器でたたかおう</string>
-    <string name="strategy_change_strategy02_name_print_text">攻撃魔法をつかおう</string>
-    <string name="strategy_change_strategy03_name_print_text">スキルをつかおう</string>
-    <string name="strategy_change_strategy04_name_print_text">回復魔法をつかおう</string>
-    <string name="strategy_change_strategy05_name_print_text">薬草をつかおう</string>
     <string name="toast_layout_str_print_text"> STR:</string>
     <string name="toast_layout_def_print_text"> DEF:</string>
     <string name="toast_layout_agi_print_text"> AGI:</string>
@@ -78,5 +69,4 @@
     <string name="character_detail_agi_print_text">AGI</string>
     <string name="character_detail_luck_print_text">LUCK</string>
     <string name="character_creation_name_input_hint">名前は最大10文字です</string>
-
 </resources>

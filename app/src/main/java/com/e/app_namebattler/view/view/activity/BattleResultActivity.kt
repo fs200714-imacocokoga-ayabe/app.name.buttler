@@ -18,7 +18,6 @@ import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
 import com.e.app_namebattler.view.view.music.MusicData
-import kotlinx.android.synthetic.main.activity_battle_main.*
 import kotlinx.android.synthetic.main.activity_battle_result.*
 
 class BattleResultActivity : AppCompatActivity() {
@@ -119,9 +118,33 @@ class BattleResultActivity : AppCompatActivity() {
     // 味方キャラクターのステータス表示
      private fun resultAllyStatus(ally01: Player, ally02: Player, ally03: Player) {
 
-         val ally001 = MemberStatusData(("  %s".format(ally01.getName())), ("%s %d/%d".format("  HP", ally01.hp, ally01.getMaxHp())), ("%s %d/%d".format("  MP", ally01.mp, ally01.getMaxMp())),("%s %s".format(ally01.getPoison(),ally01.getParalysis())),(ally01.hp))
-         val ally002 = MemberStatusData(("  %s".format(ally02.getName())), ("%s %d/%d".format("  HP", ally02.hp, ally02.getMaxHp())), ("%s %d/%d".format("  MP", ally02.mp, ally02.getMaxMp())),("%s %s".format(ally02.getPoison(),ally02.getParalysis())),(ally02.hp))
-         val ally003 = MemberStatusData(("  %s".format(ally03.getName())), ("%s %d/%d".format("  HP", ally03.hp, ally03.getMaxHp())), ("%s %d/%d".format("  MP", ally03.mp, ally03.getMaxMp())),("%s %s".format(ally03.getPoison(),ally03.getParalysis())),(ally03.hp))
+         val ally001 = MemberStatusData(
+             ("  %s".format(ally01.getName())),
+             ("%s %d/%d".format("  HP", ally01.hp, ally01.getMaxHp())),
+             ("%s %d/%d".format("  MP", ally01.mp, ally01.getMaxMp())),
+             ("%s %s".format(ally01.getPoison(), ally01.getParalysis())),
+             (ally01.hp), ally01.getPrintStatusEffect(), ally01.getStatusEffect()
+         )
+
+         val ally002 = MemberStatusData(
+             ("  %s".format(ally02.getName())),
+             ("%s %d/%d".format("  HP", ally02.hp, ally02.getMaxHp())),
+             ("%s %d/%d".format("  MP", ally02.mp, ally02.getMaxMp())),
+             ("%s %s".format(ally02.getPoison(), ally02.getParalysis())),
+             (ally02.hp),
+             ally02.getPrintStatusEffect(),
+             ally02.getStatusEffect()
+         )
+
+         val ally003 = MemberStatusData(
+             ("  %s".format(ally03.getName())),
+             ("%s %d/%d".format("  HP", ally03.hp, ally03.getMaxHp())),
+             ("%s %d/%d".format("  MP", ally03.mp, ally03.getMaxMp())),
+             ("%s %s".format(ally03.getPoison(), ally03.getParalysis())),
+             (ally03.hp),
+             ally03.getPrintStatusEffect(),
+             ally03.getStatusEffect()
+         )
 
          memberList = arrayListOf(ally001, ally002, ally003)
 
@@ -158,9 +181,35 @@ class BattleResultActivity : AppCompatActivity() {
     // 敵キャラクターのステータス表示
      private fun resultEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player) {
 
-         val enemy001 = MemberStatusData(("  %s".format(enemy01.getName())), ("%s %d/%d".format("  HP", enemy01.hp, enemy01.getMaxHp())), ("%s %d/%d".format("  MP", enemy01.mp, enemy01.getMaxMp())),("%s %s".format(enemy01.getPoison(),enemy01.getParalysis())),(enemy01.hp))
-         val enemy002 = MemberStatusData(("  %s".format(enemy02.getName())), ("%s %d/%d".format("  HP", enemy02.hp, enemy02.getMaxHp())), ("%s %d/%d".format("  MP", enemy02.mp, enemy02.getMaxMp())),("%s %s".format(enemy02.getPoison(),enemy02.getParalysis())),(enemy02.hp))
-         val enemy003 = MemberStatusData(("  %s".format(enemy03.getName())), ("%s %d/%d".format("  HP", enemy03.hp, enemy03.getMaxHp())), ("%s %d/%d".format("  MP", enemy03.mp, enemy03.getMaxMp())),("%s %s".format(enemy03.getPoison(),enemy03.getParalysis())),(enemy03.hp))
+         val enemy001 = MemberStatusData(
+             ("  %s".format(enemy01.getName())),
+             ("%s %d/%d".format("  HP", enemy01.hp, enemy01.getMaxHp())),
+             ("%s %d/%d".format("  MP", enemy01.mp, enemy01.getMaxMp())),
+             ("%s %s".format(enemy01.getPoison(), enemy01.getParalysis())),
+             (enemy01.hp),
+             enemy01.getPrintStatusEffect(),
+             enemy01.getStatusEffect()
+         )
+
+         val enemy002 = MemberStatusData(
+             ("  %s".format(enemy02.getName())),
+             ("%s %d/%d".format("  HP", enemy02.hp, enemy02.getMaxHp())),
+             ("%s %d/%d".format("  MP", enemy02.mp, enemy02.getMaxMp())),
+             ("%s %s".format(enemy02.getPoison(), enemy02.getParalysis())),
+             (enemy02.hp),
+             enemy02.getPrintStatusEffect(),
+             enemy02.getStatusEffect()
+         )
+
+         val enemy003 = MemberStatusData(
+             ("  %s".format(enemy03.getName())),
+             ("%s %d/%d".format("  HP", enemy03.hp, enemy03.getMaxHp())),
+             ("%s %d/%d".format("  MP", enemy03.mp, enemy03.getMaxMp())),
+             ("%s %s".format(enemy03.getPoison(), enemy03.getParalysis())),
+             (enemy03.hp),
+             enemy03.getPrintStatusEffect(),
+             enemy03.getStatusEffect()
+         )
 
          memberList = arrayListOf(enemy001, enemy002, enemy003)
 

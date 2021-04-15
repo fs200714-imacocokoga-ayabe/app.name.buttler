@@ -29,7 +29,8 @@ class Party {
         ally03: Player
     ) {
 
-        val partyList: MutableList<Player> = mutableListOf(ally01,
+        val partyList: MutableList<Player> = mutableListOf(
+            ally01,
             ally02,
             ally03,
             enemy01,
@@ -90,12 +91,12 @@ class Party {
         return party2
     }
 
-    fun selectMember(id: Int): Player? {
-        for (i in members.indices) {
-            if (members[i].getIdNumber() == id) {
-                return members[i]
-            }
-        }
-        return null
-    }
+//    fun selectMember(id: Int): Player? {
+//        for (i in members.indices) {
+//            if (members[i].getIdNumber() == id) {
+//                return members[i]
+//            }
+//        }
+//        return null
+//    }
 }

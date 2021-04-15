@@ -4,6 +4,7 @@ import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.magic.IMagicalUsable
 import com.e.app_namebattler.view.party.magic.Magic
 import com.e.app_namebattler.view.party.skill.Skill
+import com.e.app_namebattler.view.view.music.SoundData
 
 class JobNinja (name:String): Player(name), IMagicalUsable {
 
@@ -36,14 +37,15 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
         }else {// 麻痺していない場合
-            log.append("${getName()}の攻撃！\n刀で突きさした！\n")
+            log.append("${this.getName()}の攻撃！\n刀で突きさした！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             damageProcess(defender, damage) // ダメージ処理
             knockedDownCheck(defender)
+            setAttackSoundEffect(SoundData.S_KATANA01.getSoundNumber())
         }
         return log
     }
@@ -54,26 +56,29 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
         }else {// 麻痺していない場合
 
+            log.append("${this.getName()}の${Skill.SWALLOW.getSkillName()}！\n")
+
             if ((1..100).random() < Skill.SWALLOW.getInvocationRate()) { // 30%の確率で発動
 
-                log.append("${getName()}は目にも止まらぬ速さで攻撃した！\n")
+                setAttackSoundEffect(SoundData.S_KATANA02.getSoundNumber())
 
                 for (i in 1..2) {
                     log.append("${i}回目の攻撃\n")
                     damage = calcDamage(defender) // 攻撃処理
                     super.damageProcess(defender, damage) // ダメージ処理
 
-                    if (defender.getHP() <= 0) { // 倒れた判定
+                    if (defender.hp <= 0) { // 倒れた判定
                         break
                     }
                 }
             } else { // 70%で不発
-                log.append("${getName()}は転んだ！\n")
+                setAttackSoundEffect(SoundData.S_SLIDE01.getSoundNumber())
+                log.append("${this.getName()}は石につまづいて転んだ！\n")
             }
             knockedDownCheck(defender)
         }
@@ -86,7 +91,7 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
         }else {// 麻痺していない場合
@@ -97,7 +102,7 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
                 knockedDownCheck(defender)
 
             } else {
-                log.append("${getName()}は術を唱えようとしたが、MPが足りない！！\n")
+                log.append("${this.getName()}は術を唱えようとしたが、MPが足りない！！\n")
                 normalAttack(defender)
             }
         }
@@ -107,12 +112,13 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
     private fun effect(): Int {
 
         damage = (Magic.FIRE_ROLL.getMinDamage()..Magic.FIRE_ROLL.getMaxDamage()).random() // 乱数10～30
-        this.mp = this.getMP() - Magic.FIRE_ROLL.getMpCost() // MP消費
-        log.append("${getName()}は${Magic.FIRE_ROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
+        this.mp = this.mp - Magic.FIRE_ROLL.getMpCost() // MP消費
+        log.append("${this.getName()}は${Magic.FIRE_ROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
+        setAttackSoundEffect(SoundData.S_FIRE01.getSoundNumber())
         return damage
     }
 
     private fun hasEnoughMp(): Boolean {
-        return 10 <= this.getMP()
+        return 10 <= this.mp
     }
 }

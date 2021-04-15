@@ -4,6 +4,7 @@ import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.magic.IMagicalUsable
 import com.e.app_namebattler.view.party.magic.IRecoveryMagic
 import com.e.app_namebattler.view.party.magic.Magic
+import com.e.app_namebattler.view.view.music.SoundData
 
 class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
@@ -37,14 +38,15 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
         }else {// 麻痺していない場合
-            log.append("${getName()}の攻撃！\n錫杖で突いた！\n")
+            log.append("${this.getName()}の攻撃！\n錫杖で突いた！\n")
             damage = calcDamage(defender) // 与えるダメージを求める
             damageProcess(defender, damage) // ダメージ処理
             knockedDownCheck(defender)
+            setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
         }
         return log
     }
@@ -55,16 +57,17 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(this)
 
         }else {// 麻痺していない場合
 
             if ((1..100).random() < Magic.OPTICAL_ELEMENTAL.getInvocationRate()) {
-                log.append("${getName()}は祈りを捧げて${Magic.OPTICAL_ELEMENTAL.getName()}を召還した\n${Magic.OPTICAL_ELEMENTAL.getName()}の祝福を受けた！\n")
+                log.append("${this.getName()}は祈りを捧げて${Magic.OPTICAL_ELEMENTAL.getName()}を召還した\n${Magic.OPTICAL_ELEMENTAL.getName()}の祝福を受けた！\n")
                 recoveryProcess(this, Magic.OPTICAL_ELEMENTAL.getRecoveryValue())
+                setAttackSoundEffect(SoundData.S_HEAL01.getSoundNumber())
             } else {
-                log.append("${getName()}は祈りを捧げたが何も起こらなかった！\n")
+                log.append("${this.getName()}は祈りを捧げたが何も起こらなかった！\n")
             }
             knockedDownCheck(this)
         }
@@ -77,7 +80,7 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
         }else {// 麻痺していない場合
@@ -98,7 +101,7 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         if (this.isParalysis){// 麻痺している場合
 
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(this)
 
         }else {// 麻痺していない場合
@@ -106,8 +109,9 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
             isHeal = true
 
             if (hasEnoughMp()) { // MPが20以上の場合ヒールを使用
-                this.mp = this.getMP() - Magic.HEAL.getMpCost() // MP消費
-                log.append("${getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${defender.getName()}を包む\n")
+                this.mp = this.mp - Magic.HEAL.getMpCost() // MP消費
+                log.append("${this.getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${defender.getName()}を包む\n")
+                setAttackSoundEffect(SoundData.S_HEAL01.getSoundNumber())
 
                 recoveryProcess(
                     defender, Magic.HEAL
@@ -115,8 +119,9 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
                 )
 
             } else { // MPが20未満の場合
-                log.append("${getName()}はヒールを唱えようとしたが、MPが足りない！！\n")
-                log.append("${getName()}の攻撃！\n錫杖を振りかざした！\n")
+                log.append("${this.getName()}はヒールを唱えようとしたが、MPが足りない！！\n")
+                log.append("${this.getName()}の攻撃！\n錫杖を振りかざした！\n")
+                setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
                 damage = calcDamage(defender) // 与えるダメージを求める
                 super.damageProcess(defender, damage) // ダメージ処理
             }
@@ -146,15 +151,17 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
     }
 
     private fun usePoison(defender: Player) {
-        this.mp = this.getMP() - Magic.POISON.getMpCost() // MP消費
-        log.append("${getName()}は${Magic.POISON.getName()}を唱えた！\n瘴気が相手を包んだ！\n")
+        this.mp = this.mp - Magic.POISON.getMpCost() // MP消費
+        log.append("${this.getName()}は${Magic.POISON.getName()}を唱えた！\n瘴気が相手を包んだ！\n")
         defender.isPoison = true
         log.append("${defender.getName()}は毒状態になった！\n")
+        setAttackSoundEffect(SoundData.S_POISON01.getSoundNumber())
     }
 
     private fun useParalysis(defender: Player) {
-        this.mp = this.getMP() - Magic.PARALYSIS.getMpCost() // MP消費
-        log.append("${getName()}は${Magic.PARALYSIS.getName()}を唱えた！\n蒼い霧が相手を包んだ！\n")
+        this.mp = this.mp - Magic.PARALYSIS.getMpCost() // MP消費
+        log.append("${this.getName()}は${Magic.PARALYSIS.getName()}を唱えた！\n蒼い霧が相手を包んだ！\n")
+        setAttackSoundEffect(SoundData.S_PARALYSIS01.getSoundNumber())
 
         if ((1..100).random() <= Magic.PARALYSIS.getContinuousRate()) { // 乱数がPARALYSISの値以下の場合麻痺状態になる
             defender.isParalysis = true
@@ -166,8 +173,8 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
     private fun hasEnoughMp(): Boolean {
 
-        return if (10 <= this.getMP() && !isHeal) {
+        return if (10 <= this.mp && !isHeal) {
             true
-        } else 20 <= this.getMP() && isHeal
+        } else 20 <= this.mp && isHeal
     }
 }

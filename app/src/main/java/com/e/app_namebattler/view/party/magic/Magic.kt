@@ -16,7 +16,7 @@ enum class Magic (
         PARALYSIS("パライズ", 10, 0, 0, 0, 20,0),
         POISON("ポイズン", 10, 0, 20, 0, 0,0),
         FIRE_ROLL("火遁の術", 10, 10, 30, 0, 0,0),
-        FIRE_ELEMENTAL("炎の精霊", 0, 60, 60, 0, 0,30),
+        FIRE_ELEMENTAL("炎の精霊", 0, 60, 60, 0, 0,40),
         OPTICAL_ELEMENTAL("光の精霊", 0, 0, 0, 70, 0,40);
 
         /**

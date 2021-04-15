@@ -7,18 +7,14 @@ import android.database.DatabaseUtils
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputFilter
-import android.text.InputType
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.R
+import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.view.fragment.CharacterCreateMaxDialogFragment
 import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_character_creation.*
@@ -40,6 +36,18 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         mp0= MediaPlayer.create(this, MusicData.BGM04.getBgm())
         mp0.isLooping=true
         mp0.start()
+
+        val job01TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton01_id)
+        job01TextView.text = JobData.FIGHTER.getJobName()
+
+        val job02TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton02_id)
+        job02TextView.text = JobData.WIZARD.getJobName()
+
+        val job03TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton03_id)
+        job03TextView.text = JobData.PRIEST.getJobName()
+
+        val job04TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton04_id)
+        job04TextView.text = JobData.NINJA.getJobName()
 
         // textWatcherのリスナーを登録　
         val createNameValues = findViewById<EditText>(R.id.character_creation_name_input_field_editText_id)
@@ -103,7 +111,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         ic.show()
     }
 
-    // ---textWatcher---
+    // ---textWatcher---使用していませんが参考に残しています
     // 文字列が修正される直前に呼び出される
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -183,7 +191,6 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
     }
 
     override fun onBackPressed() {}
-
 }
 
 

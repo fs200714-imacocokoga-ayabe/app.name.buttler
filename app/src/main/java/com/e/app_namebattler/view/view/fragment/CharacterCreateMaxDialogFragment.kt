@@ -22,15 +22,12 @@ open class CharacterCreateMaxDialogFragment: DialogFragment() {
         }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-    val builder = AlertDialog.Builder(requireActivity())
+         val builder = AlertDialog.Builder(requireActivity())
 
-    builder.setMessage("登録できるキャラクター数が最大です")
-    builder.setPositiveButton("OK") {  dialog,which ->
-        listener?.maxDisplay()
+         builder.setMessage("登録できるキャラクター数が最大です")
+         builder.setPositiveButton("OK") {  dialog,which ->
+          listener?.maxDisplay()
+         }
+        return builder.create()
     }
-
-    return builder.create()
-
-}
-
 }

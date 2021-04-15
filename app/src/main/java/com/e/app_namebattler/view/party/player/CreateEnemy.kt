@@ -39,20 +39,19 @@ class CreateEnemy {
     // 名前を選択する
     private fun selectName(): String {
 
-        val nNumber = (1..enemyNameList.size).random()
-        val a = enemyNameList[nNumber - 1].getEnemyName()
-        enemyNameList.removeAt(nNumber - 1)
+        val enemyNumber = (1..enemyNameList.size).random()
+        val enemyName = enemyNameList[enemyNumber - 1].getEnemyName()
+        enemyNameList.removeAt(enemyNumber - 1)
 
-        return a
+        return enemyName
     }
 
     // 職業を選択する
     private fun selectJob(): Int {
 
-        val jNumber = (1..jobList.size).random()
-        val b = jobList[jNumber - 1].getEnemyJob()
+        val jobNumber = (1..jobList.size).random()
 
-        return b
+        return jobList[jobNumber - 1].getEnemyJob()
     }
 
     // 敵キャラクターのイメージ画像をランダムで取得
@@ -113,7 +112,6 @@ class CreateEnemy {
                 )
             )
         }
-
         return enemyPartyList
     }
 
@@ -170,6 +168,5 @@ class CreateEnemy {
         }
         return job
     }
-
 }
 

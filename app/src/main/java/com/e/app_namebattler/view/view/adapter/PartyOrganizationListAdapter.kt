@@ -17,7 +17,7 @@ class PartyOrganizationListAdapter (val context: Context, val CharacterList: Arr
 
     private var mRadioButton: RadioButton? = null
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint("ViewHolder", "SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = LayoutInflater.from(context).inflate(R.layout.data_party_organization_character_status, null)
         val Button = view.findViewById<RadioButton>(R.id.data_party_organization_character_status_radioButton_id)
