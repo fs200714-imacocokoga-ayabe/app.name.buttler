@@ -63,7 +63,7 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
             log.append("${this.getName()}の${Skill.SWALLOW.getSkillName()}！\n")
 
-            if ((1..100).random() < Skill.SWALLOW.getInvocationRate()) { // 30%の確率で発動
+            if ((1..100).random() < Skill.SWALLOW.getInvocationRate()) { // 確率で発動
 
                 setAttackSoundEffect(SoundData.S_KATANA02.getSoundNumber())
 

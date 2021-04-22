@@ -5,7 +5,9 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.view.Gravity
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.player.AllyFighterImageData
@@ -85,14 +87,22 @@ class TopScreenActivity : AppCompatActivity() {
 
                     when (image) {
 
-                        0 -> imageValue = allyFighterImageList[(1..allyFighterImageList.size).random() - 1].getCharacterImage()
-                        1 -> imageValue = allyWizardImageList[(1..allyWizardImageList.size).random() - 1].getCharacterImage()
-                        2 -> imageValue = allyPriestImageList[(1..allyPriestImageList.size).random() - 1].getCharacterImage()
-                        3 -> imageValue = allyNinjaImageList[(1..allyNinjaImageList.size).random() - 1].getCharacterImage()
-                        4 -> imageValue = enemyFighterImageList[(1..enemyFighterImageList.size).random() - 1].getCharacterImage()
-                        5 -> imageValue = enemyWizardImageList[(1..enemyWizardImageList.size).random() - 1].getCharacterImage()
-                        6 -> imageValue = enemyPriestImageList[(1..enemyPriestImageList.size).random() - 1].getCharacterImage()
-                        7 -> imageValue = enemyNinjaImageList[(1..enemyNinjaImageList.size).random() - 1].getCharacterImage()
+                        0 -> imageValue =
+                            allyFighterImageList[(1..allyFighterImageList.size).random() - 1].getCharacterImage()
+                        1 -> imageValue =
+                            allyWizardImageList[(1..allyWizardImageList.size).random() - 1].getCharacterImage()
+                        2 -> imageValue =
+                            allyPriestImageList[(1..allyPriestImageList.size).random() - 1].getCharacterImage()
+                        3 -> imageValue =
+                            allyNinjaImageList[(1..allyNinjaImageList.size).random() - 1].getCharacterImage()
+                        4 -> imageValue =
+                            enemyFighterImageList[(1..enemyFighterImageList.size).random() - 1].getCharacterImage()
+                        5 -> imageValue =
+                            enemyWizardImageList[(1..enemyWizardImageList.size).random() - 1].getCharacterImage()
+                        6 -> imageValue =
+                            enemyPriestImageList[(1..enemyPriestImageList.size).random() - 1].getCharacterImage()
+                        7 -> imageValue =
+                            enemyNinjaImageList[(1..enemyNinjaImageList.size).random() - 1].getCharacterImage()
                     }
                 imageView.setImageResource(imageValue)
             }

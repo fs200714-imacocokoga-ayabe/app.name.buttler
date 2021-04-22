@@ -79,7 +79,7 @@ class Party {
      * パーティ1を返す
      * @return party1 : パーティ１
      */
-    fun getParty1(): List<Player> {
+    fun getParty01(): List<Player> {
         return party1
     }
 
@@ -87,7 +87,7 @@ class Party {
      * パーティ2を返す
      * @return party2 : パーティ2
      */
-    fun getParty2(): List<Player> {
+    fun getParty02(): List<Player> {
         return party2
     }
 

@@ -123,7 +123,7 @@ class BattleResultActivity : AppCompatActivity() {
              ("%s %d/%d".format("  HP", ally01.hp, ally01.getMaxHp())),
              ("%s %d/%d".format("  MP", ally01.mp, ally01.getMaxMp())),
              ("%s %s".format(ally01.getPoison(), ally01.getParalysis())),
-             (ally01.hp), ally01.getPrintStatusEffect(), ally01.getStatusEffect()
+             (ally01.hp), ally01.getPrintStatusEffect(), ally01.getSoundStatusEffect()
          )
 
          val ally002 = MemberStatusData(
@@ -133,7 +133,7 @@ class BattleResultActivity : AppCompatActivity() {
              ("%s %s".format(ally02.getPoison(), ally02.getParalysis())),
              (ally02.hp),
              ally02.getPrintStatusEffect(),
-             ally02.getStatusEffect()
+             ally02.getSoundStatusEffect()
          )
 
          val ally003 = MemberStatusData(
@@ -143,7 +143,7 @@ class BattleResultActivity : AppCompatActivity() {
              ("%s %s".format(ally03.getPoison(), ally03.getParalysis())),
              (ally03.hp),
              ally03.getPrintStatusEffect(),
-             ally03.getStatusEffect()
+             ally03.getSoundStatusEffect()
          )
 
          memberList = arrayListOf(ally001, ally002, ally003)
@@ -188,7 +188,7 @@ class BattleResultActivity : AppCompatActivity() {
              ("%s %s".format(enemy01.getPoison(), enemy01.getParalysis())),
              (enemy01.hp),
              enemy01.getPrintStatusEffect(),
-             enemy01.getStatusEffect()
+             enemy01.getSoundStatusEffect()
          )
 
          val enemy002 = MemberStatusData(
@@ -198,7 +198,7 @@ class BattleResultActivity : AppCompatActivity() {
              ("%s %s".format(enemy02.getPoison(), enemy02.getParalysis())),
              (enemy02.hp),
              enemy02.getPrintStatusEffect(),
-             enemy02.getStatusEffect()
+             enemy02.getSoundStatusEffect()
          )
 
          val enemy003 = MemberStatusData(
@@ -208,7 +208,7 @@ class BattleResultActivity : AppCompatActivity() {
              ("%s %s".format(enemy03.getPoison(), enemy03.getParalysis())),
              (enemy03.hp),
              enemy03.getPrintStatusEffect(),
-             enemy03.getStatusEffect()
+             enemy03.getSoundStatusEffect()
          )
 
          memberList = arrayListOf(enemy001, enemy002, enemy003)

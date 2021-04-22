@@ -4,6 +4,7 @@ import com.e.app_namebattler.view.party.player.Player
 
 interface BattleLogListener {
 
+    // 初期ステータス
     fun upDateInitialStatus(
         ally01StatusLog: MutableList<String>,
         ally02StatusLog: MutableList<String>,
@@ -17,6 +18,7 @@ interface BattleLogListener {
         enemy01: Player,
         enemy02: Player,
         enemy03: Player)
+
 
     fun upDateAllLog(
         battleLog: MutableList<Any>,

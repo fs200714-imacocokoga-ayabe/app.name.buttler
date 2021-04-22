@@ -26,7 +26,7 @@ import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
-import com.e.app_namebattler.view.strategy.StrategyName
+import com.e.app_namebattler.view.strategy.StrategyData
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
 import com.e.app_namebattler.view.view.music.MusicData
@@ -213,17 +213,17 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             when (strategyNumber) {
 
-                0 -> message = StrategyName.S0.getStrategyName()
-                1 -> message = StrategyName.S1.getStrategyName()
-                2 -> message = StrategyName.S2.getStrategyName()
-                3 -> message = StrategyName.S3.getStrategyName()
-                4 -> message = StrategyName.S4.getStrategyName()
+                0 -> message = StrategyData.S0.getStrategyName()
+                1 -> message = StrategyData.S1.getStrategyName()
+                2 -> message = StrategyData.S2.getStrategyName()
+                3 -> message = StrategyData.S3.getStrategyName()
+                4 -> message = StrategyData.S4.getStrategyName()
             }
             sn.text = message
 
         } else if(resultCode == Activity.RESULT_CANCELED){
 
-            sn.text = StrategyName.S0.getStrategyName()
+            sn.text = StrategyData.S0.getStrategyName()
         }
     }
 
@@ -342,7 +342,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     // 作戦の表示
     private fun printStrategy() {
         val strategyText: TextView = findViewById(R.id.battle_main_strategy_text_id)
-        strategyText.text =  StrategyName.S0.getStrategyName()
+        strategyText.text =  StrategyData.S0.getStrategyName()
     }
 
     // バトルログ画面でのタップした時の処理
@@ -426,13 +426,13 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                                 printBattleLog(battleLog[i - 1].toString())
                                 printAllyStatus(0, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, false)
                                 printEnemyStatus(0, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03,false)
-                            }, 50)
+                            }, 100)
 
                             handler.postDelayed({
                                 printAllyStatus(0, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
                                 printEnemyStatus(0, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, true)
 
-                        }, 200)
+                        }, 300)
 
                     }
 
@@ -441,7 +441,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             printBattleLog(battleLog[i - 1].toString())
                             printAllyStatus(9, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, false)
                             printEnemyStatus(9, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, false)
-                        }, 3350)
+                        }, 3300)
 
                             handler.postDelayed({
                                 printAllyStatus(9, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
@@ -455,7 +455,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             printBattleLog(battleLog[i - 1].toString())
                             printAllyStatus(18, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, false)
                             printEnemyStatus(18, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, false)
-                        }, 6350)
+                        }, 6300)
 
                             handler.postDelayed({
                                 printAllyStatus(18, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
@@ -468,7 +468,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             printBattleLog(battleLog[i - 1].toString())
                             printAllyStatus(27, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, false)
                             printEnemyStatus(27, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, false)
-                        }, 9350)
+                        }, 9300)
 
                             handler.postDelayed({
                                 printAllyStatus(27, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
@@ -481,7 +481,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             printBattleLog(battleLog[i - 1].toString())
                             printAllyStatus(36, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, false)
                             printEnemyStatus(36, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, false)
-                        }, 12350)
+                        }, 12300)
 
                             handler.postDelayed({
                                 printAllyStatus(36, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
@@ -494,7 +494,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             printBattleLog(battleLog[i - 1].toString())
                             printAllyStatus(45, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, false)
                             printEnemyStatus(45, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, false)
-                        }, 15350)
+                        }, 15300)
 
                             handler.postDelayed({
                                 printAllyStatus(45, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)

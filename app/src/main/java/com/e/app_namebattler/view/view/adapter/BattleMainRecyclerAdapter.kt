@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.app_namebattler.R
@@ -37,6 +38,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
 
         // ダメージを受けた時
         if (member.printEffect == 1){
+   //        holder.aa.setBackgroundColor(R.drawable.frame_line_05_damage) 色が変
             holder.Name.setBackgroundColor(Color.parseColor("#f4b3c2"))
             holder.Hp.setBackgroundColor(Color.parseColor("#f4b3c2"))
             holder.Mp.setBackgroundColor(Color.parseColor("#f4b3c2"))
@@ -45,6 +47,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
 
         // 回復した時
         if (member.printEffect == 2){
+   //        holder.aa.setBackgroundColor(R.drawable.frame_line_06_healing)　色が変
             holder.Name.setBackgroundColor(Color.parseColor("#00ff7f"))//#00ff7f
             holder.Hp.setBackgroundColor(Color.parseColor("#00ff7f"))
             holder.Mp.setBackgroundColor(Color.parseColor("#00ff7f"))
@@ -84,7 +87,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         val Hp: TextView = view.findViewById(R.id.data_battle_main_character_status_member_hp_text_id)
         val Mp: TextView = view.findViewById(R.id.data_battle_main_character_status_member_mp_text_id)
         val Status: TextView = view.findViewById(R.id.data_battle_main_character_status_member_status_text_id)
-       // val aa:Boolean = false
+      //  val aa:LinearLayout = view.findViewById(R.id.data_battle_main_character_status_linearLayout_id) 試し
 
     }
 

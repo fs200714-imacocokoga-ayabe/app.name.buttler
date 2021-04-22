@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -56,5 +57,16 @@
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="15sp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="131dp"
+        android:layout_height="70dp"
+        android:background="@drawable/frame_line_07"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/data_battle_main_character_status_linearLayout_id"
+        app:layout_constraintEnd_toEndOf="@+id/data_battle_main_character_status_linearLayout_id"
+        app:layout_constraintStart_toStartOf="@+id/data_battle_main_character_status_linearLayout_id"
+        app:layout_constraintTop_toTopOf="@+id/data_battle_main_character_status_linearLayout_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

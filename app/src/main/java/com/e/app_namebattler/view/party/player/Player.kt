@@ -154,11 +154,11 @@ open class Player(private var name: String) {
         characterEffect = effect
     }
 
-    open fun getStatusEffect(): Int{
+    open fun getSoundStatusEffect(): Int{
         return characterStatusEffect
     }
 
-    open fun setStatusEffect(statusEffect: Int){
+    open fun setSoundStatusEffect(statusEffect: Int){
         characterStatusEffect = statusEffect
     }
 
@@ -268,7 +268,7 @@ open class Player(private var name: String) {
         if (isPoison) { // true:毒状態 false:無毒状態
             damage(Magic.POISON.getMaxDamage()) // 毒のダメージ計算
             log.append("${this.name}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
-            setStatusEffect(12)
+            setSoundStatusEffect(12)
         }
     }
 
@@ -291,7 +291,7 @@ open class Player(private var name: String) {
         if (this.isParalysis){// 麻痺している場合
 
             log.append("${this.name}は麻痺で動けない！！\n")
-            setStatusEffect(1)
+            setSoundStatusEffect(1)
 
         }else {// 麻痺していない場合
 

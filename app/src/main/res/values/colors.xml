@@ -8,5 +8,7 @@
     <color name="colorSilver">#c0c0c0</color>
     <color name="colorBlack">#000000</color>
     <color name="colorShellPink">#fbdac8</color>
+    <color name="colorDarkBrown">#f4b3c2</color>
+    <color name="colorBrightGreen">#00ff7f</color>
 
 </resources>

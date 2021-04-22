@@ -60,7 +60,7 @@ class JobFighter(name: String): Player(name) {
 
         }else {// 麻痺していない場合
 
-            if ((1..100).random() < Skill.ASSAULT.getInvocationRate()) { // 乱数値が30より小さい時
+            if ((1..100).random() < Skill.ASSAULT.getInvocationRate()) { // 確率で発動
                 log.append("${this.getName()}の${Skill.ASSAULT.getSkillName()}！\n")
                 damage = calcDamage(defender) // 与えるダメージを求める
                 damage *= 2 // ダメージ2倍

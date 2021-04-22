@@ -20,7 +20,7 @@ class StrategyNormalAttack : BaseStrategy() {// 通常攻撃
             party.addAll(party1) // partyにparty1を入れる
         }
 
-        player2 = party[(1..party.size).random() - 1]
+        player2 = party[(1..party.size).random() - 1] // 敵をランダムで選択
 
         battleLog.append(player1.normalAttack(player2!!))
 
