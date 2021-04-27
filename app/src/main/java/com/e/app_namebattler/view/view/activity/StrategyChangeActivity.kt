@@ -83,13 +83,13 @@ class StrategyChangeActivity : AppCompatActivity() {
 
     fun onClickStrategy04(view: View) {
         val ts = Toast.makeText(applicationContext, StrategyData.S3.getStrategyComment(), Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.BOTTOM, 0, 500)
+        ts.setGravity(Gravity.BOTTOM, 0, 450)
         ts.show()
     }
 
     fun onClickStrategy05(view: View) {
         val ts = Toast.makeText(applicationContext, StrategyData.S4.getStrategyComment(), Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.BOTTOM, 0, 500)
+        ts.setGravity(Gravity.BOTTOM, 0, 450)
         ts.show()
     }
 

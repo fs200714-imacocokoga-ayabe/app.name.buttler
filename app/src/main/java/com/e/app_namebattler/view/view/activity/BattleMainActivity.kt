@@ -24,11 +24,14 @@ import com.e.app_namebattler.controller.GameManager
 import com.e.app_namebattler.model.EnemyOpenHelper
 import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.party.player.AllyFighterImageData
+import com.e.app_namebattler.view.party.player.AllyNinjaImageData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.StrategyData
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
+import com.e.app_namebattler.view.view.illust.BackGroundData
 import com.e.app_namebattler.view.view.music.MusicData
 import com.e.app_namebattler.view.view.music.SoundData
 import kotlinx.android.synthetic.main.activity_battle_main.*
@@ -78,6 +81,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_main)
+
+        backGround()// 背景選択
 
         mp0= MediaPlayer.create(this, MusicData.BGM01.getBgm())
         mp0.isLooping=true
@@ -174,6 +179,21 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                     ts.show()
                 }
         }
+    }
+
+    private fun backGround() {
+
+        val backGroundList = ArrayList<BackGroundData>()
+        val backGroundView:TextView = findViewById(R.id.battle_main_battle_log_text_id)
+
+        for (bg in BackGroundData.values()) {
+            backGroundList.add(bg)
+        }
+
+        val backGroundValue =
+            backGroundList[(1..backGroundList.size).random() - 1].getBackGround()
+
+        backGroundView.setBackgroundResource(backGroundValue)
     }
 
     private fun turnEnd() {
