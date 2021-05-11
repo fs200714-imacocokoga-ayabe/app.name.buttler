@@ -63,7 +63,6 @@ class CharacterDetailActivity : AppCompatActivity() {
                 luck = cursor.getInt(7)
                 createAt = cursor.getString(8)
                 characterImage = cursor.getInt(9)
-
             }
 
         }finally {

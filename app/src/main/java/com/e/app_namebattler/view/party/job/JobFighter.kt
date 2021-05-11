@@ -64,8 +64,9 @@ class JobFighter(name: String): Player(name) {
                 log.append("${this.getName()}の${Skill.ASSAULT.getSkillName()}！\n")
                 damage = calcDamage(defender) // 与えるダメージを求める
                 damage *= 2 // ダメージ2倍
-                super.damageProcess(defender, damage) // ダメージ処理
                 setAttackSoundEffect(SoundData.S_SWORD01.getSoundNumber())
+                super.damageProcess(defender, damage) // ダメージ処理
+
 
             } else {
                 log.append("${this.getName()}の${Skill.ASSAULT.getSkillName()}はかわされた！！\n")

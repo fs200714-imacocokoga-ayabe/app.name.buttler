@@ -23,10 +23,8 @@ class StrategyEnemyAttackPattern: BaseStrategy() {
 
         cpuPlayer = player1
 
-        userParty.addAll(party1) // partyにparty1を入れる
-        cpuParty.addAll(party2) // partyにparty2を入れる
-
-        //userPlayer = userParty[(1.. userParty.size).random() - 1]
+        userParty.addAll(party1) // party1を入れる
+        cpuParty.addAll(party2) // party2を入れる
 
         when (player1.job) {
             JobData.FIGHTER.getJobName() -> {
@@ -112,12 +110,12 @@ class StrategyEnemyAttackPattern: BaseStrategy() {
             }
 
             // 魔法を使う
-            cpuPlayer.mp >= 10 -> {
+             10 <= cpuPlayer.mp -> {
                 battleLog.append(cpuPlayer.magicAttack(userPlayer))
             }
 
             // 攻撃力の1/2より相手の防御力の方が大きい場合
-            cpuPlayer.str / 2 > userPlayer.def -> {
+             userPlayer.def < cpuPlayer.str / 2 -> {
                 userPlayer = selectLowerHp() // HPの低い相手を呼び出す
                 battleLog.append(cpuPlayer.normalAttack(userPlayer))
             }
@@ -161,7 +159,8 @@ class StrategyEnemyAttackPattern: BaseStrategy() {
      * @return userPlayer : HPの低い相手
      */
     private fun selectLowerHp(): Player {
-
+//userPlayer = userParty[(1.. userParty.size).random() - 1]
+        print("ろぐろぐ$userParty")
         userPlayer = userParty[0] // 敵パーティから1人userPlayerに入れる
 
         for (i in 1 until userParty.size) {

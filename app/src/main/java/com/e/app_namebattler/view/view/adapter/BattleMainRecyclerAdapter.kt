@@ -106,7 +106,8 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     }
 }
 // 1行分のデータモデル
-class MemberStatusData(var name: String, var hp: String, var Mp: String, var Status: String ,var hp02:Int, var printEffect: Int, var statusEffect: Int)
+class MemberStatusData(var name: String, var hp: String, var Mp: String, var Status: String ,var hp02:Int, var printEffect: Int)
+
 
 
 

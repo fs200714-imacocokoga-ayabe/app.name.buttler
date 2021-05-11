@@ -295,11 +295,11 @@ class GameManager {
         return character
     }
 
-    fun  getParty01():List<Player>{
+    fun  getAllyParty():List<Player>{
         return party.getParty01()
     }
 
-    fun getParty02(): List<Player>{
+    fun getEnemyParty(): List<Player>{
         return party.getParty02()
     }
 
