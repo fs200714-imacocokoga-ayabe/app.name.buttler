@@ -34,9 +34,10 @@ class PartyOrganizationActivity : AppCompatActivity() {
     lateinit var helper: AllyOpenHelper
     var characterList = arrayListOf<CharacterAllData>()
     private lateinit var mOrganizationListAdapter: PartyOrganizationListAdapter
-    var array = ArrayList<String>()
-    var array02 = ArrayList<RadioButton>()
-    var rNum = 0
+    var allyNameArray = ArrayList<String>() // 味方の名前を格納
+    var radioButtonArray = ArrayList<RadioButton>() //　ラジオボタンを格納
+    var radioNumber = 0 // チェックしているラジオボタンの数
+    private val selectCountMax = 3 // 選択できるパーティメンバー数
 
     var name = ""
     var job = ""
@@ -107,33 +108,33 @@ class PartyOrganizationActivity : AppCompatActivity() {
                 val characterName = listView.getChildAt(i - 1).data_party_organization_character_status_name_id
 
                 if (radioName.isChecked) {
-                    array.add(characterName.text as String)
+                    allyNameArray.add(characterName.text as String)
                 }
             }
 
-            if(3 <= array.size){
+            if(selectCountMax <= allyNameArray.size){
 
                 arrayRadioId.clear()
                 val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
                 textView.text = "このパーティで開始（".plus(partyResetNumber).plus("/3）")
 
-                nameValue01 = array[0].trim()//trim:文字列の先頭と末尾の半角空白を取り除く
-                nameValue02 = array[1].trim()
-                nameValue03 = array[2].trim()
+                nameValue01 = allyNameArray[0].trim()//trim:文字列の先頭と末尾の半角空白を取り除く
+                nameValue02 = allyNameArray[1].trim()
+                nameValue03 = allyNameArray[2].trim()
 
                 val intent = Intent(this, BattleStartActivity::class.java)
 
-                intent.putExtra("name_key01", nameValue01)
-                intent.putExtra("name_key02", nameValue02)
-                intent.putExtra("name_key03", nameValue03)
+                intent.putExtra("allyName01_key", nameValue01)
+                intent.putExtra("allyName02_key", nameValue02)
+                intent.putExtra("allyName03_key", nameValue03)
 
-                array.clear()
+                allyNameArray.clear()
                 mp0.reset()
                 startActivity(intent)
 
             } else {
 
-                array.clear()
+                allyNameArray.clear()
                 val ts = Toast.makeText(this, "3人選択してください", Toast.LENGTH_SHORT)
                 ts.setGravity(Gravity.BOTTOM,0,0)
                 ts.show()
@@ -153,59 +154,59 @@ class PartyOrganizationActivity : AppCompatActivity() {
 
         val radioButton = view as RadioButton
 
-        if (rNum == 0) {
+        if (radioNumber == 0) {
 
             radioButton.isChecked = true
-            array02.add(radioButton)
-            rNum += 1
+            radioButtonArray.add(radioButton)
+            radioNumber += 1
 
-        } else if (rNum == 1) {
+        } else if (radioNumber == 1) {
 
-            if (array02[0] == radioButton) {
-                array02.remove(array02[0])
+            if (radioButtonArray[0] == radioButton) {
+                radioButtonArray.remove(radioButtonArray[0])
                 radioButton.isChecked = false
-                rNum -= 1
+                radioNumber -= 1
 
             } else {
-                array02.add(radioButton)
+                radioButtonArray.add(radioButton)
                 radioButton.isChecked = true
-                rNum += 1
+                radioNumber += 1
             }
 
-        }else if (rNum == 2) {
+        }else if (radioNumber == 2) {
 
-            if (array02[0] == radioButton) {
-                array02.remove(array02[0])
+            if (radioButtonArray[0] == radioButton) {
+                radioButtonArray.remove(radioButtonArray[0])
                 radioButton.isChecked = false
-                rNum -= 1
+                radioNumber -= 1
 
-            } else if (array02[1] == radioButton) {
-                array02.remove(array02[1])
+            } else if (radioButtonArray[1] == radioButton) {
+                radioButtonArray.remove(radioButtonArray[1])
                 radioButton.isChecked = false
-                rNum -= 1
+                radioNumber -= 1
 
             } else {
-                array02.add(radioButton)
+                radioButtonArray.add(radioButton)
                 radioButton.isChecked = true
-                rNum += 1
+                radioNumber += 1
             }
 
-        }else if (rNum == 3){
+        }else if (radioNumber == 3){
 
-            if (array02[0] == radioButton) {
-                array02.remove(array02[0])
+            if (radioButtonArray[0] == radioButton) {
+                radioButtonArray.remove(radioButtonArray[0])
                 radioButton.isChecked = false
-                rNum -= 1
+                radioNumber -= 1
 
-            } else if (array02[1] == radioButton) {
-                array02.remove(array02[1])
+            } else if (radioButtonArray[1] == radioButton) {
+                radioButtonArray.remove(radioButtonArray[1])
                 radioButton.isChecked = false
-                rNum -= 1
+                radioNumber -= 1
 
-            } else if (array02[2] == radioButton){
-                array02.remove(array02[2])
+            } else if (radioButtonArray[2] == radioButton){
+                radioButtonArray.remove(radioButtonArray[2])
                 radioButton.isChecked = false
-                rNum -= 1
+                radioNumber -= 1
 
             }else {
 
@@ -217,7 +218,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
         }
 
         val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
-        textView.text = "このパーティで開始（".plus(rNum).plus("/3）")
+        textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
     }
 
     //　数字を文字に変える

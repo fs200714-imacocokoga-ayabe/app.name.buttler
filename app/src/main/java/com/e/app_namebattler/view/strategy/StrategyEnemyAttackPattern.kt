@@ -50,7 +50,7 @@ class StrategyEnemyAttackPattern: BaseStrategy() {
         when {
             // 毒状態の場合
             cpuPlayer.isPoison -> {
-                cpuPlayer.eatHerb()
+                battleLog.append(cpuPlayer.eatHerb())
             }
 
             // 攻撃力の1/2が相手の防御力より大きい場合
@@ -159,9 +159,13 @@ class StrategyEnemyAttackPattern: BaseStrategy() {
      * @return userPlayer : HPの低い相手
      */
     private fun selectLowerHp(): Player {
-//userPlayer = userParty[(1.. userParty.size).random() - 1]
-        print("ろぐろぐ$userParty")
-        userPlayer = userParty[0] // 敵パーティから1人userPlayerに入れる
+
+        userPlayer = userParty[(1.. userParty.size).random() - 1] // 敵パーティから1人userPlayerに入れる
+        println("ろぐろぐ０４${userParty[0]}")
+        println("ろぐろぐ01${userParty[(1.. userParty.size).random() - 1]}")
+        println("ろぐろぐ02$userPlayer")
+
+        //   userPlayer = userParty[0] // 敵パーティから1人userPlayerに入れる
 
         for (i in 1 until userParty.size) {
             if (userParty[i].hp < userPlayer.hp) { // userPlayerよりHPが低い場合
@@ -177,8 +181,11 @@ class StrategyEnemyAttackPattern: BaseStrategy() {
      * @return userPlayer :HPの高い相手
      */
     private fun selectHighHp(): Player {
-
-        userPlayer = userParty[0] // 敵パーティから1人userPlayerに入れる
+println("ろぐろぐ０３${userParty[0]}")
+        userPlayer = userParty[(1.. userParty.size).random() - 1] // 敵パーティから1人userPlayerに入れる
+       // userPlayer = userParty[0] // 敵パーティから1人userPlayerに入れる
+        println("ろぐろぐ03${userParty[(1.. userParty.size).random() - 1]}")
+        println("ろぐろぐ04$userPlayer")
 
         for (i in 1 until userParty.size) {
             if (userParty[i].hp > userPlayer.hp) { // userPlayerよりHPが大きい場合

@@ -84,9 +84,9 @@ class BattleResultActivity : AppCompatActivity() {
         battle_result_next_battle_button_id.setOnClickListener {
 
             val intent = Intent(this, BattleStartActivity::class.java)
-            intent.putExtra("name_key01", allyName01)
-            intent.putExtra("name_key02", allyName02)
-            intent.putExtra("name_key03", allyName03)
+            intent.putExtra("allyName01_key", allyName01)
+            intent.putExtra("allyName02_key", allyName02)
+            intent.putExtra("allyName03_key", allyName03)
 
             mp0.reset()
             startActivity(intent)
@@ -96,9 +96,9 @@ class BattleResultActivity : AppCompatActivity() {
         battle_result_challenge_again_button_id.setOnClickListener {
 
             val intent = Intent(this, BattleMainActivity::class.java)
-            intent.putExtra("name01_key", allyName01)
-            intent.putExtra("name02_key", allyName02)
-            intent.putExtra("name03_key", allyName03)
+            intent.putExtra("allyName01_key", allyName01)
+            intent.putExtra("allyName02_key", allyName02)
+            intent.putExtra("allyName03_key", allyName03)
             intent.putExtra("enemyName01_key", enemyName01)
             intent.putExtra("enemyName02_key", enemyName02)
             intent.putExtra("enemyName03_key", enemyName03)

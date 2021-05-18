@@ -27,7 +27,9 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
     private var isSameName :Boolean = false // 同じ名前かどうか true:同じ名前 false:違う名前
     private var inputStr: String = "" // editTextに入力された文字を格納
     private var limitLength = StringBuilder()
-    private var characterCount: Int = 0
+    private var characterCount: Int = 0 // データベースのキャラクター数のチェック用
+    private val maxCharacterNumber = 8 // 登録できるキャラクター数
+    private val nameLength = 10 //キャラクターの名前の文字数
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +68,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         // 作成するボタンを押したときの処理
         character_creation_create_character_button_id.setOnClickListener {
 
-            if (8 <= characterNumberCheck()) {
+            if (maxCharacterNumber <= characterNumberCheck()) {
                 val dialog = CharacterCreateMaxDialogFragment()
                 dialog.show(supportFragmentManager, "alert_dialog")
             }else {
@@ -101,17 +103,17 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
     private fun printPartyNumber() {
 
-        val characterNumber = characterNumberCheck()
+        val currentCharacterNumber = characterNumberCheck()
 
         val ic = Toast.makeText(this,
-            "現在${characterNumber}人です、あと${8 - characterNumber}人作成出来ます。",
+            "現在${currentCharacterNumber}人です、あと${maxCharacterNumber - currentCharacterNumber}人作成出来ます。",
             Toast.LENGTH_LONG)
         ic.setGravity(Gravity.TOP, 0, 150)
         // ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
         ic.show()
     }
 
-    // ---textWatcher---使用していませんが参考に残しています
+    // ---textWatcher---使用していませんが参考に残しています-------------------------------------------------------------------------------
     // 文字列が修正される直前に呼び出される
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -124,7 +126,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
         inputStr = s.toString()
 
-        if (10 < inputStr.length) {
+        if (nameLength < inputStr.length) {
 
             limitLength.append(inputStr)
             limitLength.deleteCharAt(10)// 11文字目を消去
@@ -142,6 +144,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             limitLength.clear()
         }
     }
+//--------------------------------------------------------------------------------------------------------------------------------
 
     // 同じ名前がデータベースに存在しているかのチェック
     private fun sameNameCheck(nameValue: String?): Boolean{

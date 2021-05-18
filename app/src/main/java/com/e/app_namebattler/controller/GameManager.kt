@@ -19,6 +19,7 @@ class GameManager {
     private var enemy01StatusLogList:MutableList<String> = ArrayList()
     private var enemy02StatusLogList:MutableList<String> = ArrayList()
     private var enemy03StatusLogList:MutableList<String> = ArrayList()
+    private var characterStatusLogList:MutableList<String> = ArrayList()
 
     var callBack: BattleLogListener? = null
 
@@ -323,7 +324,7 @@ class GameManager {
         when(jobValue){
             JobData.FIGHTER.getJobName() -> job = JobData.FIGHTER.getJobNumber()
             JobData.WIZARD.getJobName() -> job = JobData.WIZARD.getJobNumber()
-            JobData.PRIEST.getJobName()-> job = JobData.PRIEST.getJobNumber()
+            JobData.PRIEST.getJobName() -> job = JobData.PRIEST.getJobNumber()
             JobData.NINJA.getJobName() -> job = JobData.NINJA.getJobNumber()
         }
         return job
@@ -442,4 +443,25 @@ private fun getAlly01StatusLogList(ally01: Player):MutableList<String> {
 
         return enemy03StatusLogList
     }
+
+    // characterStatusLogListの参照先が同じになるため利用できない
+    private fun getCharacterStatusLogList(character: Player):MutableList<String> {
+
+        characterStatusLogList.plusAssign(character.getHP().toString())
+        characterStatusLogList.plusAssign(character.getMaxHp().toString())
+        characterStatusLogList.plusAssign(character.getMP().toString())
+        characterStatusLogList.plusAssign(character.getMaxMp().toString())
+        characterStatusLogList.plusAssign(character.getPoison())
+        characterStatusLogList.plusAssign(character.getParalysis())
+        characterStatusLogList.plusAssign(character.getPrintStatusEffect().toString())
+        characterStatusLogList.plusAssign(character.getSoundStatusEffect().toString())
+        characterStatusLogList.plusAssign(character.getAttackSoundEffect().toString())
+
+        character.setPrintStatusEffect(0)
+        character.setSoundStatusEffect(0)
+        character.setAttackSoundEffect(0)
+
+        return characterStatusLogList
+    }
+
 }

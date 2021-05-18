@@ -55,8 +55,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     //private var handler: Handler? = null
     private var handler = Handler()
-    private lateinit var helper: AllyOpenHelper
-    private lateinit var helper02: EnemyOpenHelper
+    private lateinit var allyHelper: AllyOpenHelper
+    private lateinit var enemyhelper: EnemyOpenHelper
 
     private val gm = GameManager()
 
@@ -114,9 +114,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         bl.text = "Tap to start"
 
         // BattleStartActivityからデータを受け取る
-        val allyName01 = intent.getStringExtra("name01_key")
-        val allyName02 = intent.getStringExtra("name02_key")
-        val allyName03 = intent.getStringExtra("name03_key")
+        val allyName01 = intent.getStringExtra("allyName01_key")
+        val allyName02 = intent.getStringExtra("allyName02_key")
+        val allyName03 = intent.getStringExtra("allyName03_key")
         val enemyName01 = intent.getStringExtra("enemyName01_key")
         val enemyName02 = intent.getStringExtra("enemyName02_key")
         val enemyName03 = intent.getStringExtra("enemyName03_key")
@@ -234,9 +234,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         enemyName03: String?
     ): ArrayList<CharacterAllData> {
 
-        helper02 = EnemyOpenHelper(applicationContext)//DB作成
+        enemyhelper = EnemyOpenHelper(applicationContext)//DB作成
 
-        val db = helper02.readableDatabase
+        val db = enemyhelper.readableDatabase
 
         try {
             // rawQueryというSELECT専用メソッドを使用してデータを取得する
@@ -283,9 +283,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         allyName03: String?
     ): ArrayList<CharacterAllData> {
 
-        helper = AllyOpenHelper(applicationContext)//DB作成
+        allyHelper = AllyOpenHelper(applicationContext)//DB作成
 
-        val db = helper.readableDatabase
+        val db = allyHelper.readableDatabase
 
         try {
             // rawQueryというSELECT専用メソッドを使用してデータを取得する
@@ -430,7 +430,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                                 printAllyStatus(0, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
                                 printEnemyStatus(0, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, true)
 
-                        }, 300)
+                        }, 500)
 
                     }
 
@@ -444,7 +444,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             handler.postDelayed({
                                 printAllyStatus(9, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
                                 printEnemyStatus(9, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, true)
-                            }, 3500)
+                            }, 3700)
                     }
 
                     3 -> {
@@ -458,7 +458,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             handler.postDelayed({
                                 printAllyStatus(18, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
                                 printEnemyStatus(18, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, true)
-                            }, 6500)
+                            }, 6700)
                     }
 
                     4 -> {
@@ -471,7 +471,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             handler.postDelayed({
                                 printAllyStatus(27, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
                                 printEnemyStatus(27, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, true)
-                            }, 9500)
+                            }, 9700)
                     }
 
                     5 -> {
@@ -484,7 +484,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             handler.postDelayed({
                                 printAllyStatus(36, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
                                 printEnemyStatus(36, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, true)
-                            }, 12500)
+                            }, 12700)
                     }
 
                     6 -> {
@@ -497,12 +497,13 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             handler.postDelayed({
                                 printAllyStatus(45, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
                                 printEnemyStatus(45, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, true)
-                            }, 15500)
+                            }, 15700)
                     }
                 }
             }
 
-            waitTime(battleLog.size)
+            waitTime(battleLog.size) // 待機時間処理
+
         } else if (isMessageSpeed) {
 
              for (i in 1..battleLog.size) {
@@ -558,7 +559,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                     }
                 }
             }
-            waitTime(battleLog.size)
+            waitTime(battleLog.size) // 待機時間処理
         }
     }
 

@@ -2,7 +2,9 @@ package com.e.app_namebattler.view.party.player
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.e.app_namebattler.view.party.herb.Herb
 import com.e.app_namebattler.view.party.magic.Magic
+import com.e.app_namebattler.view.party.status.Status
 import com.e.app_namebattler.view.view.music.SoundData
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -34,8 +36,6 @@ open class Player(private var name: String) {
     private var idNumber: Int = 0
     var damage = 0
     open var log = StringBuilder()
-
-    private val herbRecoveryValue = 30
 
     init {
         makeCharacter(name)
@@ -123,18 +123,18 @@ open class Player(private var name: String) {
     open fun getPoison(): String{
 
         return if(this.isPoison){
-            "毒"
+            Status.POISON.getAbnormalStatusName()
         }else{
-            ""
+            Status.FINE.getAbnormalStatusName()
         }
     }
 
     open fun getParalysis(): String{
 
         return if(this.isParalysis){
-            "麻痺"
+            Status.PARALYSIS.getAbnormalStatusName()
         }else{
-            ""
+            Status.FINE.getAbnormalStatusName()
         }
     }
 
@@ -245,11 +245,12 @@ open class Player(private var name: String) {
     open fun knockedDownCheck(defender: Player) {
         if (defender.hp <= 0) {
             log.append("${defender.name}は力尽きた...\n")
-        }
+        }else {
             conditionCheck() // 状態異常チェック
 
-        if (this.hp <= 0) {
-            log.append("${this.name}は力尽きた...\n")
+            if (this.hp <= 0) {
+                log.append("${this.name}は力尽きた...\n")
+            }
         }
     }
 
@@ -299,7 +300,7 @@ open class Player(private var name: String) {
 
             when ((0..2).random()) {
                 0 -> {
-                    recoveryProcess(this, herbRecoveryValue)
+                    recoveryProcess(this, Herb.HERB.getHerbRecoveryValue())
                 }
 
                 1 -> {
@@ -310,7 +311,7 @@ open class Player(private var name: String) {
                         setAttackSoundEffect(SoundData.S_RECOVERY01.getSoundNumber())
                     } else {
 
-                        recoveryProcess(this, herbRecoveryValue)
+                        recoveryProcess(this, Herb.HERB.getHerbRecoveryValue())
                     }
                 }
 

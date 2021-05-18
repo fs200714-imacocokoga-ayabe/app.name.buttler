@@ -55,7 +55,6 @@ class CharacterCreatedActivity : AppCompatActivity() {
         jobText.text = jobExtra
 
         val name = nameExtra.toString()
-
         var job = 0
 
         // 職業を数字に変換
@@ -74,12 +73,12 @@ class CharacterCreatedActivity : AppCompatActivity() {
                 3 -> JobNinja(name).let { player = it }
             }
 
-            val hp = player.getHP()
-            val mp = player.getMP()
-            val str = player.getSTR()
-            val def = player.getDEF()
-            val agi = player.getAGI()
-            val luck = player.getLUCK()
+            val hp = player.hp
+            val mp = player.mp
+            val str = player.str
+            val def = player.def
+            val agi = player.agi
+            val luck = player.luck
 
             val current = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:m")

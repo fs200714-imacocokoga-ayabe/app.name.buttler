@@ -22,6 +22,7 @@ class CharacterListActivity : AppCompatActivity(){
     lateinit var helper: AllyOpenHelper
     var  characterList = arrayListOf<CharacterAllData>()
     private lateinit var mCharacterListAdapter: CharacterListAdapter
+    private val characterCountMax = 8 //キャラクター数の上限
 
     var name = ""
     var job = ""
@@ -107,8 +108,8 @@ class CharacterListActivity : AppCompatActivity(){
         // 新しく作成するボタンを押したときの処理
         character_list_new_create_button_id.setOnClickListener {
 
-            //キャラクターリスとが8人以上でボタンが押されたらダイアログが表示される
-            if (8 <= characterList.size){
+            //キャラクターリストが8人以上でボタンが押されたらダイアログが表示される
+            if (characterCountMax <= characterList.size){
                 val dialog = CharacterCreateMaxDialogFragment()
                 dialog.show(supportFragmentManager, "alert_dialog")
 

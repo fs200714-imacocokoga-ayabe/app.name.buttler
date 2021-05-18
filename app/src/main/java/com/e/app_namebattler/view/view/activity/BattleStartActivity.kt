@@ -56,9 +56,9 @@ class BattleStartActivity : AppCompatActivity() {
         helper02 = EnemyOpenHelper(applicationContext)//DB作成
 
         // PartyOrganizationActivityから名前を受け取る
-        name01 = intent.getStringExtra("name_key01").toString()
-        name02 = intent.getStringExtra("name_key02").toString()
-        name03 = intent.getStringExtra("name_key03").toString()
+        name01 = intent.getStringExtra("allyName01_key").toString()
+        name02 = intent.getStringExtra("allyName02_key").toString()
+        name03 = intent.getStringExtra("allyName03_key").toString()
 
         // データベースから敵の情報を削除
         deleteEnemy()
@@ -85,9 +85,9 @@ class BattleStartActivity : AppCompatActivity() {
             val intent = Intent(this, BattleMainActivity::class.java)
 
             // BattleMainActivityにデータを送る
-            intent.putExtra("name01_key", name01)
-            intent.putExtra("name02_key", name02)
-            intent.putExtra("name03_key", name03)
+            intent.putExtra("allyName01_key", name01)
+            intent.putExtra("allyName02_key", name02)
+            intent.putExtra("allyName03_key", name03)
             intent.putExtra("enemyName01_key", enemyPartyList[0].name)
             intent.putExtra("enemyName02_key", enemyPartyList[1].name)
             intent.putExtra("enemyName03_key", enemyPartyList[2].name)
