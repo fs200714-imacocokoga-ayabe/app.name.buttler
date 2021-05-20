@@ -3,7 +3,7 @@ package com.e.app_namebattler.view.party.job
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.magic.IMagicalUsable
 import com.e.app_namebattler.view.party.magic.IRecoveryMagic
-import com.e.app_namebattler.view.party.magic.Magic
+import com.e.app_namebattler.view.party.magic.MagicData
 import com.e.app_namebattler.view.view.music.SoundData
 
 class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
@@ -22,8 +22,9 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
     var isHeal = false
 
     override fun makeCharacter(name: String) {
+
         // 僧侶のパラメータを名前から生成する
-        this.job = "僧侶"
+        this.job = JobData.PRIEST.getJobName()
         this.hp = getNumber(0, 120) + 80 // 80-200
         this.mp = getNumber(1, 30) + 20 // 20-50
         this.str = getNumber(2, 40) + 10 // 10-50
@@ -62,9 +63,9 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         }else {// 麻痺していない場合
 
-            if ((1..100).random() < Magic.OPTICAL_ELEMENTAL.getInvocationRate()) {
-                log.append("${this.getName()}は祈りを捧げて${Magic.OPTICAL_ELEMENTAL.getName()}を召還した\n${Magic.OPTICAL_ELEMENTAL.getName()}の祝福を受けた！\n")
-                recoveryProcess(this, Magic.OPTICAL_ELEMENTAL.getRecoveryValue())
+            if ((1..100).random() < MagicData.OPTICAL_ELEMENTAL.getInvocationRate()) {
+                log.append("${this.getName()}は祈りを捧げて${MagicData.OPTICAL_ELEMENTAL.getName()}を召還した\n${MagicData.OPTICAL_ELEMENTAL.getName()}の祝福を受けた！\n")
+                recoveryProcess(this, MagicData.OPTICAL_ELEMENTAL.getRecoveryValue())
                 setAttackSoundEffect(SoundData.S_HEAL01.getSoundNumber())
             } else {
                 log.append("${this.getName()}は祈りを捧げたが何も起こらなかった！\n")
@@ -109,12 +110,12 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
             isHeal = true
 
             if (hasEnoughMp()) { // MPが20以上の場合ヒールを使用
-                this.mp = this.mp - Magic.HEAL.getMpCost() // MP消費
-                log.append("${this.getName()}は${Magic.HEAL.getName()}を唱えた！\n光が${defender.getName()}を包む\n")
+                this.mp = this.mp - MagicData.HEAL.getMpCost() // MP消費
+                log.append("${this.getName()}は${MagicData.HEAL.getName()}を唱えた！\n光が${defender.getName()}を包む\n")
                 setAttackSoundEffect(SoundData.S_HEAL01.getSoundNumber())
 
                 recoveryProcess(
-                    defender, Magic.HEAL
+                    defender, MagicData.HEAL
                         .getRecoveryValue()
                 )
 
@@ -151,19 +152,19 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
     }
 
     private fun usePoison(defender: Player) {
-        this.mp = this.mp - Magic.POISON.getMpCost() // MP消費
-        log.append("${this.getName()}は${Magic.POISON.getName()}を唱えた！\n瘴気が相手を包んだ！\n")
+        this.mp = this.mp - MagicData.POISON.getMpCost() // MP消費
+        log.append("${this.getName()}は${MagicData.POISON.getName()}を唱えた！\n瘴気が相手を包んだ！\n")
         defender.isPoison = true
         log.append("${defender.getName()}は毒状態になった！\n")
         setAttackSoundEffect(SoundData.S_POISON01.getSoundNumber())
     }
 
     private fun useParalysis(defender: Player) {
-        this.mp = this.mp - Magic.PARALYSIS.getMpCost() // MP消費
-        log.append("${this.getName()}は${Magic.PARALYSIS.getName()}を唱えた！\n蒼い霧が相手を包んだ！\n")
+        this.mp = this.mp - MagicData.PARALYSIS.getMpCost() // MP消費
+        log.append("${this.getName()}は${MagicData.PARALYSIS.getName()}を唱えた！\n蒼い霧が相手を包んだ！\n")
         setAttackSoundEffect(SoundData.S_PARALYSIS01.getSoundNumber())
 
-        if ((1..100).random() <= Magic.PARALYSIS.getContinuousRate()) { // 乱数がPARALYSISの値以下の場合麻痺状態になる
+        if ((1..100).random() <= MagicData.PARALYSIS.getContinuousRate()) { // 乱数がPARALYSISの値以下の場合麻痺状態になる
             defender.isParalysis = true
             log.append("${defender.getName()}は麻痺を受けた！\n")
         } else { // 麻痺を状態にならなかった場合
@@ -173,8 +174,8 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
     private fun hasEnoughMp(): Boolean {
 
-        return if (10 <= this.mp && !isHeal) {
+        return if (PRIEST_USE_MAGIC_LOW_MP <= this.mp && !isHeal) {
             true
-        } else 20 <= this.mp && isHeal
+        } else PRIEST_USE_HEAL_MAGIC_LOW_MP <= this.mp && isHeal
     }
 }

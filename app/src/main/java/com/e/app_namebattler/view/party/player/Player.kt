@@ -3,7 +3,7 @@ package com.e.app_namebattler.view.party.player
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.e.app_namebattler.view.party.herb.Herb
-import com.e.app_namebattler.view.party.magic.Magic
+import com.e.app_namebattler.view.party.magic.MagicData
 import com.e.app_namebattler.view.party.status.Status
 import com.e.app_namebattler.view.view.music.SoundData
 import java.math.BigInteger
@@ -29,6 +29,10 @@ open class Player(private var name: String) {
     open var isPoison: Boolean = false
     open var isParalysis: Boolean = false
     open var isMark: Boolean = false
+    open val WIZARD_USE_MAGIC_LOW_MP: Int = 10
+    open val PRIEST_USE_MAGIC_LOW_MP: Int = 10
+    open val PRIEST_USE_HEAL_MAGIC_LOW_MP: Int = 20
+    open val NINJA_USE_MAGIC_LOW_MP: Int = 10
     private var characterImageType:Int = 0
     private var characterEffect = 0
     private var characterStatusEffect = 0
@@ -234,7 +238,6 @@ open class Player(private var name: String) {
         if (0 < damage) {
             defender.setPrintStatusEffect(1)
         }
-
         defender.damage(damage) // 求めたダメージを対象プレイヤーに与える
     }
 
@@ -260,15 +263,15 @@ open class Player(private var name: String) {
     private fun conditionCheck() {
 
         if (isParalysis) { // true:麻痺状態 false:麻痺していない
-            if (Magic.PARALYSIS.getContinuousRate() <= (1..100).random()  ) { // 麻痺の確立より乱数が上なら麻痺の解除
+            if (MagicData.PARALYSIS.getContinuousRate() <= (1..100).random()  ) { // 麻痺の確立より乱数が上なら麻痺の解除
                 isParalysis = false // 麻痺解除
                 log.append("${this.name}は麻痺が解けた！\n")
             }
         }
 
         if (isPoison) { // true:毒状態 false:無毒状態
-            damage(Magic.POISON.getMaxDamage()) // 毒のダメージ計算
-            log.append("${this.name}は毒のダメージを${Magic.POISON.getMaxDamage()}受けた！\n")
+            damage(MagicData.POISON.getMaxDamage()) // 毒のダメージ計算
+            log.append("${this.name}は毒のダメージを${MagicData.POISON.getMaxDamage()}受けた！\n")
             setSoundStatusEffect(12)
         }
     }

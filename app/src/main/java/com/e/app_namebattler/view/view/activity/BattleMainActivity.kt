@@ -53,7 +53,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private var snd11 = 0
     private var snd12 = 0
 
-    //private var handler: Handler? = null
     private var handler = Handler()
     private lateinit var allyHelper: AllyOpenHelper
     private lateinit var enemyhelper: EnemyOpenHelper
@@ -153,9 +152,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                         val intent = Intent(this, BattleResultActivity::class.java)
 
                         // パーティの勝ち負け判定に使用　Party01のsizeが0なら敵の勝利1以上なら味方の勝利
-                        val party00 = gm.getAllyParty().size
+                        val allyPartySurvivalNumber = gm.getAllyParty().size
                         // BattleResultActivityにparty00を送る
-                        intent.putExtra("party_key", party00)
+                        intent.putExtra("party_key", allyPartySurvivalNumber)
 
                         mp0.reset()
                         startActivity(intent)

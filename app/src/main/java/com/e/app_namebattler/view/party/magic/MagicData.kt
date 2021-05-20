@@ -1,6 +1,6 @@
 package com.e.app_namebattler.view.party.magic
 
-enum class Magic (
+enum class MagicData (
 
     private val magicName: String, // 魔法の名前
     private val mpCost: Int, // 消費MP

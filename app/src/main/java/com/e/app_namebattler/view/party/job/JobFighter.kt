@@ -18,9 +18,9 @@ class JobFighter(name: String): Player(name) {
     ) : this(name)
 
     override fun makeCharacter(name: String) {
-        val a = 1
+
         // 戦士のパラメータを名前から生成する
-        this.job = "戦士"
+        this.job = JobData.FIGHTER.getJobName()
         this.hp = getNumber(0, 200) + 100 // 100-300
         this.mp = getNumber(1, 0) // 0
         this.str = getNumber(2, 70) + 30 // 30-100

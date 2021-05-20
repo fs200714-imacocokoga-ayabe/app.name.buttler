@@ -2,7 +2,7 @@ package com.e.app_namebattler.view.party.job
 
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.magic.IMagicalUsable
-import com.e.app_namebattler.view.party.magic.Magic
+import com.e.app_namebattler.view.party.magic.MagicData
 import com.e.app_namebattler.view.party.skill.Skill
 import com.e.app_namebattler.view.view.music.SoundData
 
@@ -22,7 +22,7 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
     // 忍者のパラメータを名前から生成する
     override fun makeCharacter(name: String) {
 
-        this.job = "忍者"
+        this.job = JobData.NINJA.getJobName()
         this.hp = getNumber(0, 100) + 70 // 70-170
         this.mp = getNumber(1, 20) + 10 // 10-30
         this.str = getNumber(2, 50) + 20 // 20-70
@@ -111,14 +111,14 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
     private fun effect(): Int {
 
-        damage = (Magic.FIRE_ROLL.getMinDamage()..Magic.FIRE_ROLL.getMaxDamage()).random() // 乱数10～30
-        this.mp = this.mp - Magic.FIRE_ROLL.getMpCost() // MP消費
-        log.append("${this.getName()}は${Magic.FIRE_ROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
+        damage = (MagicData.FIRE_ROLL.getMinDamage()..MagicData.FIRE_ROLL.getMaxDamage()).random() // 乱数10～30
+        this.mp = this.mp - MagicData.FIRE_ROLL.getMpCost() // MP消費
+        log.append("${this.getName()}は${MagicData.FIRE_ROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
         setAttackSoundEffect(SoundData.S_FIRE01.getSoundNumber())
         return damage
     }
 
     private fun hasEnoughMp(): Boolean {
-        return 10 <= this.mp
+        return NINJA_USE_MAGIC_LOW_MP <= this.mp
     }
 }

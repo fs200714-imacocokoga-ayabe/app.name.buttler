@@ -51,7 +51,7 @@ class BattleResultActivity : AppCompatActivity() {
         mp0.start()
 
         // BattleMainActivityからデータを受け取る
-        val allyPartyCount = intent.getIntExtra("party_key",0)
+        val allyPartySurvivalNumber = intent.getIntExtra("party_key",0)
 
         if (ally01 != null) {
             if (ally02 != null) {
@@ -70,7 +70,7 @@ class BattleResultActivity : AppCompatActivity() {
         }
 
         // 味方パーティメンバーが0の場合"you lose" を表示
-        if (allyPartyCount == 0) {
+        if (allyPartySurvivalNumber == 0) {
             val imageView = findViewById<ImageView>(R.id.battle_result_win_or_Loss_imageView_id)
             imageView.setImageResource(R.drawable.i_defeat)
 

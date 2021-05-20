@@ -31,6 +31,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
     private val allyPriestImageList = ArrayList<AllyPriestImageData>()
     private val allyNinjaImageList = ArrayList<AllyNinjaImageData>()
     private var allyImage: Int = 0
+    private val maxCharacterNumber = 8 // 登録できるキャラクター数
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,7 +139,7 @@ class CharacterCreatedActivity : AppCompatActivity() {
                 }
 
                // キャラクター数8以上でダイアログが表示される
-               if(8 <= characterCount){
+               if(maxCharacterNumber <= characterCount){
                    val dialog = CharacterCreateMaxDialogFragment()
                    dialog.show(supportFragmentManager, "alert_dialog")
 

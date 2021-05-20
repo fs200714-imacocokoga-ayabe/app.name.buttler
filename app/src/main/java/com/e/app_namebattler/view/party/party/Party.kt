@@ -90,13 +90,4 @@ class Party {
     fun getParty02(): List<Player> {
         return party2
     }
-
-//    fun selectMember(id: Int): Player? {
-//        for (i in members.indices) {
-//            if (members[i].getIdNumber() == id) {
-//                return members[i]
-//            }
-//        }
-//        return null
-//    }
 }
