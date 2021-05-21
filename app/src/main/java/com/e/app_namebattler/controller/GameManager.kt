@@ -6,6 +6,7 @@ import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.CharacterData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.*
+import com.e.app_namebattler.view.strategy.enemystrategy.StrategyEnemyAttackPatternByJob
 
 class GameManager {
 
@@ -159,7 +160,7 @@ class GameManager {
             2 -> context = Context(StrategySkillAttack())
             3 -> context = Context(StrategyUseHealingMagic())
             4 -> context = Context(StrategyUseHerb())
-            5 -> context = Context(StrategyEnemyAttackPattern())
+            5 -> context = Context(StrategyEnemyAttackPatternByJob())
         }
         return context?.attackStrategy(player, party.getParty01(),
             party.getParty02())!!

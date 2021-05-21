@@ -9,7 +9,7 @@ open class BaseStrategy : IStrategy {
     protected var player2: Player? = null
     protected var party: MutableList<Player> = ArrayList()
 
-    protected val battleLog = StringBuilder()
+    protected var battleLog = StringBuilder()
 
     override fun attackStrategy(
         player1: Player,
