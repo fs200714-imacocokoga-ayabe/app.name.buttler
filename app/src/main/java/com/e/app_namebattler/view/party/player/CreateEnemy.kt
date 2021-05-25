@@ -150,7 +150,6 @@ class CreateEnemy {
         FIGHTER(0), WIZARD(1), PRIEST(2), NINJA(3);
 
         fun getEnemyJob(): Int {
-
             return enemyJob
         }
     }

@@ -25,12 +25,12 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         // 僧侶のパラメータを名前から生成する
         this.job = JobData.PRIEST.getJobName()
-        this.hp = getNumber(0, 120) + 80 // 80-200
-        this.mp = getNumber(1, 30) + 20 // 20-50
-        this.str = getNumber(2, 40) + 10 // 10-50
-        this.def = getNumber(3, 60) + 10 // 10-70
-        this.luck = getNumber(4, 99) + 1 // 1-100
-        this.agi = getNumber(5, 40) + 20 // 20-60
+        this.hp = getNumber(120) + 80 // 80-200
+        this.mp = getNumber(30) + 20 // 20-50
+        this.str = getNumber(40) + 10 // 10-50
+        this.def = getNumber(60) + 10 // 10-70
+        this.luck = getNumber(99) + 1 // 1-100
+        this.agi = getNumber(40) + 20 // 20-60
     }
 
     override fun normalAttack(defender: Player): StringBuilder {
@@ -44,10 +44,10 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         }else {// 麻痺していない場合
             log.append("${this.getName()}の攻撃！\n錫杖で突いた！\n")
+            setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
             damage = calcDamage(defender) // 与えるダメージを求める
             damageProcess(defender, damage) // ダメージ処理
             knockedDownCheck(defender)
-            setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
         }
         return log
     }

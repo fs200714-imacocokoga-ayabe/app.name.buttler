@@ -180,19 +180,21 @@ open class Player(private var name: String) {
     /**
      * 名前(name)からキャラクターに必要なパラメータを生成する
      */
-    fun getNumber(index: Int, max: Int): Int {
-        try {
+    fun getNumber(max: Int): Int {
 
+        val index = (0..19).random()
+
+        try {
             // 名前からハッシュ値を生成する
             val result = MessageDigest.getInstance("SHA-1").digest(name.toByteArray())
             val digest = String.format("%040x", BigInteger(1, result))
-
             // ハッシュ値から指定された位置の文字列を取り出す（２文字分）
             val hex = digest.substring(index * 2, index * 2 + 2)
-
             // 取り出した文字列（16進数）を数値に変換する
             val `val` = hex.toInt(16)
+
             return `val` * max / 255
+
         } catch (e: Exception) {
             // エラー
             e.printStackTrace()
@@ -237,6 +239,9 @@ open class Player(private var name: String) {
 
         if (0 < damage) {
             defender.setPrintStatusEffect(1)
+        }else{
+            defender.setPrintStatusEffect(3)
+            this.setAttackSoundEffect(0)
         }
         defender.damage(damage) // 求めたダメージを対象プレイヤーに与える
     }

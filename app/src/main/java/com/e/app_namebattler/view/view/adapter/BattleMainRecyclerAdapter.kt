@@ -52,7 +52,10 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
             holder.Hp.setBackgroundColor(Color.parseColor("#00ff7f"))
             holder.Mp.setBackgroundColor(Color.parseColor("#00ff7f"))
             holder.Status.setBackgroundColor(Color.parseColor("#00ff7f"))
+        }
 
+        if (member.printEffect == 3){
+            holder.aa.setBackgroundResource(R.drawable.i_attack_miss) //色が変
         }
 
         // 名前のエリアをタップしたとき
@@ -87,7 +90,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         val Hp: TextView = view.findViewById(R.id.data_battle_main_character_status_member_hp_text_id)
         val Mp: TextView = view.findViewById(R.id.data_battle_main_character_status_member_mp_text_id)
         val Status: TextView = view.findViewById(R.id.data_battle_main_character_status_member_status_text_id)
-      //  val aa:LinearLayout = view.findViewById(R.id.data_battle_main_character_status_linearLayout_id) 試し
+        val aa:LinearLayout = view.findViewById(R.id.data_battle_main_character_status_linearLayout_id) //試し
 
     }
 

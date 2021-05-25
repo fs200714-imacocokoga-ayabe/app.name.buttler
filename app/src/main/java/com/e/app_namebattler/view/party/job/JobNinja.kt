@@ -23,12 +23,12 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
     override fun makeCharacter(name: String) {
 
         this.job = JobData.NINJA.getJobName()
-        this.hp = getNumber(0, 100) + 70 // 70-170
-        this.mp = getNumber(1, 20) + 10 // 10-30
-        this.str = getNumber(2, 50) + 20 // 20-70
-        this.def = getNumber(3, 49) + 1  // 1-50
-        this.luck = getNumber(4, 99) + 1 // 1-100
-        this.agi = getNumber(5, 40) + 40 // 40-80
+        this.hp = getNumber(100) + 70 // 70-170
+        this.mp = getNumber(20) + 10 // 10-30
+        this.str = getNumber(50) + 20 // 20-70
+        this.def = getNumber(49) + 1  // 1-50
+        this.luck = getNumber(99) + 1 // 1-100
+        this.agi = getNumber(40) + 40 // 40-80
     }
 
     override fun normalAttack(defender: Player): StringBuilder {
@@ -42,10 +42,11 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
         }else {// 麻痺していない場合
             log.append("${this.getName()}の攻撃！\n刀で突きさした！\n")
+            setAttackSoundEffect(SoundData.S_KATANA01.getSoundNumber())
             damage = calcDamage(defender) // 与えるダメージを求める
             damageProcess(defender, damage) // ダメージ処理
             knockedDownCheck(defender)
-            setAttackSoundEffect(SoundData.S_KATANA01.getSoundNumber())
+
         }
         return log
     }
