@@ -36,7 +36,8 @@ class StrategyUseHealingMagic : BaseStrategy() {// 回復優先の作戦
             player = player1
 
             for (i in _party1.indices) { // HPの低い味方を選ぶ
-                if (player!!.getMaxHp() - player!!.hp < _party1[i].getMaxHp() - _party1[i].hp) {
+
+                if (player!!.getMaxHp() - player!!.hp <  _party1[i].getMaxHp() - _party1[i].hp) {
                     player = _party1[i]
                 }
             }

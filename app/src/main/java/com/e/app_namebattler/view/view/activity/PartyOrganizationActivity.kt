@@ -154,66 +154,76 @@ class PartyOrganizationActivity : AppCompatActivity() {
 
         val radioButton = view as RadioButton
 
-        if (radioNumber == 0) {
+        when (radioNumber) {
 
-            radioButton.isChecked = true
-            radioButtonArray.add(radioButton)
-            radioNumber += 1
-
-        } else if (radioNumber == 1) {
-
-            if (radioButtonArray[0] == radioButton) {
-                radioButtonArray.remove(radioButtonArray[0])
-                radioButton.isChecked = false
-                radioNumber -= 1
-
-            } else {
-                radioButtonArray.add(radioButton)
+            0 -> {
                 radioButton.isChecked = true
+                radioButtonArray.add(radioButton)
                 radioNumber += 1
             }
 
-        }else if (radioNumber == 2) {
+            1 -> {
+                when (radioButton) {
+                    radioButtonArray[0] -> {
+                        radioButtonArray.remove(radioButtonArray[0])
+                        radioButton.isChecked = false
+                        radioNumber -= 1
 
-            if (radioButtonArray[0] == radioButton) {
-                radioButtonArray.remove(radioButtonArray[0])
-                radioButton.isChecked = false
-                radioNumber -= 1
-
-            } else if (radioButtonArray[1] == radioButton) {
-                radioButtonArray.remove(radioButtonArray[1])
-                radioButton.isChecked = false
-                radioNumber -= 1
-
-            } else {
-                radioButtonArray.add(radioButton)
-                radioButton.isChecked = true
-                radioNumber += 1
+                    }
+                    else -> {
+                        radioButtonArray.add(radioButton)
+                        radioButton.isChecked = true
+                        radioNumber += 1
+                    }
+                }
             }
 
-        }else if (radioNumber == 3){
+            2 -> {
 
-            if (radioButtonArray[0] == radioButton) {
-                radioButtonArray.remove(radioButtonArray[0])
-                radioButton.isChecked = false
-                radioNumber -= 1
+                when (radioButton) {
+                    radioButtonArray[0] -> {
+                        radioButtonArray.remove(radioButtonArray[0])
+                        radioButton.isChecked = false
+                        radioNumber -= 1
+                    }
+                    radioButtonArray[1] -> {
+                        radioButtonArray.remove(radioButtonArray[1])
+                        radioButton.isChecked = false
+                        radioNumber -= 1
+                    }
+                    else -> {
+                        radioButtonArray.add(radioButton)
+                        radioButton.isChecked = true
+                        radioNumber += 1
+                    }
+                }
+            }
 
-            } else if (radioButtonArray[1] == radioButton) {
-                radioButtonArray.remove(radioButtonArray[1])
-                radioButton.isChecked = false
-                radioNumber -= 1
+            3 -> {
+                when (radioButton) {
+                    radioButtonArray[0] -> {
+                        radioButtonArray.remove(radioButtonArray[0])
+                        radioButton.isChecked = false
+                        radioNumber -= 1
+                    }
+                    radioButtonArray[1] -> {
+                        radioButtonArray.remove(radioButtonArray[1])
+                        radioButton.isChecked = false
+                        radioNumber -= 1
+                    }
+                    radioButtonArray[2] -> {
+                        radioButtonArray.remove(radioButtonArray[2])
+                        radioButton.isChecked = false
+                        radioNumber -= 1
+                    }
+                    else -> {
 
-            } else if (radioButtonArray[2] == radioButton){
-                radioButtonArray.remove(radioButtonArray[2])
-                radioButton.isChecked = false
-                radioNumber -= 1
-
-            }else {
-
-                radioButton.isChecked = false
-                // ダイアフラグで　"パーティメンバーは３人です"　が表示される
-                val dialog = PartySelectMaxDialogFragment()
-                dialog.show(supportFragmentManager, "alert_dialog")
+                        radioButton.isChecked = false
+                        // ダイアフラグで　"パーティメンバーは３人です"　が表示される
+                        val dialog = PartySelectMaxDialogFragment()
+                        dialog.show(supportFragmentManager, "alert_dialog")
+                    }
+                }
             }
         }
 

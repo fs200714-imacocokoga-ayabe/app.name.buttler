@@ -21,6 +21,8 @@ class GameManager {
     private var enemy02StatusLogList:MutableList<String> = ArrayList()
     private var enemy03StatusLogList:MutableList<String> = ArrayList()
 
+    private val characterNumber = 3
+
     var callBack: BattleLogListener? = null
 
     private var attackerList: MutableList<Player> = ArrayList() //攻撃するキャラクターを格納
@@ -277,7 +279,7 @@ class GameManager {
         character.setAttackSoundEffect(0)
 
         // idが3より小さい(敵キャラクター: false) idが3以上(味方キャラクター: true)　
-        character.isMark = 3 <= id
+        character.isMark = characterNumber <= id
         return character
     }
 

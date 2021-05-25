@@ -22,12 +22,12 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
 
         // 魔法使いのパラメータを名前から生成する
         this.job = JobData.WIZARD.getJobName()
-        this.hp = getNumber(0, 100) + 50 // 50-150
-        this.mp = getNumber(1, 50) + 30 // 30-80
-        this.str = getNumber(2, 49) + 1 // 1-50
-        this.def = getNumber(3, 49) + 1 // 1-50
-        this.luck = getNumber(4, 99) + 1 // 1-100
-        this.agi = getNumber(5, 40) + 20 // 20-60
+        this.hp = getNumber(100) + 50 // 50-150
+        this.mp = getNumber(50) + 30 // 30-80
+        this.str = getNumber(49) + 1 // 1-50
+        this.def = getNumber(49) + 1 // 1-50
+        this.luck = getNumber(99) + 1 // 1-100
+        this.agi = getNumber(40) + 20 // 20-60
     }
 
     override fun normalAttack(defender: Player): StringBuilder {
@@ -42,10 +42,10 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
         }else {// 麻痺していない場合
 
             log.append("${this.getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
+            setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
             damage = calcDamage(defender) // 与えるダメージを求める
             damageProcess(defender, damage)
             knockedDownCheck(defender)
-            setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
         }
         return log
     }

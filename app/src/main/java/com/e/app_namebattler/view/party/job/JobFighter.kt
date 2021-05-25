@@ -21,12 +21,12 @@ class JobFighter(name: String): Player(name) {
 
         // 戦士のパラメータを名前から生成する
         this.job = JobData.FIGHTER.getJobName()
-        this.hp = getNumber(0, 200) + 100 // 100-300
-        this.mp = getNumber(1, 0) // 0
-        this.str = getNumber(2, 70) + 30 // 30-100
-        this.def = getNumber(3, 70) + 30 // 30-100
-        this.luck = getNumber(4, 99) + 1 // 1-100
-        this.agi = getNumber(5, 49) + 1 // 1-50
+        this.hp = getNumber(200) + 100 // 100-300
+        this.mp = getNumber(0) // 0
+        this.str = getNumber(70) + 30 // 30-100
+        this.def = getNumber(70) + 30 // 30-100
+        this.luck = getNumber(99) + 1 // 1-100
+        this.agi = getNumber(49) + 1 // 1-50
     }
 
     override fun normalAttack(defender: Player): StringBuilder {
@@ -41,9 +41,9 @@ class JobFighter(name: String): Player(name) {
         }else {// 麻痺していない場合
 
             log.append("${this.getName()}の攻撃！\n${this.getName()}は剣で斬りつけた！\n")
+            setAttackSoundEffect(SoundData.S_SWORD01.getSoundNumber())
             damage = calcDamage(defender) // 与えるダメージを求める
             damageProcess(defender, damage)
-            setAttackSoundEffect(SoundData.S_SWORD01.getSoundNumber())
             knockedDownCheck(defender)
 
         }
@@ -67,7 +67,6 @@ class JobFighter(name: String): Player(name) {
                 damage *= 2 // ダメージ2倍
                 setAttackSoundEffect(SoundData.S_SWORD02.getSoundNumber())
                 super.damageProcess(defender, damage) // ダメージ処理
-
 
             } else {
                 log.append("${this.getName()}の${Skill.ASSAULT.getSkillName()}はかわされた！！\n")
