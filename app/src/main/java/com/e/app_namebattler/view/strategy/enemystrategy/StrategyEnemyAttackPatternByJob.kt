@@ -19,10 +19,6 @@ open class StrategyEnemyAttackPatternByJob: BaseStrategy() {
         party2: List<Player>
     ): StringBuilder {
 
-//        battleLog.clear()
-//        userParty.clear()
-//        cpuParty.clear()
-
         cpuPlayer = player1
         userParty.addAll(party1) // party1を入れる
         cpuParty.addAll(party2) // party2を入れる
