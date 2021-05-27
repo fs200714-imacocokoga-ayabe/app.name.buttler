@@ -64,7 +64,7 @@ class JobFighter(name: String): Player(name) {
             if ((1..100).random() < Skill.ASSAULT.getInvocationRate()) { // 確率で発動
                 log.append("${this.getName()}の${Skill.ASSAULT.getSkillName()}！\n")
                 damage = calcDamage(defender) // 与えるダメージを求める
-                damage *= 2 // ダメージ2倍
+                damage *= Skill.ASSAULT.getDamageRate() // ダメージ2倍
                 setAttackSoundEffect(SoundData.S_SWORD02.getSoundNumber())
                 super.damageProcess(defender, damage) // ダメージ処理
 

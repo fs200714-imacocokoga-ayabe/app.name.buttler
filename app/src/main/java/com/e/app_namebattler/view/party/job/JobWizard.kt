@@ -110,7 +110,7 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
             } else { // 2の場合ファイアを使用
                 useFire()
             }
-        } else if (this.mp in 10..19) { // MPが10以上20未満の場合ファイアを使用する
+        } else { // MPが10以上20未満の場合ファイアを使用する
             damage = useFire() // ファイアを使用
         }
         return damage
