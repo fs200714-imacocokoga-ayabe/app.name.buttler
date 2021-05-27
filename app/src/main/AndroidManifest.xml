@@ -9,8 +9,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:largeHeap="true"
+        android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.view.activity.BattleResultActivity"></activity>
+        <activity android:name=".view.view.activity.BattleResultActivity" />
         <activity android:name=".view.view.activity.StrategyChangeActivity" />
         <activity android:name=".view.view.activity.BattleMainActivity" />
         <activity android:name=".view.view.activity.CharacterCreatedActivity" />
