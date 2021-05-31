@@ -50,7 +50,7 @@
 
     <LinearLayout
         android:id="@+id/battle_start_enemy_battle_party_list_linearLayout_id"
-        android:layout_width="404dp"
+        android:layout_width="match_parent"
         android:layout_height="198dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="16dp"
@@ -73,7 +73,7 @@
 
     <LinearLayout
         android:id="@+id/battle_start_ally_battle_party_list_linearLayout_id"
-        android:layout_width="404dp"
+        android:layout_width="match_parent"
         android:layout_height="198dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="8dp"
@@ -100,7 +100,7 @@
     // この相手と戦うボタン
     <Button
         android:id="@+id/battle_start_this_enemy_battle_button_id"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="13dp"
         android:layout_marginTop="8dp"
@@ -118,7 +118,7 @@
     //　相手を選びなおすボタン
     <Button
         android:id="@+id/battle_start_re_select_enemy_button_id"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="13dp"
         android:layout_marginTop="8dp"

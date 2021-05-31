@@ -116,7 +116,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             findViewById<View>(R.id.battle_main_battle_log_text_id) as TextView
         battleMainLogTextDialog.setOnClickListener(this)
         val bl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-        bl.text = "Tap to start"
+        bl.text = "画面をタップするとスタートします\n\n速度変更もタップで出来ます"
 
         // BattleStartActivityからデータを受け取る
         val allyName01 = intent.getStringExtra("allyName01_key")
@@ -176,7 +176,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 }else{
 
                     val ts = Toast.makeText(this, "ターンが終了していません", Toast.LENGTH_SHORT)
-                    ts.setGravity(Gravity.BOTTOM, 0, 30)
+                    ts.setGravity(Gravity.CENTER, 0, 250)
                     ts.show()
                 }
         }
