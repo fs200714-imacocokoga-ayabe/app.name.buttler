@@ -8,15 +8,13 @@
     tools:context=".view.view.activity.CharacterListActivity">
 
     // "キャラ一覧の表示"の表示
+
     <TextView
-        android:id="@+id/character_list_chara_list_print_text_id"
+        android:id="@+id/character_list_button_text_back_ground_id"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:background="@drawable/frame_line_03"
-        android:gravity="center"
-        android:text="@string/character_list_chara_list_print_text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="30sp"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +49,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="404dp"
+        android:layout_width="match_parent"
         android:layout_height="532dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="2dp"
@@ -62,7 +60,7 @@
         app:layout_constraintBottom_toTopOf="@+id/character_list_new_create_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/character_list_chara_list_print_text_id">
+        app:layout_constraintTop_toBottomOf="@+id/character_list_button_text_back_ground_id">
 
         <ListView
             android:id="@+id/character_list_battle_start_ally_battle_party_listView_id"
@@ -73,6 +71,22 @@
             android:dividerHeight="0sp"
             android:splitMotionEvents="false" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/character_list_chara_list_print_text_id"
+        android:layout_width="250dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="left"
+        android:text="@string/character_list_chara_list_print_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/character_list_button_text_back_ground_id"
+        app:layout_constraintEnd_toEndOf="@+id/character_list_button_text_back_ground_id"
+        app:layout_constraintStart_toEndOf="@+id/character_list_back_button_id"
+        app:layout_constraintTop_toTopOf="@+id/character_list_button_text_back_ground_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

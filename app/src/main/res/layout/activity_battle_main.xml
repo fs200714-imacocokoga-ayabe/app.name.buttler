@@ -23,24 +23,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/battle_main_strategy_change_button_id"
-        android:layout_width="80dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/frame_line_02"
-        android:text="@string/battle_main_strategy_change_print_button"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toTopOf="@+id/battle_main_battle_log_text_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battle_main_ally_party_linearLayout_id" />
-
-    <Button
         android:id="@+id/battle_main_next_turn_button_id"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circle_angle_quadrangle_01"
         android:text="@string/battle_main_next_turn_print_button"
@@ -49,34 +37,39 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/battle_main_battle_log_text_id" />
 
     // 敵パーティ表示レイアウト
+
     <LinearLayout
         android:id="@+id/battle_main_enemy_party_linearLayout_id"
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         android:splitMotionEvents="false"
+        app:layout_constraintBottom_toTopOf="@+id/battle_main_ally_party_linearLayout_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/battle_main_battle_print_text_id">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_main_enemy_status_recycleView_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:splitMotionEvents="false" />
 
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
+
     <LinearLayout
         android:id="@+id/battle_main_ally_party_linearLayout_id"
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -89,21 +82,21 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_main_ally_status_recycleView_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:splitMotionEvents="false" />
     </LinearLayout>
 
     // バトルログの表示
+
     <TextView
         android:id="@+id/battle_main_battle_log_text_id"
-        android:layout_width="389dp"
+        android:layout_width="match_parent"
         android:layout_height="330dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/colorWhite"
@@ -111,37 +104,53 @@
         app:layout_constraintBottom_toTopOf="@+id/battle_main_next_turn_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battle_main_strategy_text_id"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     //　"作戦:"の表示と作戦の表示
 
-    <TextView
-        android:id="@+id/battle_main_strategy_text_id"
-        android:layout_width="230dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/battle_main_strategy_change_button_id"
-        app:layout_constraintTop_toBottomOf="@+id/battle_main_ally_party_linearLayout_id" />
-
-    <TextView
-        android:id="@+id/battle_main_print_strategy_print_text_id"
-        android:layout_width="70dp"
-        android:layout_height="34dp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:weightSum="10"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/battle_main_print_strategy_text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="20sp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/battle_main_battle_log_text_id"
-        app:layout_constraintEnd_toStartOf="@+id/battle_main_strategy_text_id"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battle_main_ally_party_linearLayout_id" />
+        app:layout_constraintTop_toBottomOf="@+id/battle_main_ally_party_linearLayout_id">
+
+        <TextView
+            android:id="@+id/battle_main_print_strategy_print_text_id"
+            android:layout_width="70dp"
+            android:layout_weight="1.75"
+            android:layout_height="match_parent"
+            android:text="@string/battle_main_print_strategy_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/battle_main_strategy_text_id"
+            android:layout_width="250dp"
+            android:layout_weight="6.25"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/battle_main_strategy_change_button_id"
+            android:layout_width="80dp"
+            android:layout_height="36dp"
+            android:layout_weight="2"
+            android:background="@drawable/frame_line_02"
+            android:text="@string/battle_main_strategy_change_print_button"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/background_light" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
