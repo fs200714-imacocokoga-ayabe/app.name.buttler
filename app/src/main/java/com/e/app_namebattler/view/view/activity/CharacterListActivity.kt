@@ -1,6 +1,7 @@
 package com.e.app_namebattler.view.view.activity
 
 import android.content.Intent
+import android.graphics.Point
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.ListView
@@ -42,6 +43,9 @@ class CharacterListActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_list)
 
+        val size2 = Point()
+        this@CharacterListActivity.windowManager.getDefaultDisplay().getRealSize(size2)
+
             helper = AllyOpenHelper(applicationContext)//DB作成
 
             val db = helper.readableDatabase
@@ -65,7 +69,7 @@ class CharacterListActivity : AppCompatActivity(){
                                 CharacterAllData(
                                     c.getString(0),(occupationConversion(c.getInt(1))),
                                     c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
-                                    c.getInt(6), c.getInt(7), c.getString(8), c.getInt(9)
+                                    c.getInt(6), c.getInt(7), c.getString(8), c.getInt(9),size2.x
                                 )
                         )
                         next = c.moveToNext()

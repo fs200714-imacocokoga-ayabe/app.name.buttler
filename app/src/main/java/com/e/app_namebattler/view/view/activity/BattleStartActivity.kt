@@ -131,7 +131,7 @@ class BattleStartActivity : AppCompatActivity() {
                     CharacterAllData(
                         c.getString(0), occupationConversion(c.getInt(1)),
                         c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
-                        c.getInt(6), c.getInt(7), c.getString(8), c.getInt(9)
+                        c.getInt(6), c.getInt(7), c.getString(8), c.getInt(9),100
                     )
                 )
                 next = c.moveToNext()

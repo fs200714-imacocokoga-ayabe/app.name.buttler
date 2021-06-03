@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:weightSum="3"
     android:splitMotionEvents="false">
 
     <LinearLayout
         android:id="@+id/data_battle_main_character_status_linearLayout_id"
         android:layout_width="131dp"
-        android:weightSum="1"
-        android:layout_height="70dp"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:background="@drawable/frame_line_01"
         android:orientation="vertical"
@@ -23,7 +21,6 @@
         <TextView
             android:id="@+id/data_battle_main_character_status_member_name_text_id"
             android:layout_width="131dp"
-            android:layout_weight="1"
             android:layout_height="18dp"
             android:gravity="left"
             android:text=""
@@ -34,7 +31,6 @@
         <TextView
             android:id="@+id/data_battle_main_character_status_member_hp_text_id"
             android:layout_width="131dp"
-            android:layout_weight="1"
             android:layout_height="17dp"
             android:gravity="left"
             android:text=""
@@ -45,7 +41,6 @@
         <TextView
             android:id="@+id/data_battle_main_character_status_member_mp_text_id"
             android:layout_width="131dp"
-            android:layout_weight="1"
             android:layout_height="17dp"
             android:gravity="left"
             android:text=""
@@ -56,7 +51,6 @@
         <TextView
             android:id="@+id/data_battle_main_character_status_member_status_text_id"
             android:layout_width="131dp"
-            android:layout_weight="1"
             android:layout_height="18dp"
             android:gravity="center"
             android:text=""
@@ -68,7 +62,6 @@
     <TextView
         android:id="@+id/textView4"
         android:layout_width="131dp"
-        android:layout_weight="1"
         android:layout_height="70dp"
         android:background="@drawable/frame_line_07"
         android:text=""

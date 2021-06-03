@@ -108,7 +108,7 @@ class CreateEnemy {
                 CharacterAllData(
                     enemyName, occupationConversion(enemyJob),
                     enemy.hp, enemy.mp, enemy.str, enemy.def,
-                    enemy.agi, enemy.luck, createAt, enemyImage
+                    enemy.agi, enemy.luck, createAt, enemyImage,100
                 )
             )
         }

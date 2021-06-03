@@ -55,7 +55,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         }
 
         if (member.printEffect == 3){
-            holder.aa.setBackgroundResource(R.drawable.i_attack_miss) //色が変
+            holder.aa.setBackgroundResource(R.drawable.i_attack_miss)
         }
 
         // 名前のエリアをタップしたとき
@@ -80,6 +80,15 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MyViewHolder {
 
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.data_battle_main_character_status, viewGroup, false)
+
+        //val params = LinearLayout.LayoutParams(
+        //ViewGroup.LayoutParams(100, 100)
+     //   val params = LinearLayout.LayoutParams(340, 200)
+        // marginの設定　(left, top, right, bottom
+        // marginの設定　(left, top, right, bottom
+        // params.setMargins(0, 0, 0, 0)
+     //   view.layoutParams = params
+
         return MyViewHolder(view)
     }
 
