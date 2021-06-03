@@ -11,6 +11,7 @@ class CharacterAllData(
     val agi: Int,
     val luck: Int,
     val create_at: String,
-    val character_image: Int
+    val character_image: Int,
+    val size2X:Int
 )
 

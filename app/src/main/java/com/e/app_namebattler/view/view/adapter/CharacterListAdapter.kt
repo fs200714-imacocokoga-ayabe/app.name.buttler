@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.player.CharacterAllData
@@ -33,6 +34,14 @@ class CharacterListAdapter(val context: Context, val CharacterList: ArrayList<Ch
         Str.text = "   STR".plus(character.str.toString())
         Def.text = "   DEF:".plus(character.def.toString())
         Agi.text = "   AGI:".plus(character.agi.toString())
+
+        //val params = LinearLayout.LayoutParams(
+            //ViewGroup.LayoutParams(100, 100)
+       val params = LinearLayout.LayoutParams(character.size2X-12, 200)
+        // marginの設定　(left, top, right, bottom
+        // marginの設定　(left, top, right, bottom
+       // params.setMargins(50, 0, 0, 0)
+        view.layoutParams = params
 
         return view
     }

@@ -39,6 +39,7 @@
         app:layout_constraintTop_toTopOf="@+id/character_detail_character_detail_text_id" />
 
     // 名前
+
     <TextView
         android:id="@+id/character_detail_name_text_id"
         android:layout_width="0dp"
@@ -48,37 +49,44 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_job_text_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_character_detail_text_id" />
 
     // 職業
+
     <TextView
         android:id="@+id/character_detail_job_text_id"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_status_text_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_name_text_id" />
 
     // ”ステータス”表示
+
     <TextView
         android:id="@+id/character_detail_status_text_id"
         android:layout_width="155dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
         android:text="@string/character_detail_status_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_hp_text_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_job_text_id" />
 
     // HP
+
     <TextView
         android:id="@+id/character_detail_hp_text_id"
         android:layout_width="75dp"
@@ -87,10 +95,12 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_mp_text_id"
         app:layout_constraintStart_toEndOf="@+id/character_detail_hp_print_text_id"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_status_text_id" />
 
     // MP
+
     <TextView
         android:id="@+id/character_detail_mp_text_id"
         android:layout_width="75dp"
@@ -99,10 +109,12 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_str_text_id"
         app:layout_constraintStart_toEndOf="@+id/character_detail_mp_print_text_id"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_hp_text_id" />
 
     // STR
+
     <TextView
         android:id="@+id/character_detail_str_text_id"
         android:layout_width="75dp"
@@ -111,10 +123,12 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_def_text_id"
         app:layout_constraintStart_toEndOf="@+id/character_detail_str_print_text_id"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_mp_text_id" />
 
     // DEF
+
     <TextView
         android:id="@+id/character_detail_def_text_id"
         android:layout_width="75dp"
@@ -123,10 +137,12 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_agi_text_id"
         app:layout_constraintStart_toEndOf="@+id/character_detail_def_print_text_id"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_str_text_id" />
 
     // AGI
+
     <TextView
         android:id="@+id/character_detail_agi_text_id"
         android:layout_width="75dp"
@@ -135,31 +151,39 @@
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_luck_text_id"
         app:layout_constraintStart_toEndOf="@+id/character_detail_agi_print_text_id"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_def_text_id" />
 
     // LUCK
+
+    // 作成日
+
     <TextView
         android:id="@+id/character_detail_luck_text_id"
         android:layout_width="75dp"
         android:layout_height="35dp"
+        android:layout_marginBottom="8dp"
         android:gravity="right"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_date_text_id"
         app:layout_constraintStart_toEndOf="@+id/character_detail_luck_print_text_id"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_agi_text_id" />
 
-    // 作成日
     <TextView
         android:id="@+id/character_detail_date_text_id"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_delete_button_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_luck_text_id" />
@@ -169,7 +193,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/frame_line_04"
@@ -191,6 +215,8 @@
         android:text="@string/character_detail_mp_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_str_print_text_id"
+        app:layout_constraintEnd_toStartOf="@+id/character_detail_mp_text_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_hp_text_id" />
 
@@ -202,6 +228,8 @@
         android:text="@string/character_detail_str_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_def_print_text_id"
+        app:layout_constraintEnd_toStartOf="@+id/character_detail_str_text_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_mp_text_id" />
 
@@ -213,6 +241,8 @@
         android:text="@string/character_detail_hp_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_mp_print_text_id"
+        app:layout_constraintEnd_toStartOf="@+id/character_detail_hp_text_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_status_text_id" />
 
@@ -224,6 +254,8 @@
         android:text="@string/character_detail_def_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_agi_print_text_id"
+        app:layout_constraintEnd_toStartOf="@+id/character_detail_def_text_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_str_text_id" />
 
@@ -235,6 +267,8 @@
         android:text="@string/character_detail_agi_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_luck_print_text_id"
+        app:layout_constraintEnd_toStartOf="@+id/character_detail_agi_text_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_def_text_id" />
 
@@ -243,26 +277,30 @@
         android:layout_width="80dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/character_detail_luck_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/character_detail_date_text_id"
+        app:layout_constraintEnd_toStartOf="@+id/character_detail_luck_text_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_agi_text_id" />
 
     // キャラクター画像
+
     <ImageView
         android:id="@+id/character_detail_imageView_id"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="65dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="79dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toTopOf="@+id/character_detail_date_text_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/character_detail_hp_text_id"
         app:layout_constraintTop_toBottomOf="@+id/character_detail_job_text_id"
-        app:srcCompat="@drawable/frame_line_01"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/frame_line_01" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

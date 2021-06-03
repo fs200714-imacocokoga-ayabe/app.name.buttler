@@ -2,21 +2,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:splitMotionEvents="false"
     tools:context=".view.view.activity.TopScreenActivity">
 
     // "バトル開始"のボタン
+
     <Button
         android:id="@+id/top_screen_battle_start_button_id"
         android:layout_width="250dp"
         android:layout_height="55dp"
-        android:layout_weight="1"
         android:layout_marginStart="80dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="150dp"
+        android:layout_weight="1"
         android:background="@drawable/circle_angle_quadrangle_01"
         android:gravity="center"
         android:text="@string/top_screen_battle_start_print_button"
@@ -29,15 +30,16 @@
         app:layout_constraintTop_toBottomOf="@+id/top_screen_character_list_button_id" />
 
     // "キャラ一覧"のボタン
+
     <Button
         android:id="@+id/top_screen_character_list_button_id"
         android:layout_width="250dp"
         android:layout_height="55dp"
-        android:layout_weight="1"
         android:layout_marginStart="80dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="32dp"
+        android:layout_weight="1"
         android:background="@drawable/circle_angle_quadrangle_01"
         android:gravity="center"
         android:text="@string/top_screen_character_list_print_button"
@@ -50,15 +52,16 @@
         app:layout_constraintTop_toBottomOf="@+id/top_screen_title_text_id" />
 
     // "ネームバトラー"の表示
+
     <TextView
         android:id="@+id/top_screen_title_text_id"
-        android:layout_width="300dp"
-        android:layout_weight="0.5"
-        android:layout_height="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="55dp"
         android:layout_marginBottom="100dp"
+        android:layout_weight="0.5"
         android:gravity="center"
         android:text="@string/top_screen_title_print_text"
         android:textColor="@android:color/black"
@@ -70,13 +73,13 @@
 
     <ImageView
         android:id="@+id/top_screen_imageView_id"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="200dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="TODO" />
+        app:layout_constraintTop_toBottomOf="@+id/top_screen_title_text_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

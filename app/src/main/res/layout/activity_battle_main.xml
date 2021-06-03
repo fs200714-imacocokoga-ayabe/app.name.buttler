@@ -9,15 +9,18 @@
     tools:context=".view.view.activity.BattleMainActivity">
 
     // "バトル"表示
+
     <TextView
         android:id="@+id/battle_main_battle_print_text_id"
         android:layout_width="411dp"
         android:layout_height="55dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/frame_line_03"
         android:gravity="center"
         android:text="@string/battle_main_battle_print_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/battle_main_enemy_party_linearLayout_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circle_angle_quadrangle_01"
@@ -44,14 +47,15 @@
 
     <LinearLayout
         android:id="@+id/battle_main_enemy_party_linearLayout_id"
-        android:layout_width="match_parent"
+        android:layout_width="395dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal"
         android:splitMotionEvents="false"
+        android:weightSum="3"
         app:layout_constraintBottom_toTopOf="@+id/battle_main_ally_party_linearLayout_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,8 +63,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_main_enemy_status_recycleView_id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:splitMotionEvents="false" />
 
     </LinearLayout>
@@ -69,21 +74,23 @@
 
     <LinearLayout
         android:id="@+id/battle_main_ally_party_linearLayout_id"
-        android:layout_width="match_parent"
+        android:layout_width="395dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal"
         android:splitMotionEvents="false"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/battle_main_enemy_party_linearLayout_id">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battle_main_ally_status_recycleView_id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:splitMotionEvents="false" />
     </LinearLayout>
 
@@ -92,7 +99,7 @@
     <TextView
         android:id="@+id/battle_main_battle_log_text_id"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="328dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
@@ -111,13 +118,13 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:weightSum="10"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal"
+        android:weightSum="10"
         app:layout_constraintBottom_toTopOf="@+id/battle_main_battle_log_text_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,8 +133,8 @@
         <TextView
             android:id="@+id/battle_main_print_strategy_print_text_id"
             android:layout_width="70dp"
-            android:layout_weight="1.75"
             android:layout_height="match_parent"
+            android:layout_weight="1.75"
             android:text="@string/battle_main_print_strategy_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="20sp" />
@@ -135,8 +142,8 @@
         <TextView
             android:id="@+id/battle_main_strategy_text_id"
             android:layout_width="250dp"
-            android:layout_weight="6.25"
             android:layout_height="match_parent"
+            android:layout_weight="6.25"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="20sp" />
@@ -144,7 +151,7 @@
         <Button
             android:id="@+id/battle_main_strategy_change_button_id"
             android:layout_width="80dp"
-            android:layout_height="36dp"
+            android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@drawable/frame_line_02"
             android:text="@string/battle_main_strategy_change_print_button"

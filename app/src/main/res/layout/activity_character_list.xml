@@ -13,18 +13,22 @@
         android:id="@+id/character_list_button_text_back_ground_id"
         android:layout_width="0dp"
         android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/frame_line_03"
         android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     // "新しく作成する"ボタン
+
     <Button
         android:id="@+id/character_list_new_create_button_id"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/frame_line_02"
         android:text="@string/character_list_new_create_print_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -32,7 +36,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     // 戻るボタン
     <Button
@@ -49,12 +54,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="532dp"
+        android:layout_height="0dp"
         android:layout_marginStart="3dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="3dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical"
         android:splitMotionEvents="false"
         app:layout_constraintBottom_toTopOf="@+id/character_list_new_create_button_id"

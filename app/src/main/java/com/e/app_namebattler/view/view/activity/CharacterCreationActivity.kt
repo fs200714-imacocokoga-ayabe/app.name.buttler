@@ -108,7 +108,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         val ic = Toast.makeText(this,
             "現在${currentCharacterNumber}人です、あと${maxCharacterNumber - currentCharacterNumber}人作成出来ます。",
             Toast.LENGTH_LONG)
-        ic.setGravity(Gravity.TOP, 0, 150)
+        ic.setGravity(Gravity.TOP, 0, 0)
         // ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
         ic.show()
     }
@@ -134,7 +134,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             val ic = Toast.makeText(this,
                 "名前は10文字までしか入力できません",
                 Toast.LENGTH_SHORT)
-            ic.setGravity(Gravity.TOP, -0, 150)
+            ic.setGravity(Gravity.TOP, 0, 0)
              // ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
             ic.show()
 
