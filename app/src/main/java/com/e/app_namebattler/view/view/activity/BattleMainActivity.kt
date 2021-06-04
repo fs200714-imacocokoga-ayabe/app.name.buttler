@@ -12,8 +12,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Gravity
 import android.view.View
-import android.view.ViewTreeObserver
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,24 +31,26 @@ import com.e.app_namebattler.view.strategy.StrategyData
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
 import com.e.app_namebattler.view.view.illust.BackGroundData
+import com.e.app_namebattler.view.view.message.Comment
 import com.e.app_namebattler.view.view.music.MusicData
 import com.e.app_namebattler.view.view.music.SoundData
 import kotlinx.android.synthetic.main.activity_battle_main.*
 
 
-inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
-    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-        override fun onGlobalLayout() {
-            if (measuredWidth > 0 && measuredHeight > 0) {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                f()
-            }
-        }
-    })
-}
+//inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
+//    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+//        override fun onGlobalLayout() {
+//            if (measuredWidth > 0 && measuredHeight > 0) {
+//                viewTreeObserver.removeOnGlobalLayoutListener(this)
+//                f()
+//            }
+//        }
+//    })
+//}
 
 class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogListener {
 
+    private lateinit var s: String
     lateinit var mp0: MediaPlayer
     private lateinit var sp0:SoundPool
     private var snd0 = 0
@@ -104,8 +107,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         println("テキストサイズpx$size1.x")
         println("テキストサイズpy$size1.y")
 
-
-
         backGround()// 背景選択
 
         mp0= MediaPlayer.create(this, MusicData.BGM01.getBgm())
@@ -140,7 +141,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             findViewById<View>(R.id.battle_main_battle_log_text_id) as TextView
         battleMainLogTextDialog.setOnClickListener(this)
         val bl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-        bl.text = "画面をタップするとスタートします\n\n速度変更もタップで出来ます"
+        bl.text = Comment.M_BATTLE_START_COMMENT.getComment()
 
         // BattleStartActivityからデータを受け取る
         val allyName01 = intent.getStringExtra("allyName01_key")
@@ -199,9 +200,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                 }else{
 
-                    val ts = Toast.makeText(this, "ターンが終了していません", Toast.LENGTH_SHORT)
-                    ts.setGravity(Gravity.CENTER, 0, 250)
-                    ts.show()
+                    printMessage(Comment.M_NOT_END_TURN.getComment())
                 }
         }
     }
@@ -382,9 +381,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             battleEnd()
             isNextTurn = true //次のターンに進める
 
-            val ms00 = Toast.makeText(this, "タップで次のターンの速度を変更できます", Toast.LENGTH_SHORT)
-            ms00.setGravity(Gravity.CENTER, 0, 250)
-            ms00.show()
+            printMessage(Comment.M_CHANGE_MESSAGE_SPEED.getComment())
 
             //2ターン目以降の場合
         }else {
@@ -393,15 +390,11 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             if (isMessageSpeed) {
 
-                val ms01 = Toast.makeText(this, "次のターンのメッセージ速度：早い", Toast.LENGTH_SHORT)
-                ms01.setGravity(Gravity.CENTER, 0, 250)
-                ms01.show()
+                printMessage(Comment.M_NEXT_TURN_FAST.getComment())
 
             } else {
 
-                val ms02 = Toast.makeText(this, "次のターンのメッセージ速度：遅い", Toast.LENGTH_SHORT)
-                ms02.setGravity(Gravity.CENTER, 0, 250)
-                ms02.show()
+               printMessage(Comment.M_NEXT_TURN_SLOW.getComment())
             }
         }
     }
@@ -912,20 +905,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                 battle_main_enemy_status_recycleView_id.adapter = this
             }
-
-//        val parentHeight = layoutManager.height
-//        val parentWidth = layoutManager.width
-//        val childHeight = parentHeight
-//        val childWidth = parentWidth
-//        val layoutParams = layoutManager.getChildAt(3)?.layoutParams
-//        if (layoutParams != null) {
-//            layoutParams.width = childWidth
-//        }
-//
-//        layoutManager.getChildAt(3)?.layoutParams ?:layoutParams
-
-
-
+        
             battle_main_enemy_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
             (battle_main_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
                 object : BattleMainRecyclerAdapter.OnItemClickListener {
@@ -1002,7 +982,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private fun setImageType(character: Player) {
 
         val layoutInflater = layoutInflater
-        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout, null)
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_character_status, null)
 
         (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
             character.getCharacterImageType())
@@ -1017,13 +997,21 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         ts.show()
     }
 
+    private fun printMessage(message: String){
+        val layoutInflater = layoutInflater
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message,null)
+        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
+        ts.setGravity(Gravity.CENTER,0,250)
+        (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
+        ts.setView(customToastView)
+        ts.show()
+    }
+
     private fun sound(sound: Int) {
 
             when (sound) {
 
-                0 -> {
-                    println()
-                }
+                0 -> { println() }
                 1 -> sp0.play(snd0, 1.0f, 1.0f, 0, 0, 1.0f)// sword
                 2 -> sp0.play(snd1, 1.0f, 1.0f, 0, 0, 1.0f)// katana
                 3 -> sp0.play(snd2, 1.0f, 1.0f, 0, 0, 1.0f)// punch
@@ -1223,8 +1211,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 character00Paralysis)),
             (character00Hp.toInt()), (character00PrintStatusEffect.toInt()))
     }
-
-
 }
 
 

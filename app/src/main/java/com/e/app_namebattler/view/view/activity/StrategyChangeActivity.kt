@@ -64,32 +64,32 @@ class StrategyChangeActivity : AppCompatActivity() {
     }
 
     fun onClickStrategy01(view: View) {
-        val ts = Toast.makeText(applicationContext, StrategyData.S0.getStrategyComment(), Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.BOTTOM, 0, 450)
-        ts.show()
+        strategyComment(StrategyData.S0.getStrategyComment())
     }
 
     fun onClickStrategy02(view: View) {
-        val ts = Toast.makeText(applicationContext, StrategyData.S1.getStrategyComment(), Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.BOTTOM, 0, 450)
-        ts.show()
+        strategyComment(StrategyData.S1.getStrategyComment())
     }
 
     fun onClickStrategy03(view: View) {
-        val ts = Toast.makeText(applicationContext, StrategyData.S2.getStrategyComment(), Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.BOTTOM, 0, 450)
-        ts.show()
+        strategyComment(StrategyData.S2.getStrategyComment())
     }
 
     fun onClickStrategy04(view: View) {
-        val ts = Toast.makeText(applicationContext, StrategyData.S3.getStrategyComment(), Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.BOTTOM, 0, 450)
-        ts.show()
+        strategyComment(StrategyData.S3.getStrategyComment())
     }
 
     fun onClickStrategy05(view: View) {
-        val ts = Toast.makeText(applicationContext, StrategyData.S4.getStrategyComment(), Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.BOTTOM, 0, 450)
+        strategyComment(StrategyData.S4.getStrategyComment())
+    }
+
+    private fun strategyComment(message: String){
+        val layoutInflater = layoutInflater
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_strategy_memo,null)
+        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
+        ts.setGravity(Gravity.BOTTOM,0,600)
+        (customToastView.findViewById(R.id.toast_layout_strategy_comment_message_id) as TextView).text = message
+        ts.setView(customToastView)
         ts.show()
     }
 
