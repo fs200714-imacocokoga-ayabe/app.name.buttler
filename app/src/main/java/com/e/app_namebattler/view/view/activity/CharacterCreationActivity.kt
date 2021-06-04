@@ -82,9 +82,8 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
                 // データベースの中に同じ名前が存在するかのチェック
                 if (sameNameCheck(nameValue)) {
 
-                    val ts = Toast.makeText(this, "同じ名前がすでに存在しています", Toast.LENGTH_LONG)
-                    ts.setGravity(Gravity.TOP,0,150)
-                    ts.show()
+                    val attentionMessage02 = "同じ名前がすでに存在しています"
+                    attentionMessage(attentionMessage02)
 
                 } else {
 
@@ -104,13 +103,8 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
     private fun printPartyNumber() {
 
         val currentCharacterNumber = characterNumberCheck()
-
-        val ic = Toast.makeText(this,
-            "現在${currentCharacterNumber}人です、あと${maxCharacterNumber - currentCharacterNumber}人作成出来ます。",
-            Toast.LENGTH_LONG)
-        ic.setGravity(Gravity.TOP, 0, 0)
-        // ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
-        ic.show()
+        val attentionMessage01 = "現在${currentCharacterNumber}人です、あと${maxCharacterNumber - currentCharacterNumber}人作成出来ます。"
+        attentionMessage(attentionMessage01)
     }
 
     // ---textWatcher---使用していませんが参考に残しています-------------------------------------------------------------------------------
@@ -186,6 +180,16 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             db.close()
         }
         return characterCount
+    }
+
+    private fun attentionMessage(message: String){
+        val layoutInflater = layoutInflater
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message,null)
+        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
+        ts.setGravity(Gravity.TOP,0,150)
+        (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
+        ts.setView(customToastView)
+        ts.show()
     }
 
     override fun onDestroy() {

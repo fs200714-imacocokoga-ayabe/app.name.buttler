@@ -210,7 +210,7 @@ class BattleResultActivity : AppCompatActivity() {
     private fun setImageType(character: Player) {
 
         val layoutInflater = layoutInflater
-        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout, null)
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_character_status, null)
 
         (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(character.getCharacterImageType())
         val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
