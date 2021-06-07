@@ -18,6 +18,7 @@ import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.view.adapter.PartyOrganizationListAdapter
 import com.e.app_namebattler.view.view.fragment.PartySelectMaxDialogFragment
+import com.e.app_namebattler.view.view.message.Comment
 import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_party_orgnization.*
 import kotlinx.android.synthetic.main.data_party_organization_character_status.view.*
@@ -135,9 +136,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
             } else {
 
                 allyNameArray.clear()
-                val ts = Toast.makeText(this, "3人選択してください", Toast.LENGTH_SHORT)
-                ts.setGravity(Gravity.BOTTOM,0,0)
-                ts.show()
+                attentionMessage(Comment.M_SELECT_MEMBER_COMMENT.getComment())
             }
         }
 
@@ -229,6 +228,16 @@ class PartyOrganizationActivity : AppCompatActivity() {
 
         val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
         textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
+    }
+
+    private fun attentionMessage(message: String){
+        val layoutInflater = layoutInflater
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message,null)
+        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
+        ts.setGravity(Gravity.TOP,0,160)
+        (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
+        ts.setView(customToastView)
+        ts.show()
     }
 
     //　数字を文字に変える
