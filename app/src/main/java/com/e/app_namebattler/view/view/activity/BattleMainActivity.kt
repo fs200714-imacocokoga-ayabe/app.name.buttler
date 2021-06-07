@@ -449,6 +449,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         enemy03: Player
     ) {
 
+        battleLog[battleLog.size - 1] = battleLog[battleLog.size - 1].toString() + "\n                              ▽"
+
         if (!isMessageSpeed) {
 
             for (i in 1..battleLog.size) {

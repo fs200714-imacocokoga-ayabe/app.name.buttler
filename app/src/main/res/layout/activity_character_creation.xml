@@ -107,7 +107,9 @@
             android:checked="true"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:onClick="onClickCharacter01"
+            tools:ignore="OnClick" />
 
         <RadioButton
             android:id="@+id/character_creation_occupation_selection_radioButton02_id"
@@ -116,7 +118,9 @@
             android:buttonTint="@color/colorBlack"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:onClick="onClickCharacter02"
+            tools:ignore="OnClick" />
 
         <RadioButton
             android:id="@+id/character_creation_occupation_selection_radioButton03_id"
@@ -125,7 +129,9 @@
             android:buttonTint="@color/colorBlack"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:onClick="onClickCharacter03"
+            tools:ignore="OnClick" />
 
         <RadioButton
             android:id="@+id/character_creation_occupation_selection_radioButton04_id"
@@ -134,7 +140,9 @@
             android:buttonTint="@color/colorBlack"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:onClick="onClickCharacter04"
+            tools:ignore="OnClick" />
     </RadioGroup>
 
     <Button

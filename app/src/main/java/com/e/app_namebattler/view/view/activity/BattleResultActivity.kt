@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_battle_result.*
 class BattleResultActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
-    lateinit var memberList: MutableList<MemberStatusData>
+    private lateinit var memberList: MutableList<MemberStatusData>
 
     // CharacterDataクラスのデータを呼び出す
     private val charaData = CharacterData.getInstance()

@@ -15,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.strategy.StrategyData
 import com.e.app_namebattler.view.view.fragment.CharacterCreateMaxDialogFragment
+import com.e.app_namebattler.view.view.message.Comment
 import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_character_creation.*
 
@@ -82,8 +84,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
                 // データベースの中に同じ名前が存在するかのチェック
                 if (sameNameCheck(nameValue)) {
 
-                    val attentionMessage02 = "同じ名前がすでに存在しています"
-                    attentionMessage(attentionMessage02)
+                    attentionMessage(Comment.M_SAME_NAME_COMMENT.getComment())
 
                 } else {
 
@@ -126,10 +127,9 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             limitLength.deleteCharAt(10)// 11文字目を消去
 
             val ic = Toast.makeText(this,
-                "名前は10文字までしか入力できません",
+                Comment.M_NAME_NUMBER_COMMENT.getComment(),
                 Toast.LENGTH_SHORT)
             ic.setGravity(Gravity.TOP, 0, 0)
-             // ic.view?.setBackgroundColor(R.color.design_default_color_primary_dark)
             ic.show()
 
             val editText = findViewById<View>(R.id.character_creation_name_input_field_editText_id) as EditText
@@ -182,12 +182,38 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         return characterCount
     }
 
+    fun onClickCharacter01(view: View) {
+        jobMemo(JobData.FIGHTER.getJobMemo())
+    }
+
+    fun onClickCharacter02(view: View) {
+        jobMemo(JobData.WIZARD.getJobMemo())
+    }
+
+    fun onClickCharacter03(view: View) {
+        jobMemo(JobData.PRIEST.getJobMemo())
+    }
+
+    fun onClickCharacter04(view: View) {
+        jobMemo(JobData.NINJA.getJobMemo())
+    }
+
     private fun attentionMessage(message: String){
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message,null)
         val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
-        ts.setGravity(Gravity.TOP,0,150)
+        ts.setGravity(Gravity.TOP,0,200)
         (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
+        ts.setView(customToastView)
+        ts.show()
+    }
+
+    private fun jobMemo(message: String){
+        val layoutInflater = layoutInflater
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_strategy_memo,null)
+        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
+        ts.setGravity(Gravity.TOP,0,200)
+        (customToastView.findViewById(R.id.toast_layout_strategy_comment_message_id) as TextView).text = message
         ts.setView(customToastView)
         ts.show()
     }
@@ -198,6 +224,8 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
     }
 
     override fun onBackPressed() {}
+
+
 }
 
 
