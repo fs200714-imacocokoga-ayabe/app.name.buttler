@@ -74,6 +74,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private lateinit var allyHelper: AllyOpenHelper
     private lateinit var enemyhelper: EnemyOpenHelper
 
+    private var ts: Toast? = null
+
     private val gm = GameManager()
 
     private var enemyPartyList = ArrayList<CharacterAllData>()
@@ -188,6 +190,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                         intent.putExtra("party_key", allyPartySurvivalNumber)
 
                         mp0.reset()
+                        ts!!.cancel()
                         startActivity(intent)
 
                         //どちらのパーティも全滅していない場合
@@ -221,6 +224,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             intent.putExtra("party_key", gm.getAllyParty().size)
 
             mp0.reset()
+            ts!!.cancel()
             startActivity(intent)
         }
         isTurnEnd = false
@@ -983,30 +987,39 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     @SuppressLint("ShowToast", "InflateParams")
     private fun setImageType(character: Player) {
 
+        if (ts != null){
+            ts!!.cancel()
+        }
+
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_character_status, null)
 
         (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
             character.getCharacterImageType())
-        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.CENTER, 0, 0)
+         ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
+        ts!!.setGravity(Gravity.CENTER, 0, 0)
         (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text = "${character.job}"
         (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text = "${character.str}"
         (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text = "${character.def}"
         (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text = "${character.agi}"
         (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text = "${character.luck}"
-        ts.setView(customToastView)
-        ts.show()
+        ts!!.setView(customToastView)
+        ts!!.show()
     }
 
     private fun printMessage(message: String){
+
+        if (ts != null){
+            ts!!.cancel()
+        }
+
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message,null)
-        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
-        ts.setGravity(Gravity.CENTER,0,250)
+         ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
+        ts!!.setGravity(Gravity.BOTTOM,0,250)
         (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
-        ts.setView(customToastView)
-        ts.show()
+        ts!!.setView(customToastView)
+        ts!!.show()
     }
 
     private fun sound(sound: Int) {
