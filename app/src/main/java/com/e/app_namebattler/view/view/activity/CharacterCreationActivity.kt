@@ -2,20 +2,24 @@ package com.e.app_namebattler.view.view.activity
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.database.DatabaseUtils
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.View.inflate
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.e.app_namebattler.model.AllyOpenHelper
+import androidx.core.content.res.ColorStateListInflaterCompat.inflate
 import com.e.app_namebattler.R
+import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
-import com.e.app_namebattler.view.strategy.StrategyData
 import com.e.app_namebattler.view.view.fragment.CharacterCreateMaxDialogFragment
 import com.e.app_namebattler.view.view.message.Comment
 import com.e.app_namebattler.view.view.music.MusicData
@@ -32,6 +36,8 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
     private var characterCount: Int = 0 // データベースのキャラクター数のチェック用
     private val maxCharacterNumber = 8 // 登録できるキャラクター数
     private val nameLength = 10 //キャラクターの名前の文字数
+    private var ts: Toast? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +70,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         character_creation_create_character_back_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
             mp0.reset()
+            ts!!.cancel()
             startActivity(intent)
         }
 
@@ -95,6 +102,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
                     intent.putExtra("name_key", nameValue)
                     intent.putExtra("job_key", jobValue)
                     mp0.reset()
+                    ts!!.cancel()
                     startActivity(intent)
                 }
             }
@@ -199,23 +207,29 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
     }
 
     private fun attentionMessage(message: String){
+        if (ts != null){
+            ts!!.cancel()
+        }
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message,null)
-        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
-        ts.setGravity(Gravity.TOP,0,200)
+         ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
+        ts!!.setGravity(Gravity.TOP,0,200)
         (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
-        ts.setView(customToastView)
-        ts.show()
+        ts!!.setView(customToastView)
+        ts!!.show()
     }
 
     private fun jobMemo(message: String){
+        if (ts != null){
+            ts!!.cancel()
+        }
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_strategy_memo,null)
-        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.TOP,0,200)
+         ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
+        ts!!.setGravity(Gravity.BOTTOM,0,300)
         (customToastView.findViewById(R.id.toast_layout_strategy_comment_message_id) as TextView).text = message
-        ts.setView(customToastView)
-        ts.show()
+        ts!!.setView(customToastView)
+        ts!!.show()
     }
 
     override fun onDestroy() {
@@ -225,7 +239,4 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 
     override fun onBackPressed() {}
 
-
 }
-
-

@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_strategy_change.*
 class StrategyChangeActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
+    private var ts: Toast? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,7 @@ class StrategyChangeActivity : AppCompatActivity() {
 
             setResult(Activity.RESULT_OK, result)
             mp0.reset()
+            ts!!.cancel()
             finish()
         }
     }
@@ -84,13 +87,18 @@ class StrategyChangeActivity : AppCompatActivity() {
     }
 
     private fun strategyComment(message: String){
+
+        if (ts != null){
+            ts!!.cancel()
+        }
+
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_strategy_memo,null)
-        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.BOTTOM,0,600)
+        ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
+        ts!!.setGravity(Gravity.BOTTOM,0,600)
         (customToastView.findViewById(R.id.toast_layout_strategy_comment_message_id) as TextView).text = message
-        ts.setView(customToastView)
-        ts.show()
+        ts!!.setView(customToastView)
+        ts!!.show()
     }
 
     override fun onDestroy() {
