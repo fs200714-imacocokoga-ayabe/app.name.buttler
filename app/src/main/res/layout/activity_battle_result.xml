@@ -28,7 +28,7 @@
 
     <LinearLayout
         android:id="@+id/battle_result_enemy_party_result_linearLayout_id"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -52,7 +52,7 @@
 
     <LinearLayout
         android:id="@+id/battle_result_ally_party_result_linearLayout_id"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
