@@ -27,7 +27,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
         holder.Mp.text = member.Mp
         holder.Status.text = member.Status
 
-        if (member.hp02 <= 0){
+        if (member.deathJudgmentHp <= 0){
             // HPが0以下の場合名前を赤色に表示
             holder.Name.setTextColor(Color.parseColor("#FF0000"))
 
@@ -118,7 +118,7 @@ class BattleMainRecyclerAdapter(private val memberList: MutableList<MemberStatus
     }
 }
 // 1行分のデータモデル
-class MemberStatusData(var name: String, var hp: String, var Mp: String, var Status: String ,var hp02:Int, var printEffect: Int)
+class MemberStatusData(var name: String, var hp: String, var Mp: String, var Status: String ,var deathJudgmentHp:Int, var printEffect: Int)
 
 
 

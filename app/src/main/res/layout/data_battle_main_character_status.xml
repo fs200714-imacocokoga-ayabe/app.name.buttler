@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/data_battle_main_character_status_linearLayout_id"
-        android:layout_width="131dp"
+        android:layout_width="116dp"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:background="@drawable/frame_line_01"
@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/data_battle_main_character_status_member_name_text_id"
-            android:layout_width="131dp"
+            android:layout_width="116dp"
             android:layout_height="18dp"
             android:gravity="left"
             android:text=""
@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/data_battle_main_character_status_member_hp_text_id"
-            android:layout_width="131dp"
+            android:layout_width="116dp"
             android:layout_height="17dp"
             android:gravity="left"
             android:text=""
@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/data_battle_main_character_status_member_mp_text_id"
-            android:layout_width="131dp"
+            android:layout_width="116dp"
             android:layout_height="17dp"
             android:gravity="left"
             android:text=""
@@ -50,7 +50,7 @@
 
         <TextView
             android:id="@+id/data_battle_main_character_status_member_status_text_id"
-            android:layout_width="131dp"
+            android:layout_width="116dp"
             android:layout_height="18dp"
             android:gravity="center"
             android:text=""
@@ -61,7 +61,7 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="131dp"
+        android:layout_width="116dp"
         android:layout_height="70dp"
         android:background="@drawable/frame_line_07"
         android:text=""
@@ -69,5 +69,6 @@
         app:layout_constraintEnd_toEndOf="@+id/data_battle_main_character_status_linearLayout_id"
         app:layout_constraintStart_toStartOf="@+id/data_battle_main_character_status_linearLayout_id"
         app:layout_constraintTop_toTopOf="@+id/data_battle_main_character_status_linearLayout_id" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
