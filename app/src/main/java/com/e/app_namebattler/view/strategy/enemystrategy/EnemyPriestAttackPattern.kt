@@ -2,7 +2,7 @@ package com.e.app_namebattler.view.strategy.enemystrategy
 
 import com.e.app_namebattler.view.party.player.Player
 
-class EnemyPriestAttackPattern:  StrategyEnemyAttackPatternByJob() {
+class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
 
     override fun attackStrategy(
         player1: Player,
@@ -27,7 +27,7 @@ class EnemyPriestAttackPattern:  StrategyEnemyAttackPatternByJob() {
 
                 if (20 <= cpuPlayer?.mp ?: 0) {
                     battleLog.append(cpuPlayer?.healingMagic(cpuPlayer2!!))
-                }else{
+                } else {
                     battleLog.append(cpuPlayer?.healingMagic(userPlayer!!))
                 }
             }
@@ -93,7 +93,7 @@ class EnemyPriestAttackPattern:  StrategyEnemyAttackPatternByJob() {
         cpuPlayer2 = cpuPlayer
 
         for (i in cpuParty.indices) {
-            if (cpuParty[i].hp < cpuPlayer?.hp ?:0 ) {
+            if (cpuParty[i].hp < cpuPlayer?.hp ?: 0) {
                 cpuPlayer2 = cpuParty[i]
             }
         }

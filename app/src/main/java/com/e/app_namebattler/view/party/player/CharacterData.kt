@@ -2,7 +2,7 @@ package com.e.app_namebattler.view.party.player
 
 import android.app.Application
 
-class CharacterData : Application()  {
+class CharacterData : Application() {
 
     var ally01: Player? = null
     var ally02: Player? = null
@@ -11,7 +11,7 @@ class CharacterData : Application()  {
     var enemy02: Player? = null
     var enemy03: Player? = null
 
-    companion object{
+    companion object {
 
         private var instance: CharacterData? = null
 

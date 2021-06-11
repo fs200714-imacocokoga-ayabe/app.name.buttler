@@ -5,29 +5,31 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.e.app_namebattler.view.view.message.Comment
 
-open class CharacterCreateMaxDialogFragment: DialogFragment() {
+open class CharacterCreateMaxDialogFragment : DialogFragment() {
 
-    interface Listener{
+    interface Listener {
         fun maxDisplay()
     }
 
-        private var listener: Listener? = null
+    private var listener: Listener? = null
 
-        override fun onAttach(context: Context){
-            super.onAttach(context)
-            when (context){
-                is Listener -> listener = context
-            }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        when (context) {
+            is Listener -> listener = context
         }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-         val builder = AlertDialog.Builder(requireActivity())
+        val builder = AlertDialog.Builder(requireActivity())
 
-         builder.setMessage("登録できるキャラクター数が最大です")
-         builder.setPositiveButton("OK") {  dialog,which ->
-          listener?.maxDisplay()
-         }
+        builder.setMessage(Comment.M_MAX_REGISTER_CHARACTER_COMMENT.getComment())
+        
+        builder.setPositiveButton("OK") { dialog, which ->
+            listener?.maxDisplay()
+        }
         return builder.create()
     }
 }

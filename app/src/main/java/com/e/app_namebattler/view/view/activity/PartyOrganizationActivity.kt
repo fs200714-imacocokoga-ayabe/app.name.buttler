@@ -56,8 +56,8 @@ class PartyOrganizationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_party_orgnization)
 
-        mp0= MediaPlayer.create(this, MusicData.BGM02.getBgm())
-        mp0.isLooping=true
+        mp0 = MediaPlayer.create(this, MusicData.BGM02.getBgm())
+        mp0.isLooping = true
         mp0.start()
 
         helper = AllyOpenHelper(applicationContext)//DB作成
@@ -80,7 +80,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
                     CharacterAllData(
                         c.getString(0), (occupationConversion(c.getInt(1))),
                         c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5),
-                        c.getInt(6), c.getInt(7), c.getString(8), c.getInt(9),100
+                        c.getInt(6), c.getInt(7), c.getString(8), c.getInt(9), 100
                     )
                 )
                 next = c.moveToNext()
@@ -106,17 +106,19 @@ class PartyOrganizationActivity : AppCompatActivity() {
                 val radioName: RadioButton = listView.getChildAt(i - 1)
                     .findViewById(R.id.data_party_organization_character_status_radioButton_id)
 
-                val characterName = listView.getChildAt(i - 1).data_party_organization_character_status_name_id
+                val characterName =
+                    listView.getChildAt(i - 1).data_party_organization_character_status_name_id
 
                 if (radioName.isChecked) {
                     allyNameArray.add(characterName.text as String)
                 }
             }
 
-            if(selectCountMax <= allyNameArray.size){
+            if (selectCountMax <= allyNameArray.size) {
 
                 arrayRadioId.clear()
-                val textView = findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
+                val textView =
+                    findViewById<TextView>(R.id.party_organization_this_party_start_button_id)
                 textView.text = "このパーティで開始（".plus(partyResetNumber).plus("/3）")
 
                 nameValue01 = allyNameArray[0].trim()//trim:文字列の先頭と末尾の半角空白を取り除く
@@ -230,20 +232,20 @@ class PartyOrganizationActivity : AppCompatActivity() {
         textView.text = "このパーティで開始（".plus(radioNumber).plus("/3）")
     }
 
-    private fun attentionMessage(message: String){
+    private fun attentionMessage(message: String) {
         val layoutInflater = layoutInflater
-        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message,null)
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message, null)
         val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
-        ts.setGravity(Gravity.TOP,0,160)
+        ts.setGravity(Gravity.TOP, 0, 160)
         (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
         ts.setView(customToastView)
         ts.show()
     }
 
     //　数字を文字に変える
-    private fun occupationConversion(jobValue: Int): String{
+    private fun occupationConversion(jobValue: Int): String {
 
-        when(jobValue){
+        when (jobValue) {
 
             0 -> job = JobData.FIGHTER.getJobName()
             1 -> job = JobData.WIZARD.getJobName()

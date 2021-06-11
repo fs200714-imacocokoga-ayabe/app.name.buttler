@@ -4,7 +4,7 @@ import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.BaseStrategy
 
-open class StrategyEnemyAttackPatternByJob: BaseStrategy() {
+open class StrategyEnemyAttackPatternByJob : BaseStrategy() {
 
     var enemyContext: EnemyContext? = null
     var cpuPlayer: Player? = null
@@ -41,6 +41,6 @@ open class StrategyEnemyAttackPatternByJob: BaseStrategy() {
                 enemyContext = EnemyContext(EnemyNinjaAttackPattern())
             }
         }
-        return  enemyContext?.attackStrategy(cpuPlayer, userParty, cpuParty)!! // バトルログを返す
+        return enemyContext?.attackStrategy(cpuPlayer, userParty, cpuParty)!! // バトルログを返す
     }
 }

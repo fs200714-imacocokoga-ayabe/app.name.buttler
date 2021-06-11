@@ -5,8 +5,7 @@ enum class Herb(private val herbRecoveryValue: Int) {
     HERB(30)
     ;
 
-    fun getHerbRecoveryValue(): Int{
+    fun getHerbRecoveryValue(): Int {
         return herbRecoveryValue
     }
-
 }

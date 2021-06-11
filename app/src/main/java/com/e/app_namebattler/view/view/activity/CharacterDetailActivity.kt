@@ -34,8 +34,8 @@ class CharacterDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_detail)
 
-        mp0= MediaPlayer.create(this, MusicData.BGM04.getBgm())
-        mp0.isLooping=true
+        mp0 = MediaPlayer.create(this, MusicData.BGM04.getBgm())
+        mp0.isLooping = true
         mp0.start()
 
         // 名前を受け取る
@@ -54,7 +54,7 @@ class CharacterDetailActivity : AppCompatActivity() {
             while (cursor.moveToNext()) {
 
                 name = cursor.getString(0)
-                job =  occupationConversion(cursor.getInt(1))
+                job = occupationConversion(cursor.getInt(1))
                 hp = cursor.getInt(2)
                 mp = cursor.getInt(3)
                 str = cursor.getInt(4)
@@ -65,7 +65,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 characterImage = cursor.getInt(9)
             }
 
-        }finally {
+        } finally {
 
             cursor?.close()
         }
@@ -87,67 +87,67 @@ class CharacterDetailActivity : AppCompatActivity() {
         }
     }
 
-            private fun deleteCharacter(){
+    private fun deleteCharacter() {
 
-                helper = AllyOpenHelper(applicationContext)//DB作成
+        helper = AllyOpenHelper(applicationContext)//DB作成
 
-                val db = helper.writableDatabase
-                try{
-                    db.execSQL("DELETE FROM CHARACTER WHERE NAME = '$name'")
-                }finally {
-                    db.close()
-                }
-                // 削除するボタンを押したときに表示するもの
-                name = ""
-                job = ""
-                hp = 0
-                mp = 0
-                str = 0
-                def = 0
-                agi = 0
-                luck = 0
-                createAt = ""
-                characterImage = 0
-            }
+        val db = helper.writableDatabase
+        try {
+            db.execSQL("DELETE FROM CHARACTER WHERE NAME = '$name'")
+        } finally {
+            db.close()
+        }
+        // 削除するボタンを押したときに表示するもの
+        name = ""
+        job = ""
+        hp = 0
+        mp = 0
+        str = 0
+        def = 0
+        agi = 0
+        luck = 0
+        createAt = ""
+        characterImage = 0
+    }
 
     // キャラクターステータス表示
-            private fun characterStatus(){
+    private fun characterStatus() {
 
-                val nameText: TextView = findViewById(R.id.character_detail_name_text_id)
-                nameText.text = name
+        val nameText: TextView = findViewById(R.id.character_detail_name_text_id)
+        nameText.text = name
 
-                val jobText: TextView = findViewById(R.id.character_detail_job_text_id)
-                jobText.text = job
+        val jobText: TextView = findViewById(R.id.character_detail_job_text_id)
+        jobText.text = job
 
-                val hpText: TextView = findViewById(R.id.character_detail_hp_text_id)
-                hpText.text = ("%6d".format(hp))
+        val hpText: TextView = findViewById(R.id.character_detail_hp_text_id)
+        hpText.text = ("%6d".format(hp))
 
-                val mpText: TextView = findViewById(R.id.character_detail_mp_text_id)
-                mpText.text = ("%6d".format(mp))
+        val mpText: TextView = findViewById(R.id.character_detail_mp_text_id)
+        mpText.text = ("%6d".format(mp))
 
-                val strText: TextView = findViewById(R.id.character_detail_str_text_id)
-                strText.text = ("%6d".format(str))
+        val strText: TextView = findViewById(R.id.character_detail_str_text_id)
+        strText.text = ("%6d".format(str))
 
-                val defText: TextView = findViewById(R.id.character_detail_def_text_id)
-                defText.text = ("%6d".format(def))
+        val defText: TextView = findViewById(R.id.character_detail_def_text_id)
+        defText.text = ("%6d".format(def))
 
-                val agiText: TextView = findViewById(R.id.character_detail_agi_text_id)
-                agiText.text = ("%6d".format(agi))
+        val agiText: TextView = findViewById(R.id.character_detail_agi_text_id)
+        agiText.text = ("%6d".format(agi))
 
-                val luckText: TextView = findViewById(R.id.character_detail_luck_text_id)
-                luckText.text = ("%6d".format(luck))
+        val luckText: TextView = findViewById(R.id.character_detail_luck_text_id)
+        luckText.text = ("%6d".format(luck))
 
-                val dateText: TextView = findViewById(R.id.character_detail_date_text_id)
-                dateText.text = ("作成日：$createAt")
+        val dateText: TextView = findViewById(R.id.character_detail_date_text_id)
+        dateText.text = ("作成日：$createAt")
 
-                val characterImageView: ImageView = findViewById(R.id.character_detail_imageView_id)
-                characterImageView.setImageResource(characterImage)
-            }
+        val characterImageView: ImageView = findViewById(R.id.character_detail_imageView_id)
+        characterImageView.setImageResource(characterImage)
+    }
 
     // 数字を職業に変換
-    private fun occupationConversion(jobValue:Int):String{
+    private fun occupationConversion(jobValue: Int): String {
 
-        when(jobValue){
+        when (jobValue) {
             0 -> job = JobData.FIGHTER.getJobName()
             1 -> job = JobData.WIZARD.getJobName()
             2 -> job = JobData.PRIEST.getJobName()

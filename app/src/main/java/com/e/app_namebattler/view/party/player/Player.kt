@@ -20,9 +20,9 @@ open class Player(private var name: String) {
     open var job: String? = "" // 職業
     open var hp: Int = 0 // HP
     open var mp: Int = 0 // MP
-    open var str:Int = 0 // 攻撃力
-    open var def:Int = 0 // 防御力
-    open var agi:Int = 0 // すばやさ
+    open var str: Int = 0 // 攻撃力
+    open var def: Int = 0 // 防御力
+    open var agi: Int = 0 // すばやさ
     open var luck: Int = 0 // 運
     private var maxHp: Int = 0 // 最大HP
     private var maxMp: Int = 0 // 最大MP
@@ -33,7 +33,7 @@ open class Player(private var name: String) {
     open val PRIEST_USE_MAGIC_LOW_MP: Int = 10
     open val PRIEST_USE_HEAL_MAGIC_LOW_MP: Int = 20
     open val NINJA_USE_MAGIC_LOW_MP: Int = 10
-    private var characterImageType:Int = 0
+    private var characterImageType: Int = 0
     private var characterEffect = 0
     private var characterStatusEffect = 0
     private var attackSoundEffect = 0
@@ -48,8 +48,8 @@ open class Player(private var name: String) {
     /**
      * コンストラクタ
      * @return name: プレイヤー名
-      */
-    open fun getName(): String{
+     */
+    open fun getName(): String {
         return name
     }
 
@@ -101,19 +101,19 @@ open class Player(private var name: String) {
         return agi
     }
 
-    open fun getMaxHp(): Int{
+    open fun getMaxHp(): Int {
         return maxHp
     }
 
-    open fun setMaxHp(hp: Int){
+    open fun setMaxHp(hp: Int) {
         maxHp = hp
     }
 
-    open fun getMaxMp(): Int{
-        return  maxMp
+    open fun getMaxMp(): Int {
+        return maxMp
     }
 
-    open fun setMaxMp(mp: Int){
+    open fun setMaxMp(mp: Int) {
         maxMp = mp
     }
 
@@ -121,23 +121,23 @@ open class Player(private var name: String) {
         idNumber = id
     }
 
-    open fun makeCharacter(name: String){
+    open fun makeCharacter(name: String) {
     }
 
-    open fun getPoison(): String{
+    open fun getPoison(): String {
 
-        return if(this.isPoison){
+        return if (this.isPoison) {
             Status.POISON.getAbnormalStatusName()
-        }else{
+        } else {
             Status.FINE.getAbnormalStatusName()
         }
     }
 
-    open fun getParalysis(): String{
+    open fun getParalysis(): String {
 
-        return if(this.isParalysis){
+        return if (this.isParalysis) {
             Status.PARALYSIS.getAbnormalStatusName()
-        }else{
+        } else {
             Status.FINE.getAbnormalStatusName()
         }
     }
@@ -146,31 +146,31 @@ open class Player(private var name: String) {
         return characterImageType
     }
 
-    open fun setCharacterImageType(characterImage: Int){
+    open fun setCharacterImageType(characterImage: Int) {
         characterImageType = characterImage
     }
 
-    open fun getPrintStatusEffect(): Int{
+    open fun getPrintStatusEffect(): Int {
         return characterEffect
     }
 
-    open fun setPrintStatusEffect(effect: Int){
+    open fun setPrintStatusEffect(effect: Int) {
         characterEffect = effect
     }
 
-    open fun getSoundStatusEffect(): Int{
+    open fun getSoundStatusEffect(): Int {
         return characterStatusEffect
     }
 
-    open fun setSoundStatusEffect(statusEffect: Int){
+    open fun setSoundStatusEffect(statusEffect: Int) {
         characterStatusEffect = statusEffect
     }
 
-    open fun getAttackSoundEffect(): Int{
+    open fun getAttackSoundEffect(): Int {
         return attackSoundEffect
     }
 
-    open fun setAttackSoundEffect(soundEffect: Int){
+    open fun setAttackSoundEffect(soundEffect: Int) {
         attackSoundEffect = soundEffect
     }
 
@@ -203,10 +203,21 @@ open class Player(private var name: String) {
     }
 
     // ジョブごとにオーバーライドして処理を記述してください
-    open fun normalAttack(defender: Player): StringBuilder {return log}
-    open fun skillAttack(defender: Player): StringBuilder {return log}
-    open fun magicAttack(defender: Player): StringBuilder {return log}
-    open fun healingMagic(defender: Player): StringBuilder {return log}
+    open fun normalAttack(defender: Player): StringBuilder {
+        return log
+    }
+
+    open fun skillAttack(defender: Player): StringBuilder {
+        return log
+    }
+
+    open fun magicAttack(defender: Player): StringBuilder {
+        return log
+    }
+
+    open fun healingMagic(defender: Player): StringBuilder {
+        return log
+    }
 
     /**
      * 対象プレイヤー(target)に対して与えるダメージを計算する
@@ -214,7 +225,7 @@ open class Player(private var name: String) {
      * @return ダメージ値(0～)
      */
     open fun calcDamage(target: Player): Int {
-        val power = (1 ..this.str).random()
+        val power = (1..this.str).random()
         val luk = (1..100).random()
         if (luk <= this.luck) { // 乱数の値がlukの値の中なら
             log.append("会心の一撃!\n")
@@ -239,7 +250,7 @@ open class Player(private var name: String) {
 
         if (0 < damage) {
             defender.setPrintStatusEffect(1)
-        }else{
+        } else {
             defender.setPrintStatusEffect(3)
             this.setAttackSoundEffect(0)
         }
@@ -253,7 +264,7 @@ open class Player(private var name: String) {
     open fun knockedDownCheck(defender: Player) {
         if (defender.hp <= 0) {
             log.append("${defender.name}は力尽きた...\n")
-        }else {
+        } else {
             conditionCheck() // 状態異常チェック
 
             if (this.hp <= 0) {
@@ -268,7 +279,7 @@ open class Player(private var name: String) {
     private fun conditionCheck() {
 
         if (isParalysis) { // true:麻痺状態 false:麻痺していない
-            if (MagicData.PARALYSIS.getContinuousRate() <= (1..100).random()  ) { // 麻痺の確立より乱数が上なら麻痺の解除
+            if (MagicData.PARALYSIS.getContinuousRate() <= (1..100).random()) { // 麻痺の確立より乱数が上なら麻痺の解除
                 isParalysis = false // 麻痺解除
                 log.append("${this.name}は麻痺が解けた！\n")
             }
@@ -293,16 +304,16 @@ open class Player(private var name: String) {
     /**
      * 草を食べる処理
      */
-    open fun eatHerb():StringBuilder {
+    open fun eatHerb(): StringBuilder {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.name}は麻痺で動けない！！\n")
             setSoundStatusEffect(1)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
 
             log.append("${this.name}は革袋の中にあった薬草を食べた！\n")
 
@@ -332,10 +343,10 @@ open class Player(private var name: String) {
         return log
     }
 
-   open fun recoveryProcess(defender: Player, heal: Int): Int {
+    open fun recoveryProcess(defender: Player, heal: Int): Int {
 
         var healValue = heal
-       
+
         healValue = defender.maxHp.coerceAtMost(defender.hp + healValue)
         healValue -= defender.hp
         log.append("${defender.name}はHPが${healValue}回復した！\n")

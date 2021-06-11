@@ -2,7 +2,7 @@ package com.e.app_namebattler.view.strategy.enemystrategy
 
 import com.e.app_namebattler.view.party.player.Player
 
-class EnemyWizardAttackPattern:  StrategyEnemyAttackPatternByJob() {
+class EnemyWizardAttackPattern : StrategyEnemyAttackPatternByJob() {
 
     override fun attackStrategy(
         player1: Player,

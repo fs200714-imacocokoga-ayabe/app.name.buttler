@@ -5,9 +5,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
-import android.view.Gravity
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.player.AllyFighterImageData
@@ -31,49 +29,51 @@ class TopScreenActivity : AppCompatActivity() {
     private val enemyPriestImageList = ArrayList<AllyPriestImageData>()
     private val enemyNinjaImageList = ArrayList<AllyNinjaImageData>()
 
+    private val characterImageY = floatArrayOf(0.0f)
+    private val characterImageX = floatArrayOf(0.0f)
+
     @SuppressLint("ResourceType", "WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_screen)
 
-        mp0= MediaPlayer.create(this, MusicData.BGM02.getBgm())
-        mp0.isLooping=true
+        mp0 = MediaPlayer.create(this, MusicData.BGM02.getBgm())
+        mp0.isLooping = true
         mp0.start()
 
-        val imageView:ImageView = findViewById(R.id.top_screen_imageView_id)
-
+        val imageView: ImageView = findViewById(R.id.top_screen_imageView_id)
         val handler = Handler()
 
-        for (e in AllyFighterImageData.values()) {
-            allyFighterImageList.add(e)
+        for (image in AllyFighterImageData.values()) {
+            allyFighterImageList.add(image)
         }
 
-        for (e in AllyWizardImageData.values()) {
-            allyWizardImageList.add(e)
+        for (image in AllyWizardImageData.values()) {
+            allyWizardImageList.add(image)
         }
 
-        for (e in AllyPriestImageData.values()) {
-            allyPriestImageList.add(e)
+        for (image in AllyPriestImageData.values()) {
+            allyPriestImageList.add(image)
         }
 
-        for (e in AllyNinjaImageData.values()) {
-            allyNinjaImageList.add(e)
+        for (image in AllyNinjaImageData.values()) {
+            allyNinjaImageList.add(image)
         }
 
-        for (e in AllyFighterImageData.values()) {
-            enemyFighterImageList.add(e)
+        for (image in AllyFighterImageData.values()) {
+            enemyFighterImageList.add(image)
         }
 
-        for (e in AllyWizardImageData.values()) {
-            enemyWizardImageList.add(e)
+        for (image in AllyWizardImageData.values()) {
+            enemyWizardImageList.add(image)
         }
 
-        for (e in AllyPriestImageData.values()) {
-            enemyPriestImageList.add(e)
+        for (image in AllyPriestImageData.values()) {
+            enemyPriestImageList.add(image)
         }
 
-        for (e in AllyNinjaImageData.values()) {
-            enemyNinjaImageList.add(e)
+        for (image in AllyNinjaImageData.values()) {
+            enemyNinjaImageList.add(image)
         }
 
         var image: Int
@@ -85,25 +85,28 @@ class TopScreenActivity : AppCompatActivity() {
 
                 image = (0..7).random()
 
-                    when (image) {
+                when (image) {
 
-                        0 -> imageValue =
-                            allyFighterImageList[(1..allyFighterImageList.size).random() - 1].getCharacterImage()
-                        1 -> imageValue =
-                            allyWizardImageList[(1..allyWizardImageList.size).random() - 1].getCharacterImage()
-                        2 -> imageValue =
-                            allyPriestImageList[(1..allyPriestImageList.size).random() - 1].getCharacterImage()
-                        3 -> imageValue =
-                            allyNinjaImageList[(1..allyNinjaImageList.size).random() - 1].getCharacterImage()
-                        4 -> imageValue =
-                            enemyFighterImageList[(1..enemyFighterImageList.size).random() - 1].getCharacterImage()
-                        5 -> imageValue =
-                            enemyWizardImageList[(1..enemyWizardImageList.size).random() - 1].getCharacterImage()
-                        6 -> imageValue =
-                            enemyPriestImageList[(1..enemyPriestImageList.size).random() - 1].getCharacterImage()
-                        7 -> imageValue =
-                            enemyNinjaImageList[(1..enemyNinjaImageList.size).random() - 1].getCharacterImage()
-                    }
+                    0 -> imageValue =
+                        allyFighterImageList[(1..allyFighterImageList.size).random() - 1].getCharacterImage()
+                    1 -> imageValue =
+                        allyWizardImageList[(1..allyWizardImageList.size).random() - 1].getCharacterImage()
+                    2 -> imageValue =
+                        allyPriestImageList[(1..allyPriestImageList.size).random() - 1].getCharacterImage()
+                    3 -> imageValue =
+                        allyNinjaImageList[(1..allyNinjaImageList.size).random() - 1].getCharacterImage()
+                    4 -> imageValue =
+                        enemyFighterImageList[(1..enemyFighterImageList.size).random() - 1].getCharacterImage()
+                    5 -> imageValue =
+                        enemyWizardImageList[(1..enemyWizardImageList.size).random() - 1].getCharacterImage()
+                    6 -> imageValue =
+                        enemyPriestImageList[(1..enemyPriestImageList.size).random() - 1].getCharacterImage()
+                    7 -> imageValue =
+                        enemyNinjaImageList[(1..enemyNinjaImageList.size).random() - 1].getCharacterImage()
+                }
+                // imageView.x = characterImageX[(100..1000).random()]
+                imageView.y = characterImageY[0] + (-300..0).random()
+
                 imageView.setImageResource(imageValue)
             }
         }
@@ -130,3 +133,4 @@ class TopScreenActivity : AppCompatActivity() {
     //戻るボタンの禁止
     override fun onBackPressed() {}
 }
+

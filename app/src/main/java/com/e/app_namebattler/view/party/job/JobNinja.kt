@@ -6,7 +6,7 @@ import com.e.app_namebattler.view.party.magic.MagicData
 import com.e.app_namebattler.view.party.skill.Skill
 import com.e.app_namebattler.view.view.music.SoundData
 
-class JobNinja (name:String): Player(name), IMagicalUsable {
+class JobNinja(name: String) : Player(name), IMagicalUsable {
 
     constructor(
         name: String,
@@ -35,12 +35,12 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
             log.append("${this.getName()}の攻撃！\n刀で突きさした！\n")
             setAttackSoundEffect(SoundData.S_KATANA01.getSoundNumber())
             damage = calcDamage(defender) // 与えるダメージを求める
@@ -55,12 +55,12 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
 
             log.append("${this.getName()}の${Skill.SWALLOW.getSkillName()}！\n")
 
@@ -90,12 +90,12 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
 
             if (hasEnoughMp()) {
                 damage = effect()
@@ -112,7 +112,8 @@ class JobNinja (name:String): Player(name), IMagicalUsable {
 
     private fun effect(): Int {
 
-        damage = (MagicData.FIRE_ROLL.getMinDamage()..MagicData.FIRE_ROLL.getMaxDamage()).random() // 乱数10～30
+        damage =
+            (MagicData.FIRE_ROLL.getMinDamage()..MagicData.FIRE_ROLL.getMaxDamage()).random() // 乱数10～30
         this.mp = this.mp - MagicData.FIRE_ROLL.getMpCost() // MP消費
         log.append("${this.getName()}は${MagicData.FIRE_ROLL.getName()}を唱えた！\n火の球が飛んでいく！\n")
         setAttackSoundEffect(SoundData.S_FIRE01.getSoundNumber())

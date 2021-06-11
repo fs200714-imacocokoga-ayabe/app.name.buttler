@@ -8,6 +8,7 @@
     tools:context=".view.view.activity.StrategyChangeActivity">
 
     // 作戦の表示
+
     <TextView
         android:id="@+id/strategy_change_strategy_text_id"
         android:layout_width="0dp"
@@ -22,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     // 決定のボタン
+
     <Button
         android:id="@+id/strategy_change_determination_button_id"
         android:layout_width="80dp"

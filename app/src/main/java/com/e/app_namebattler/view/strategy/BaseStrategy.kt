@@ -15,7 +15,7 @@ open class BaseStrategy : IStrategy {
         player1: Player,
         party1: List<Player>,
         party2: List<Player>
-    ): StringBuilder{
+    ): StringBuilder {
         return battleLog
     }
 }
