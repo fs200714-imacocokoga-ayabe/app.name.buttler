@@ -5,18 +5,19 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.e.app_namebattler.view.view.message.Comment
 
-class PartySelectMaxDialogFragment : DialogFragment(){
+class PartySelectMaxDialogFragment : DialogFragment() {
 
-    interface Listener{
+    interface Listener {
         fun maxParty()
     }
 
     private var listener: Listener? = null
 
-    override fun onAttach(context: Context){
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-        when (context){
+        when (context) {
             is Listener -> listener = context
         }
     }
@@ -25,10 +26,12 @@ class PartySelectMaxDialogFragment : DialogFragment(){
 
         val builder = AlertDialog.Builder(requireActivity())
 
-        builder.setMessage("パーティメンバーは３人です")
-        builder.setPositiveButton("OK") {  dialog,which ->
+        builder.setMessage(Comment.M_PARTY_MEMBER_NUMBER_COMMENT.getComment())
+
+        builder.setPositiveButton("OK") { dialog, which ->
             listener?.maxParty()
         }
+
         return builder.create()
     }
 }

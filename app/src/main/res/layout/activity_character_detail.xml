@@ -9,6 +9,7 @@
     tools:ignore="ExtraText">
 
     // "キャラ詳細"の表示
+
     <TextView
         android:id="@+id/character_detail_character_detail_text_id"
         android:layout_width="0dp"
@@ -16,13 +17,14 @@
         android:background="@drawable/frame_line_03"
         android:gravity="center"
         android:text="@string/character_detail_character_detail_print_text_id"
-        android:textSize="30sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     //　戻るボタン
+
     <Button
         android:id="@+id/character_detail_back_button_id"
         android:layout_width="80dp"

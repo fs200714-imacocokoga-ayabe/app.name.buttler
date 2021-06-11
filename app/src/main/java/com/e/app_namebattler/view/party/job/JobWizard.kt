@@ -5,7 +5,7 @@ import com.e.app_namebattler.view.party.magic.IMagicalUsable
 import com.e.app_namebattler.view.party.magic.MagicData
 import com.e.app_namebattler.view.view.music.SoundData
 
-class JobWizard (name:String): Player(name), IMagicalUsable {
+class JobWizard(name: String) : Player(name), IMagicalUsable {
 
     constructor(
         name: String,
@@ -34,12 +34,12 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
 
             log.append("${this.getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
             setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
@@ -54,12 +54,12 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
 
             if ((1..100).random() < MagicData.FIRE_ELEMENTAL.getInvocationRate()) { // 40％で発動
 
@@ -82,12 +82,12 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
 
             if (hasEnoughMp()) {
                 damage = effect()
@@ -119,14 +119,15 @@ class JobWizard (name:String): Player(name), IMagicalUsable {
     private fun useThunder(): Int {
 
         log.append("${this.getName()}は${MagicData.THUNDER.getName()}を唱えた！\n雷が地面を這っていく！\n")
-        damage = (MagicData.THUNDER.getMinDamage()..MagicData.THUNDER.getMaxDamage()).random() // 乱数20～50
+        damage =
+            (MagicData.THUNDER.getMinDamage()..MagicData.THUNDER.getMaxDamage()).random() // 乱数20～50
         this.mp = this.mp - MagicData.THUNDER.getMpCost() // MPを消費
         setAttackSoundEffect(SoundData.S_THUNDER01.getSoundNumber())
         return damage
     }
 
     private fun useFire(): Int {
-      
+
         log.append("${this.getName()}は${MagicData.FIRE.getName()}を唱えた！\n炎が渦を巻いた！\n")
         damage = (MagicData.FIRE.getMinDamage()..MagicData.FIRE.getMaxDamage()).random()// 乱数10～30
         this.mp = this.mp - MagicData.FIRE.getMpCost() // MPを消費

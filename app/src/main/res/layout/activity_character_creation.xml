@@ -54,8 +54,6 @@
 
     <EditText
         android:id="@+id/character_creation_name_input_field_editText_id"
-        android:hint="@string/character_creation_name_input_hint"
-        app:autoSizeTextType="uniform"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -63,10 +61,12 @@
         android:layout_marginBottom="6dp"
         android:background="@drawable/circle_angle_quadrangle_02"
         android:ems="10"
+        android:hint="@string/character_creation_name_input_hint"
         android:inputType="textPersonName"
-        android:textSize="30sp"
         android:maxLength="10"
         android:maxLines="1"
+        android:textSize="30sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/character_creation_occupation_selection_print_text_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,10 +105,10 @@
             android:layout_height="50dp"
             android:buttonTint="@color/colorBlack"
             android:checked="true"
+            android:onClick="onClickCharacter01"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
-            android:onClick="onClickCharacter01"
             tools:ignore="OnClick" />
 
         <RadioButton
@@ -116,10 +116,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:buttonTint="@color/colorBlack"
+            android:onClick="onClickCharacter02"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
-            android:onClick="onClickCharacter02"
             tools:ignore="OnClick" />
 
         <RadioButton
@@ -127,10 +127,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:buttonTint="@color/colorBlack"
+            android:onClick="onClickCharacter03"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
-            android:onClick="onClickCharacter03"
             tools:ignore="OnClick" />
 
         <RadioButton
@@ -138,10 +138,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:buttonTint="@color/colorBlack"
+            android:onClick="onClickCharacter04"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
-            android:onClick="onClickCharacter04"
             tools:ignore="OnClick" />
     </RadioGroup>
 

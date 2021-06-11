@@ -17,8 +17,8 @@ interface BattleLogListener {
         ally03: Player,
         enemy01: Player,
         enemy02: Player,
-        enemy03: Player)
-
+        enemy03: Player
+    )
 
     fun upDateAllLog(
         battleLog: MutableList<Any>,

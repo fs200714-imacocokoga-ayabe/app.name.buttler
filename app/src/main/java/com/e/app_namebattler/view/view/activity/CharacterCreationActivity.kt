@@ -2,21 +2,16 @@ package com.e.app_namebattler.view.view.activity
 
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.database.DatabaseUtils
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ColorStateListInflaterCompat.inflate
 import com.e.app_namebattler.R
 import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.view.party.job.JobData
@@ -26,51 +21,56 @@ import com.e.app_namebattler.view.view.music.MusicData
 import kotlinx.android.synthetic.main.activity_character_creation.*
 
 
-class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
+class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
 
     lateinit var mp0: MediaPlayer
     lateinit var helper: AllyOpenHelper
-    private var isSameName :Boolean = false // 同じ名前かどうか true:同じ名前 false:違う名前
+    private var isSameName: Boolean = false // 同じ名前かどうか true:同じ名前 false:違う名前
     private var inputStr: String = "" // editTextに入力された文字を格納
     private var limitLength = StringBuilder()
     private var characterCount: Int = 0 // データベースのキャラクター数のチェック用
     private val maxCharacterNumber = 8 // 登録できるキャラクター数
     private val nameLength = 10 //キャラクターの名前の文字数
-    private var ts: Toast? = null
+    private var toast: Toast? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_creation)
 
-        mp0= MediaPlayer.create(this, MusicData.BGM04.getBgm())
-        mp0.isLooping=true
+        mp0 = MediaPlayer.create(this, MusicData.BGM04.getBgm())
+        mp0.isLooping = true
         mp0.start()
 
-        val job01TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton01_id)
+        val job01TextView: TextView =
+            findViewById(R.id.character_creation_occupation_selection_radioButton01_id)
         job01TextView.text = JobData.FIGHTER.getJobName()
 
-        val job02TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton02_id)
+        val job02TextView: TextView =
+            findViewById(R.id.character_creation_occupation_selection_radioButton02_id)
         job02TextView.text = JobData.WIZARD.getJobName()
 
-        val job03TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton03_id)
+        val job03TextView: TextView =
+            findViewById(R.id.character_creation_occupation_selection_radioButton03_id)
         job03TextView.text = JobData.PRIEST.getJobName()
 
-        val job04TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton04_id)
+        val job04TextView: TextView =
+            findViewById(R.id.character_creation_occupation_selection_radioButton04_id)
         job04TextView.text = JobData.NINJA.getJobName()
 
         // textWatcherのリスナーを登録　
-        val createNameValues = findViewById<EditText>(R.id.character_creation_name_input_field_editText_id)
+        val createNameValues =
+            findViewById<EditText>(R.id.character_creation_name_input_field_editText_id)
         createNameValues.addTextChangedListener(this)
 
         // 登録してあるキャラクターの数と登録できる数を表示する
-         printPartyNumber()
+        printPartyNumber()
 
         // 戻るボタンを押した時の処理
         character_creation_create_character_back_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
             mp0.reset()
-            ts!!.cancel()
+            toast!!.cancel()
             startActivity(intent)
         }
 
@@ -80,7 +80,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             if (maxCharacterNumber <= characterNumberCheck()) {
                 val dialog = CharacterCreateMaxDialogFragment()
                 dialog.show(supportFragmentManager, "alert_dialog")
-            }else {
+            } else {
                 //職業を取得
                 val radioGroupJob: RadioGroup =
                     findViewById(R.id.character_creation_character_select_radioGroup_id)
@@ -102,7 +102,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
                     intent.putExtra("name_key", nameValue)
                     intent.putExtra("job_key", jobValue)
                     mp0.reset()
-                    ts!!.cancel()
+                    toast!!.cancel()
                     startActivity(intent)
                 }
             }
@@ -112,7 +112,8 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
     private fun printPartyNumber() {
 
         val currentCharacterNumber = characterNumberCheck()
-        val attentionMessage01 = "現在${currentCharacterNumber}人です、あと${maxCharacterNumber - currentCharacterNumber}人作成出来ます。"
+        val attentionMessage01 =
+            "現在${currentCharacterNumber}人です、あと${maxCharacterNumber - currentCharacterNumber}人作成出来ます。"
         attentionMessage(attentionMessage01)
     }
 
@@ -140,7 +141,8 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
             ic.setGravity(Gravity.TOP, 0, 0)
             ic.show()
 
-            val editText = findViewById<View>(R.id.character_creation_name_input_field_editText_id) as EditText
+            val editText =
+                findViewById<View>(R.id.character_creation_name_input_field_editText_id) as EditText
             editText.setText(limitLength)
 
             limitLength.clear()
@@ -149,7 +151,7 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
 //--------------------------------------------------------------------------------------------------------------------------------
 
     // 同じ名前がデータベースに存在しているかのチェック
-    private fun sameNameCheck(nameValue: String?): Boolean{
+    private fun sameNameCheck(nameValue: String?): Boolean {
 
         helper = AllyOpenHelper(applicationContext)//DB作成
 
@@ -206,30 +208,32 @@ class CharacterCreationActivity : AppCompatActivity() ,TextWatcher{
         jobMemo(JobData.NINJA.getJobMemo())
     }
 
-    private fun attentionMessage(message: String){
-        if (ts != null){
-            ts!!.cancel()
+    private fun attentionMessage(message: String) {
+        if (toast != null) {
+            toast!!.cancel()
         }
         val layoutInflater = layoutInflater
-        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message,null)
-         ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
-        ts!!.setGravity(Gravity.TOP,0,200)
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message, null)
+        toast = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
+        toast!!.setGravity(Gravity.TOP, 0, 200)
         (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
-        ts!!.setView(customToastView)
-        ts!!.show()
+        toast!!.setView(customToastView)
+        toast!!.show()
     }
 
-    private fun jobMemo(message: String){
-        if (ts != null){
-            ts!!.cancel()
+    private fun jobMemo(message: String) {
+        if (toast != null) {
+            toast!!.cancel()
         }
         val layoutInflater = layoutInflater
-        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_strategy_memo,null)
-         ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
-        ts!!.setGravity(Gravity.BOTTOM,0,300)
-        (customToastView.findViewById(R.id.toast_layout_strategy_comment_message_id) as TextView).text = message
-        ts!!.setView(customToastView)
-        ts!!.show()
+        val customToastView: View =
+            layoutInflater.inflate(R.layout.toast_layout_strategy_memo, null)
+        toast = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
+        toast!!.setGravity(Gravity.BOTTOM, 0, 300)
+        (customToastView.findViewById(R.id.toast_layout_strategy_comment_message_id) as TextView).text =
+            message
+        toast!!.setView(customToastView)
+        toast!!.show()
     }
 
     override fun onDestroy() {

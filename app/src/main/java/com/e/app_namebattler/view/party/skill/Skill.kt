@@ -1,24 +1,25 @@
 package com.e.app_namebattler.view.party.skill
 
-enum class Skill (
+enum class Skill(
 
     private val skillName: String,
     private val invocationRate: Int,
-    private val damageRate: Int){
+    private val damageRate: Int
+) {
 
-    ASSAULT("捨て身の突撃",35, 2),
-    SWALLOW("燕返し",35,0),
+    ASSAULT("捨て身の突撃", 35, 2),
+    SWALLOW("燕返し", 35, 0),
     ;
 
-    fun getSkillName(): String{
+    fun getSkillName(): String {
         return skillName
     }
 
-    fun getInvocationRate(): Int{
+    fun getInvocationRate(): Int {
         return invocationRate
     }
 
-    fun getDamageRate():Int{
+    fun getDamageRate(): Int {
         return damageRate
     }
 }

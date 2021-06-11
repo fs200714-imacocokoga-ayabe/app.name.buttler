@@ -7,7 +7,6 @@
     android:splitMotionEvents="false"
     tools:context=".view.view.activity.TopScreenActivity">
 
-
     // "ネームバトラー"の表示
 
     <TextView
@@ -52,6 +51,7 @@
 
 
     // "バトル開始"のボタン
+
     <Button
         android:id="@+id/top_screen_battle_start_button_id"
         android:layout_width="match_parent"

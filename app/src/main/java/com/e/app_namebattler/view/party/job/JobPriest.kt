@@ -6,7 +6,7 @@ import com.e.app_namebattler.view.party.magic.IRecoveryMagic
 import com.e.app_namebattler.view.party.magic.MagicData
 import com.e.app_namebattler.view.view.music.SoundData
 
-class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
+class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic {
 
     constructor(
         name: String,
@@ -37,12 +37,12 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
             log.append("${this.getName()}の攻撃！\n錫杖で突いた！\n")
             setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
             damage = calcDamage(defender) // 与えるダメージを求める
@@ -56,12 +56,12 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(this)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
 
             if ((1..100).random() < MagicData.OPTICAL_ELEMENTAL.getInvocationRate()) {
                 log.append("${this.getName()}は祈りを捧げて${MagicData.OPTICAL_ELEMENTAL.getName()}を召還した\n${MagicData.OPTICAL_ELEMENTAL.getName()}の祝福を受けた！\n")
@@ -79,12 +79,12 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(defender)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
             if (hasEnoughMp()) {
                 damage = effect(defender)
                 knockedDownCheck(defender)
@@ -100,12 +100,12 @@ class JobPriest (name:String): Player(name), IMagicalUsable, IRecoveryMagic {
 
         log.clear()
 
-        if (this.isParalysis){// 麻痺している場合
+        if (this.isParalysis) {// 麻痺している場合
 
             log.append("${this.getName()}は麻痺で動けない！！\n")
             knockedDownCheck(this)
 
-        }else {// 麻痺していない場合
+        } else {// 麻痺していない場合
 
             isHeal = true
 

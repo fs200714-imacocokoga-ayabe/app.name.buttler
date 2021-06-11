@@ -40,6 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     // 戻るボタン
+
     <Button
         android:id="@+id/character_list_back_button_id"
         android:layout_width="80dp"

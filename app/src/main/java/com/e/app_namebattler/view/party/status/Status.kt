@@ -7,7 +7,7 @@ enum class Status(private val abnormalStatusName: String) {
     PARALYSIS("麻痺")
     ;
 
-    fun getAbnormalStatusName():String{
+    fun getAbnormalStatusName(): String {
         return abnormalStatusName
     }
 

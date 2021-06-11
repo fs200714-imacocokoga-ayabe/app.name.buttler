@@ -46,12 +46,12 @@ class BattleResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_result)
 
-        mp0= MediaPlayer.create(this, MusicData.BGM03.getBgm())
-        mp0.isLooping=true
+        mp0 = MediaPlayer.create(this, MusicData.BGM03.getBgm())
+        mp0.isLooping = true
         mp0.start()
 
         // BattleMainActivityからデータを受け取る
-        val allyPartySurvivalNumber = intent.getIntExtra("party_key",0)
+        val allyPartySurvivalNumber = intent.getIntExtra("party_key", 0)
 
         if (ally01 != null) {
             if (ally02 != null) {
@@ -75,7 +75,7 @@ class BattleResultActivity : AppCompatActivity() {
             imageView.setImageResource(R.drawable.i_defeat)
 
             // 味方パーティメンバーが0でない場合　"you win" を表示
-        }else{
+        } else {
             val imageView = findViewById<ImageView>(R.id.battle_result_win_or_Loss_imageView_id)
             imageView.setImageResource(R.drawable.i_victory)
         }
@@ -116,13 +116,13 @@ class BattleResultActivity : AppCompatActivity() {
     }
 
     // 味方キャラクターのステータス表示
-     private fun resultAllyStatus(ally01: Player, ally02: Player, ally03: Player) {
+    private fun resultAllyStatus(ally01: Player, ally02: Player, ally03: Player) {
 
         val ally001 = memberStatusData(ally01)
         val ally002 = memberStatusData(ally02)
         val ally003 = memberStatusData(ally03)
 
-         memberList = arrayListOf(ally001, ally002, ally003)
+        memberList = arrayListOf(ally001, ally002, ally003)
 
         val layoutManager = LinearLayoutManager(
             this,
@@ -155,13 +155,13 @@ class BattleResultActivity : AppCompatActivity() {
     }
 
     // 敵キャラクターのステータス表示
-     private fun resultEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player) {
+    private fun resultEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player) {
 
         val enemy001 = memberStatusData(enemy01)
         val enemy002 = memberStatusData(enemy02)
         val enemy003 = memberStatusData(enemy03)
 
-         memberList = arrayListOf(enemy001, enemy002, enemy003)
+        memberList = arrayListOf(enemy001, enemy002, enemy003)
 
         val layoutManager = LinearLayoutManager(
             this,
@@ -197,7 +197,7 @@ class BattleResultActivity : AppCompatActivity() {
 
     private fun memberStatusData(character: Player): MemberStatusData {
 
-        return  MemberStatusData(
+        return MemberStatusData(
             ("  %s".format(character.getName())),
             ("%s %d/%d".format("  HP", character.hp, character.getMaxHp())),
             ("%s %d/%d".format("  MP", character.mp, character.getMaxMp())),
@@ -210,16 +210,23 @@ class BattleResultActivity : AppCompatActivity() {
     private fun setImageType(character: Player) {
 
         val layoutInflater = layoutInflater
-        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_character_status, null)
+        val customToastView: View =
+            layoutInflater.inflate(R.layout.toast_layout_character_status, null)
 
-        (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(character.getCharacterImageType())
+        (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
+            character.getCharacterImageType())
         val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
         ts.setGravity(Gravity.CENTER, 0, 0)
-        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text = "${character.job}"
-        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text = "${character.str}"
-        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text = "${character.def}"
-        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text = "${character.agi}"
-        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text = "${character.luck}"
+        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text =
+            "${character.job}"
+        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text =
+            "${character.str}"
+        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text =
+            "${character.def}"
+        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text =
+            "${character.agi}"
+        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text =
+            "${character.luck}"
         ts.setView(customToastView)
         ts.show()
     }

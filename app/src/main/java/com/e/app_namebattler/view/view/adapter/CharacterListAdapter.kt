@@ -12,7 +12,8 @@ import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.player.CharacterAllData
 
 
-class CharacterListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter() {
+class CharacterListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAllData>) :
+    BaseAdapter() {
 
     @SuppressLint("ViewHolder", "SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -36,11 +37,11 @@ class CharacterListAdapter(val context: Context, val CharacterList: ArrayList<Ch
         Agi.text = "   AGI:".plus(character.agi.toString())
 
         //val params = LinearLayout.LayoutParams(
-            //ViewGroup.LayoutParams(100, 100)
-       val params = LinearLayout.LayoutParams(character.size2X-12, 200)
+        //ViewGroup.LayoutParams(100, 100)
+        val params = LinearLayout.LayoutParams(character.size2X - 12, 200)
         // marginの設定　(left, top, right, bottom
         // marginの設定　(left, top, right, bottom
-       // params.setMargins(50, 0, 0, 0)
+        // params.setMargins(50, 0, 0, 0)
         view.layoutParams = params
 
         return view

@@ -16,16 +16,17 @@ enum class JobData(
     private val jobLuckCorrectionValue: Int,
     private val jobAgi: Int,
     private val jobAgiCorrectionValue: Int,
-    private val jobMemo: String) {
+    private val jobMemo: String
+) {
 
-    FIGHTER(0,"戦士", 200, 100, 0, 0, 70, 30, 70, 30,
-        99, 1, 49, 1,"ダメージが2倍になる突撃の\nスキルを持っている"),
-    WIZARD(1,"魔法使い", 100, 50, 50, 30, 49, 1, 49, 1,
-        99, 1, 40, 20,"炎の精霊を召喚して敵を攻撃できる\nスキルを持っている"),
-    PRIEST(2,"僧侶", 120, 80, 30, 20, 40, 10, 60, 10,
-        99, 1, 40, 20,"光の精霊を召喚して自身を回復できる\nスキルを持っている"),
-    NINJA(3,"忍者",100, 70, 20, 10, 50, 20, 49, 1,
-        99, 1, 40, 40,"２回攻撃するつばめ返しの\nスキルを持っている");
+    FIGHTER(0, "戦士", 200, 100, 0, 0, 70, 30, 70, 30,
+        99, 1, 49, 1, "ダメージが2倍になる突撃の\nスキルを持っている"),
+    WIZARD(1, "魔法使い", 100, 50, 50, 30, 49, 1, 49, 1,
+        99, 1, 40, 20, "炎の精霊を召喚して敵を攻撃できる\nスキルを持っている"),
+    PRIEST(2, "僧侶", 120, 80, 30, 20, 40, 10, 60, 10,
+        99, 1, 40, 20, "光の精霊を召喚して自身を回復できる\nスキルを持っている"),
+    NINJA(3, "忍者", 100, 70, 20, 10, 50, 20, 49, 1,
+        99, 1, 40, 40, "２回攻撃するつばめ返しの\nスキルを持っている");
 
     fun getJobNumber(): Int {
         return jobNumber
@@ -35,55 +36,55 @@ enum class JobData(
         return jobName
     }
 
-    fun getJobHp(): Int{
+    fun getJobHp(): Int {
         return jobHp
     }
 
-    fun getJobHpCorrectionValue(): Int{
-        return  jobHpCorrectionValue
+    fun getJobHpCorrectionValue(): Int {
+        return jobHpCorrectionValue
     }
 
-    fun getJobMp():Int{
-        return  jobMp
+    fun getJobMp(): Int {
+        return jobMp
     }
 
-    fun getJobMpCorrectionValue(): Int{
-        return  jobMpCorrectionValue
+    fun getJobMpCorrectionValue(): Int {
+        return jobMpCorrectionValue
     }
 
-    fun getJobStr(): Int{
+    fun getJobStr(): Int {
         return jobStr
     }
 
-    fun getJobStrCorrectionValue(): Int{
+    fun getJobStrCorrectionValue(): Int {
         return jobStrCorrectionValue
     }
 
-    fun getJobDef(): Int{
+    fun getJobDef(): Int {
         return jobDef
     }
 
-    fun getJobDefCorrectionValue(): Int{
+    fun getJobDefCorrectionValue(): Int {
         return jobDefCorrectionValue
     }
 
-    fun getJobluck(): Int{
+    fun getJobluck(): Int {
         return jobLuck
     }
 
-    fun getJobluckCorrectionValue(): Int{
+    fun getJobluckCorrectionValue(): Int {
         return jobLuckCorrectionValue
     }
 
-    fun getJobAgi(): Int{
+    fun getJobAgi(): Int {
         return jobAgi
     }
 
-    fun getJobAgiCorrectionValue(): Int{
+    fun getJobAgiCorrectionValue(): Int {
         return jobAgiCorrectionValue
     }
 
-    fun getJobMemo(): String{
+    fun getJobMemo(): String {
         return jobMemo
     }
 }

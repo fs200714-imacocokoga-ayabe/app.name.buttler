@@ -4,9 +4,9 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class EnemyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBName,null, VERSION) {
+class EnemyOpenHelper(context: Context?) : SQLiteOpenHelper(context, DBName, null, VERSION) {
 
-        companion object {
+    companion object {
         //データベースのバージョン
         const val VERSION = 1
 
@@ -37,24 +37,24 @@ class EnemyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBName,nul
                 "LUCK INTEGER NOT NULL," +
                 "CREATE_AT NULL," +
                 "CHARACTER_IMAGE INTEGER NOT NULL)")
-        }
+    }
 
-        /*テーブルが存在しないときに呼び出す
-        * execSQLでクエリSQL文を実行しDB構造を決定する*/
-        override fun onCreate(db: SQLiteDatabase) {
-            db.execSQL(SQL_CREATE_ENEMY)
-        }
+    /*テーブルが存在しないときに呼び出す
+    * execSQLでクエリSQL文を実行しDB構造を決定する*/
+    override fun onCreate(db: SQLiteDatabase) {
+        db.execSQL(SQL_CREATE_ENEMY)
+    }
 
-        //DBバージョンが上がったときの処理
-        override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-            // テーブルを削除する
-            db.execSQL("DROP TABLE IF EXISTS ENEMY")
-            // 新しくテーブルを作成する
-            onCreate(db)
-        }
+    //DBバージョンが上がったときの処理
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        // テーブルを削除する
+        db.execSQL("DROP TABLE IF EXISTS ENEMY")
+        // 新しくテーブルを作成する
+        onCreate(db)
+    }
 
-        //DBバージョンが下がったときの処理
-        override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-            onDowngrade(db, oldVersion, newVersion)
-        }
+    //DBバージョンが下がったときの処理
+    override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        onDowngrade(db, oldVersion, newVersion)
+    }
 }

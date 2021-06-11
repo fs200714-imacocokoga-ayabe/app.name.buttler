@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class AllyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBName,null, VERSION) {
+class AllyOpenHelper(context: Context?) : SQLiteOpenHelper(context, DBName, null, VERSION) {
 
     companion object {
         //データベースのバージョン
@@ -13,7 +13,7 @@ class AllyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBName,null
         //データベース情報
         const val DBName = "Aya.db01"//データベース名
         private const val TABLE_NAME = "CHARACTER"//テーブル名
-      //  private const val ENEMY_TABLE_NAME = "ENEMY"
+        //  private const val ENEMY_TABLE_NAME = "ENEMY"
 
         //カラムの種類
         const val NAME = "name"
@@ -42,12 +42,12 @@ class AllyOpenHelper (context: Context?) : SQLiteOpenHelper(context, DBName,null
 
     /*テーブルが存在しないときに呼び出す
         * execSQLでクエリSQL文を実行しDB構造を決定する*/
-    override  fun onCreate(db: SQLiteDatabase) {
+    override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_CHARACTER)
     }
 
     //DBバージョンが上がったときの処理
-    override fun onUpgrade(db:SQLiteDatabase, oldVersion: Int, newVersion :Int) {
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // テーブルを削除する
         db.execSQL("DROP TABLE IF EXISTS CHARACTER")
         // 新しくテーブルを作成する

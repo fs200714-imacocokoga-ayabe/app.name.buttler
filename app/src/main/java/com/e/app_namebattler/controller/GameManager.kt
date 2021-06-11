@@ -13,13 +13,13 @@ class GameManager {
     private val party = Party()
     var context: Context? = null
 
-    private var battleLogList:MutableList<Any> = ArrayList()
-    private var ally01StatusLogList:MutableList<String> = ArrayList()
-    private var ally02StatusLogList:MutableList<String> = ArrayList()
-    private var ally03StatusLogList:MutableList<String> = ArrayList()
-    private var enemy01StatusLogList:MutableList<String> = ArrayList()
-    private var enemy02StatusLogList:MutableList<String> = ArrayList()
-    private var enemy03StatusLogList:MutableList<String> = ArrayList()
+    private var battleLogList: MutableList<Any> = ArrayList()
+    private var ally01StatusLogList: MutableList<String> = ArrayList()
+    private var ally02StatusLogList: MutableList<String> = ArrayList()
+    private var ally03StatusLogList: MutableList<String> = ArrayList()
+    private var enemy01StatusLogList: MutableList<String> = ArrayList()
+    private var enemy02StatusLogList: MutableList<String> = ArrayList()
+    private var enemy03StatusLogList: MutableList<String> = ArrayList()
 
     private val characterNumber = 3
 
@@ -137,21 +137,21 @@ class GameManager {
         }
 
         // ステータスとログの表示
-            callBack?.upDateAllLog(
-                battleLogList,
-                ally01StatusLogList,
-                ally02StatusLogList,
-                ally03StatusLogList,
-                enemy01StatusLogList,
-                enemy02StatusLogList,
-                enemy03StatusLogList,
-                ally01,
-                ally02,
-                ally03,
-                enemy01,
-                enemy02,
-                enemy03
-            )
+        callBack?.upDateAllLog(
+            battleLogList,
+            ally01StatusLogList,
+            ally02StatusLogList,
+            ally03StatusLogList,
+            enemy01StatusLogList,
+            enemy02StatusLogList,
+            enemy03StatusLogList,
+            ally01,
+            ally02,
+            ally03,
+            enemy01,
+            enemy02,
+            enemy03
+        )
     }
 
     // 選んだ作戦番号から対象プレイヤーと作戦を得て返す
@@ -169,9 +169,9 @@ class GameManager {
     }
 
     // 敗北判定の処理
-    private fun judgment(){
-        
-        for (i in attackerList){
+    private fun judgment() {
+
+        for (i in attackerList) {
 
             if (i.hp <= 0) {
                 party.removePlayer(i)
@@ -283,11 +283,11 @@ class GameManager {
         return character
     }
 
-    fun  getAllyParty():List<Player>{
+    fun getAllyParty(): List<Player> {
         return party.getParty01()
     }
 
-    fun getEnemyParty(): List<Player>{
+    fun getEnemyParty(): List<Player> {
         return party.getParty02()
     }
 
@@ -304,11 +304,11 @@ class GameManager {
     }
 
     // 数字を職業に変換
-    private fun occupationConversion(jobValue: String): Int{
+    private fun occupationConversion(jobValue: String): Int {
 
         var job = 0
 
-        when(jobValue){
+        when (jobValue) {
             JobData.FIGHTER.getJobName() -> job = JobData.FIGHTER.getJobNumber()
             JobData.WIZARD.getJobName() -> job = JobData.WIZARD.getJobNumber()
             JobData.PRIEST.getJobName() -> job = JobData.PRIEST.getJobNumber()
@@ -317,9 +317,9 @@ class GameManager {
         return job
     }
 
-    private fun getCharacterStatusLogList(character: Player):MutableList<String> {
+    private fun getCharacterStatusLogList(character: Player): MutableList<String> {
 
-        val characterStatusLogList:MutableList<String> = ArrayList()
+        val characterStatusLogList: MutableList<String> = ArrayList()
 
         characterStatusLogList.plusAssign(character.getHP().toString())
         characterStatusLogList.plusAssign(character.getMaxHp().toString())

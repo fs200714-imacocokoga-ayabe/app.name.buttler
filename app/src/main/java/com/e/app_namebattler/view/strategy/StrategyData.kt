@@ -4,22 +4,24 @@ enum class StrategyData(
 
     private val strategyNumber: Int,
     private val strategyName: String,
-    private val strategyComment: String) {
+    private val strategyComment: String
+) {
 
-    S0(0,"武器でたたかおう", "MPを消費しないで攻撃をします\n（全員）"),
-    S1(1,"攻撃魔法をつかおう", "MPを消費して魔法攻撃します\n（魔法使い、僧侶、忍者）"),
-    S2(2,"スキルをつかおう", "MPを消費しないで特別な攻撃をします\n（全員、確率発動）"),
-    S3(3,"回復魔法をつかおう", "MPを消費して回復魔法を使用します\n（僧侶)"),
-    S4(4,"薬草をつかおう", "一定確率で毒やHPを回復できます\n（全員）");
+    S0(0, "武器でたたかおう", "MPを消費しないで攻撃をします\n（全員）"),
+    S1(1, "攻撃魔法をつかおう", "MPを消費して魔法攻撃します\n（魔法使い、僧侶、忍者）"),
+    S2(2, "スキルをつかおう", "MPを消費しないで特別な攻撃をします\n（全員、確率発動）"),
+    S3(3, "回復魔法をつかおう", "MPを消費して回復魔法を使用します\n（僧侶)"),
+    S4(4, "薬草をつかおう", "一定確率で毒やHPを回復できます\n（全員）");
 
-    fun getStrategyNumber(): Int{
+    fun getStrategyNumber(): Int {
         return strategyNumber
     }
-    fun getStrategyName(): String{
-        return  strategyName
+
+    fun getStrategyName(): String {
+        return strategyName
     }
 
-    fun getStrategyComment(): String{
+    fun getStrategyComment(): String {
         return strategyComment
     }
 

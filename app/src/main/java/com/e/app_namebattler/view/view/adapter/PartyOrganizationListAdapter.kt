@@ -12,16 +12,22 @@ import android.widget.TextView
 import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.player.CharacterAllData
 
-class PartyOrganizationListAdapter (val context: Context, val CharacterList: ArrayList<CharacterAllData>) : BaseAdapter(),
+class PartyOrganizationListAdapter(
+    val context: Context,
+    private val CharacterList: ArrayList<CharacterAllData>
+) : BaseAdapter(),
     Checkable {
 
     private var mRadioButton: RadioButton? = null
 
     @SuppressLint("ViewHolder", "SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.data_party_organization_character_status, null)
-        val Button = view.findViewById<RadioButton>(R.id.data_party_organization_character_status_radioButton_id)
-        val Name = view.findViewById<TextView>(R.id.data_party_organization_character_status_name_id)
+        val view: View = LayoutInflater.from(context)
+            .inflate(R.layout.data_party_organization_character_status, null)
+        val Button =
+            view.findViewById<RadioButton>(R.id.data_party_organization_character_status_radioButton_id)
+        val Name =
+            view.findViewById<TextView>(R.id.data_party_organization_character_status_name_id)
         val Job = view.findViewById<TextView>(R.id.data_party_organization_character_status_job_id)
         val Hp = view.findViewById<TextView>(R.id.data_party_organization_character_status_hp_id)
         val Mp = view.findViewById<TextView>(R.id.data_party_organization_character_status_mp_id)
