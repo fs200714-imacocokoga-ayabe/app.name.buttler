@@ -73,7 +73,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private var strategyNumber = 0 //作戦番号を格納
     var job = "" // 職業名を格納
 
-    private var isNextTurn: Boolean = false// true: 最初のターンが実行される　false:バトルログ画面を最初にタップするとtrueになる
+    private var isNextTurn: Boolean = false// true: 2ターン目以降　false:バトルログ画面を最初にタップするとtrueになる
     private var isMessageSpeed: Boolean = false// メッセージ速度変更に使用
     private var isTurnEnd: Boolean = false
 
@@ -129,8 +129,12 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         val battleMainLogTextDialog =
             findViewById<View>(R.id.battle_main_battle_log_text_id) as TextView
         battleMainLogTextDialog.setOnClickListener(this)
+
+        val nextButtonText = findViewById<TextView>(R.id.battle_main_next_turn_button_id)
+        nextButtonText.text = Comment.M_BATTLE_START_COMMENT.getComment()
+
         val bl = findViewById<TextView>(R.id.battle_main_battle_log_text_id)
-        bl.text = Comment.M_BATTLE_START_COMMENT.getComment()
+        bl.text = Comment.M_SPEED_CHANGE_COMMENT.getComment()
 
         // BattleStartActivityからデータを受け取る
         val allyName01 = intent.getStringExtra("allyName01_key")
@@ -162,7 +166,14 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         // 次のターンボタンを押したときの処理
         battle_main_next_turn_button_id.setOnClickListener {
 
-            if (isNextTurn && isTurnEnd) {
+            nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
+            if (!isNextTurn){
+                gm.battle(strategyNumber)
+                isNextTurn = true
+                battleEnd()
+              //  nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()
+
+            }else if (isNextTurn && isTurnEnd) {
 
                 // どちらかのパーティが全滅した場合
                 if (gm.getAllyParty().isEmpty() || gm.getEnemyParty().isEmpty()) {
@@ -375,26 +386,12 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     // バトルログ画面でのタップした時の処理
     override fun onClick(v: View?) {
 
-        // 最初のターンの場合
-        if (!isNextTurn) {
-
-            gm.battle(strategyNumber)
-            battleEnd()
-            isNextTurn = true //次のターンに進める
-
-            printMessage(Comment.M_CHANGE_MESSAGE_SPEED_COMMENT.getComment())
-
-            //2ターン目以降の場合
-        } else {
-
+        if (isNextTurn) {
             isMessageSpeed = !isMessageSpeed // 反転
 
             if (isMessageSpeed) {
-
                 printMessage(Comment.M_NEXT_TURN_FAST_COMMENT.getComment())
-
             } else {
-
                 printMessage(Comment.M_NEXT_TURN_SLOW_COMMENT.getComment())
             }
         }
@@ -450,6 +447,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         enemy03: Player
     ) {
 
+        // バトルログの最後に▼を入れる
         battleLog[battleLog.size - 1] =
             battleLog[battleLog.size - 1].toString() + "\n                              ▼"
 
@@ -470,7 +468,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                             printAllyStatus(0, ally01StatusLog, ally02StatusLog, ally03StatusLog, ally01, ally02, ally03, true)
                             printEnemyStatus(0, enemy01StatusLog, enemy02StatusLog, enemy03StatusLog, enemy01, enemy02, enemy03, true)
                         }, 500)
-
                     }
 
                     2 -> {
@@ -602,25 +599,40 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     }
 
     private fun waitTime(battleLog: Int) {
+
+        val nextButtonText = findViewById<TextView>(R.id.battle_main_next_turn_button_id)
+
         if (!isMessageSpeed) {
             when (battleLog) {
-                1 -> handler.postDelayed({ isTurnEnd = true }, 200)
-                2 -> handler.postDelayed({ isTurnEnd = true }, 3500)
-                3 -> handler.postDelayed({ isTurnEnd = true }, 6500)
-                4 -> handler.postDelayed({ isTurnEnd = true }, 9500)
-                5 -> handler.postDelayed({ isTurnEnd = true }, 12500)
-                6 -> handler.postDelayed({ isTurnEnd = true }, 15500)
+                1 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 200)
+                2 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 3500)
+                3 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 6500)
+                4 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 9500)
+                5 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 12500)
+                6 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 15500)
             }
 
         } else {
 
             when (battleLog) {
-                1 -> handler.postDelayed({ isTurnEnd = true }, 100)
-                2 -> handler.postDelayed({ isTurnEnd = true }, 200)
-                3 -> handler.postDelayed({ isTurnEnd = true }, 300)
-                4 -> handler.postDelayed({ isTurnEnd = true }, 400)
-                5 -> handler.postDelayed({ isTurnEnd = true }, 500)
-                6 -> handler.postDelayed({ isTurnEnd = true }, 600)
+                1 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 100)
+                2 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 200)
+                3 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 300)
+                4 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 400)
+                5 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 500)
+                6 -> handler.postDelayed({ isTurnEnd = true
+                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 600)
             }
         }
     }
