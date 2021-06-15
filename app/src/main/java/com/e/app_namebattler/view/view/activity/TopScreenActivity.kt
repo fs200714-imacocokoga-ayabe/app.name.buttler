@@ -29,9 +29,6 @@ class TopScreenActivity : AppCompatActivity() {
     private val enemyPriestImageList = ArrayList<AllyPriestImageData>()
     private val enemyNinjaImageList = ArrayList<AllyNinjaImageData>()
 
-    private val characterImageY = floatArrayOf(0.0f)
-    private val characterImageX = floatArrayOf(0.0f)
-
     @SuppressLint("ResourceType", "WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,9 +101,8 @@ class TopScreenActivity : AppCompatActivity() {
                     7 -> imageValue =
                         enemyNinjaImageList[(1..enemyNinjaImageList.size).random() - 1].getCharacterImage()
                 }
-                // imageView.x = characterImageX[(100..1000).random()]
-                imageView.y = characterImageY[0] + (-300..0).random()
 
+                imageView.y = (-300..0).random().toFloat()
                 imageView.setImageResource(imageValue)
             }
         }

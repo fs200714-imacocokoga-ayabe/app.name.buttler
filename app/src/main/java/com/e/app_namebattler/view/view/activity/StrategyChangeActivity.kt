@@ -71,7 +71,11 @@ class StrategyChangeActivity : AppCompatActivity() {
 
             setResult(Activity.RESULT_OK, result)
             mp0.reset()
-            toast!!.cancel()
+
+            if (toast != null) {
+                toast!!.cancel()
+            }
+
             finish()
         }
     }

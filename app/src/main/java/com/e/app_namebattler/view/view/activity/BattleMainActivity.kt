@@ -173,11 +173,15 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                     // パーティの勝ち負け判定に使用　Party01のsizeが0なら敵の勝利1以上なら味方の勝利
                     val allyPartySurvivalNumber = gm.getAllyParty().size
-                    // BattleResultActivityにparty00を送る
+                    
                     intent.putExtra("party_key", allyPartySurvivalNumber)
 
                     mp0.reset()
-                    toast!!.cancel()
+
+                    if (toast != null) {
+                        toast!!.cancel()
+                    }
+
                     startActivity(intent)
 
                     //どちらのパーティも全滅していない場合
@@ -211,7 +215,11 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             intent.putExtra("party_key", gm.getAllyParty().size)
 
             mp0.reset()
-            toast!!.cancel()
+
+            if (toast != null) {
+                toast!!.cancel()
+            }
+
             startActivity(intent)
         }
         isTurnEnd = false
@@ -443,7 +451,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     ) {
 
         battleLog[battleLog.size - 1] =
-            battleLog[battleLog.size - 1].toString() + "\n                              ▽"
+            battleLog[battleLog.size - 1].toString() + "\n                              ▼"
 
         if (!isMessageSpeed) {
 

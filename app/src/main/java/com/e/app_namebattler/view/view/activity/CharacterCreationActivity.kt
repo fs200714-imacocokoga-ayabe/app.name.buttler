@@ -70,7 +70,11 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
         character_creation_create_character_back_button_id.setOnClickListener {
             val intent = Intent(this, CharacterListActivity::class.java)
             mp0.reset()
-            toast!!.cancel()
+
+            if (toast != null) {
+                toast!!.cancel()
+            }
+
             startActivity(intent)
         }
 
@@ -102,7 +106,12 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
                     intent.putExtra("name_key", nameValue)
                     intent.putExtra("job_key", jobValue)
                     mp0.reset()
-                    toast!!.cancel()
+
+
+                    if (toast != null) {
+                        toast!!.cancel()
+                    }
+
                     startActivity(intent)
                 }
             }
@@ -209,9 +218,11 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
     }
 
     private fun attentionMessage(message: String) {
+
         if (toast != null) {
             toast!!.cancel()
         }
+
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message, null)
         toast = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
@@ -222,9 +233,11 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
     }
 
     private fun jobMemo(message: String) {
+
         if (toast != null) {
             toast!!.cancel()
         }
+
         val layoutInflater = layoutInflater
         val customToastView: View =
             layoutInflater.inflate(R.layout.toast_layout_strategy_memo, null)
