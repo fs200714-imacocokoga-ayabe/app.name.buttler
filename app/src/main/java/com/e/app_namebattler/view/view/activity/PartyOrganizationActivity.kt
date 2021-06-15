@@ -236,7 +236,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message, null)
         val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
-        ts.setGravity(Gravity.TOP, 0, 160)
+        ts.setGravity(Gravity.BOTTOM, 0, 180)
         (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
         ts.setView(customToastView)
         ts.show()

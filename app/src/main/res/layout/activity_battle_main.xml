@@ -9,7 +9,6 @@
     tools:context=".view.view.activity.BattleMainActivity">
 
     // "バトル"表示
-
     <TextView
         android:id="@+id/battle_main_battle_print_text_id"
         android:layout_width="match_parent"
@@ -44,7 +43,6 @@
         app:layout_constraintTop_toBottomOf="@+id/battle_main_battle_log_text_id" />
 
     // 敵パーティ表示レイアウト
-
     <LinearLayout
         android:id="@+id/battle_main_enemy_party_linearLayout_id"
         android:layout_width="350dp"
@@ -71,7 +69,6 @@
     </LinearLayout>
 
     // 味方パーティ表示レイアウト
-
     <LinearLayout
         android:id="@+id/battle_main_ally_party_linearLayout_id"
         android:layout_width="350dp"
@@ -95,7 +92,6 @@
     </LinearLayout>
 
     // バトルログの表示
-
     <TextView
         android:id="@+id/battle_main_battle_log_text_id"
         android:layout_width="match_parent"
@@ -114,7 +110,6 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     //　"作戦:"の表示と作戦の表示
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
