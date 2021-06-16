@@ -811,14 +811,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         backGroundView.setBackgroundResource(backGroundValue)
     }
 
-    override fun onDestroy() {
-        mp0.release()
-        sp0.release()
-        super.onDestroy()
-    }
-
-    override fun onBackPressed() {}
-
     private fun shorteningPrintEnemyStatus(
         num: Int,
         enemy01StatusLog: MutableList<String>,
@@ -975,6 +967,26 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 character00Paralysis)),
             (character00Hp.toInt()), (character00PrintStatusEffect.toInt()))
     }
+
+    override fun onDestroy() {
+        mp0.release()
+        sp0.release()
+        super.onDestroy()
+    }
+
+    override fun onPause() {
+        mp0.pause()
+        sp0.autoPause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        mp0.start()
+        sp0.autoResume()
+        super.onResume()
+    }
+
+    override fun onBackPressed() {}
 }
 
 
