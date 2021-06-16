@@ -126,6 +126,16 @@ class TopScreenActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    override fun onPause() {
+        mp0.pause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        mp0.start()
+        super.onResume()
+    }
+
     //戻るボタンの禁止
     override fun onBackPressed() {}
 }

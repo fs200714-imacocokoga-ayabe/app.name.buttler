@@ -254,6 +254,16 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
         super.onDestroy()
     }
 
+    override fun onPause() {
+        mp0.pause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        mp0.start()
+        super.onResume()
+    }
+
     override fun onBackPressed() {}
 
 }
