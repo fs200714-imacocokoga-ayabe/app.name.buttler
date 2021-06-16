@@ -235,11 +235,11 @@ class PartyOrganizationActivity : AppCompatActivity() {
     private fun attentionMessage(message: String) {
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_message, null)
-        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
-        ts.setGravity(Gravity.BOTTOM, 0, 180)
+        val toast = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
+        toast.setGravity(Gravity.BOTTOM, 0, 180)
         (customToastView.findViewById(R.id.toast_layout_message_id) as TextView).text = message
-        ts.setView(customToastView)
-        ts.show()
+        toast.setView(customToastView)
+        toast.show()
     }
 
     //　数字を文字に変える
