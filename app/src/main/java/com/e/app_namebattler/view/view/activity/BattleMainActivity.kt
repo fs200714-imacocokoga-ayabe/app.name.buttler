@@ -171,7 +171,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 gm.battle(strategyNumber)
                 isNextTurn = true
                 battleEnd()
-              //  nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()
 
             }else if (isNextTurn && isTurnEnd) {
 
@@ -184,7 +183,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                     // パーティの勝ち負け判定に使用　Party01のsizeが0なら敵の勝利1以上なら味方の勝利
                     val allyPartySurvivalNumber = gm.getAllyParty().size
-                    
+
                     intent.putExtra("party_key", allyPartySurvivalNumber)
 
                     mp0.reset()
@@ -202,10 +201,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                     // turnEnd()
                     isTurnEnd = false
                 }
-
-            } else {
-
-                printMessage(Comment.M_NOT_END_TURN_COMMENT.getComment())
             }
         }
     }
@@ -600,41 +595,33 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     private fun waitTime(battleLog: Int) {
 
-        val nextButtonText = findViewById<TextView>(R.id.battle_main_next_turn_button_id)
-
         if (!isMessageSpeed) {
             when (battleLog) {
-                1 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 200)
-                2 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 3500)
-                3 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 6500)
-                4 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 9500)
-                5 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 12500)
-                6 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 15500)
+                1 -> handler.postDelayed({nextTurnButtonMessage()}, 200)
+                2 -> handler.postDelayed({nextTurnButtonMessage()}, 3500)
+                3 -> handler.postDelayed({nextTurnButtonMessage()}, 6500)
+                4 -> handler.postDelayed({nextTurnButtonMessage()}, 9500)
+                5 -> handler.postDelayed({nextTurnButtonMessage()}, 12500)
+                6 -> handler.postDelayed({nextTurnButtonMessage()}, 15500)
             }
 
         } else {
 
             when (battleLog) {
-                1 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 100)
-                2 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 200)
-                3 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 300)
-                4 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 400)
-                5 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 500)
-                6 -> handler.postDelayed({ isTurnEnd = true
-                    nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()}, 600)
+                1 -> handler.postDelayed({nextTurnButtonMessage()}, 100)
+                2 -> handler.postDelayed({nextTurnButtonMessage()}, 200)
+                3 -> handler.postDelayed({nextTurnButtonMessage()}, 300)
+                4 -> handler.postDelayed({nextTurnButtonMessage()}, 400)
+                5 -> handler.postDelayed({nextTurnButtonMessage()}, 500)
+                6 -> handler.postDelayed({nextTurnButtonMessage()}, 600)
             }
         }
+    }
+
+    private fun nextTurnButtonMessage(){
+        val nextButtonText = findViewById<TextView>(R.id.battle_main_next_turn_button_id)
+        isTurnEnd = true
+        nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()
     }
 
     private fun printEnemyStatus(
