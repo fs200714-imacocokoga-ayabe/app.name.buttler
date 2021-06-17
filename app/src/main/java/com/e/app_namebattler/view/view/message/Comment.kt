@@ -14,7 +14,8 @@ enum class Comment(
     M_PARTY_MEMBER_NUMBER_COMMENT("パーティメンバーは３人です"),
     M_BATTLE_START_COMMENT("バトルスタート"),
     M_BATTLE_NEXT_TURN_COMMENT("次のターン"),
-    M_IN_BATTLE_COMMENT("戦闘中・・・");
+    M_IN_BATTLE_COMMENT("戦闘中・・・"),
+    M_IN_PROCESS("処理中・・・");
 
     fun getComment(): String {
         return comment

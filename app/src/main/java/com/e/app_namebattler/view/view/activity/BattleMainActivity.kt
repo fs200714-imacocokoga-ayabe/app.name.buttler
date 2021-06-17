@@ -3,6 +3,7 @@ package com.e.app_namebattler.view.view.activity
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Point
 import android.media.AudioAttributes
 import android.media.MediaPlayer
@@ -10,6 +11,7 @@ import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Telephony
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
@@ -35,10 +37,10 @@ import com.e.app_namebattler.view.view.message.Comment
 import com.e.app_namebattler.view.view.music.MusicData
 import com.e.app_namebattler.view.view.music.SoundData
 import kotlinx.android.synthetic.main.activity_battle_main.*
+import org.w3c.dom.Text
 
 class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogListener {
 
-    private lateinit var s: String
     lateinit var mp0: MediaPlayer
     private lateinit var sp0: SoundPool
     private var snd0 = 0
@@ -104,7 +106,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         val aa0 = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(
             AudioAttributes.CONTENT_TYPE_SPEECH).build()
-        sp0 = SoundPool.Builder().setAudioAttributes(aa0).setMaxStreams(2).build()
+
+        sp0 = SoundPool.Builder().setAudioAttributes(aa0).setMaxStreams(1).build()
 
         snd0 = sp0.load(this, SoundData.S_SWORD01.getSound(), 1)
         snd1 = sp0.load(this, SoundData.S_KATANA01.getSound(), 1)
@@ -166,8 +169,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         // 次のターンボタンを押したときの処理
         battle_main_next_turn_button_id.setOnClickListener {
 
-            nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
+
             if (!isNextTurn){
+                nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
                 gm.battle(strategyNumber)
                 isNextTurn = true
                 battleEnd()
@@ -176,6 +180,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                 // どちらかのパーティが全滅した場合
                 if (gm.getAllyParty().isEmpty() || gm.getEnemyParty().isEmpty()) {
+
+                    nextButtonText.text = Comment.M_IN_PROCESS.getComment()
                     // GameManagerクラス から　CharacterDataクラスにデータを渡す処理
                     gm.sendData()
 
@@ -197,6 +203,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                     //どちらのパーティも全滅していない場合
                 } else {
 
+                    nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
                     gm.battle(strategyNumber)
                     // turnEnd()
                     isTurnEnd = false
@@ -801,14 +808,16 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         val backGroundList = ArrayList<BackGroundData>()
         val backGroundView: TextView = findViewById(R.id.battle_main_battle_log_text_id)
 
-        for (bg in BackGroundData.values()) {
-            backGroundList.add(bg)
+        for (bgData in BackGroundData.values()) {
+            backGroundList.add(bgData)
         }
 
-        val backGroundValue =
-            backGroundList[(1..backGroundList.size).random() - 1].getBackGround()
-
+        val randomNumberBox = (1..backGroundList.size).random() - 1
+       // val randomNumberBox = 6
+        val backGroundValue = backGroundList[randomNumberBox].getBackGround()
+        val battleLogTextColor = backGroundList[randomNumberBox].getTextColor()
         backGroundView.setBackgroundResource(backGroundValue)
+        backGroundView.setTextColor(Color.parseColor(battleLogTextColor))
     }
 
     private fun shorteningPrintEnemyStatus(
@@ -976,13 +985,12 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     override fun onPause() {
         mp0.pause()
-        sp0.autoPause()
+        sp0.release()
         super.onPause()
     }
 
     override fun onResume() {
         mp0.start()
-        sp0.autoResume()
         super.onResume()
     }
 
