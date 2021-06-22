@@ -240,10 +240,10 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
 
         val layoutInflater = layoutInflater
         val customToastView: View =
-            layoutInflater.inflate(R.layout.toast_layout_strategy_memo, null)
+            layoutInflater.inflate(R.layout.toast_layout_job_memo, null)
         toast = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
-        toast!!.setGravity(Gravity.BOTTOM, 0, 300)
-        (customToastView.findViewById(R.id.toast_layout_strategy_comment_message_id) as TextView).text =
+        toast!!.setGravity(Gravity.BOTTOM, 0, 150)
+        (customToastView.findViewById(R.id.toast_layout_job_memo_id) as TextView).text =
             message
         toast!!.setView(customToastView)
         toast!!.show()
