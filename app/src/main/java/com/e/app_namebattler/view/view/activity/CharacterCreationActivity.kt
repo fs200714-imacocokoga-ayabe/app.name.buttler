@@ -32,6 +32,7 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
     private val maxCharacterNumber = 8 // 登録できるキャラクター数
     private val nameLength = 10 //キャラクターの名前の文字数
     private var toast: Toast? = null
+    private var isStrongWord = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +92,14 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
                 val radioId = radioGroupJob.checkedRadioButtonId
                 val createJobValues: RadioButton = radioGroupJob.findViewById(radioId)
                 //表示させる形式に変数を変換
-                val nameValue: String = createNameValues.text.toString()
+                var nameValue: String = createNameValues.text.toString()
+
+                // 名前の後ろに@ayaを付けると強いキャラクターが作成される
+                if(nameValue.endsWith("@aya")){
+                    isStrongWord = true
+                    nameValue = nameValue.removeSuffix("@aya")// 同名チェックのため@ayaを削除
+                }
+
                 // データベースの中に同じ名前が存在するかのチェック
                 if (sameNameCheck(nameValue)) {
 
@@ -105,6 +113,7 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
                     // 名前と職業をCharacterCreateActivityに渡す
                     intent.putExtra("name_key", nameValue)
                     intent.putExtra("job_key", jobValue)
+                    intent.putExtra("strong_key", isStrongWord)
                     mp0.reset()
 
 

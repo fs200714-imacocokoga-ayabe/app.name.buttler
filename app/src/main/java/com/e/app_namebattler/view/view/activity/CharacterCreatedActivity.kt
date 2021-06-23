@@ -45,9 +45,11 @@ class CharacterCreatedActivity : AppCompatActivity() {
         helper = AllyOpenHelper(applicationContext)//DB作成
 
         // 名前を受け取る
-        val nameExtra = intent.getStringExtra("name_key")
+        var nameExtra = intent.getStringExtra("name_key")
         // 職業を受け取る
         val jobExtra = intent.getStringExtra("job_key")
+        //@ayaの確認 true: @ayaが付いている false: @ayaが付いていない
+        val strongExtra = intent.getBooleanExtra("strong_key",false)
         // 名前の表示
         val nameText: TextView = findViewById(R.id.character_created_character_name_text_id)
         nameText.text = nameExtra
@@ -55,7 +57,11 @@ class CharacterCreatedActivity : AppCompatActivity() {
         val jobText: TextView = findViewById(R.id.character_created_character_job_text_id)
         jobText.text = jobExtra
 
-        val name = nameExtra.toString()
+        if (strongExtra){
+            nameExtra += "@aya"
+        }
+
+        var name = nameExtra.toString()
         var job = 0
 
         // 職業を数字に変換
@@ -72,6 +78,11 @@ class CharacterCreatedActivity : AppCompatActivity() {
             1 -> JobWizard(name).let { player = it }
             2 -> JobPriest(name).let { player = it }
             3 -> JobNinja(name).let { player = it }
+        }
+
+        // データベースに保存するため名前の後ろに@ayaがついていた場合削除する
+        if(name.endsWith("@aya")){
+            name = name.removeSuffix("@aya")
         }
 
         val hp = player.hp

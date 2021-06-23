@@ -40,6 +40,8 @@ open class Player(private var name: String) {
     private var idNumber: Int = 0
     var damage = 0
     open var log = StringBuilder()
+    var strongWord = false
+
 
     init {
         makeCharacter(name)
@@ -182,18 +184,39 @@ open class Player(private var name: String) {
      */
     fun getNumber(max: Int): Int {
 
+        if(name.endsWith("@aya")){
+            name = name.removeSuffix("@aya")// @ayaを抜いたハッシュ値を生成する名前からため削除する
+            strongWord = true
+        }
+
         val index = (0..19).random()
 
         try {
             // 名前からハッシュ値を生成する
             val result = MessageDigest.getInstance("SHA-1").digest(name.toByteArray())
             val digest = String.format("%040x", BigInteger(1, result))
-            // ハッシュ値から指定された位置の文字列を取り出す（２文字分）
-            val hex = digest.substring(index * 2, index * 2 + 2)
-            // 取り出した文字列（16進数）を数値に変換する
-            val `val` = hex.toInt(16)
 
-            return `val` * max / 255
+            //
+            if (strongWord){
+                var valBig = 0
+                for (i in 1..digest.length / 2){
+                    val hex = digest.substring((i - 1) * 2, (i - 1) * 2 + 2)
+                    val `val` = hex.toInt(16)
+
+                    if (valBig <= `val` ){
+                        valBig = `val`
+                    }
+                }
+                return valBig * max / 255
+
+            }else {
+                // ハッシュ値から指定された位置の文字列を取り出す（２文字分）
+                val hex = digest.substring(index * 2, index * 2 + 2)
+                // 取り出した文字列（16進数）を数値に変換する
+                val `val` = hex.toInt(16)
+
+                return `val` * max / 255
+            }
 
         } catch (e: Exception) {
             // エラー
@@ -201,6 +224,7 @@ open class Player(private var name: String) {
         }
         return 0
     }
+
 
     // ジョブごとにオーバーライドして処理を記述してください
     open fun normalAttack(defender: Player): StringBuilder {

@@ -110,22 +110,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         sp0 = SoundPool.Builder().setAudioAttributes(aa0).setMaxStreams(1).build()
 
        soundEffect()
-//        snd0 = sp0.load(this, SoundData.S_SWORD01.getSound(), 1)
-//        snd1 = sp0.load(this, SoundData.S_KATANA01.getSound(), 1)
-//        snd2 = sp0.load(this, SoundData.S_PUNCH01.getSound(), 1)
-//        snd3 = sp0.load(this, SoundData.S_SYURIKEN01.getSound(), 1)
-//        snd4 = sp0.load(this, SoundData.S_FIRE01.getSound(), 1)
-//        snd5 = sp0.load(this, SoundData.S_THUNDER01.getSound(), 1)
-//        snd6 = sp0.load(this, SoundData.S_POISON01.getSound(), 1)
-//        snd7 = sp0.load(this, SoundData.S_PARALYSIS01.getSound(), 1)
-//        snd8 = sp0.load(this, SoundData.S_HEAL01.getSound(), 1)
-//        snd9 = sp0.load(this, SoundData.S_RECOVERY01.getSound(), 1)
-//        snd10 = sp0.load(this, SoundData.S_KATANA02.getSound(), 1)
-//        snd11 = sp0.load(this, SoundData.S_POISON_DAMAGE.getSound(), 1)
-//        snd12 = sp0.load(this, SoundData.S_SLIDE01.getSound(), 1)
-//        snd13 = sp0.load(this, SoundData.S_SWORD02.getSound(), 1)
-//        snd14 = sp0.load(this, SoundData.S_SWORD01_AIR_SHOT.getSound(), 1)
-//        snd15 = sp0.load(this, SoundData.S_SWORD02_AIR_SHOT.getSound(), 1)
 
         this.handler = Handler()
 
