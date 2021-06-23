@@ -11,6 +11,22 @@ import java.security.MessageDigest
 import java.util.concurrent.ThreadLocalRandom
 
 open class Player(private var name: String) {
+    constructor( name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int):this(name){
+makePlayer(name, job,  hp, mp, str, def, agi, luck)
+    }
+
+    open fun makePlayer(name: String,job: String,hp: Int, mp: Int, str: Int,def: Int, agi: Int, luck: Int) {
+
+        this.name = name
+        this.job = job
+        this.hp = hp
+        this.mp = mp
+        this.str = str
+        this.def = def
+        this.agi = agi
+        this.luck = luck
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     open fun randomInt(rangeFirstNum: Int, rangeLastNum: Int) {

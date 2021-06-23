@@ -8,16 +8,9 @@ import com.e.app_namebattler.view.view.music.SoundData
 
 class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic {
 
-    constructor(
-        name: String,
-        job: String,
-        hp: Int,
-        mp: Int,
-        str: Int,
-        def: Int,
-        agi: Int,
-        luck: Int
-    ) : this(name)
+    constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int) : this(name){
+        makePlayer(name, job, hp, mp, str, def, agi, luck)
+    }
 
     var isHeal = false
 

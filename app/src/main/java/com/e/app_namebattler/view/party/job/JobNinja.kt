@@ -8,16 +8,10 @@ import com.e.app_namebattler.view.view.music.SoundData
 
 class JobNinja(name: String) : Player(name), IMagicalUsable {
 
-    constructor(
-        name: String,
-        job: String,
-        hp: Int,
-        mp: Int,
-        str: Int,
-        def: Int,
-        agi: Int,
-        luck: Int
-    ) : this(name)
+    constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int) : this(name){
+        makePlayer(name, job, hp, mp, str, def, agi, luck)
+    }
+
 
     // 忍者のパラメータを名前から生成する
     override fun makeCharacter(name: String) {

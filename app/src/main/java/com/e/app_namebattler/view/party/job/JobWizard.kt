@@ -7,16 +7,9 @@ import com.e.app_namebattler.view.view.music.SoundData
 
 class JobWizard(name: String) : Player(name), IMagicalUsable {
 
-    constructor(
-        name: String,
-        job: String,
-        hp: Int,
-        mp: Int,
-        str: Int,
-        def: Int,
-        agi: Int,
-        luck: Int
-    ) : this(name)
+    constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int) : this(name){
+        makePlayer(name, job, hp, mp, str, def, agi, luck)
+    }
 
     override fun makeCharacter(name: String) {
 
