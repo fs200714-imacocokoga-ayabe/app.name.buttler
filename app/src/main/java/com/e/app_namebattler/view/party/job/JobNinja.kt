@@ -12,19 +12,9 @@ class JobNinja(name: String) : Player(name), IMagicalUsable {
         makePlayer(name, job, hp, mp, str, def, agi, luck)
     }
 
-
-    // 忍者のパラメータを名前から生成する
-    override fun makeCharacter(name: String) {
-
-        this.job = JobData.NINJA.getJobName()
-        this.hp = getNumber(100) + 70 // 70-170
-        this.mp = getNumber(20) + 10 // 10-30
-        this.str = getNumber(50) + 20 // 20-70
-        this.def = getNumber(49) + 1  // 1-50
-        this.luck = getNumber(99) + 1 // 1-100
-        this.agi = getNumber(40) + 40 // 40-80
+    override fun initJob(){
+        jobData = JobData.NINJA
     }
-
     override fun normalAttack(defender: Player): StringBuilder {
 
         log.clear()

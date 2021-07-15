@@ -40,7 +40,7 @@ enum class JobData(
         return jobHp
     }
 
-    fun getJobHpCorrectionValue(): Int {
+    fun getJobMinHp(): Int {
         return jobHpCorrectionValue
     }
 
@@ -48,7 +48,7 @@ enum class JobData(
         return jobMp
     }
 
-    fun getJobMpCorrectionValue(): Int {
+    fun getJobMinMp(): Int {
         return jobMpCorrectionValue
     }
 
@@ -56,7 +56,7 @@ enum class JobData(
         return jobStr
     }
 
-    fun getJobStrCorrectionValue(): Int {
+    fun getJobMinStr(): Int {
         return jobStrCorrectionValue
     }
 
@@ -64,15 +64,15 @@ enum class JobData(
         return jobDef
     }
 
-    fun getJobDefCorrectionValue(): Int {
+    fun getJobMinDef(): Int {
         return jobDefCorrectionValue
     }
 
-    fun getJobluck(): Int {
+    fun getJobLuck(): Int {
         return jobLuck
     }
 
-    fun getJobluckCorrectionValue(): Int {
+    fun getJobMinLuck(): Int {
         return jobLuckCorrectionValue
     }
 
@@ -80,7 +80,7 @@ enum class JobData(
         return jobAgi
     }
 
-    fun getJobAgiCorrectionValue(): Int {
+    fun getJobMinAgi(): Int {
         return jobAgiCorrectionValue
     }
 

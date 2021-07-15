@@ -14,18 +14,9 @@ class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic {
 
     var isHeal = false
 
-    override fun makeCharacter(name: String) {
-
-        // 僧侶のパラメータを名前から生成する
-        this.job = JobData.PRIEST.getJobName()
-        this.hp = getNumber(120) + 80 // 80-200
-        this.mp = getNumber(30) + 20 // 20-50
-        this.str = getNumber(40) + 10 // 10-50
-        this.def = getNumber(60) + 10 // 10-70
-        this.luck = getNumber(99) + 1 // 1-100
-        this.agi = getNumber(40) + 20 // 20-60
+    override fun initJob(){
+        jobData = JobData.PRIEST
     }
-
     override fun normalAttack(defender: Player): StringBuilder {
 
         log.clear()

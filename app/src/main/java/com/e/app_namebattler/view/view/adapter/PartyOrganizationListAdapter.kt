@@ -36,7 +36,7 @@ class PartyOrganizationListAdapter(
         val Agi = view.findViewById<TextView>(R.id.data_party_organization_character_status_agi_id)
 
         val character = CharacterList[position]
-
+        Name.text = "  ".plus(character.name)
         Name.text = "  ".plus(character.name)
         Job.text = "  ".plus(character.job)
         Hp.text = "   HP:".plus(character.hp.toString())
