@@ -10,19 +10,9 @@ class JobWizard(name: String) : Player(name), IMagicalUsable {
     constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int) : this(name){
         makePlayer(name, job, hp, mp, str, def, agi, luck)
     }
-
-    override fun makeCharacter(name: String) {
-
-        // 魔法使いのパラメータを名前から生成する
-        this.job = JobData.WIZARD.getJobName()
-        this.hp = getNumber(100) + 50 // 50-150
-        this.mp = getNumber(50) + 30 // 30-80
-        this.str = getNumber(49) + 1 // 1-50
-        this.def = getNumber(49) + 1 // 1-50
-        this.luck = getNumber(99) + 1 // 1-100
-        this.agi = getNumber(40) + 20 // 20-60
+    override fun initJob(){
+        jobData = JobData.WIZARD
     }
-
     override fun normalAttack(defender: Player): StringBuilder {
 
         log.clear()

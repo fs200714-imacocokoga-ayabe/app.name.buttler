@@ -12,7 +12,7 @@ import com.e.app_namebattler.R
 import com.e.app_namebattler.view.party.player.CharacterAllData
 
 
-class CharacterListAdapter(val context: Context, val CharacterList: ArrayList<CharacterAllData>) :
+class CharacterListAdapter(val context: Context, private val CharacterList: ArrayList<CharacterAllData>) :
     BaseAdapter() {
 
     @SuppressLint("ViewHolder", "SetTextI18n")

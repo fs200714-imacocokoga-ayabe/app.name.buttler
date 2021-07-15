@@ -3,6 +3,7 @@ package com.e.app_namebattler.view.party.player
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.e.app_namebattler.view.party.herb.Herb
+import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.magic.MagicData
 import com.e.app_namebattler.view.party.status.Status
 import com.e.app_namebattler.view.view.music.SoundData
@@ -11,11 +12,29 @@ import java.security.MessageDigest
 import java.util.concurrent.ThreadLocalRandom
 
 open class Player(private var name: String) {
-    constructor( name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int):this(name){
-makePlayer(name, job,  hp, mp, str, def, agi, luck)
+    constructor(
+        name: String,
+        job: String,
+        hp: Int,
+        mp: Int,
+        str: Int,
+        def: Int,
+        agi: Int,
+        luck: Int
+    ):this(name){
+makePlayer(name, job, hp, mp, str, def, agi, luck)
     }
 
-    open fun makePlayer(name: String,job: String,hp: Int, mp: Int, str: Int,def: Int, agi: Int, luck: Int) {
+    open fun makePlayer(
+        name: String,
+        job: String,
+        hp: Int,
+        mp: Int,
+        str: Int,
+        def: Int,
+        agi: Int,
+        luck: Int
+    ) {
 
         this.name = name
         this.job = job
@@ -57,64 +76,39 @@ makePlayer(name, job,  hp, mp, str, def, agi, luck)
     var damage = 0
     open var log = StringBuilder()
     var strongWord = false
-
+    open lateinit var jobData: JobData
 
     init {
+        initJob()
         makeCharacter(name)
     }
 
-    /**
-     * コンストラクタ
-     * @return name: プレイヤー名
-     */
+    open fun initJob() {}
+
     open fun getName(): String {
         return name
     }
 
-    /**
-     * 現在HPを取得する
-     * @return hp :現在HP
-     */
     open fun getHP(): Int {
         return hp
     }
 
-    /**
-     * 現在MPを取得する
-     * @return mp :現在MP
-     */
     open fun getMP(): Int {
         return mp
     }
 
-    /**
-     * 攻撃力を取得する
-     * @return str :攻撃力
-     */
     open fun getSTR(): Int {
         return str
     }
 
-    /**
-     * 防御力を取得する
-     * @return def :防御力
-     */
     open fun getDEF(): Int {
         return def
     }
 
-    /**
-     * 運を取得する
-     * @return luck :運
-     */
     open fun getLUCK(): Int {
         return luck
     }
 
-    /**
-     * 素早さを取得する
-     * @return agi :素早さ
-     */
     open fun getAGI(): Int {
         return agi
     }
@@ -140,6 +134,13 @@ makePlayer(name, job,  hp, mp, str, def, agi, luck)
     }
 
     open fun makeCharacter(name: String) {
+        this.job = jobData.getJobName()
+        this.hp = getNumber(jobData.getJobHp()) + jobData.getJobMinHp()
+        this.mp = getNumber(jobData.getJobMp()) + jobData.getJobMinMp()
+        this.str = getNumber(jobData.getJobStr()) + jobData.getJobMinStr()
+        this.def = getNumber(jobData.getJobDef()) + jobData.getJobMinDef()
+        this.agi = getNumber(jobData.getJobAgi()) + jobData.getJobMinAgi()
+        this.luck = getNumber(jobData.getJobLuck()) + jobData.getJobMinLuck()
     }
 
     open fun getPoison(): String {
