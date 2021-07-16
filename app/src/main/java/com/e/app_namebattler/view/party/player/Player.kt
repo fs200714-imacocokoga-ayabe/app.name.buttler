@@ -3,6 +3,7 @@ package com.e.app_namebattler.view.party.player
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.e.app_namebattler.view.party.herb.Herb
+import com.e.app_namebattler.view.party.herb.IEat
 import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.magic.MagicData
 import com.e.app_namebattler.view.party.status.Status
@@ -11,7 +12,7 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.concurrent.ThreadLocalRandom
 
-open class Player(private var name: String) {
+open class Player(private var name: String): IEat {
     constructor(
         name: String,
         job: String,
@@ -74,7 +75,7 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
     private var attackSoundEffect = 0
     private var idNumber: Int = 0
     var damage = 0
-    open var log = StringBuilder()
+    override var log = StringBuilder()
     var strongWord = false
     open lateinit var jobData: JobData
 
@@ -199,7 +200,7 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
     /**
      * 名前(name)からキャラクターに必要なパラメータを生成する
      */
-    fun getNumber(max: Int): Int {
+    private fun getNumber(max: Int): Int {
 
         if(name.endsWith("@aya")){
             name = name.removeSuffix("@aya")// @ayaを抜いたハッシュ値を生成する名前からため削除する
@@ -257,6 +258,11 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
     }
 
     open fun healingMagic(defender: Player): StringBuilder {
+        return log
+    }
+
+    open fun eat(): StringBuilder {
+        selectEat(this)
         return log
     }
 
@@ -341,49 +347,7 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
         // ダメージ値分、HPを減少させる
         hp = (this.hp - damage).coerceAtLeast(0)
     }
-
-    /**
-     * 草を食べる処理
-     */
-    open fun eatHerb(): StringBuilder {
-
-        log.clear()
-
-        if (this.isParalysis) {// 麻痺している場合
-
-            log.append("${this.name}は麻痺で動けない！！\n")
-            setSoundStatusEffect(1)
-
-        } else {// 麻痺していない場合
-
-            log.append("${this.name}は革袋の中にあった薬草を食べた！\n")
-
-            when ((0..2).random()) {
-                0 -> {
-                    recoveryProcess(this, Herb.HERB.getHerbRecoveryValue())
-                }
-
-                1 -> {
-
-                    if (isPoison) {
-                        log.append("${this.name}は毒が消えた！\n")
-                        isPoison = false
-                        setAttackSoundEffect(SoundData.S_RECOVERY01.getSoundNumber())
-                    } else {
-
-                        recoveryProcess(this, Herb.HERB.getHerbRecoveryValue())
-                    }
-                }
-
-                2 -> {
-                    log.append("${this.name}は何も起こらなかった！\n")
-                }
-            }
-        }
-        knockedDownCheck(this)
-        return log
-    }
-
+    
     open fun recoveryProcess(defender: Player, heal: Int): Int {
 
         var healValue = heal
@@ -398,7 +362,7 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
         return healValue
     }
 
-    private fun recovery(healValue: Int) {
+     private fun recovery(healValue: Int) {
         hp += healValue
     }
 }

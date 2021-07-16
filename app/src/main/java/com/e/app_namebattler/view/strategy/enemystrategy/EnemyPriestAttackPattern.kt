@@ -19,7 +19,7 @@ class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
         when {
 
             cpuPlayer?.isPoison!! -> { // playerが毒状態の場合
-                battleLog.append(cpuPlayer?.eatHerb())
+                battleLog.append(cpuPlayer?.eat())
             }
 
             // HPが最大HPの1/4より小さい場合
