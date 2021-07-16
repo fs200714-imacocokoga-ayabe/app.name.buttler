@@ -18,7 +18,7 @@ class EnemyNinjaAttackPattern : StrategyEnemyAttackPatternByJob() {
         when {
             // 毒状態の場合
             cpuPlayer?.isPoison!! -> {
-                battleLog.append(cpuPlayer?.eatHerb())
+                battleLog.append(cpuPlayer?.eat())
             }
 
             // 攻撃力の1/2が相手の防御力より大きい場合

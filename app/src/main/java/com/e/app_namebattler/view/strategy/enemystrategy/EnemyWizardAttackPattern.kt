@@ -18,7 +18,7 @@ class EnemyWizardAttackPattern : StrategyEnemyAttackPatternByJob() {
         // 毒状態の場合
         when {
             cpuPlayer?.isPoison!! -> {
-                battleLog.append(cpuPlayer?.eatHerb())
+                battleLog.append(cpuPlayer?.eat())
             }
 
             // 攻撃力の1/2より相手の防御力の方が大きい場合
