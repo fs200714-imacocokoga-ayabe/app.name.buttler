@@ -7,7 +7,7 @@ import com.e.app_namebattler.view.view.music.SoundData
 class JobFighter(name: String) : Player(name) {
 
     constructor(name: String, job: String, hp: Int, mp: Int, str: Int, def: Int, agi: Int, luck: Int) : this(name){
-        makePlayer(name, job, hp, mp, str, def, agi, luck)
+//        makePlayer(name, job, hp, mp, str, def, agi, luck)
     }
     override fun initJob(){
         jobData = JobData.FIGHTER

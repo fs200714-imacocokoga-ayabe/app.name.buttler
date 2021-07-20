@@ -2,15 +2,18 @@ package com.e.app_namebattler.view.party.player
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.e.app_namebattler.view.party.herb.Herb
 import com.e.app_namebattler.view.party.herb.IEat
 import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.party.magic.IRecoveryMagic
+import com.e.app_namebattler.view.party.magic.IUseMagic
 import com.e.app_namebattler.view.party.magic.MagicData
 import com.e.app_namebattler.view.party.status.Status
 import com.e.app_namebattler.view.view.music.SoundData
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.*
 import java.util.concurrent.ThreadLocalRandom
+
 
 open class Player(private var name: String): IEat {
     constructor(
@@ -47,7 +50,6 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
         this.luck = luck
     }
 
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     open fun randomInt(rangeFirstNum: Int, rangeLastNum: Int) {
         ThreadLocalRandom.current().nextInt(rangeFirstNum, rangeLastNum)
@@ -65,10 +67,6 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
     open var isPoison: Boolean = false
     open var isParalysis: Boolean = false
     open var isMark: Boolean = false
-    open val WIZARD_USE_MAGIC_LOW_MP: Int = 10
-    open val PRIEST_USE_MAGIC_LOW_MP: Int = 10
-    open val PRIEST_USE_HEAL_MAGIC_LOW_MP: Int = 20
-    open val NINJA_USE_MAGIC_LOW_MP: Int = 10
     private var characterImageType: Int = 0
     private var characterEffect = 0
     private var characterStatusEffect = 0
@@ -78,8 +76,11 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
     override var log = StringBuilder()
     var strongWord = false
     open lateinit var jobData: JobData
+    var magics: List<IUseMagic>
+    lateinit var magic: IUseMagic
 
     init {
+        magics = ArrayList()
         initJob()
         makeCharacter(name)
     }
@@ -214,7 +215,6 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
             val result = MessageDigest.getInstance("SHA-1").digest(name.toByteArray())
             val digest = String.format("%040x", BigInteger(1, result))
 
-            //
             if (strongWord){
                 var valBig = 0
                 for (i in 1..digest.length / 2){
@@ -293,6 +293,7 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
      * @param damage :ダメージ
      */
     open fun damageProcess(defender: Player, damage: Int) {
+
         log.append("${defender.name}に${damage}のダメージ！\n")
 
         if (0 < damage) {
@@ -364,6 +365,22 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
 
      private fun recovery(healValue: Int) {
         hp += healValue
+    }
+
+    open fun downMp(mpCost: Int) {
+        mp -= mpCost // MPを消費
+    }
+
+    open fun choiceMagic(): IUseMagic {
+        Collections.shuffle(magics)
+
+        for (magic in magics) {
+
+            if (magic !is IRecoveryMagic) {
+                return magic
+            }
+        }
+        return magic
     }
 }
 
