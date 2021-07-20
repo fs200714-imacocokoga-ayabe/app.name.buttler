@@ -2,9 +2,12 @@ package com.e.app_namebattler.view.party.job
 
 import com.e.app_namebattler.view.party.magic.*
 import com.e.app_namebattler.view.party.player.Player
+import com.e.app_namebattler.view.party.skill.IOwnSkill
+import com.e.app_namebattler.view.party.skill.OpticalElemental
+import com.e.app_namebattler.view.party.skill.Swallow
 import com.e.app_namebattler.view.view.music.SoundData
 
-class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic, IOwnMagic {
+class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic, IOwnMagic, IOwnSkill {
 
     constructor(
         name: String,
@@ -18,6 +21,7 @@ class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic, IO
     ) : this(name) {
 //        makePlayer(name, job, hp, mp, str, def, agi, luck)
         initMagics()
+        initSkills()
     }
 
     var isHeal = false
@@ -30,45 +34,37 @@ class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic, IO
         magics  = mutableListOf(Poison(), Paralysis(), Heal())
     }
 
+    override fun initSkills() {
+        skills = mutableListOf(OpticalElemental())
+    }
+
     override fun normalAttack(defender: Player): StringBuilder {
 
         log.clear()
 
         if (this.isParalysis) {// 麻痺している場合
-
             log.append("${this.getName()}は麻痺で動けない！！\n")
-            knockedDownCheck(defender)
-
         } else {// 麻痺していない場合
             log.append("${this.getName()}の攻撃！\n錫杖で突いた！\n")
             setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
             damage = calcDamage(defender) // 与えるダメージを求める
             damageProcess(defender, damage) // ダメージ処理
-            knockedDownCheck(defender)
         }
+        knockedDownCheck(defender)
         return log
     }
 
     override fun skillAttack(defender: Player): StringBuilder {
 
         log.clear()
+        skill = skills[0]
 
         if (this.isParalysis) {// 麻痺している場合
-
             log.append("${this.getName()}は麻痺で動けない！！\n")
-            knockedDownCheck(this)
-
         } else {// 麻痺していない場合
-
-            if ((1..100).random() < MagicData.OPTICAL_ELEMENTAL.getInvocationRate()) {
-                log.append("${this.getName()}は祈りを捧げて${MagicData.OPTICAL_ELEMENTAL.getName()}を召還した\n${MagicData.OPTICAL_ELEMENTAL.getName()}の祝福を受けた！\n")
-                recoveryProcess(this, MagicData.OPTICAL_ELEMENTAL.getRecoveryValue())
-                setAttackSoundEffect(SoundData.S_HEAL01.getSoundNumber())
-            } else {
-                log.append("${this.getName()}は祈りを捧げたが何も起こらなかった！\n")
-            }
-            knockedDownCheck(this)
+            log = skill.effect(this, defender)
         }
+        knockedDownCheck(this)
         return log
     }
 
@@ -78,14 +74,11 @@ class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic, IO
         magic = choiceMagic()
 
         if (this.isParalysis) {// 麻痺している場合
-
             log.append("${this.getName()}は麻痺で動けない！！\n")
-            knockedDownCheck(defender)
-
         } else {// 麻痺していない場合
-
             log = (magic.effect(this, defender))
         }
+        knockedDownCheck(defender)
         return log
     }
 
@@ -96,16 +89,10 @@ class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic, IO
 
         if (this.isParalysis) {// 麻痺している場合
             log.append("${this.getName()}は麻痺で動けない！！\n")
-            
         } else {// 麻痺していない場合
-
-          //  isHeal = true
             log = (magic.effect(this, defender))
-
-         //   isHeal = false
         }
         knockedDownCheck(this)
-
         return log
     }
 

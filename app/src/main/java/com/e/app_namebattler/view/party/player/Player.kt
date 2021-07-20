@@ -7,12 +7,14 @@ import com.e.app_namebattler.view.party.job.JobData
 import com.e.app_namebattler.view.party.magic.IRecoveryMagic
 import com.e.app_namebattler.view.party.magic.IUseMagic
 import com.e.app_namebattler.view.party.magic.MagicData
+import com.e.app_namebattler.view.party.skill.IUseSkill
 import com.e.app_namebattler.view.party.status.Status
 import com.e.app_namebattler.view.view.music.SoundData
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
+import kotlin.collections.ArrayList
 
 
 open class Player(private var name: String): IEat {
@@ -76,11 +78,15 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
     override var log = StringBuilder()
     var strongWord = false
     open lateinit var jobData: JobData
+
     var magics: List<IUseMagic>
     lateinit var magic: IUseMagic
+    var skills: List<IUseSkill>
+    lateinit var skill: IUseSkill
 
     init {
         magics = ArrayList()
+        skills = ArrayList()
         initJob()
         makeCharacter(name)
     }
