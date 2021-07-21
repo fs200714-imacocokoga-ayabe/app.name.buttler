@@ -16,7 +16,6 @@ import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.collections.ArrayList
 
-
 open class Player(private var name: String): IEat {
     constructor(
         name: String,

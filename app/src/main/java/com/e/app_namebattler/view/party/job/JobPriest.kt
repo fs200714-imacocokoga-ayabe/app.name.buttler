@@ -4,10 +4,9 @@ import com.e.app_namebattler.view.party.magic.*
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.skill.IOwnSkill
 import com.e.app_namebattler.view.party.skill.OpticalElemental
-import com.e.app_namebattler.view.party.skill.Swallow
 import com.e.app_namebattler.view.view.music.SoundData
 
-class JobPriest(name: String) : Player(name), IMagicalUsable, IRecoveryMagic, IOwnMagic, IOwnSkill {
+class JobPriest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSkill {
 
     constructor(
         name: String,

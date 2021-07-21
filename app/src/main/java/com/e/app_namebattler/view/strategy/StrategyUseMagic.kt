@@ -1,6 +1,6 @@
 package com.e.app_namebattler.view.strategy
 
-import com.e.app_namebattler.view.party.magic.IMagicalUsable
+import com.e.app_namebattler.view.party.magic.IOwnMagic
 import com.e.app_namebattler.view.party.player.Player
 
 class StrategyUseMagic : BaseStrategy() {// 魔法を使用
@@ -12,7 +12,6 @@ class StrategyUseMagic : BaseStrategy() {// 魔法を使用
     ): StringBuilder {
 
         battleLog.clear()
-
         this.player1 = player1
 
         if (player1.isMark) { // player1がtrueの場合
@@ -23,17 +22,13 @@ class StrategyUseMagic : BaseStrategy() {// 魔法を使用
 
         player2 = party[(1..party.size).random() - 1] // 敵をランダムで選択
 
-        if (player1 is IMagicalUsable) {
-
+        if (player1 is IOwnMagic) {
             battleLog.append(player1.magicAttack(player2!!))
 
         } else {
-
             battleLog.append(player1.normalAttack(player2!!))
         }
-
         party.clear()
-
         return battleLog // バトルログを返す
     }
 }
