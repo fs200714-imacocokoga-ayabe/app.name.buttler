@@ -1,7 +1,6 @@
 package com.e.app_namebattler.view.party.job
 
 import com.e.app_namebattler.view.party.magic.Fire
-import com.e.app_namebattler.view.party.magic.IMagicalUsable
 import com.e.app_namebattler.view.party.magic.IOwnMagic
 import com.e.app_namebattler.view.party.magic.Thunder
 import com.e.app_namebattler.view.party.player.Player
@@ -9,8 +8,7 @@ import com.e.app_namebattler.view.party.skill.FierElemental
 import com.e.app_namebattler.view.party.skill.IOwnSkill
 import com.e.app_namebattler.view.view.music.SoundData
 
-
-class JobWizard(name: String) : Player(name), IMagicalUsable, IOwnMagic, IOwnSkill {
+class JobWizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
 
     constructor(
         name: String,

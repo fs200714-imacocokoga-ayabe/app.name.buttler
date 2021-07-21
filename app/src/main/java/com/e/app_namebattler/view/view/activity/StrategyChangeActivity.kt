@@ -111,8 +111,7 @@ class StrategyChangeActivity : AppCompatActivity() {
             layoutInflater.inflate(R.layout.toast_layout_strategy_memo, null)
         toast = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
         toast!!.setGravity(Gravity.BOTTOM, 0, 600)
-        (customToastView.findViewById(R.id.toast_layout_strategy_comment_message_id) as TextView).text =
-            message
+        (customToastView.findViewById(R.id.toast_layout_strategy_comment_message_id) as TextView).text = message
         toast!!.setView(customToastView)
         toast!!.show()
     }
@@ -131,7 +130,6 @@ class StrategyChangeActivity : AppCompatActivity() {
         mp0.start()
         super.onResume()
     }
-
 }
 
 

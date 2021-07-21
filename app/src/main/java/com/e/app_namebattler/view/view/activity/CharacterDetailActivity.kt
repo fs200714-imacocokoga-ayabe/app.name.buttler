@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_character_detail.*
 class CharacterDetailActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
-    lateinit var helper: AllyOpenHelper
+    private lateinit var helper: AllyOpenHelper
 
     var name = ""
     var job = ""

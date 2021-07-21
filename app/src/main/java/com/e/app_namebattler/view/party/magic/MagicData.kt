@@ -8,8 +8,8 @@ enum class MagicData(
     private val maxDamage: Int, // 最大ダメージ
     private val recoveryValue: Int,// 回復量
     private val continuousRate: Int, // 継続率
-    private val invocationRate: Int
-) {// 発動率
+    private val invocationRate: Int// 発動率
+) {
 
     FIRE("ファイア", 10, 10, 30, 0, 0, 0),
     THUNDER("サンダー", 20, 20, 50, 0, 0, 0),
@@ -17,8 +17,7 @@ enum class MagicData(
     PARALYSIS("パライズ", 10, 0, 0, 0, 20, 0),
     POISON("ポイズン", 10, 0, 20, 0, 0, 0),
     FIRE_ROLL("火遁の術", 10, 10, 30, 0, 0, 0),
-    FIRE_ELEMENTAL("炎の精霊", 0, 60, 60, 0, 0, 40),
-    OPTICAL_ELEMENTAL("光の精霊", 0, 0, 0, 70, 0, 40);
+    ;
 
     /**
      * 魔法の名前を取得する

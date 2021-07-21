@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_character_creation.*
 class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
 
     lateinit var mp0: MediaPlayer
-    lateinit var helper: AllyOpenHelper
+    private lateinit var helper: AllyOpenHelper
     private var isSameName: Boolean = false // 同じ名前かどうか true:同じ名前 false:違う名前
     private var inputStr: String = "" // editTextに入力された文字を格納
     private var limitLength = StringBuilder()

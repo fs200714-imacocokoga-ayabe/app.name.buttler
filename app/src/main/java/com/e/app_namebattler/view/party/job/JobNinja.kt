@@ -1,13 +1,13 @@
 package com.e.app_namebattler.view.party.job
 
-import com.e.app_namebattler.view.party.magic.*
+import com.e.app_namebattler.view.party.magic.FireRoll
+import com.e.app_namebattler.view.party.magic.IOwnMagic
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.skill.IOwnSkill
-import com.e.app_namebattler.view.party.skill.SkillData
 import com.e.app_namebattler.view.party.skill.Swallow
 import com.e.app_namebattler.view.view.music.SoundData
 
-class JobNinja(name: String) : Player(name), IMagicalUsable, IOwnMagic, IOwnSkill {
+class JobNinja(name: String) : Player(name), IOwnMagic, IOwnSkill {
 
     constructor(
         name: String,

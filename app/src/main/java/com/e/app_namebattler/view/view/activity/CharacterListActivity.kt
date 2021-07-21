@@ -20,8 +20,8 @@ import kotlinx.android.synthetic.main.activity_character_list.*
 class CharacterListActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
-    lateinit var helper: AllyOpenHelper
-    var characterList = arrayListOf<CharacterAllData>()
+    private lateinit var helper: AllyOpenHelper
+    private var characterList = arrayListOf<CharacterAllData>()
     private lateinit var mCharacterListAdapter: CharacterListAdapter
     private val characterCountMax = 8 //キャラクター数の上限
 
