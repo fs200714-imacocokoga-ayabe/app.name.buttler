@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.e.app_namebattler.*
-import com.e.app_namebattler.view.party.player.CharacterData
+import com.e.app_namebattler.model.CharacterData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
@@ -236,15 +236,16 @@ class BattleResultActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    override fun onPause() {
-        mp0.pause()
-        super.onPause()
-    }
-
-    override fun onResume() {
-        mp0.start()
-        super.onResume()
-    }
+//此処の処理は一旦保留：スリープ解除後効果音が出なくなるため
+//    override fun onPause() {
+//        mp0.pause()
+//        super.onPause()
+//    }
+//
+//    override fun onResume() {
+//        mp0.start()
+//        super.onResume()
+//    }
 
     override fun onBackPressed() {}
 }
