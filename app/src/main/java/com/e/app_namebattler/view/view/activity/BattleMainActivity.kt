@@ -125,7 +125,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         snd15 = sp0.load(this, SoundData.S_SWORD02_AIR_SHOT.getSound(), 1)
 
 
-      //  soundEffect()
+       // soundEffect()
 
         this.handler = Handler()
 
@@ -1005,16 +1005,17 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         super.onDestroy()
     }
 
-    override fun onPause() {
-        mp0.pause()
-        sp0.release()
-        super.onPause()
-    }
-
-    override fun onResume() {
-        mp0.start()
-        super.onResume()
-    }
+    //此処の処理は一旦保留：スリープ解除後効果音が出なくなるため
+//    override fun onPause() {
+//        mp0.pause()
+//        sp0.release()
+//        super.onPause()
+//    }
+//
+//    override fun onResume() {
+//        mp0.start()
+//        super.onResume()
+//    }
 
     override fun onBackPressed() {}
 }

@@ -1,6 +1,7 @@
-package com.e.app_namebattler.view.party.player
+package com.e.app_namebattler.model
 
 import android.app.Application
+import com.e.app_namebattler.view.party.player.Player
 
 class CharacterData : Application() {
 

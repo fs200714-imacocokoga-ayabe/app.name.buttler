@@ -1,6 +1,5 @@
 package com.e.app_namebattler.view.view.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -29,7 +28,6 @@ class TopScreenActivity : AppCompatActivity() {
     private val enemyPriestImageList = ArrayList<AllyPriestImageData>()
     private val enemyNinjaImageList = ArrayList<AllyNinjaImageData>()
 
-    @SuppressLint("ResourceType", "WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_screen)
@@ -101,6 +99,9 @@ class TopScreenActivity : AppCompatActivity() {
                     7 -> imageValue =
                         enemyNinjaImageList[(1..enemyNinjaImageList.size).random() - 1].getCharacterImage()
                 }
+
+//                findViewById<View>(imageValue).startAnimation(AnimationUtils.loadAnimation(this,
+//                    R.anim.anime01))
 
                 imageView.y = (-300..0).random().toFloat()
                 imageView.setImageResource(imageValue)

@@ -3,7 +3,7 @@ package com.e.app_namebattler.controller
 import com.e.app_namebattler.view.party.job.*
 import com.e.app_namebattler.view.party.party.Party
 import com.e.app_namebattler.view.party.player.CharacterAllData
-import com.e.app_namebattler.view.party.player.CharacterData
+import com.e.app_namebattler.model.CharacterData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.*
 import com.e.app_namebattler.view.strategy.enemystrategy.StrategyEnemyAttackPatternByJob
