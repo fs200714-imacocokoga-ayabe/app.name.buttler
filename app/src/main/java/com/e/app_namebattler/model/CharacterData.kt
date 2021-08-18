@@ -11,6 +11,8 @@ class CharacterData : Application() {
     var enemy01: Player? = null
     var enemy02: Player? = null
     var enemy03: Player? = null
+    var attackerList: MutableList<Player> = ArrayList()
+    var members: MutableList<Player> = ArrayList()
 
     companion object {
 

@@ -184,7 +184,7 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
         characterEffect = effect
     }
 
-    open fun getSoundStatusEffect(): Int {
+    open fun getStatusSoundEffect(): Int {
         return characterStatusEffect
     }
 
