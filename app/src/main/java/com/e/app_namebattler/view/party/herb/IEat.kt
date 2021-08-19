@@ -13,7 +13,7 @@ interface IEat {
 
         if (attacker.isParalysis) {// 麻痺している場合
             log.append("${attacker.getName()}は麻痺で動けない！！\n")
-            attacker.setSoundStatusEffect(1)
+            attacker.setStatusSoundEffect(1)
 
         } else {// 麻痺していない場合
             log.append("${attacker.getName()}は革袋の中にあった草を食べた！\n")
