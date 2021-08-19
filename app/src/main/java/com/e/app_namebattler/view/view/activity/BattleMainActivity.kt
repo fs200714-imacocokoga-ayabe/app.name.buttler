@@ -180,7 +180,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                 nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
                 battle(attackList, strategyNumber)
 
-            } else if (isNextTurn) {
+            } else if (isNextTurn && isTurnEnd) {
                 // どちらかのパーティが全滅した場合
                 if (gm.getAllyParty().isEmpty() || gm.getEnemyParty().isEmpty()) {
                     nextButtonText.text = Comment.M_IN_PROCESS.getComment()
@@ -210,6 +210,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     }
 
     private fun battle(attackList: MutableList<Player>, strategyNumber: Int) {
+
+        isTurnEnd = false
 
         var i = 1
 
@@ -631,7 +633,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     private fun nextTurnButtonMessage(){
         val nextButtonText = findViewById<TextView>(R.id.battle_main_next_turn_button_id)
-       // isTurnEnd = true
+        isTurnEnd = true
         nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()
     }
 
@@ -723,7 +725,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         }
 
         val randomNumberBox = (1..backGroundList.size).random() - 1
-       // val randomNumberBox = 6
         val backGroundValue = backGroundList[randomNumberBox].getBackGround()
         val battleLogTextColor = backGroundList[randomNumberBox].getTextColor()
         backGroundView.setBackgroundResource(backGroundValue)
