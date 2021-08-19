@@ -188,7 +188,7 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
         return characterStatusEffect
     }
 
-    open fun setSoundStatusEffect(statusEffect: Int) {
+    open fun setStatusSoundEffect(statusEffect: Int) {
         characterStatusEffect = statusEffect
     }
 
@@ -341,7 +341,7 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
         if (isPoison) { // true:毒状態 false:無毒状態
             damage(MagicData.POISON.getMaxDamage()) // 毒のダメージ計算
             log.append("${this.name}は毒のダメージを${MagicData.POISON.getMaxDamage()}受けた！\n")
-            setSoundStatusEffect(12)
+            setStatusSoundEffect(12)
         }
     }
 
