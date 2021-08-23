@@ -14,7 +14,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.R
 import com.e.app_namebattler.model.AllyOpenHelper
-import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.party.player.job.JobData
 import com.e.app_namebattler.view.view.fragment.CharacterCreateMaxDialogFragment
 import com.e.app_namebattler.view.view.message.Comment
 import com.e.app_namebattler.view.view.music.MusicData

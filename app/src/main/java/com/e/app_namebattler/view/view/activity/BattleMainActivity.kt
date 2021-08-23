@@ -26,7 +26,7 @@ import com.e.app_namebattler.controller.GameManager
 import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.model.CharacterData
 import com.e.app_namebattler.model.EnemyOpenHelper
-import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.party.player.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.StrategyData
@@ -255,7 +255,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                         if (attackList.size < i) {
                             timer!!.cancel()
                             isNextTurn = true
-                            nextTurnButtonMessage()
+
+                          //  nextTurnButtonMessage()
                         }
                     }
                 }
@@ -287,7 +288,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             startActivity(intent)
         }
-       // isTurnEnd = false
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -611,6 +611,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         if (!isMessageSpeed) {
             character00AttackSoundEffect = character00.getAttackSoundEffect()      // 攻撃の効果音
             sound(character00AttackSoundEffect)
+            character00.setAttackSoundEffect(0)
         }
 
         // 表示2回目はスキップ

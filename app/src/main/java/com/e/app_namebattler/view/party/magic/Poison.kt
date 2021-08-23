@@ -13,9 +13,10 @@ class Poison : BaseUseMagic() {
             if ((1..100).random() <= MagicData.PARALYSIS.getContinuousRate()) { // 乱数がPARALYSISの値以下の場合麻痺状態になる
 
                 defender.isPoison = true // 相手に毒をセット
+                attacker.setAttackSoundEffect(SoundData.S_POISON01.getSoundNumber())
                 log.append("${defender.getName()}は毒状態になった！\n")
                 magicData.getMpCost().let { attacker.downMp(it) }
-                attacker.setAttackSoundEffect(SoundData.S_POISON01.getSoundNumber())
+
 
             } else {
                 log.append("${defender.getName()}は毒を受けなかった！\n")

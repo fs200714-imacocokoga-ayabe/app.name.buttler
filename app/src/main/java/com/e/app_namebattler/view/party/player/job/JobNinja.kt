@@ -1,12 +1,13 @@
-package com.e.app_namebattler.view.party.job
+package com.e.app_namebattler.view.party.player.job
 
-import com.e.app_namebattler.view.party.magic.*
+import com.e.app_namebattler.view.party.magic.FireRoll
+import com.e.app_namebattler.view.party.magic.IOwnMagic
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.skill.IOwnSkill
-import com.e.app_namebattler.view.party.skill.OpticalElemental
+import com.e.app_namebattler.view.party.skill.Swallow
 import com.e.app_namebattler.view.view.music.SoundData
 
-class JobPriest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSkill {
+class JobNinja(name: String) : Player(name), IOwnMagic, IOwnSkill {
 
     constructor(
         name: String,
@@ -18,23 +19,21 @@ class JobPriest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSki
         agi: Int,
         luck: Int
     ) : this(name) {
-//        makePlayer(name, job, hp, mp, str, def, agi, luck)
+        //  makePlayer(name, job, hp, mp, str, def, agi, luck)
         initMagics()
         initSkills()
     }
 
-    var isHeal = false
-
     override fun initJob() {
-        jobData = JobData.PRIEST
+        jobData = JobData.NINJA
     }
 
     override fun initMagics() {
-        magics  = mutableListOf(Poison(), Paralysis(), Heal())
+        magics = mutableListOf(FireRoll())
     }
 
     override fun initSkills() {
-        skills = mutableListOf(OpticalElemental())
+        skills = mutableListOf(Swallow())
     }
 
     override fun normalAttack(defender: Player): StringBuilder {
@@ -44,8 +43,8 @@ class JobPriest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSki
         if (this.isParalysis) {// 麻痺している場合
             log.append("${this.getName()}は麻痺で動けない！！\n")
         } else {// 麻痺していない場合
-            log.append("${this.getName()}の攻撃！\n錫杖で突いた！\n")
-            setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
+            log.append("${this.getName()}の攻撃！\n刀で突きさした！\n")
+            setAttackSoundEffect(SoundData.S_KATANA01.getSoundNumber())
             damage = calcDamage(defender) // 与えるダメージを求める
             damageProcess(defender, damage) // ダメージ処理
         }
@@ -63,7 +62,7 @@ class JobPriest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSki
         } else {// 麻痺していない場合
             log = skill.effect(this, defender)
         }
-        knockedDownCheck(this)
+        knockedDownCheck(defender)
         return log
     }
 
@@ -80,20 +79,6 @@ class JobPriest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSki
         knockedDownCheck(defender)
         return log
     }
-
-    override fun healingMagic(defender: Player): StringBuilder {
-
-        log.clear()
-        magic = magics[2]
-
-        if (this.isParalysis) {// 麻痺している場合
-            log.append("${this.getName()}は麻痺で動けない！！\n")
-        } else {// 麻痺していない場合
-            log = (magic.effect(this, defender))
-        }
-        knockedDownCheck(this)
-        return log
-    }
-
-
 }
+
+

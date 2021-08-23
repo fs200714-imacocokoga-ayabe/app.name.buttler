@@ -2,7 +2,7 @@ package com.e.app_namebattler.view.party.player
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.e.app_namebattler.view.party.job.*
+import com.e.app_namebattler.view.party.player.job.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
