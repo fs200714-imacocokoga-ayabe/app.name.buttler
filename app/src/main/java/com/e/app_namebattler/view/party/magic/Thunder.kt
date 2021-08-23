@@ -8,14 +8,15 @@ class Thunder: BaseUseMagic() {
     override fun effect(attacker: Player, defender: Player): StringBuilder {
         if (hasEnoughMp(attacker.mp)) {
             log.append("${attacker.getName()}は${MagicData.THUNDER.getName()}を唱えた！\n雷が地面を這っていく！\n")
-            magicData.getMpCost().let { attacker.downMp(it) }
             attacker.setAttackSoundEffect(SoundData.S_THUNDER01.getSoundNumber())
+            magicData.getMpCost().let { attacker.downMp(it) }
             damage = (magicData.getMinDamage()..magicData.getMaxDamage()).random()// 乱数10～30
             damageProcess(attacker, defender, damage)
 
             return log
         } else {
             log.append("${attacker.getName()}は術を唱えようとしたが、MPが足りない！！\n")
+            attacker.normalAttack(defender)
         }
         return log
     }

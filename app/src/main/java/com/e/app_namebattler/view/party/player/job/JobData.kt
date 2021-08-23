@@ -1,4 +1,4 @@
-package com.e.app_namebattler.view.party.job
+package com.e.app_namebattler.view.party.player.job
 
 enum class JobData(
 

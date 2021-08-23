@@ -1,6 +1,6 @@
 package com.e.app_namebattler.view.strategy.enemystrategy
 
-import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.party.player.job.JobData
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.strategy.BaseStrategy
 

@@ -1,10 +1,8 @@
-package com.e.app_namebattler.view.party.job
+package com.e.app_namebattler.view.party.player.job
 
 import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.party.skill.Assault
 import com.e.app_namebattler.view.party.skill.IOwnSkill
-import com.e.app_namebattler.view.party.skill.SkillData
-import com.e.app_namebattler.view.party.skill.Swallow
 import com.e.app_namebattler.view.view.music.SoundData
 
 class JobFighter(name: String) : Player(name) , IOwnSkill {

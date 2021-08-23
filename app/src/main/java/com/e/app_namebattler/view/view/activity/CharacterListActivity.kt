@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.e.app_namebattler.*
 import com.e.app_namebattler.model.AllyOpenHelper
-import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.party.player.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.view.fragment.CharacterCreateMaxDialogFragment
 import com.e.app_namebattler.view.view.adapter.CharacterListAdapter

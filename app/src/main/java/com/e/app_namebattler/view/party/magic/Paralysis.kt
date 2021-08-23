@@ -12,9 +12,10 @@ class Paralysis : BaseUseMagic() {
 
             if ((1..100).random() <= MagicData.PARALYSIS.getContinuousRate()) { // 乱数がPARALYSISの値以下の場合麻痺状態になる
                 defender.isParalysis = true
+                attacker.setAttackSoundEffect(SoundData.S_PARALYSIS01.getSoundNumber())
                 log.append("${defender.getName()}は麻痺を受けた！\n")
                 magicData.getMpCost().let { attacker.downMp(it) }
-                attacker.setAttackSoundEffect(SoundData.S_PARALYSIS01.getSoundNumber())
+
 
             } else { // 麻痺を状態にならなかった場合
                 log.append("${defender.getName()}は麻痺を受けなかった！\n")

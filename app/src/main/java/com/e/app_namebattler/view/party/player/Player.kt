@@ -3,7 +3,7 @@ package com.e.app_namebattler.view.party.player
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.e.app_namebattler.view.party.herb.IEat
-import com.e.app_namebattler.view.party.job.JobData
+import com.e.app_namebattler.view.party.player.job.JobData
 import com.e.app_namebattler.view.party.magic.IRecoveryMagic
 import com.e.app_namebattler.view.party.magic.IUseMagic
 import com.e.app_namebattler.view.party.magic.MagicData

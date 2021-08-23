@@ -1,14 +1,12 @@
-package com.e.app_namebattler.view.party.job
+package com.e.app_namebattler.view.party.player.job
 
-import com.e.app_namebattler.view.party.magic.Fire
-import com.e.app_namebattler.view.party.magic.IOwnMagic
-import com.e.app_namebattler.view.party.magic.Thunder
+import com.e.app_namebattler.view.party.magic.*
 import com.e.app_namebattler.view.party.player.Player
-import com.e.app_namebattler.view.party.skill.FierElemental
 import com.e.app_namebattler.view.party.skill.IOwnSkill
+import com.e.app_namebattler.view.party.skill.OpticalElemental
 import com.e.app_namebattler.view.view.music.SoundData
 
-class JobWizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
+class JobPriest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSkill {
 
     constructor(
         name: String,
@@ -25,16 +23,18 @@ class JobWizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
         initSkills()
     }
 
-    override fun initJob() {
-        jobData = JobData.WIZARD
-    }
+    var isHeal = false
 
-    override fun initSkills() {
-        skills = mutableListOf(FierElemental())
+    override fun initJob() {
+        jobData = JobData.PRIEST
     }
 
     override fun initMagics() {
-        magics = mutableListOf(Fire(), Thunder())
+        magics  = mutableListOf(Poison(), Paralysis(), Heal())
+    }
+
+    override fun initSkills() {
+        skills = mutableListOf(OpticalElemental())
     }
 
     override fun normalAttack(defender: Player): StringBuilder {
@@ -42,12 +42,12 @@ class JobWizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
         log.clear()
 
         if (this.isParalysis) {// 麻痺している場合
-            log.append("${getName()}は麻痺で動けない！！\n")
+            log.append("${this.getName()}は麻痺で動けない！！\n")
         } else {// 麻痺していない場合
-            log.append("${this.getName()}の攻撃！\n${getName()}は杖を振り回した！\n")
+            log.append("${this.getName()}の攻撃！\n錫杖で突いた！\n")
             setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
             damage = calcDamage(defender) // 与えるダメージを求める
-            damageProcess(defender, damage)
+            damageProcess(defender, damage) // ダメージ処理
         }
         knockedDownCheck(defender)
         return log
@@ -63,7 +63,7 @@ class JobWizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
         } else {// 麻痺していない場合
             log = skill.effect(this, defender)
         }
-        knockedDownCheck(defender)
+        knockedDownCheck(this)
         return log
     }
 
@@ -80,4 +80,20 @@ class JobWizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
         knockedDownCheck(defender)
         return log
     }
+
+    override fun healingMagic(defender: Player): StringBuilder {
+
+        log.clear()
+        magic = magics[2]
+
+        if (this.isParalysis) {// 麻痺している場合
+            log.append("${this.getName()}は麻痺で動けない！！\n")
+        } else {// 麻痺していない場合
+            log = (magic.effect(this, defender))
+        }
+        knockedDownCheck(this)
+        return log
+    }
+
+
 }
