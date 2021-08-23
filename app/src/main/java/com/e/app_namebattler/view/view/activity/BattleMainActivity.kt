@@ -68,7 +68,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private lateinit var enemyhelper: EnemyOpenHelper
 
     private var toast: Toast? = null
-
     private val gm = GameManager()
 
     private var enemyPartyList = ArrayList<CharacterAllData>()
@@ -80,7 +79,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     private var isNextTurn: Boolean = false// true: 2ターン目以降　false:バトルログ画面を最初にタップするとtrueになる
     private var isMessageSpeed: Boolean = false// メッセージ速度変更に使用
-    private var isTurnEnd: Boolean = false
+ //   private var isTurnEnd: Boolean = false
 
     var allyPartyCount = 1
     var enemyPartyCount = 1
@@ -173,45 +172,17 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         battle_main_next_turn_button_id.setOnClickListener {
 
             val charaData = CharacterData.getInstance()
-
             val attackList = charaData.attackerList
 
-            if (!isNextTurn) {
-                nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
-                battle(attackList, strategyNumber)
-
-            } else if (isNextTurn && isTurnEnd) {
-                // どちらかのパーティが全滅した場合
-                if (gm.getAllyParty().isEmpty() || gm.getEnemyParty().isEmpty()) {
-                    nextButtonText.text = Comment.M_IN_PROCESS.getComment()
-
-                    val intent = Intent(this, BattleResultActivity::class.java)
-
-                    // パーティの勝ち負け判定に使用　Party01のsizeが0なら敵の勝利1以上なら味方の勝利
-                    val allyPartySurvivalNumber = gm.getAllyParty().size
-
-                    intent.putExtra("party_key", allyPartySurvivalNumber)
-
-                    mp0.reset()
-
-                    if (toast != null) {
-                        toast!!.cancel()
-                    }
-
-                    startActivity(intent)
-
-                    //どちらのパーティも全滅していない場合
-                } else {
-                    nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
-                    battle(attackList, strategyNumber)
-                }
-            }
+            nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
+            battle(attackList, strategyNumber)
         }
     }
 
     private fun battle(attackList: MutableList<Player>, strategyNumber: Int) {
 
-        isTurnEnd = false
+      //  isTurnEnd = false
+        isNextTurn = false
 
         var i = 1
 
@@ -255,8 +226,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                         if (attackList.size < i) {
                             timer!!.cancel()
                             isNextTurn = true
-
-                          //  nextTurnButtonMessage()
+                            nextTurnButtonMessage()
                         }
                     }
                 }
@@ -272,6 +242,15 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         enemyPartyCount = gm.getEnemyParty().size
 
         if (gm.getAllyParty().isEmpty() || gm.getEnemyParty().isEmpty()) {
+
+            timer!!.cancel()
+
+            handler.postDelayed({
+            val nextButtonText = findViewById<TextView>(R.id.battle_main_next_turn_button_id)
+            nextButtonText.text = Comment.M_IN_PROCESS.getComment()
+            }, 10)
+
+            handler.postDelayed({
             // GameManagerクラス から　CharacterDataクラスにデータを渡す処理
             gm.sendData()
 
@@ -287,6 +266,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             }
 
             startActivity(intent)
+
+            }, 2000)
         }
     }
 
@@ -484,7 +465,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             handler.postDelayed({
                 printAllyStatus(ally01, ally02, ally03, true)
                 printEnemyStatus(enemy01, enemy02, enemy03, true)
-            }, 400)
+            }, 500)
 
         }else{
 
@@ -634,7 +615,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     private fun nextTurnButtonMessage(){
         val nextButtonText = findViewById<TextView>(R.id.battle_main_next_turn_button_id)
-        isTurnEnd = true
         nextButtonText.text = Comment.M_BATTLE_NEXT_TURN_COMMENT.getComment()
     }
 
