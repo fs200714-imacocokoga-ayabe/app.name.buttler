@@ -32,12 +32,12 @@ class PartyOrganizationActivity : AppCompatActivity() {
     private var nameValue02: String? = null
     private var nameValue03: String? = null
 
-    lateinit var helper: AllyOpenHelper
-    var characterList = arrayListOf<CharacterAllData>()
+    private lateinit var helper: AllyOpenHelper
+    private var characterList = arrayListOf<CharacterAllData>()
     private lateinit var mOrganizationListAdapter: PartyOrganizationListAdapter
-    var allyNameArray = ArrayList<String>() // 味方の名前を格納
-    var radioButtonArray = ArrayList<RadioButton>() //　ラジオボタンを格納
-    var radioNumber = 0 // チェックしているラジオボタンの数
+    private var allyNameArray = ArrayList<String>() // 味方の名前を格納
+    private var radioButtonArray = ArrayList<RadioButton>() //　ラジオボタンを格納
+    private var radioNumber = 0 // チェックしているラジオボタンの数
     private val selectCountMax = 3 // 選択できるパーティメンバー数
 
     var name = ""
@@ -49,7 +49,7 @@ class PartyOrganizationActivity : AppCompatActivity() {
     var agi = 0
     var luck = 0
     private val partyResetNumber = 0
-    var arrayRadioId = ArrayList<Int>()
+    private var arrayRadioId = ArrayList<Int>()
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -169,7 +169,6 @@ class PartyOrganizationActivity : AppCompatActivity() {
                         radioButtonArray.remove(radioButtonArray[0])
                         radioButton.isChecked = false
                         radioNumber -= 1
-
                     }
                     else -> {
                         radioButtonArray.add(radioButton)

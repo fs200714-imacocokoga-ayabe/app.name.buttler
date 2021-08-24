@@ -2,6 +2,7 @@ package com.e.app_namebattler.view.party.player
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.e.app_namebattler.controller.BattleCallBack
 import com.e.app_namebattler.view.party.herb.IEat
 import com.e.app_namebattler.view.party.player.job.JobData
 import com.e.app_namebattler.view.party.magic.IRecoveryMagic
@@ -16,7 +17,7 @@ import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.collections.ArrayList
 
-open class Player(private var name: String): IEat {
+open class Player(private var name: String): IEat, BattleCallBack() {
     constructor(
         name: String,
         job: String,
@@ -77,6 +78,8 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
     override var log = StringBuilder()
     var strongWord = false
     open lateinit var jobData: JobData
+
+    open var record = ""
 
     var magics: List<IUseMagic>
     lateinit var magic: IUseMagic

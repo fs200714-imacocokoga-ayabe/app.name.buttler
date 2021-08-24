@@ -74,10 +74,10 @@ class CharacterCreatedActivity : AppCompatActivity() {
 
         // 職業と名前からキャラクターを作成
         when (job) {
-            0 -> JobFighter(name).let { player = it }
-            1 -> JobWizard(name).let { player = it }
-            2 -> JobPriest(name).let { player = it }
-            3 -> JobNinja(name).let { player = it }
+            0 -> Fighter(name).let { player = it }
+            1 -> Wizard(name).let { player = it }
+            2 -> Priest(name).let { player = it }
+            3 -> Ninja(name).let { player = it }
         }
 
         // データベースに保存するため名前の後ろに@ayaがついていた場合削除する

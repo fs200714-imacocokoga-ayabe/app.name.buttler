@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.e.app_namebattler.R
+import com.e.app_namebattler.controller.BattleCallBack
 import com.e.app_namebattler.controller.BattleLogListener
 import com.e.app_namebattler.controller.GameManager
 import com.e.app_namebattler.model.AllyOpenHelper
@@ -65,10 +66,11 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private var timer: Timer? = null
     private var timerTask: TimerTask? = null
     private lateinit var allyHelper: AllyOpenHelper
-    private lateinit var enemyhelper: EnemyOpenHelper
+    private lateinit var enemyHelper: EnemyOpenHelper
 
     private var toast: Toast? = null
     private val gm = GameManager()
+    private val bc = BattleCallBack()
 
     private var enemyPartyList = ArrayList<CharacterAllData>()
     private var allyPartyList = ArrayList<CharacterAllData>()
@@ -77,12 +79,11 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private var strategyNumber = 0 //作戦番号を格納
     var job = "" // 職業名を格納
 
-    private var isNextTurn: Boolean = false// true: 2ターン目以降　false:バトルログ画面を最初にタップするとtrueになる
+    private var isNextTurn: Boolean = true// true: 2ターン目以降　false:バトルログ画面を最初にタップするとtrueになる
     private var isMessageSpeed: Boolean = false// メッセージ速度変更に使用
- //   private var isTurnEnd: Boolean = false
 
-    var allyPartyCount = 1
-    var enemyPartyCount = 1
+    private var allyPartyCount = 1
+    private var enemyPartyCount = 1
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("CutPasteId", "SetTextI18n")
@@ -158,6 +159,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         allyPartyList = getAllyData(allyName01, allyName02, allyName03)
 
         gm.callBack = this// GameManagerクラスからBattleLogListenerを経てデータを戻す準備
+        bc.callBack = this
 
         // コントロールをGameManagerに移譲
         gm.controlTransfer(allyPartyList, enemyPartyList)
@@ -171,17 +173,18 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         // 次のターンボタンを押したときの処理
         battle_main_next_turn_button_id.setOnClickListener {
 
-            val charaData = CharacterData.getInstance()
-            val attackList = charaData.attackerList
+            if (isNextTurn) {
+                val charaData = CharacterData.getInstance()
+                val attackList = charaData.attackerList
 
-            nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
-            battle(attackList, strategyNumber)
+                nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
+                battle(attackList, strategyNumber)
+            }
         }
     }
 
     private fun battle(attackList: MutableList<Player>, strategyNumber: Int) {
 
-      //  isTurnEnd = false
         isNextTurn = false
 
         var i = 1
@@ -308,9 +311,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         enemyName03: String?
     ): ArrayList<CharacterAllData> {
 
-        enemyhelper = EnemyOpenHelper(applicationContext)//DB作成
+        enemyHelper = EnemyOpenHelper(applicationContext)//DB作成
 
-        val db = enemyhelper.readableDatabase
+        val db = enemyHelper.readableDatabase
 
         try {
             // rawQueryというSELECT専用メソッドを使用してデータを取得する
@@ -432,7 +435,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     }
 
     //  初期ステータス表示　GameManagerクラスからBattleLogListener経て呼ばれる
-    override fun upDateInitialStatus(
+    override fun initialStatusData(
         ally01: Player,
         ally02: Player,
         ally03: Player,
@@ -440,11 +443,11 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         enemy02: Player,
         enemy03: Player
     ) {
-        printAllyStatus(ally01, ally02, ally03,true)
-        printEnemyStatus(enemy01, enemy02, enemy03,true)
+        printCharacterStatus(ally01, ally02, ally03,true)
+        printCharacterStatus(enemy01, enemy02, enemy03,true)
     }
 
-    override fun upDateAllLog(
+    override fun battleLogData(
         battleLog: MutableList<Any>,
         ally01: Player,
         ally02: Player,
@@ -458,114 +461,115 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             handler.postDelayed({
                 printBattleLog(battleLog[0].toString())
-                printAllyStatus(ally01, ally02, ally03, false)
-                printEnemyStatus(enemy01, enemy02, enemy03, false)
+                printCharacterStatus(ally01, ally02, ally03, false)
+                printCharacterStatus(enemy01, enemy02, enemy03, false)
             }, 0)
 
             handler.postDelayed({
-                printAllyStatus(ally01, ally02, ally03, true)
-                printEnemyStatus(enemy01, enemy02, enemy03, true)
+                printCharacterStatus(ally01, ally02, ally03, true)
+                printCharacterStatus(enemy01, enemy02, enemy03, true)
             }, 500)
 
         }else{
 
             handler.postDelayed({
                 printBattleLog(battleLog[0].toString())
-                printAllyStatus(ally01, ally02, ally03, false)
-                printEnemyStatus(enemy01, enemy02, enemy03, false)
+                printCharacterStatus(ally01, ally02, ally03, false)
+                printCharacterStatus(enemy01, enemy02, enemy03, false)
             }, 0)
 
             handler.postDelayed({
-                printAllyStatus(ally01, ally02, ally03, true)
-                printEnemyStatus(enemy01, enemy02, enemy03, true)
+                printCharacterStatus(ally01, ally02, ally03, true)
+                printCharacterStatus(enemy01, enemy02, enemy03, true)
             }, 10)
         }
     }
-
-    private fun printAllyStatus(
+    //使用していない処理
+    override fun battleData(
+        record: String,
         ally01: Player,
         ally02: Player,
         ally03: Player,
-        isAllySecondTimes: Boolean
-    ) {
-        val ally001 = getMemberStatusData(ally01, isAllySecondTimes)
-        val ally002 = getMemberStatusData(ally02, isAllySecondTimes)
-        val ally003 = getMemberStatusData(ally03, isAllySecondTimes)
-
-        memberList = arrayListOf(ally001, ally002, ally003)
-
-        val layoutManager = LinearLayoutManager(
-            this,
-            RecyclerView.HORIZONTAL,
-            false
-        ).apply {
-
-            battle_main_ally_status_recycleView_id.layoutManager = this
-        }
-
-        BattleMainRecyclerAdapter(memberList).apply {
-
-            battle_main_ally_status_recycleView_id.adapter = this
-        }
-
-        battle_main_ally_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
-        (battle_main_ally_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
-            object : BattleMainRecyclerAdapter.OnItemClickListener {
-                override fun onItemClickListener(
-                    viw: View,
-                    position: Int
-                ) {
-                    when (position) {
-                        0 -> setImageType(ally01)
-                        1 -> setImageType(ally02)
-                        2 -> setImageType(ally03)
-                    }
-                }
-            })
-    }
-
-    private fun printEnemyStatus(
         enemy01: Player,
         enemy02: Player,
-        enemy03: Player,
-        isEnemySecondTimes: Boolean
+        enemy03: Player
     ) {
-            val enemy001 = getMemberStatusData(enemy01, isEnemySecondTimes)
-            val enemy002 = getMemberStatusData(enemy02, isEnemySecondTimes)
-            val enemy003 = getMemberStatusData(enemy03, isEnemySecondTimes)
+        printBattleLog(record)
+        printCharacterStatus(ally01, ally02, ally03, false)
+        printCharacterStatus(enemy01, enemy02, enemy03, false)
+    }
 
-        memberList = arrayListOf(enemy001, enemy002, enemy003)
+    private fun printCharacterStatus(
+        character01: Player,
+        character02: Player,
+        character03: Player,
+        isAllySecondTimes: Boolean
+    ) {
+        val  character001 = getMemberStatusData( character01, isAllySecondTimes)
+        val  character002 = getMemberStatusData( character02, isAllySecondTimes)
+        val  character003 = getMemberStatusData( character03, isAllySecondTimes)
 
-        val layoutManager = LinearLayoutManager(
-            this,
-            RecyclerView.HORIZONTAL,
-            false
-        ).apply {
+        memberList = arrayListOf( character001,  character002,  character003)
 
-            battle_main_enemy_status_recycleView_id.layoutManager = this
-        }
+        if (character01.isMark) {
 
-        BattleMainRecyclerAdapter(memberList).apply {
+            val layoutManager = LinearLayoutManager(
+                this,
+                RecyclerView.HORIZONTAL,
+                false
+            ).apply {
+                battle_main_ally_status_recycleView_id.layoutManager = this
+            }
 
-            battle_main_enemy_status_recycleView_id.adapter = this
-        }
+            BattleMainRecyclerAdapter(memberList).apply {
+                battle_main_ally_status_recycleView_id.adapter = this
+            }
 
-        battle_main_enemy_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
-        (battle_main_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
-            object : BattleMainRecyclerAdapter.OnItemClickListener {
-                @SuppressLint("ResourceAsColor")
-
-                override fun onItemClickListener(
-                    viw: View,
-                    position: Int
-                ) {
-                    when (position) {
-                        0 -> setImageType(enemy01)
-                        1 -> setImageType(enemy02)
-                        2 -> setImageType(enemy03)
+            battle_main_ally_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+            (battle_main_ally_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
+                object : BattleMainRecyclerAdapter.OnItemClickListener {
+                    override fun onItemClickListener(
+                        viw: View,
+                        position: Int
+                    ) {
+                        when (position) {
+                            0 -> setImageType( character01)
+                            1 -> setImageType( character02)
+                            2 -> setImageType( character03)
+                        }
                     }
-                }
-            })
+                })
+
+        }else{
+
+            val layoutManager = LinearLayoutManager(
+                this,
+                RecyclerView.HORIZONTAL,
+                false
+            ).apply {
+                battle_main_enemy_status_recycleView_id.layoutManager = this
+            }
+
+            BattleMainRecyclerAdapter(memberList).apply {
+                battle_main_enemy_status_recycleView_id.adapter = this
+            }
+
+            battle_main_enemy_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+            (battle_main_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
+                object : BattleMainRecyclerAdapter.OnItemClickListener {
+                    override fun onItemClickListener(
+                        viw: View,
+                        position: Int
+                    ) {
+                        when (position) {
+                            0 -> setImageType( character01)
+                            1 -> setImageType( character02)
+                            2 -> setImageType( character03)
+                        }
+                    }
+                })
+
+        }
     }
 
     private fun getMemberStatusData(
@@ -584,16 +588,14 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         val character00Poison = character00.getPoison()                 // 毒
         val character00Paralysis = character00.getParalysis() // 麻痺
 
-        if(!isMessageSpeed) {
+        if (!isMessageSpeed) {// isMessageSpeed false: 効果が表示される true:効果がスキップされる　
             character00PrintStatusEffect = character00.getPrintStatusEffect() // ダメージ、回復の効果
-        }
-            character00.setPrintStatusEffect(0)        // リセット
-
-        if (!isMessageSpeed) {
             character00AttackSoundEffect = character00.getAttackSoundEffect()      // 攻撃の効果音
             sound(character00AttackSoundEffect)
             character00.setAttackSoundEffect(0)
         }
+
+        character00.setPrintStatusEffect(0)        // リセット
 
         // 表示2回目はスキップ
         if (isSecondTimes) {
@@ -603,13 +605,9 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         }
 
             return MemberStatusData(("  %s".format(character00.getName())),
-                ("%s %s/%s".format("  HP",
-                    character00Hp,
-                    character00MaxHp)),
+                ("%s %s/%s".format("  HP", character00Hp, character00MaxHp)),
                 ("%s %s/%s".format("  MP", character00Mp, character00MaxMp)),
-                ("%s %s".format(
-                    character00Poison,
-                    character00Paralysis)),
+                ("%s %s".format(character00Poison, character00Paralysis)),
                 (character00Hp), (character00PrintStatusEffect))
     }
 
@@ -636,20 +634,14 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         val customToastView: View =
             layoutInflater.inflate(R.layout.toast_layout_character_status, null)
 
-        (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-            character.getCharacterImageType())
+        (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(character.getCharacterImageType())
         toast = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
         toast!!.setGravity(Gravity.CENTER, 0, 0)
-        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text =
-            "${character.job}"
-        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text =
-            "${character.str}"
-        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text =
-            "${character.def}"
-        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text =
-            "${character.agi}"
-        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text =
-            "${character.luck}"
+        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text = "${character.job}"
+        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text = "${character.str}"
+        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text = "${character.def}"
+        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text = "${character.agi}"
+        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text = "${character.luck}"
         toast!!.setView(customToastView)
         toast!!.show()
     }
