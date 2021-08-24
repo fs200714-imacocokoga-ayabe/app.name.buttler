@@ -98,10 +98,10 @@ class CreateEnemy {
 
             when (enemyJob) {
 
-                0 -> JobFighter(enemyName).let { enemy = it }
-                1 -> JobWizard(enemyName).let { enemy = it }
-                2 -> JobPriest(enemyName).let { enemy = it }
-                3 -> JobNinja(enemyName).let { enemy = it }
+                0 -> Fighter(enemyName).let { enemy = it }
+                1 -> Wizard(enemyName).let { enemy = it }
+                2 -> Priest(enemyName).let { enemy = it }
+                3 -> Ninja(enemyName).let { enemy = it }
             }
 
             val current = LocalDateTime.now()

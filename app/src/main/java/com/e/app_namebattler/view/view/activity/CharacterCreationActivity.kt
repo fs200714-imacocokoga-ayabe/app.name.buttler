@@ -43,20 +43,16 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
         mp0.isLooping = true
         mp0.start()
 
-        val job01TextView: TextView =
-            findViewById(R.id.character_creation_occupation_selection_radioButton01_id)
+        val job01TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton01_id)
         job01TextView.text = JobData.FIGHTER.getJobName()
 
-        val job02TextView: TextView =
-            findViewById(R.id.character_creation_occupation_selection_radioButton02_id)
+        val job02TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton02_id)
         job02TextView.text = JobData.WIZARD.getJobName()
 
-        val job03TextView: TextView =
-            findViewById(R.id.character_creation_occupation_selection_radioButton03_id)
+        val job03TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton03_id)
         job03TextView.text = JobData.PRIEST.getJobName()
 
-        val job04TextView: TextView =
-            findViewById(R.id.character_creation_occupation_selection_radioButton04_id)
+        val job04TextView: TextView = findViewById(R.id.character_creation_occupation_selection_radioButton04_id)
         job04TextView.text = JobData.NINJA.getJobName()
 
         // textWatcherのリスナーを登録　
@@ -248,12 +244,10 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
         }
 
         val layoutInflater = layoutInflater
-        val customToastView: View =
-            layoutInflater.inflate(R.layout.toast_layout_job_memo, null)
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_job_memo, null)
         toast = Toast.makeText(customToastView.context, "", Toast.LENGTH_LONG)
         toast!!.setGravity(Gravity.BOTTOM, 0, 150)
-        (customToastView.findViewById(R.id.toast_layout_job_memo_id) as TextView).text =
-            message
+        (customToastView.findViewById(R.id.toast_layout_job_memo_id) as TextView).text = message
         toast!!.setView(customToastView)
         toast!!.show()
     }

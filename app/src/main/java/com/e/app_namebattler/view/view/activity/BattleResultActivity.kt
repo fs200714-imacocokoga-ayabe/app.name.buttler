@@ -18,6 +18,7 @@ import com.e.app_namebattler.view.party.player.Player
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
 import com.e.app_namebattler.view.view.music.MusicData
+import kotlinx.android.synthetic.main.activity_battle_main.*
 import kotlinx.android.synthetic.main.activity_battle_result.*
 
 class BattleResultActivity : AppCompatActivity() {
@@ -56,7 +57,7 @@ class BattleResultActivity : AppCompatActivity() {
         if (ally01 != null) {
             if (ally02 != null) {
                 if (ally03 != null) {
-                    resultAllyStatus(ally01, ally02, ally03)
+                    resultCharacterStatus(ally01, ally02, ally03)
                 }
             }
         }
@@ -64,7 +65,7 @@ class BattleResultActivity : AppCompatActivity() {
         if (enemy01 != null) {
             if (enemy02 != null) {
                 if (enemy03 != null) {
-                    resultEnemyStatus(enemy01, enemy02, enemy03)
+                    resultCharacterStatus(enemy01, enemy02, enemy03)
                 }
             }
         }
@@ -115,84 +116,76 @@ class BattleResultActivity : AppCompatActivity() {
         }
     }
 
-    // 味方キャラクターのステータス表示
-    private fun resultAllyStatus(ally01: Player, ally02: Player, ally03: Player) {
+    private fun resultCharacterStatus(
+        character01: Player,
+        character02: Player,
+        character03: Player
+    ) {
+        val  character001 = memberStatusData(character01)
+        val  character002 = memberStatusData(character02)
+        val  character003 = memberStatusData(character03)
 
-        val ally001 = memberStatusData(ally01)
-        val ally002 = memberStatusData(ally02)
-        val ally003 = memberStatusData(ally03)
+        memberList = arrayListOf( character001,  character002,  character003)
 
-        memberList = arrayListOf(ally001, ally002, ally003)
+        if (character01.isMark) {
 
-        val layoutManager = LinearLayoutManager(
-            this,
-            RecyclerView.HORIZONTAL,
-            false
-        ).apply {
+            val layoutManager = LinearLayoutManager(
+                this,
+                RecyclerView.HORIZONTAL,
+                false
+            ).apply {
+                battle_result_ally_status_recycleView_id.layoutManager = this
+            }
 
-            battle_result_ally_status_recycleView_id.layoutManager = this
-        }
+            BattleMainRecyclerAdapter(memberList).apply {
+                battle_result_ally_status_recycleView_id.adapter = this
+            }
 
-        BattleMainRecyclerAdapter(memberList).apply {
-
-            battle_result_ally_status_recycleView_id.adapter = this
-        }
-
-        battle_result_ally_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
-        (battle_result_ally_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
-            object : BattleMainRecyclerAdapter.OnItemClickListener {
-                override fun onItemClickListener(
-                    viw: View,
-                    position: Int
-                ) {
-                    when (position) {
-                        0 -> setImageType(ally01)
-                        1 -> setImageType(ally02)
-                        2 -> setImageType(ally03)
+            battle_result_ally_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+            (battle_result_ally_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
+                object : BattleMainRecyclerAdapter.OnItemClickListener {
+                    override fun onItemClickListener(
+                        viw: View,
+                        position: Int
+                    ) {
+                        when (position) {
+                            0 -> setImageType( character01)
+                            1 -> setImageType( character02)
+                            2 -> setImageType( character03)
+                        }
                     }
-                }
-            })
-    }
+                })
 
-    // 敵キャラクターのステータス表示
-    private fun resultEnemyStatus(enemy01: Player, enemy02: Player, enemy03: Player) {
+        }else{
 
-        val enemy001 = memberStatusData(enemy01)
-        val enemy002 = memberStatusData(enemy02)
-        val enemy003 = memberStatusData(enemy03)
+            val layoutManager = LinearLayoutManager(
+                this,
+                RecyclerView.HORIZONTAL,
+                false
+            ).apply {
+                battle_result_enemy_status_recycleView_id.layoutManager = this
+            }
 
-        memberList = arrayListOf(enemy001, enemy002, enemy003)
+            BattleMainRecyclerAdapter(memberList).apply {
+                battle_result_enemy_status_recycleView_id.adapter = this
+            }
 
-        val layoutManager = LinearLayoutManager(
-            this,
-            RecyclerView.HORIZONTAL,
-            false
-        ).apply {
-
-            battle_result_enemy_status_recycleView_id.layoutManager = this
-        }
-
-        BattleMainRecyclerAdapter(memberList).apply {
-
-            battle_result_enemy_status_recycleView_id.adapter = this
-        }
-
-        battle_result_enemy_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
-        (battle_result_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
-            object : BattleMainRecyclerAdapter.OnItemClickListener {
-                @SuppressLint("ResourceAsColor")
-
-                override fun onItemClickListener(
-                    viw: View,
-                    position: Int
-                ) {
-                    when (position) {
-                        0 -> setImageType(enemy01)
-                        1 -> setImageType(enemy02)
-                        2 -> setImageType(enemy03)
+            battle_result_enemy_status_recycleView_id.adapter = BattleMainRecyclerAdapter(memberList)
+            (battle_result_enemy_status_recycleView_id.adapter as BattleMainRecyclerAdapter).setOnItemClickListener(
+                object : BattleMainRecyclerAdapter.OnItemClickListener {
+                    override fun onItemClickListener(
+                        viw: View,
+                        position: Int
+                    ) {
+                        when (position) {
+                            0 -> setImageType( character01)
+                            1 -> setImageType( character02)
+                            2 -> setImageType( character03)
+                        }
                     }
-                }
-            })
+                })
+
+        }
     }
 
     private fun memberStatusData(character: Player): MemberStatusData {
@@ -210,23 +203,15 @@ class BattleResultActivity : AppCompatActivity() {
     private fun setImageType(character: Player) {
 
         val layoutInflater = layoutInflater
-        val customToastView: View =
-            layoutInflater.inflate(R.layout.toast_layout_character_status, null)
-
-        (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(
-            character.getCharacterImageType())
+        val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_character_status, null)
+        (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(character.getCharacterImageType())
         val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
         ts.setGravity(Gravity.CENTER, 0, 0)
-        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text =
-            "${character.job}"
-        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text =
-            "${character.str}"
-        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text =
-            "${character.def}"
-        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text =
-            "${character.agi}"
-        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text =
-            "${character.luck}"
+        (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text = "${character.job}"
+        (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text = "${character.str}"
+        (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text = "${character.def}"
+        (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text = "${character.agi}"
+        (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text = "${character.luck}"
         ts.setView(customToastView)
         ts.show()
     }

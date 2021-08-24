@@ -43,7 +43,6 @@ class GameManager {
         enemy01 = rebirthCharacter(enemyPartyList[0], 0)
         enemy02 = rebirthCharacter(enemyPartyList[1], 1)
         enemy03 = rebirthCharacter(enemyPartyList[2], 2)
-
         // 味方キャラクターを作成する
         ally01 = rebirthCharacter(allyPartyList[0], 3)
         ally02 = rebirthCharacter(allyPartyList[1], 4)
@@ -54,7 +53,7 @@ class GameManager {
         // パーティの振り分け
         party.appendPlayer(enemy01, enemy02, enemy03, ally01, ally02, ally03)
         // キャラクターの表示
-        callBack?.upDateInitialStatus(ally01, ally02, ally03, enemy01, enemy02, enemy03)
+        callBack?.initialStatusData(ally01, ally02, ally03, enemy01, enemy02, enemy03)
         sendData()
     }
 
@@ -70,17 +69,19 @@ class GameManager {
             if (player.isMark) { // player1が味方の場合
 
                 battleLogList.plusAssign(selectStrategyNumber(allyStrategyNumber))
+               // selectStrategyNumber(allyStrategyNumber)
 
             } else {
 
                 battleLogList.plusAssign(selectStrategyNumber(enemyStrategyNumber))
+               // selectStrategyNumber(enemyStrategyNumber)
             }
         }
 
         judgment()
         sendData()
 
-        callBack?.upDateAllLog(battleLogList, ally01, ally02, ally03, enemy01, enemy02, enemy03)
+        callBack?.battleLogData(battleLogList, ally01, ally02, ally03, enemy01, enemy02, enemy03)
     }
 
     // 選んだ作戦番号から対象プレイヤーと作戦を得て返す
@@ -154,7 +155,7 @@ class GameManager {
 
         when (occupationConversion(characterPartyList.job)) {
 
-            0 -> character = (JobFighter(
+            0 -> character = (Fighter(
                 characterPartyList.name,
                 characterPartyList.job,
                 characterPartyList.hp,
@@ -165,7 +166,7 @@ class GameManager {
                 characterPartyList.luck
             ))
 
-            1 -> character = (JobWizard(
+            1 -> character = (Wizard(
                 characterPartyList.name,
                 characterPartyList.job,
                 characterPartyList.hp,
@@ -176,7 +177,7 @@ class GameManager {
                 characterPartyList.luck
             ))
 
-            2 -> character = (JobPriest(
+            2 -> character = (Priest(
                 characterPartyList.name,
                 characterPartyList.job,
                 characterPartyList.hp,
@@ -187,7 +188,7 @@ class GameManager {
                 characterPartyList.luck
             ))
 
-            3 -> character = (JobNinja(
+            3 -> character = (Ninja(
                 characterPartyList.name,
                 characterPartyList.job,
                 characterPartyList.hp,

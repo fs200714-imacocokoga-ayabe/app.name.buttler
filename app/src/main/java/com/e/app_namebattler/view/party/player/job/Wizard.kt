@@ -8,7 +8,7 @@ import com.e.app_namebattler.view.party.skill.FierElemental
 import com.e.app_namebattler.view.party.skill.IOwnSkill
 import com.e.app_namebattler.view.view.music.SoundData
 
-class JobWizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
+class Wizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
 
     constructor(
         name: String,
@@ -20,7 +20,7 @@ class JobWizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
         agi: Int,
         luck: Int
     ) : this(name) {
-//        makePlayer(name, job, hp, mp, str, def, agi, luck)
+        makePlayer(name, job, hp, mp, str, def, agi, luck)
         initMagics()
         initSkills()
     }
