@@ -58,11 +58,11 @@ class GameManager {
     }
 
     // 戦闘処理
-    fun battle(i: Player, allyStrategyNumber: Int) {
+    fun battle(p: Player, allyStrategyNumber: Int) {
 
         battleLogList.clear()
 
-        player = i // 攻撃リストから呼び出し
+        player = p // 攻撃リストから呼び出し
 
         if (player.isLive) {// player1のHPが0より大きい場合
 

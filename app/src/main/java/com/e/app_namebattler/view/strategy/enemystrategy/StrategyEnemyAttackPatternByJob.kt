@@ -7,9 +7,9 @@ import com.e.app_namebattler.view.strategy.BaseStrategy
 open class StrategyEnemyAttackPatternByJob : BaseStrategy() {
 
     var enemyContext: EnemyContext? = null
-    var cpuPlayer: Player? = null
-    var cpuPlayer2: Player? = null
-    var userPlayer: Player? = null
+    lateinit var cpuPlayer: Player
+    lateinit var cpuPlayer2: Player
+    lateinit var userPlayer: Player
     var userParty: MutableList<Player> = ArrayList()
     var cpuParty: MutableList<Player> = ArrayList()
 
@@ -23,7 +23,7 @@ open class StrategyEnemyAttackPatternByJob : BaseStrategy() {
         userParty.addAll(party1) // party1を入れる
         cpuParty.addAll(party2) // party2を入れる
 
-        when (player1.job) {
+        when (cpuPlayer.job) {
 
             JobData.FIGHTER.getJobName() -> {
                 enemyContext = EnemyContext(EnemyFighterAttackPattern())
@@ -41,6 +41,6 @@ open class StrategyEnemyAttackPatternByJob : BaseStrategy() {
                 enemyContext = EnemyContext(EnemyNinjaAttackPattern())
             }
         }
-        return enemyContext?.attackStrategy(cpuPlayer, userParty, cpuParty)!! // バトルログを返す
+        return enemyContext!!.attackStrategy(cpuPlayer, userParty, cpuParty) // バトルログを返す
     }
 }

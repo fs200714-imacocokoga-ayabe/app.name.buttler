@@ -23,8 +23,6 @@ class Priest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSkill 
         initSkills()
     }
 
-    var isHeal = false
-
     override fun initJob() {
         jobData = JobData.PRIEST
     }

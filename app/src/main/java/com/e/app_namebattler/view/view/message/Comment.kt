@@ -6,7 +6,7 @@ enum class Comment(
 
     M_NEXT_TURN_FAST_COMMENT("次のターンのメッセージ速度：早い"),
     M_NEXT_TURN_SLOW_COMMENT("次のターンのメッセージ速度：遅い"),
-    M_SPEED_CHANGE_COMMENT("「戦闘中」ではない時に\n\n　このエリア内をタップすると\n\n　速度変更が出来ます。"),
+    M_SPEED_CHANGE_COMMENT("\n\n\n\n\n\n\n\n\n　　戦闘中ではない時に\n　　このエリア内をタップすると\n　　速度が変更出来ます。"),
     M_SAME_NAME_COMMENT("同じ名前がすでに存在しています"),
     M_NAME_NUMBER_COMMENT("名前は10文字までしか入力できません"),
     M_SELECT_MEMBER_COMMENT("3人選択してください"),

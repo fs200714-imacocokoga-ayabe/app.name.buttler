@@ -17,7 +17,7 @@ class EnemyNinjaAttackPattern : StrategyEnemyAttackPatternByJob() {
 
         when {
             // 毒状態の場合
-            cpuPlayer?.isPoison!! -> {
+            cpuPlayer!!.isPoison -> {
                 battleLog.append(cpuPlayer?.eat())
             }
 

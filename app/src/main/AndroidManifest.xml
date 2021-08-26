@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.e.app_namebattler">
 
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:name="com.e.app_namebattler.model.CharacterData"
         android:allowBackup="true"

@@ -6,7 +6,7 @@ import android.media.SoundPool
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.e.app_namebattler.view.view.music.SoundData
-
+//使用していない処理
 class SoundCommon : Application() {
 
     private lateinit var sp0: SoundPool

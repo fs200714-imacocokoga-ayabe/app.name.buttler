@@ -18,7 +18,7 @@ class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
 
         when {
 
-            cpuPlayer?.isPoison!! -> { // playerが毒状態の場合
+            cpuPlayer!!.isPoison -> { // playerが毒状態の場合
                 battleLog.append(cpuPlayer?.eat())
             }
 

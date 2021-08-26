@@ -2,7 +2,7 @@ package com.e.app_namebattler.view.party.player
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.e.app_namebattler.controller.BattleCallBack
+import com.e.app_namebattler.controller.BattleRecordListener
 import com.e.app_namebattler.view.party.herb.IEat
 import com.e.app_namebattler.view.party.player.job.JobData
 import com.e.app_namebattler.view.party.magic.IRecoveryMagic
@@ -17,7 +17,7 @@ import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.collections.ArrayList
 
-open class Player(private var name: String): IEat, BattleCallBack() {
+open class Player(private var name: String): IEat, BattleRecordListener() {
     constructor(
         name: String,
         job: String,
@@ -288,7 +288,7 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
         } else {
             damage = power - target.def
             if (damage < 0) {
-                log.append("${this.name}の攻撃はミス！\n")
+            //    log.append("${this.name}の攻撃はミス！\n")
                 damage = 0
             }
         }
@@ -302,13 +302,13 @@ makePlayer(name, job, hp, mp, str, def, agi, luck)
      */
     open fun damageProcess(defender: Player, damage: Int) {
 
-        log.append("${defender.name}に${damage}のダメージ！\n")
-
         if (0 < damage) {
+            log.append("${defender.name}に${damage}のダメージ！\n")
             defender.setPrintStatusEffect(1)
         } else {
+            log.append("${defender.name}は攻撃をかわした！\n")
             defender.setPrintStatusEffect(3)
-            this.setAttackSoundEffect(0)
+            this.setAttackSoundEffect(17)
         }
         defender.damage(damage) // 求めたダメージを対象プレイヤーに与える
     }
