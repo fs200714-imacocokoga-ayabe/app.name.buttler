@@ -10,8 +10,8 @@ import java.time.format.DateTimeFormatter
 class CreateEnemy {
 
     private lateinit var enemy: Player
-    var enemyPartyList = arrayListOf<CharacterAllData>()
-    var enemyPartyList02 = arrayListOf<CharacterAllData>()
+    private var enemyPartyList = arrayListOf<CharacterAllData>()
+    private var enemyPartyList02 = arrayListOf<CharacterAllData>()
     private val enemyNameList = ArrayList<EnemyName>()
     private val jobList = ArrayList<EnemyJob>()
     private val enemyFighterImageList = ArrayList<EnemyFighterImageData>()

@@ -21,15 +21,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.e.app_namebattler.R
-import com.e.app_namebattler.controller.BattleCallBack
+import com.e.app_namebattler.controller.BattleRecordListener
 import com.e.app_namebattler.controller.BattleLogListener
 import com.e.app_namebattler.controller.GameManager
 import com.e.app_namebattler.model.AllyOpenHelper
 import com.e.app_namebattler.model.CharacterData
 import com.e.app_namebattler.model.EnemyOpenHelper
-import com.e.app_namebattler.view.party.player.job.JobData
 import com.e.app_namebattler.view.party.player.CharacterAllData
 import com.e.app_namebattler.view.party.player.Player
+import com.e.app_namebattler.view.party.player.job.JobData
 import com.e.app_namebattler.view.strategy.StrategyData
 import com.e.app_namebattler.view.view.adapter.BattleMainRecyclerAdapter
 import com.e.app_namebattler.view.view.adapter.MemberStatusData
@@ -61,6 +61,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
     private var snd13 = 0
     private var snd14 = 0
     private var snd15 = 0
+    private var snd16 = 0
 
     private var handler = Handler()
     private var timer: Timer? = null
@@ -70,7 +71,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
     private var toast: Toast? = null
     private val gm = GameManager()
-    private val bc = BattleCallBack()
+    private val bc = BattleRecordListener()
 
     private var enemyPartyList = ArrayList<CharacterAllData>()
     private var allyPartyList = ArrayList<CharacterAllData>()
@@ -128,6 +129,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         snd13 = sp0.load(this, SoundData.S_SWORD02.getSound(), 1)
         snd14 = sp0.load(this, SoundData.S_SWORD01_AIR_SHOT.getSound(), 1)
         snd15 = sp0.load(this, SoundData.S_SWORD02_AIR_SHOT.getSound(), 1)
+        snd16 = sp0.load(this, SoundData.S_MISS01.getSound(), 1)
 
         this.handler = Handler()
 
@@ -172,7 +174,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
         // 次のターンボタンを押したときの処理
         battle_main_next_turn_button_id.setOnClickListener {
-
+          
             if (isNextTurn) {
                 val charaData = CharacterData.getInstance()
                 val attackList = charaData.attackerList
@@ -684,6 +686,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
             14 -> sp0.play(snd13, 1.0f, 1.0f, 0, 0, 1.0f)//
             15 -> sp0.play(snd14, 1.0f, 1.0f, 0, 0, 1.0f)//
             16 -> sp0.play(snd15, 1.0f, 1.0f, 0, 0, 1.0f)//
+            17 -> sp0.play(snd16, 1.0f, 1.0f, 0, 0, 1.0f)//
         }
     }
 

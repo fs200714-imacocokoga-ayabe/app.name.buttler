@@ -23,7 +23,7 @@ interface BattleLogListener {
         enemy02: Player,
         enemy03: Player)
 
-
+    //使用していない処理
     fun battleData(
         record: String,
         ally01: Player,

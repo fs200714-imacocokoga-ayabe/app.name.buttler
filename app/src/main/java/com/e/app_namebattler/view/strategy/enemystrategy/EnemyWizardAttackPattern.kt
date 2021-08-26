@@ -17,7 +17,7 @@ class EnemyWizardAttackPattern : StrategyEnemyAttackPatternByJob() {
 
         // 毒状態の場合
         when {
-            cpuPlayer?.isPoison!! -> {
+            cpuPlayer!!.isPoison -> {
                 battleLog.append(cpuPlayer?.eat())
             }
 
