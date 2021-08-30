@@ -18,35 +18,37 @@ class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
 
         when {
 
-            cpuPlayer!!.isPoison -> { // playerが毒状態の場合
-                battleLog.append(cpuPlayer?.eat())
+            cpuPlayer.isPoison -> { // playerが毒状態の場合
+                battleLog.append(cpuPlayer.eat())
             }
 
             // HPが最大HPの1/4より小さい場合
-            cpuPlayer2!!.hp < cpuPlayer2!!.getMaxHp() / 4 -> {
+            cpuPlayer2.hp < cpuPlayer2.getMaxHp() / 4 -> {
 
-                if (20 <= cpuPlayer?.mp ?: 0) {
-                    battleLog.append(cpuPlayer?.healingMagic(cpuPlayer2!!))
+                if (20 <= cpuPlayer.mp) {
+                    battleLog.append(cpuPlayer.healingMagic(cpuPlayer2))
                 } else {
-                    battleLog.append(cpuPlayer?.healingMagic(userPlayer!!))
+                    battleLog.append(cpuPlayer.healingMagic(userPlayer))
                 }
             }
 
             // 魔法を使う
-            10 <= cpuPlayer!!.mp -> {
-                battleLog.append(cpuPlayer!!.magicAttack(userPlayer!!))
+            10 <= cpuPlayer.mp -> {
+                battleLog.append(cpuPlayer.magicAttack(userPlayer))
             }
 
             // 攻撃力の1/2より相手の防御力の方が大きい場合
-            userPlayer!!.def < (cpuPlayer?.str ?: 0) / 2 -> {
+            userPlayer.def < cpuPlayer.str / 2 -> {
                 userPlayer = selectLowerHp() // HPの低い相手を呼び出す
-                battleLog.append(cpuPlayer?.normalAttack(userPlayer!!))
+                battleLog.append(cpuPlayer.normalAttack(userPlayer))
             }
 
             else -> {
-                battleLog.append(cpuPlayer?.skillAttack(userPlayer!!))
+                battleLog.append(cpuPlayer.skillAttack(userPlayer))
             }
         }
+        cpuParty.clear()
+        userParty.clear()
         return battleLog // バトルログを返す
     }
 
@@ -56,15 +58,15 @@ class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
      */
     private fun selectLowerHp(): Player {
 
-        userPlayer = userParty[(1..userParty.size).random() - 1] // 敵パーティから1人userPlayerに入れる
+        userPlayer = userParty[((1..userParty.size).random()) - 1] // 敵パーティから1人userPlayerに入れる
 
         for (i in 1 until userParty.size) {
-            if (userParty[i].hp < userPlayer!!.hp) { // userPlayerよりHPが低い場合
+            if (userParty[i].hp < userPlayer.hp) { // userPlayerよりHPが低い場合
                 userPlayer = userParty[i] // HPのひくい敵をuserPlayerに入れる
             }
         }
         userParty.clear()
-        return userPlayer as Player
+        return userPlayer
     }
 
     /**
@@ -73,15 +75,15 @@ class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
      */
     private fun selectHighHp(): Player {
 
-        userPlayer = userParty[(1..userParty.size).random() - 1] // 敵パーティから1人userPlayerに入れる
+        userPlayer = userParty[((1..userParty.size).random()) - 1] // 敵パーティから1人userPlayerに入れる
 
         for (i in 1 until userParty.size) {
-            if (userParty[i].hp > userPlayer!!.hp) { // userPlayerよりHPが大きい場合
+            if (userParty[i].hp > userPlayer.hp) { // userPlayerよりHPが大きい場合
                 userPlayer = userParty[i] // HPの大きい相手をuserPlayerに入れる
             }
         }
         userParty.clear()
-        return userPlayer as Player
+        return userPlayer
     }
 
     /**
@@ -93,11 +95,11 @@ class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
         cpuPlayer2 = cpuPlayer
 
         for (i in cpuParty.indices) {
-            if (cpuParty[i].hp < cpuPlayer?.hp ?: 0) {
+            if (cpuParty[i].hp < cpuPlayer.hp) {
                 cpuPlayer2 = cpuParty[i]
             }
         }
         cpuParty.clear()
-        return cpuPlayer2 as Player
+        return cpuPlayer2
     }
 }

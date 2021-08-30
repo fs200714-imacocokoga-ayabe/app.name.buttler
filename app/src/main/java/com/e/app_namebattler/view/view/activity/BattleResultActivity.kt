@@ -25,6 +25,7 @@ class BattleResultActivity : AppCompatActivity() {
 
     lateinit var mp0: MediaPlayer
     private lateinit var memberList: MutableList<MemberStatusData>
+    private var toast: Toast? = null
 
     // CharacterDataクラスのデータを呼び出す
     private val charaData = CharacterData.getInstance()
@@ -149,9 +150,9 @@ class BattleResultActivity : AppCompatActivity() {
                         position: Int
                     ) {
                         when (position) {
-                            0 -> setImageType( character01)
-                            1 -> setImageType( character02)
-                            2 -> setImageType( character03)
+                            0 -> setImageType(character01)
+                            1 -> setImageType(character02)
+                            2 -> setImageType(character03)
                         }
                     }
                 })
@@ -178,9 +179,9 @@ class BattleResultActivity : AppCompatActivity() {
                         position: Int
                     ) {
                         when (position) {
-                            0 -> setImageType( character01)
-                            1 -> setImageType( character02)
-                            2 -> setImageType( character03)
+                            0 -> setImageType(character01)
+                            1 -> setImageType(character02)
+                            2 -> setImageType(character03)
                         }
                     }
                 })
@@ -202,18 +203,22 @@ class BattleResultActivity : AppCompatActivity() {
     @SuppressLint("ShowToast", "InflateParams")
     private fun setImageType(character: Player) {
 
+        if (toast != null) {
+            toast!!.cancel()
+        }
+
         val layoutInflater = layoutInflater
         val customToastView: View = layoutInflater.inflate(R.layout.toast_layout_character_status, null)
         (customToastView.findViewById(R.id.toast_layout_imageView_id) as ImageView).setImageResource(character.getCharacterImageType())
-        val ts = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
-        ts.setGravity(Gravity.CENTER, 0, 0)
+        toast = Toast.makeText(customToastView.context, "", Toast.LENGTH_SHORT)
+        toast!!.setGravity(Gravity.CENTER, 0, 0)
         (customToastView.findViewById(R.id.toast_layout_job_id) as TextView).text = "${character.job}"
         (customToastView.findViewById(R.id.toast_layout_str_id) as TextView).text = "${character.str}"
         (customToastView.findViewById(R.id.toast_layout_def_id) as TextView).text = "${character.def}"
         (customToastView.findViewById(R.id.toast_layout_agi_id) as TextView).text = "${character.agi}"
         (customToastView.findViewById(R.id.toast_layout_luck_id) as TextView).text = "${character.luck}"
-        ts.setView(customToastView)
-        ts.show()
+        toast!!.setView(customToastView)
+        toast!!.show()
     }
 
     override fun onDestroy() {

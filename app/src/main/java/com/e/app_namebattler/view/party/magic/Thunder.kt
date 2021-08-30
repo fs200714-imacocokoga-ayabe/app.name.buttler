@@ -6,7 +6,7 @@ import com.e.app_namebattler.view.view.music.SoundData
 class Thunder: BaseUseMagic() {
 
     override fun effect(attacker: Player, defender: Player): StringBuilder {
-        if (hasEnoughMp(attacker.mp)) {
+     //   if (hasEnoughMp(attacker.mp)) {
             log.append("${attacker.getName()}は${MagicData.THUNDER.getName()}を唱えた！\n雷が地面を這っていく！\n")
             attacker.setAttackSoundEffect(SoundData.S_THUNDER01.getSoundNumber())
             magicData.getMpCost().let { attacker.downMp(it) }
@@ -14,11 +14,11 @@ class Thunder: BaseUseMagic() {
             damageProcess(attacker, defender, damage)
 
             return log
-        } else {
-            log.append("${attacker.getName()}は術を唱えようとしたが、MPが足りない！！\n")
-            attacker.normalAttack(defender)
-        }
-        return log
+      //  } else {
+          //  log.append("${attacker.getName()}は術を唱えようとしたが、MPが足りない！！\n")
+           // log.append(attacker.normalAttack(defender))
+       // }
+      //  return log
     }
 
     override fun initMagic() {

@@ -75,7 +75,15 @@ class Wizard(name: String) : Player(name), IOwnMagic, IOwnSkill {
         if (this.isParalysis) {// 麻痺している場合
             log.append("${this.getName()}は麻痺で動けない！！\n")
         } else {// 麻痺していない場合
-            log = (magic.effect(this, defender))
+            if (magics[0].hasEnoughMp(this.mp)) {
+                log = (magic.effect(this, defender))
+            }else{
+                log.append("${this.getName()}は術を唱えようとしたが、\nMPが足りない！！\n")
+                log.append("${getName()}は杖で叩いた！\n")
+                setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
+                damage = calcDamage(defender) // 与えるダメージを求める
+                damageProcess(defender, damage)
+            }
         }
         knockedDownCheck(defender)
         return log

@@ -17,20 +17,22 @@ class EnemyFighterAttackPattern : StrategyEnemyAttackPatternByJob() {
 
         when {
             // 毒状態の場合
-            cpuPlayer!!.isPoison -> {
-                battleLog.append(cpuPlayer?.eat())
+            cpuPlayer.isPoison -> {
+                battleLog.append(cpuPlayer.eat())
             }
 
             // 攻撃力の1/2が相手の防御力より大きい場合
-            cpuPlayer!!.str / 2 > userPlayer!!.def -> {
-                battleLog.append(cpuPlayer?.normalAttack(userPlayer!!))
+            cpuPlayer.str / 2 > userPlayer.def -> {
+                battleLog.append(cpuPlayer.normalAttack(userPlayer))
             }
 
             // 防御力の方が大きい場合
             else -> {
-                battleLog.append(cpuPlayer?.skillAttack(userPlayer!!))
+                battleLog.append(cpuPlayer.skillAttack(userPlayer))
             }
         }
+        cpuParty.clear()
+        userParty.clear()
         return battleLog // バトルログを返す
     }
 
@@ -40,14 +42,14 @@ class EnemyFighterAttackPattern : StrategyEnemyAttackPatternByJob() {
      */
     private fun selectLowerHp(): Player {
 
-        userPlayer = userParty[(1..userParty.size).random() - 1] // 敵パーティから1人userPlayerに入れる
+        userPlayer = userParty[((1..userParty.size).random()) - 1] // 敵パーティから1人userPlayerに入れる
 
         for (i in 1 until userParty.size) {
-            if (userParty[i].hp < userPlayer!!.hp) { // userPlayerよりHPが低い場合
+            if (userParty[i].hp < userPlayer.hp) { // userPlayerよりHPが低い場合
                 userPlayer = userParty[i] // HPのひくい敵をuserPlayerに入れる
             }
         }
         userParty.clear()
-        return userPlayer as Player
+        return userPlayer
     }
 }
