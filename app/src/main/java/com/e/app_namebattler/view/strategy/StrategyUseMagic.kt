@@ -16,7 +16,7 @@ class StrategyUseMagic : BaseStrategy() {// 魔法を使用
 
         party.addAll((party2))
 
-        player2 = party[(1..party.size).random() - 1] // 敵をランダムで選択
+        player2 = party[((1..party.size).random()) - 1] // 敵をランダムで選択
 
         if (player1 is IOwnMagic) {
             battleLog.append(player1.magicAttack(player2!!))

@@ -38,7 +38,6 @@ class GameManager {
         allyPartyList: ArrayList<CharacterAllData>,
         enemyPartyList: ArrayList<CharacterAllData>
     ) {
-
         // 敵キャラクターを作成する
         enemy01 = rebirthCharacter(enemyPartyList[0], 0)
         enemy02 = rebirthCharacter(enemyPartyList[1], 1)

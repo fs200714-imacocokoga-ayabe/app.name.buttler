@@ -7,7 +7,7 @@ interface IEat {
 
     val log: StringBuilder
 
-    fun selectEat(attacker: Player): java.lang.StringBuilder {
+    fun selectEat(attacker: Player): StringBuilder {
 
         log.clear()
 

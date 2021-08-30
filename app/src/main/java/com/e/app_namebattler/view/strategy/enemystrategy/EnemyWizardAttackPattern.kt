@@ -17,19 +17,21 @@ class EnemyWizardAttackPattern : StrategyEnemyAttackPatternByJob() {
 
         // 毒状態の場合
         when {
-            cpuPlayer!!.isPoison -> {
-                battleLog.append(cpuPlayer?.eat())
+            cpuPlayer.isPoison -> {
+                battleLog.append(cpuPlayer.eat())
             }
 
             // 攻撃力の1/2より相手の防御力の方が大きい場合
-            userPlayer!!.def < cpuPlayer!!.str / 2 -> {
-                battleLog.append(cpuPlayer!!.skillAttack(userPlayer!!))
+            userPlayer.def < cpuPlayer.str / 2 -> {
+                battleLog.append(cpuPlayer.skillAttack(userPlayer))
             }
 
             else -> {
-                battleLog.append(cpuPlayer!!.magicAttack(userPlayer!!))
+                battleLog.append(cpuPlayer.magicAttack(userPlayer))
             }
         }
+        cpuParty.clear()
+        userParty.clear()
         return battleLog // バトルログを返す
     }
 
@@ -39,15 +41,15 @@ class EnemyWizardAttackPattern : StrategyEnemyAttackPatternByJob() {
      */
     private fun selectLowerHp(): Player {
 
-        userPlayer = userParty[(1..userParty.size).random() - 1] // 敵パーティから1人userPlayerに入れる
+        userPlayer = userParty[((1..userParty.size).random()) - 1] // 敵パーティから1人userPlayerに入れる
 
         for (i in 1 until userParty.size) {
-            if (userParty[i].hp < userPlayer!!.hp) { // userPlayerよりHPが低い場合
+            if (userParty[i].hp < userPlayer.hp) { // userPlayerよりHPが低い場合
                 userPlayer = userParty[i] // HPのひくい敵をuserPlayerに入れる
             }
         }
         userParty.clear()
 
-        return userPlayer as Player
+        return userPlayer
     }
 }

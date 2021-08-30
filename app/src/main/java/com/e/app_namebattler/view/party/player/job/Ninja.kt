@@ -74,7 +74,15 @@ class Ninja(name: String) : Player(name), IOwnMagic, IOwnSkill {
         if (this.isParalysis) {// 麻痺している場合
             log.append("${this.getName()}は麻痺で動けない！！\n")
         } else {// 麻痺していない場合
-            log = (magic.effect(this, defender))
+            if (magics[0].hasEnoughMp(this.mp)) {
+                log = (magic.effect(this, defender))
+            }else{
+                log.append("${this.getName()}は術を唱えようとしたが、\nMPが足りない！！\n")
+                log.append("${this.getName()}の攻撃！\n手裏剣を投げた！\n")
+                setAttackSoundEffect(SoundData.S_KATANA01.getSoundNumber())
+                damage = calcDamage(defender) // 与えるダメージを求める
+                damageProcess(defender, damage) // ダメージ処理
+            }
         }
         knockedDownCheck(defender)
         return log

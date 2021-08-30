@@ -73,7 +73,15 @@ class Priest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSkill 
         if (this.isParalysis) {// 麻痺している場合
             log.append("${this.getName()}は麻痺で動けない！！\n")
         } else {// 麻痺していない場合
-            log = (magic.effect(this, defender))
+            if (magics[0].hasEnoughMp(this.mp)) {
+                log = (magic.effect(this, defender))
+            }else{
+                log.append("${this.getName()}は術を唱えようとしたが、\nMPが足りない！！\n")
+                log.append("${this.getName()}は\n錫杖で叩いた！\n")
+                setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
+                damage = calcDamage(defender) // 与えるダメージを求める
+                damageProcess(defender, damage) // ダメージ処理
+            }
         }
         knockedDownCheck(defender)
         return log
@@ -87,11 +95,17 @@ class Priest(name: String) : Player(name), IRecoveryMagic, IOwnMagic, IOwnSkill 
         if (this.isParalysis) {// 麻痺している場合
             log.append("${this.getName()}は麻痺で動けない！！\n")
         } else {// 麻痺していない場合
-            log = (magic.effect(this, defender))
+            if (magics[2].hasEnoughMp(this.mp)) {
+                log = (magic.effect(this, defender))
+            }else{
+                log.append("${this.getName()}はヒールを唱えようとしたが、MPが足りない！！\n")
+                log.append("${this.getName()}は\n錫杖を投げた！\n")
+                setAttackSoundEffect(SoundData.S_PUNCH01.getSoundNumber())
+                damage = calcDamage(defender) // 与えるダメージを求める
+                damageProcess(defender, damage) // ダメージ処理
+            }
         }
         knockedDownCheck(this)
         return log
     }
-
-
 }

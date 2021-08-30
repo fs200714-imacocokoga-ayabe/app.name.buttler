@@ -17,24 +17,26 @@ class EnemyNinjaAttackPattern : StrategyEnemyAttackPatternByJob() {
 
         when {
             // 毒状態の場合
-            cpuPlayer!!.isPoison -> {
-                battleLog.append(cpuPlayer?.eat())
+            cpuPlayer.isPoison -> {
+                battleLog.append(cpuPlayer.eat())
             }
 
             // 攻撃力の1/2が相手の防御力より大きい場合
-            cpuPlayer!!.str / 2 > userPlayer!!.def -> {
-                battleLog.append(cpuPlayer!!.normalAttack(userPlayer!!))
+            cpuPlayer.str / 2 > userPlayer.def -> {
+                battleLog.append(cpuPlayer.normalAttack(userPlayer))
             }
 
             // 魔法を使う
-            10 <= cpuPlayer!!.mp -> { // MPが10以上ある場合
-                battleLog.append(cpuPlayer!!.magicAttack(userPlayer!!))
+            10 <= cpuPlayer.mp -> { // MPが10以上ある場合
+                battleLog.append(cpuPlayer.magicAttack(userPlayer))
             }
 
             else -> {
-                battleLog.append(cpuPlayer!!.skillAttack(userPlayer!!))
+                battleLog.append(cpuPlayer.skillAttack(userPlayer))
             }
         }
+        cpuParty.clear()
+        userParty.clear()
         return battleLog // バトルログを返す
     }
 
@@ -44,15 +46,15 @@ class EnemyNinjaAttackPattern : StrategyEnemyAttackPatternByJob() {
      */
     private fun selectLowerHp(): Player {
 
-        userPlayer = userParty[(1..userParty.size).random() - 1] // 敵パーティから1人userPlayerに入れる
+        userPlayer = userParty[((1..userParty.size).random()) - 1] // 敵パーティから1人userPlayerに入れる
         //   userPlayer = userParty[0] // 敵パーティから1人userPlayerに入れる
 
         for (i in 1 until userParty.size) {
-            if (userParty[i].hp < userPlayer!!.hp) { // userPlayerよりHPが低い場合
+            if (userParty[i].hp < userPlayer.hp) { // userPlayerよりHPが低い場合
                 userPlayer = userParty[i] // HPのひくい敵をuserPlayerに入れる
             }
         }
         userParty.clear()
-        return userPlayer as Player
+        return userPlayer
     }
 }
