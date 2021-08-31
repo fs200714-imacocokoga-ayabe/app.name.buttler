@@ -28,7 +28,8 @@ class StrategyUseHealingMagic : BaseStrategy() {// 回復優先の作戦
 
         if (0 < _party2.size) {
 
-            player2 = _party2[((1.._party2.size).random()) - 1] // 敵をランダムで選択
+            _party2.shuffle()// 敵をシャッフルで選択
+            player2 = _party2[0]
         }
 
         if (player1 is IRecoveryMagic) { //player1が僧侶の場合

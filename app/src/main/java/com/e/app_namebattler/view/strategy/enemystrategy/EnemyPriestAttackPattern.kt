@@ -51,55 +51,5 @@ class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
         userParty.clear()
         return battleLog // バトルログを返す
     }
-
-    /**
-     * HPの低い相手を選んで返す
-     * @return userPlayer : HPの低い相手
-     */
-    private fun selectLowerHp(): Player {
-
-        userPlayer = userParty[((1..userParty.size).random()) - 1] // 敵パーティから1人userPlayerに入れる
-
-        for (i in 1 until userParty.size) {
-            if (userParty[i].hp < userPlayer.hp) { // userPlayerよりHPが低い場合
-                userPlayer = userParty[i] // HPのひくい敵をuserPlayerに入れる
-            }
-        }
-        userParty.clear()
-        return userPlayer
-    }
-
-    /**
-     * HPの高い相手を選んで返す
-     * @return userPlayer :HPの高い相手
-     */
-    private fun selectHighHp(): Player {
-
-        userPlayer = userParty[((1..userParty.size).random()) - 1] // 敵パーティから1人userPlayerに入れる
-
-        for (i in 1 until userParty.size) {
-            if (userParty[i].hp > userPlayer.hp) { // userPlayerよりHPが大きい場合
-                userPlayer = userParty[i] // HPの大きい相手をuserPlayerに入れる
-            }
-        }
-        userParty.clear()
-        return userPlayer
-    }
-
-    /**
-     * HPの低い味方を返す
-     * @return cpuPlayer2:HPの低い味方
-     */
-    private fun lifeImportance(): Player {
-
-        cpuPlayer2 = cpuPlayer
-
-        for (i in cpuParty.indices) {
-            if (cpuParty[i].hp < cpuPlayer.hp) {
-                cpuPlayer2 = cpuParty[i]
-            }
-        }
-        cpuParty.clear()
-        return cpuPlayer2
-    }
 }
+

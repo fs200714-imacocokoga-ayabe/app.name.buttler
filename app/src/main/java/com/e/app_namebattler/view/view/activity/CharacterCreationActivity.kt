@@ -112,7 +112,6 @@ class CharacterCreationActivity : AppCompatActivity(), TextWatcher {
                     intent.putExtra("strong_key", isStrongWord)
                     mp0.reset()
 
-
                     if (toast != null) {
                         toast!!.cancel()
                     }

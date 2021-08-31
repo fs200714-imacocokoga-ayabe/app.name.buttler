@@ -120,7 +120,6 @@ class CreateEnemy {
     }
 
     fun setEnemyParty(enemyPartyList: ArrayList<CharacterAllData>) {
-
         enemyPartyList02.addAll(enemyPartyList)
     }
 
@@ -144,7 +143,6 @@ class CreateEnemy {
         E76("アメルカス"), E77("ディアリー"), E78("ファエーレ"), E79("アムニエン"), E80("コール");
 
         fun getEnemyName(): String {
-
             return enemyName
         }
     }

@@ -570,7 +570,6 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
                         }
                     }
                 })
-
         }
     }
 
