@@ -185,7 +185,6 @@ class BattleResultActivity : AppCompatActivity() {
                         }
                     }
                 })
-
         }
     }
 

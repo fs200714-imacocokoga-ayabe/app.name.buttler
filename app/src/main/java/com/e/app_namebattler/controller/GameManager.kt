@@ -28,8 +28,6 @@ class GameManager {
     private lateinit var enemy03: Player
     private lateinit var character: Player
     private lateinit var player: Player // キャラクターを格納
-    private lateinit var player1: Player
-    private lateinit var player2: Player
 
     private val enemyStrategyNumber = 5 // 作戦の選択に使用
 
@@ -128,20 +126,7 @@ class GameManager {
             enemy02,
             enemy03)
 
-        for (i in 0 until speedData.size - 1) { // 速さ順の並び変える処理
-            for (j in 0 until speedData.size - i - 1) {
-                player1 = speedData[j]
-                player2 = speedData[j + 1]
-
-                if (player1.agi < player2.agi) {
-                    val box: Player? = speedData[j]
-                    speedData[j] = speedData[j + 1]
-                    if (box != null) {
-                        speedData[j + 1] = box
-                    }
-                }
-            }
-        }
+        speedData.sortByDescending { it.agi }//降順でソート、sortBy:昇順でソート
 
         for (i in speedData) { // membersに速さ順に格納
             player = i

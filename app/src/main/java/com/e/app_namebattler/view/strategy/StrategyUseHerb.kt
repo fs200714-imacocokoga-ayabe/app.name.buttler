@@ -15,10 +15,6 @@ class StrategyUseHerb : BaseStrategy() { // 薬草を食べる
 
         this.player1 = player1
 
-        party.addAll((party2))
-
-        player2 = party[((1..party.size).random()) - 1] // 敵をランダムで選択
-
         battleLog.append(player1.eat())
 
         party.clear()

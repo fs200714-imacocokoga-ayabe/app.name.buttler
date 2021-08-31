@@ -39,22 +39,4 @@ class EnemyNinjaAttackPattern : StrategyEnemyAttackPatternByJob() {
         userParty.clear()
         return battleLog // バトルログを返す
     }
-
-    /**
-     * HPの低い相手を選んで返す
-     * @return userPlayer : HPの低い相手
-     */
-    private fun selectLowerHp(): Player {
-
-        userPlayer = userParty[((1..userParty.size).random()) - 1] // 敵パーティから1人userPlayerに入れる
-        //   userPlayer = userParty[0] // 敵パーティから1人userPlayerに入れる
-
-        for (i in 1 until userParty.size) {
-            if (userParty[i].hp < userPlayer.hp) { // userPlayerよりHPが低い場合
-                userPlayer = userParty[i] // HPのひくい敵をuserPlayerに入れる
-            }
-        }
-        userParty.clear()
-        return userPlayer
-    }
 }

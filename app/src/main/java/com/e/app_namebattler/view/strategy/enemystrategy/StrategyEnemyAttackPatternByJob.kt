@@ -43,4 +43,48 @@ open class StrategyEnemyAttackPatternByJob : BaseStrategy() {
         }
         return enemyContext!!.attackStrategy(cpuPlayer, userParty, cpuParty) // バトルログを返す
     }
+
+    /**
+     * HPの低い相手を選んで返す
+     * @return userPlayer : HPの低い相手
+     */
+    open fun selectLowerHp(): Player {
+
+        userParty.sortBy { it.hp }//sortByDescending: 降順でソート、 sortBy: 昇順でソート
+        userPlayer = userParty[0]
+        userParty.clear()
+
+        return userPlayer
+    }
+
+    /**
+     * HPの高い相手を選んで返す
+     * @return userPlayer : HPの高い相手
+     */
+    open fun selectHighHp(): Player {
+
+        userParty.sortByDescending { it.hp }//sortByDescending: 降順でソート、 sortBy: 昇順でソート
+        userPlayer = userParty[0]
+        userParty.clear()
+
+        return userPlayer
+    }
+
+    /**
+     * HPの低い味方を返す
+     * @return cpuPlayer2:HPの低い味方
+     */
+    open fun lifeImportance(): Player {
+
+        cpuPlayer2 = cpuPlayer
+
+        for (i in cpuParty.indices) {
+            if (cpuParty[i].getMaxHp() - cpuParty[i].hp < cpuPlayer.getMaxHp() - cpuPlayer.hp) {
+                cpuPlayer2 = cpuParty[i]
+            }
+        }
+        cpuParty.clear()
+
+        return cpuPlayer2
+    }
 }
