@@ -176,11 +176,16 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
         battle_main_next_turn_button_id.setOnClickListener {
           
             if (isNextTurn) {
+
+                handler.postDelayed({
+
                 val charaData = CharacterData.getInstance()
                 val attackList = charaData.attackerList
 
                 nextButtonText.text = Comment.M_IN_BATTLE_COMMENT.getComment()
                 battle(attackList, strategyNumber)
+
+                }, 100)
             }
         }
     }
@@ -206,8 +211,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                             if (attackList.size < i) {
                                 timer!!.cancel()
-                                isNextTurn = true
                                 nextTurnButtonMessage()
+                                isNextTurn = true
                             }
                         }
                     }
@@ -230,8 +235,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
                         if (attackList.size < i) {
                             timer!!.cancel()
-                            isNextTurn = true
                             nextTurnButtonMessage()
+                            isNextTurn = true
                         }
                     }
                 }
@@ -250,10 +255,8 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             timer!!.cancel()
 
-            handler.postDelayed({
             val nextButtonText = findViewById<TextView>(R.id.battle_main_next_turn_button_id)
             nextButtonText.text = Comment.M_IN_PROCESS.getComment()
-            }, 10)
 
             handler.postDelayed({
             // GameManagerクラス から　CharacterDataクラスにデータを渡す処理
@@ -272,7 +275,7 @@ class BattleMainActivity : AppCompatActivity(), View.OnClickListener, BattleLogL
 
             startActivity(intent)
 
-            }, 2000)
+            }, 1000)
         }
     }
 

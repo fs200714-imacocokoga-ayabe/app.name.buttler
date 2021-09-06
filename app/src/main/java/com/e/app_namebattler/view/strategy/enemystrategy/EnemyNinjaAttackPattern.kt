@@ -27,7 +27,7 @@ class EnemyNinjaAttackPattern : StrategyEnemyAttackPatternByJob() {
             }
 
             // 魔法を使う
-            10 <= cpuPlayer.mp -> { // MPが10以上ある場合
+           ninjaUseMagicMp <= cpuPlayer.mp -> { // MPが10以上ある場合
                 battleLog.append(cpuPlayer.magicAttack(userPlayer))
             }
 
@@ -40,3 +40,9 @@ class EnemyNinjaAttackPattern : StrategyEnemyAttackPatternByJob() {
         return battleLog // バトルログを返す
     }
 }
+
+/*
+Ninjaの攻撃優先順
+1:通常攻撃　2:魔法攻撃 3:スキル攻撃
+毒状態の場合:eat()が優先される
+ */

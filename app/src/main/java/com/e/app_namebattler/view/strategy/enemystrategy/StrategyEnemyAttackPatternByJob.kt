@@ -12,6 +12,10 @@ open class StrategyEnemyAttackPatternByJob : BaseStrategy() {
     lateinit var userPlayer: Player
     var userParty: MutableList<Player> = ArrayList()
     var cpuParty: MutableList<Player> = ArrayList()
+     val wizardUseMagicMp = 10
+     val ninjaUseMagicMp = 10
+     val healUseMagicMp = 20
+     val priestUseMagicMp = 10
 
     override fun attackStrategy(
         player1: Player,
