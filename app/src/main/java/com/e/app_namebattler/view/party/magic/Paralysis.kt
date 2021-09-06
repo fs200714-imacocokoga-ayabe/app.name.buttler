@@ -15,7 +15,6 @@ class Paralysis : BaseUseMagic() {
                 log.append("${defender.getName()}は麻痺を受けた！\n")
                 magicData.getMpCost().let { attacker.downMp(it) }
 
-
             } else { // 麻痺を状態にならなかった場合
                 log.append("${defender.getName()}は麻痺を受けなかった！\n")
             }

@@ -22,18 +22,16 @@ class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
                 battleLog.append(cpuPlayer.eat())
             }
 
-            // HPが最大HPの1/4より小さい場合
+            // HPが一番低い味方が最大HPの1/4より小さい場合、回復魔法そ使用
             cpuPlayer2.hp < cpuPlayer2.getMaxHp() / 4 -> {
 
-                if (20 <= cpuPlayer.mp) {
+                if (healUseMagicMp <= cpuPlayer.mp) {
                     battleLog.append(cpuPlayer.healingMagic(cpuPlayer2))
-                } else {
-                    battleLog.append(cpuPlayer.healingMagic(userPlayer))
                 }
             }
 
             // 魔法を使う
-            10 <= cpuPlayer.mp -> {
+            priestUseMagicMp <= cpuPlayer.mp -> {
                 battleLog.append(cpuPlayer.magicAttack(userPlayer))
             }
 
@@ -52,4 +50,10 @@ class EnemyPriestAttackPattern : StrategyEnemyAttackPatternByJob() {
         return battleLog // バトルログを返す
     }
 }
+
+/*
+Priestの攻撃優先順
+1:回復魔法　2:攻撃魔法 3:通常攻撃 4:スキル攻撃
+毒状態の場合:eat()が優先される
+ */
 

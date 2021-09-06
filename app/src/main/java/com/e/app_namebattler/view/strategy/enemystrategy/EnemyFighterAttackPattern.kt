@@ -36,3 +36,9 @@ class EnemyFighterAttackPattern : StrategyEnemyAttackPatternByJob() {
         return battleLog // バトルログを返す
     }
 }
+
+/*
+Fighterの攻撃優先順
+1:通常攻撃　2:スキル攻撃
+毒状態の場合:eat()が優先される
+ */
